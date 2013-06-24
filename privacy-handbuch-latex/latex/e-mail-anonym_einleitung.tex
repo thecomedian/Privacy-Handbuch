@@ -1,0 +1,52 @@
+\section{Anonyme E-Mail Accounts}
+Im Kapitel Anonymisierungsdienste gibt es Anleitungen, wie man mit JonDo \& Thunderbird oder mit Tor \& Thunderbird einen anonymen E-Mail Account nutzen könnte. Als E-Mail Provider kann man einen zuverlässigen Anbieter im Web nehmen. Außerdem bieten I2P und Tor spezielle Lösungen: 
+\begin{itemize}
+ \item Das Invisible Internet Project (I2P) bietet mit Susimail einen anonymen Mailservice inclusive SMTP- und POP3-Zugang und Gateway ins Web oder mit I2P Bote einen serverlosen, verschlüsselten Maildienst. 
+ \item TorMail gibt es als Hidden Service unter http://jhiwjjlqpyawmpjx.onion mit POP3 und SMTP Service und ist auch aus dem Web unter xxx@tormail.net erreichbar.
+ \item Tor Privat Messaging unter http://4eiruntyxxbgfv7o.onion/pm/ ist ein Tor Hidden Service im Onionland, um Textnachrichten unbeobachtet auszutauschen. Der Dienst kann nur im Webinterface genutzt werden.
+\end{itemize}
+
+\textbf{Hinweis:} Informationen über Langzeitkommunikation können ein Pseudonym deanonymisieren. Anhand der Freunde in der E-Mail Kommunikation sind Schlussfolgerungen auf ihre reale Identität möglich. Wenn sie einen wirklich anonymen E-Mail Account für eine bestimmte Aufgabe benötigen - z.B. für Whistleblowing - dann müssen sie einen neuen Account erstellen. Löschen sie den Account, sobald sie ihn nicht mehr brauchen.
+
+\section{Private Messages in Foren nutzen}
+Viele Diskussionsforen im Internet bieten die Möglichkeit, private Nachrichten zwischen den Mitgliedern zu verschicken. Die Nachrichten werden in der Datenbank des Forums gespeichert und nicht per E-Mail durch das Netz geschickt.\\
+
+Eine böse Gruppe ganz gemeiner Terroristen könnte sich also in einem Forum anmelden, dessen Diskussionen sie überhaupt nicht interessieren. Dort tauschen sie die Nachrichten per PM (Private Message) aus und keiner bemerkt die Kommunikation. Es ist vorteilhaft, wenn das Forum komplett via HTTPS nutzbar ist und nicht beim Login HTTPS anbietet.\\
+
+Die Nachrichten kann man mit OpenPGP verschlüsseln, damit der Admin des Forums nichts mitlesen kann. Die Verwendung von Anonymisierungsdiensten sichert die Anonymität.
+
+\section{alt.anonymous.messages}
+Um die Zuordnung von Absender und Empfänger zu erschweren, kann man das Usenet nutzen. In der Newsgruppe \textit{alt.anonymous.messages} werden ständig viele Nachrichten gepostet und sie hat tausende Leser. Jeder Leser erkennt die für ihn bestimmten Nachrichten selbst. Es ist eine Art schwarzes Brett.\\
+
+Es ist sinnvoll, die geposteten Nachrichten zu verschlüsseln. Dafür sollte der Empfänger einen OpenPGP-Key bereitstellen, der keine Informationen über seine Identität bietet. Normalerweise enthält ein OpnePGP-Schlüssel die E-Mail Adresse des Inhabers. Verwendet man einen solchen Schlüssel ist der Empfänger natürlich deanomynisiert.\\
+
+Außerdem sollte man seine Antworten nicht direkt als Antwort auf ein Posting veröffentlichen. Da der Absender in der Regel bekannt ist (falls keine Remailer genutzt wurden) kann aus den Absendern eines zusammengehörenden Thread ein Zusammenhang der Kommunikationspartner ermittelt werden.
+
+
+\section{Mixmaster Remailer}
+Der Versand einer E-Mail über Remailer-Kaskaden ist mit der Versendung eines Briefes vergleichbar, der in mehreren Umschlägen steckt. Jeder Empfänger innerhalb der Kaskade öffnet einen Umschlag und sendet den darin enthaltenen Brief ohne Hinweise auf den vorherigen Absender weiter. Der letzte Remailer der Kaskade liefert den Brief an den Empfänger aus.\\
+
+\begin{figure}[htb]
+\begin{center}
+\includegraphics[scale=0.55]{../grafiken/remailer_mm.png}
+\caption{Konzept einer anonymen E-Mail}
+\label{abb:remailer}
+\end{center}
+\end{figure}
+
+Technisch realisiert wird dieses Prinzip mittels asymmetrischer Verschlüsselung. Der Absender wählt aus der Liste der verfügbaren weltweit verteilten Remailer verschiedene Server aus, verschlüsselt die E-Mail mehrfach mit den öffentlichen Schlüsseln der Remailer in der Reihenfolge ihres Durchlaufes und sendet das Ergebnis an den ersten Rechner der Kaskade. Dieser entschlüsselt mit seinem geheimen Schlüssel den ersten Umschlag, entnimmt dem Ergebnis die Adresse des folgenden Rechners und sendet die jetzt (n-1)-fach verschlüsselte E-Mail an diesen Rechner. Der letzte Rechner der Kaskade liefert die E-Mail an den Empfänger aus.\\
+
+Mitlesende Dritte können lediglich protokollieren, dass der Empfänger eine E-Mail unbekannter Herkunft und evtl. unbekannten Inhaltes (verschlüsselt mit OpenPGP oder S/MIME) erhalten hat. Es ist ebenfalls möglich, Beiträge für News-Groups anonym zu posten.\\
+
+Um die Traffic-Analyse zu erschweren, wird die Weiterleitung jeder E-Mail innerhalb der Kaskade verzögert. Es kann somit 2\dots12h dauern, ehe die Mail dem Empfänger zugestellt wird! Sollte der letzte Remailer der Kette die Nachricht nicht zustellen können (z.B. aufgrund eines Schreibfehlers in der Adresse), erhält der Absender keine Fehlermeldung. Der Absender ist ja nicht bekannt.\\
+
+\textbf{Wichtig:} Bei großen E-Mail Providern werden die anonymen E-Mails aus dem Mixmaster Netzwerk häufig als Spam einsortiert. Es ist somit nicht sichergestellt, dass der Empfänger die Mail wirklich zur Kenntnis nimmt! Oft beschweren sich Nutzer bei mir, das ihre Testmails an den eigenen Account nicht ankommen, weil sie auch nicht in den Spam-Ordner schauen. 
+
+\textbf{Wichtig:} Da die E-Mail keine Angaben über den Absender enthält, funktioniert der \textit{Antworten-Button} der Clients auf der Empfängerseite nicht! Die Antwort-Mail geht dann an den letzten Remailer der Kette, der sie in die Tonne wirft. Der Text der E-Mail sollte einen entsprechenden Hinweis enthalten!\\
+
+Software zur Versendung anonymer E-Mails via Mixmaster:
+\begin{itemize}
+ \item Für Windows gibt es \textit{Quicksilver} \href{https://quicksilvermail.net}{https://quicksilvermail.net}
+ \item Für Linux gibt es \textit{mixmaster}. Das Paket ist in allen Distributionen enthalten.
+ \item Wer sich nicht mit der komplizierten Konfiguration beschäftigen möchte, der kann eine Live-CD nutzen. Die JonDo Live-CD enthält \textit{mixmaster}. Eine Anleitung zum Sender einer anonymen E-Mail findet man in der Online-Hilfe zur Live-CD.
+\end{itemize}

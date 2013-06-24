@@ -1,0 +1,34 @@
+\item Für \textbf{Ubuntu} sowie \textbf{Debian} bietet JonDos fertige Pakete. Um das Software Repository der JonDos GmbH zu nutzen, ist in der Datei \textit{/etc/apt/sources.list} folgende Zeile einzufügen und DISTRI durch die verwendete Distribution zu ersetzen (\textit{squeeze, wheezy, sid, maverick, natty, oneiric} oder\textit{ precise}):
+\begin{verbatim}
+ deb http://debian.anonymous-proxy-servers.net DISTRI main
+\end{verbatim} 
+Das Repository ist mit dem OpenPGP-Key \textit{0xF1305880} signiert, der unter folgender Adresse zum Download bereit liegt:\\ \href{https://anonymous-proxy-servers.net/downloads/JonDos_GmbH.asc}{https://anonymous-proxy-servers.net/downloads/JonDos\_GmbH.asc}\\
+
+Nach dem Download ist der Schlüssel in den APT-Keyring einzufügen:
+\begin{verbatim}
+ sudo apt-key add JonDos_GmbH.asc
+\end{verbatim} 
+Danach kann das Paket \textit{jondo} wie üblich installiert werden.
+\begin{verbatim}
+   > sudo apt-get update 
+   > sudo aptitude install jondo jondofox-de
+\end{verbatim}
+Nach der Installation kann man JonDo über das Programmmenü starten \textit{Applications -> Internet -> Jondo} oder auf der Kommandozeile mit \textit{jondo}. Wenn man das Bowserprofil \textit{JonDoFox} für Firefox/Iceweasel gleich mit installiert, findet man auch einen fertig konfigurierten Browser in der Menügruppe \textit{Internet}.
+
+\item Für andere \textbf{Linux/UNIX} Versionen ist als erstes ein Java Runtime Environment zu installieren. Aktuelle Linux-Distributionen bieten die Pakete \textit{openjdk-6-jre} oder \textit{openjdk-7-jre}, die mit dem bevorzugten Paketmanager installiert werden können.\\
+
+Hinweis: Im Gegensatz zu Windwos wird dabei kein Java Plug-in für die Browser installiert. Man braucht nicht verzweifelt danach zu suchen um es zu deaktivieren.\\
+
+Anschließend lädt das Archiv jondo\_linux.tar.bz2 von der Downloadseite herunter, entpackt es und installiert JonDo mit folgendem Kommando:
+\begin{verbatim}
+   > tar -xjf jondo_linux.tar.bz2
+   > cd jondo_linux
+   > sudo ./install_jondo
+\end{verbatim}
+Die Installationsroutine richtet Menüeinträge in der Programmgruppe Internet für die gängigen Desktop Umgebungen ein. Auf der Kommandozeile startet man das Proxyprogramm mit \textit{jondo}.\\
+
+Deinstallieren kann man das Programm mit:
+\begin{verbatim}
+   > sudo jondo --remove
+\end{verbatim}
+

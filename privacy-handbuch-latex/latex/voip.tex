@@ -1,0 +1,81 @@
+Der bekannteste Anbieter für Internettelefonie (Voice over IP, VoIP) ist zweifellos \textbf{Skype}. Die Installation und das Anlegen eines Account ist einfach. Man benötigt lediglich eine E-Mail Adresse. Skype-Verbindungen sind schwer zu blockieren. Die Client-Software findet fast immer eine Verbindung zum Netz, auch hinter restriktiven Firewalls. Skype bietet eine Verschlüsselung und kann Verbindungen ins Festnetz und in Handynetze herstellen.\\
+
+\subsubsection*{Abhörschnittstellen}
+Anfang der 90er Jehre des letzten Jahrhunderts wurde das Festnetz in den westlichen Industrie­staaten digitalisiert und die GSM-Verschlüsselung für Handytelefonate wurde eingeführt. Klassische Abhörmaßnahmen für einen Telefonanschluss waren ohne Kooperation der Tele­kommuniationsanbieter und ohne vorbereitete Schnittstellen nicht mehr möglich.\\ 
+
+Als Antwort auf diese Entwicklung wurden in allen westlichen Industriestaaten Gesetze beschlossen, die die Telekommunikationsanbieter zur Kooperation mit den Strafverfolgungs­behörden und Geheimdiensten verpflichten und Abhörschnittstellen zwingend vorschreiben. In den USA war es der \textit{CALEA Act} \footnote{ \href{https://secure.wikimedia.org/wikipedia/en/wiki/Calea}{https://secure.wikimedia.org/wikipedia/en/wiki/Calea}} von 1994. In Deutschland wurde 1995 auf Initiative des Verfassungsschutz die \textit{Fernmeldeverkehr-Überwachungsverordnung} (FÜV) \footnote{ \href{http://www.online-recht.de/vorges.html?FUEV}{http://www.online-recht.de/vorges.html?FUEV}} beschlossen, die 2002 durch die \textit{Telekommunikations-Überwachungsverordnung} (TKÜV) \footnote{ \href{https://de.wikipedia.org/wiki/Telekommunikations-\%C3\%9Cberwachungsverordnung}{https://de.wikipedia.org/wiki/Telekommunikations-\%C3\%9Cberwachungsverordnung}} ersetzt wurde.\\
+
+2005 wurde der CALEA Act durch das höchste US-Gericht so interpretiert, dass er auch für alle VoIP-Anbieter gilt, die Verbindungen in Telefonnetze weiterleiten können. Skype zierte sich anfangs, die geforderten Abhörschnittstellen zu implementieren. Mit der Übernahme von Skype durch Ebay im Nov. 2005 wurde die Diskussion beendet. Heute bietet Skype Abhörschnittstellen in allen westeuropäischen Ländern und zunehmend auch in anderen Ländern wie Indien. In Deutschland sind Abhörprotokolle aus Skype Gesprächen alltägliches Beweismaterial.\footnote{ \href{http://www.lawblog.de/index.php/archives/2010/08/17/skype-staat-hort-mit/}{http://www.lawblog.de/index.php/archives/2010/08/17/skype-staat-hort-mit}}\\
+
+Skype und andere VoIP-Anbieter, die Verbindungen in andere Telefonnetze herstellen können, sind in gleicher Weise abhörbar, wie Telefon oder Handy. Es ist albern, Skype als Spionage­software zu verdammen und gleichzeitig den ganzen Tag mit einem Smartphone rumzulaufen. Genauso ist eine Lüge, wenn man die Verbreitung von Skype als Grund für einen Staatstrojaner nennt.
+
+\section{Open Secure Telephony Network (OSTN)}
+Das Open Secure Telephony Network (OSTN) \footnote{ \href{https://guardianproject.info/wiki/OSTN}{https://guardianproject.info/wiki/OSTN}} wird vom Guardian Project entwickelt. Es bietet sichere Internettelefonie mit starker Ende-zu-Ende-Verschlüsselung, soll als Standard für Peer-2-Peer Telefonie ausgebaut werden und eine ähnlich einfache Nutzung wie Skype bieten.\\
+
+Eine zentrale Rolle spielt das SRTP/ZRTP-Protokoll \footnote{ \href{https://tools.ietf.org/html/draft-zimmermann-avt-zrtp-22}{https://tools.ietf.org/html/draft-zimmermann-avt-zrtp-22}} von Phil Zimmermann, dem Erfinder von OpenPGP. Es gewährleistet eine sichere Ende-zu-Ende-Verschlüsselung der Sprach­kommunikation. Wenn beide Kommunikationspartner eine Software verwenden, die das ZRPT-Protokoll beherrscht, wird die Verschlüsselung automatisch ausgehandelt. Daneben werden weitere etablierte Krypto-Protokolle genutzt.\\
+Kurze Erläuterung der Begriffe:
+\begin{description}
+ \item[SRTP] definiert die Verschlüsselung des Sprachkanals. Die Verschlüsselung der Daten erfolgt symmetrische mit AES128/256 oder Twofish128/256. Für die Verschlüsselung wird ein gemeinsamer Schlüssel benötigt, der zuerst via ZRTP ausgehandelt wird.
+ \item[ZRTP] erledigt den Schlüsselaustausch für SRTP und nutzt dafür das Diffie-Helman Verfahren. Wenn beide VoIP-Clients ZRTP beherrschen, wird beim Aufbau der Verbindung ein Schlüssel für SRTP automatisch ausgehandelt und verwendet. Der Vorgang ist transparent und erfordert keine Aktionen der Nutzer. Allerdings könnte sich ein Man-in-the-Middle einschleichen, und die Verbindung kompromittieren (Belauschen).
+ \item[SAS] dient dem Schutz gegen Man-in-the-Middle Angriffe auf ZRTP. Den beiden Kommunikationspartnern wird eine 4-stellige Zeichenfolge angezeigt, die über den Sprachkanal zu verifizieren ist. Üblicherweise nennt der Anrufer die ersten beiden Buchstaben und der Angerufenen die beiden letzten Buchstaben. Wenn die Zeichenfolge identisch ist, kann man davon ausgehen, dass kein Man-in-the-Middle das Gespräch belauschen kann.
+ \end{description}
+
+Damit bleibt als einziger Angriff auf die Kommunikation der Einsatz eines Trojaners, der das Gespräch vor der Verschlüsselung bzw. nach der Entschlüsselung abgreift. Dagegen kann man sich mit einer Live-CD schützen. Die JonDo-Live-CD enthält z.B. den VoIP-Client Jitsi.
+
+\subsection*{OSTN-Provider}
+Um diese sichere Variante der Internettelefonie zu nutzen, benötigt man einen Account bei einem OSTN-kompatiblen Provider. Derzeit gibt es 3 Anbieter: Tanstagi\footnote{ \href{https://tanstagi.net/}{https://tanstagi.net}}, PillowTalk\footnote{ \href{https://intimi.ca:4242/}{https://intimi.ca:4242}} und Ostel.me\footnote{ \href{https://ostel.me/}{https://ostel.me}}, wobei Ostel.me der Test- und Entwicklungsserver des Projektes ist. Die Serversoftware OSTel ist Open Source, man kann auch seinen eigenen Server betreiben. Weitere Anbieter werden folgen.\\
+
+Am einfachsten kann man einen anonymen Account bei \textit{PillowTalk} erstellen. Es werden keine Daten erfragt (auch keine E-Mail Adresse). Der Server speichert keine Daten. Wenn er einmal down geht sind sämtliche Accounts weg und müssen neu erstellt werden.\\
+
+Die SRTP/ZRTP-Verschlüsselung ist ausschließlich von den Fähigkeiten der VoIP-Clients abhängig. Sie kann nicht nur mit den OSTN-Providern genutzt werden sondern auch mit Accounts bei anderen SIP-Providern wie z.B. Ekiga.net oder iptel.org. Allerdings vereinfacht OSTN die Konfiguration der Accounts im VoIP-Client.
+
+\subsection*{VoIP-Clients mit OSTN-Support}
+Es gibt einige VoIP-Clients, die bereits die nötigen Voraussetzungen zur Nutzung von OSTN implementiert haben. 
+\begin{itemize}
+ \item Für den Desktop empfehle ich \textit{Jitsi} \footnote{ \href{https://jitsi.org/}{https://jitsi.org}}, einen Java-basierter VoIP- und IM-Client für viele Betriebssysteme.
+ \item Für Linux (Ubuntu, SUSE und Redhat) gibt es das SFLphone \footnote{ \href{http://sflphone.org/}{http://sflphone.org}}.
+ \item Für Android-Smartphones ist \textit{CSipSimple} \footnote{ \href{http://nightlies.csipsimple.com/}{http://nightlies.csipsimple.com}}  am besten geeignet, das ebenfalls vom Guardian Project entwickelt wird. (OSTN-Support in den Nightly Builds der Beta Version.)
+ \item iPhone Nutzer können \textit{Groundwire} \footnote{ \href{https://itunes.apple.com/us/app/groundwire-business-caliber/id378503081?mt=8}{https://itunes.apple.com/us/app/groundwire-business-caliber/id378503081?mt=8}} für \$9,99 im App Store kaufen.
+\end{itemize}
+
+\subsection*{Jitsi}
+Jitsi ist einen Java-basierter VoIP- und Instant Messaging Client für viele Betriebssysteme. Er unterstützt die SRTP/ZRTP-Verschlüsselung und das OSTN-Protokoll. Für die Installtion benötigt man zuerst einmal Java.
+\begin{description}
+ \item[Java für Windows:] Das Installationsprogramm für Java gibt auf der Webseite www.java.com\footnote{ \href{http://www.java.com/de/}{http://www.java.com/de/}}. Der Installer möchte unbedingt die \textit{Ask-Toolbar} für alle Browser installieren. Das sollte man deaktivieren, braucht man nicht.\\
+
+ WICHTIG: Der Installer aktiviert auch ein Java-Plugin für alle Browser. Dieses Plug-in ist ein Sicherheitsrisiko und muss im Java Control Panel unter \textit{Systemsteuerung - Programme - Java} deaktiviert werden!
+\begin{center}
+\includegraphics[scale=0.55]{../screenshots/java-ctrl-klein.png}
+\end{center}
+
+ \item[Java für Linux:] Installieren Sie als erstes das Paket\textit{ default-jre} mit der Paketverwaltung der Distribution. 
+ 
+ \item[Jitsi installieren:] Anschließend installiert man Jitsi, indem man das zum Betriebssystem passende Paket von der Downloadseite \href{https://jitsi.org}{https://jitsi.org} herunter lädt und als \textit{Administrator} bzw. \textit{root} installiert - fertig.\\
+\end{description}
+Hat man einen Account bei einem OSTN-Provider, dann muss man lediglich beim Start von Jitsi die Login Daten für den SIP-Account (Username und Passwort) eingeben, wie im Bild \ref{abb:jitsi1} dargestellt. Alle weiteren Ein­stellungen werden automatisch vorgenommen.\\
+
+\begin{figure}[tb]
+\begin{center}
+\includegraphics[scale=0.75]{../screenshots/jitsi_start.png}
+\caption{Account Daten eintragen}
+\label{abb:jitsi1}
+\end{center}
+\end{figure}
+
+Wenn man einen Account beim SIP-Provider iptel.org hat, ist die Konfiguration ähnlich einfach. Man schließt den \textit{Sign in} Dialog, wählt den Menüpunkt \textit{File - Add new account} und in dem sich öffnenden Dialog als Netzwerk \textit{iptel.org}. Jitsi enthält vorbereitete Einstellungen für diesen SIP-Provider.\\
+
+\subsubsection*{SAS Authentication}
+Bei einem verschlüsselten Gespräch wird beiden Teilnehmern eine Zeichenkette aus vier Buchstaben und Zahlen angezeigt. Diese Zeichenkette ist über den Sprachkanal mit dem Gegenüber zu verifizieren. Dabei nennt der Anrufer üblicherweise die ersten zwei Buchstaben und der Angerufene die letzten beiden Buchstaben bzw. Zahlen. Wenn beide Teilnehmer die gleiche Zeichenkette sehen, ist die Verbindung sicher verschlüsselt und unbeobachtet.
+
+\begin{figure}[tb]
+\begin{center}
+\includegraphics[scale=0.75]{../screenshots/jitsi-verify.png}
+\caption{SAS Authentication}
+\label{abb:jitsi2}
+\end{center}
+\end{figure}
+
+\subsubsection*{Anpassung der Konfiguration}
+Standardmäßig sind bei Jitsi viele Protokollierungen aktiv. In den den Einstellungen kann man diese Logfunktionen abschalten, um überflüssige Daten auf der Festplatte zu vermeiden.\\
+
+Wer durch die Gerüchte über die Fortschritte der NSA beim Knacken von AES128 etwas verunsichert ist, kann in den Einstellungen des ZRTP Ninja die Verschlüsselung mit Twofish bevorzugen. Allerdings müssen beide Gesprächspartner diese Anpassung vornehmen.

@@ -1,0 +1,48 @@
+\subsubsection{Dublicity für Linux}
+\textit{Duplicity} ist ein Backuptool für Linux/Unix speziell für die Nutzung von Online-Speicherplatz. Es bietet transparente Ver- und Entschlüsselung mit OpenPGP und überträgt nur geänderte Daten, um Traffic und Zeitbedarf minimal zu halten.\\
+
+Debian und Ubuntu stellen in der Regel alles Nötige für die Installation in den Repositories bereit. \textit{aptitude} spült es auf die Platte:
+\begin{verbatim}
+   > sudo aptitude install duplicity
+\end{verbatim}   
+
+Duplicity ist ein Kommandozeilen Tool. Ein verschlüsseltes Backup schiebt man mit folgendem Kommando auf den Server:
+\begin{verbatim}
+   > duplicity Verzeichnis Backupaddresse
+\end{verbatim}
+
+Vom lokalen Verzeichnis Verz wird ein Backup erstellt, mit OpenPGP symmetrisch verschlüsselt und unter der Backup Adresse abgelegt. Ein vorhandenes Backup wird aktualisiert. Das Passwort für die Verschlüsselung wird entweder beim Start des Programms abgefragt oder es wird die Environment Variable \$PASSPHRASE verwendet. Um das Backup mit cron zu automatiiseren, kann man ein kleines Shellscript schreiben: 
+\begin{verbatim}
+  #!/bin/sh
+  PASSPHRASE="gutes_passwort"
+  duplicity Verzeichnis Backupaddresse
+\end{verbatim}
+
+Möchte man statt der symmetrischen Verschlüsselung einen OpenPGP-Key nutzen, verwendet man die Option \textit{--encrypt-key} mit der ID oder Mail-Adresse des OpenPGP Key. Diese Option kann mehrfach angegeben werden, um mehreren Teilnehmern ein Restore des Backups zu erlauben.
+\begin{verbatim}
+   > duplicity --encrypt-key="0x12345670" Verzeichnis Backupaddresse 
+\end{verbatim}
+
+Die \textbf{BackupAdresse} kodiert das Übertragungsprotokoll, den Server und das Verzeichnis auf dem Server. Duplicity kann mit vielen Protokollen umgehen. BackupAdressen haben folgenden Aufbau:
+\begin{itemize}
+ \item Alle Anbieter von Online-Speicherplatz unterstützen webdav oder die SSL-verschlüsselte Übertragung mit webdavs:
+  \begin{verbatim}   webdavs://user[:password]@server.tld/dir\end{verbatim}
+ \item Amazon S3 cloud services werden unterstützt:
+ \begin{verbatim}   s3://server/bucket_name[/prefix]\end{verbatim}
+ \item Man kann sein IMAP-Postfach für das Backup nutzen, möglichst mit SSL-verschlüsselter Verbindung. Diese Variante ist nicht sehr performant viele Mail-Provider sehen das garnicht gern:
+  \begin{verbatim}   imaps://user[:password]@mail.server.tld\end{verbatim}
+ \item Das sftp-Protokoll (ssh) ist vor allem für eigene Server interessant. Loginname und Passwort werden ebenfalls in der Adresse kodiert. Statt Passwort sollte man besser einen SSH-Key nutzen und den Key mit ssh-add vorher freischalten.
+ \begin{verbatim}  ssh://user[:password]@server.tld[:port]/dir\end{verbatim}
+ \item scp und rsync können ebenfalls für die Übertragung zum Server genutzt werden:
+  \begin{verbatim}  scp://user[:password]@server.tld[:port]/dir
+  rsync://user[:password]@server.tld[:port]/dir\end{verbatim}
+  Das Verzeichnis ist bei rsync relativ zum Login-Verzeichnis. Um einen absoluten Pfad auf dem Server anzugeben, schreibt man 2 Slash, also //dir. 
+\end{itemize}
+
+Ein \textbf{Restore} erfolgt nur in ein leeres Verzeichnis! Es ist ein neues Verzeichnis zu erstellen. Beim Aufruf zur Wiederherstellung der Daten sind BackupAdresse und lokales Verzeichnis zu tauschen. Weitere Parameter sind nicht nötig. 
+  \begin{verbatim}
+   > mkdir /home/user/restore
+   > duplicity Backupaddresse /home/user/restore 
+    \end{verbatim}
+
+Weitere Informationen findet man in der manual page von \textit{dublicity}.

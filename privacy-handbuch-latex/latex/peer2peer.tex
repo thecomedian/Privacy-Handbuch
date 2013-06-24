@@ -1,0 +1,31 @@
+Anonyme Peer-2-Peer Netze nutzen die Infrastruktur des WWW, um in einer darüber liegenden komplett verschlüsselten Transportschicht ein anonymes Kommunikationsnetz zu bilden. Der Datenverkehr wird mehrfach verschlüssellt über ständig wechselnde Teilnehmer des Netzes geleitet. Der eigene Rechner ist auch ständig an der Weiterleitung von Daten für andere Teil­nehmer beteiligt. Das macht die Beobachtung durch Dritte nahezu unmöglich.\\
+\begin{figure}[htb]
+\begin{center}
+\includegraphics[scale=0.55]{../grafiken/i2p.png}
+\caption{Prinzip von anonymen Peer-2-Peer Netzen}
+\label{abb:i2p_prinzip}
+\end{center}
+\end{figure}
+
+Hauptverwendungszweck für anonyme Peer-2-Peer Netze ist unbestritten das abmahnsichere Tauschen von Dateien. Unbeobachtete Kommunikation zwischen den Teilnehmern (E-Mail, Chatten...) ist ebenfalls möglich. Außerdem kann man zensurresistent Webseiten publizieren. Da die Nutzung der Angebote mit technischen Hürden verbunden ist, erden sie deutlich weniger besucht als klassische Webseiten.
+
+\subsubsection*{Invisible Internet Project (I2P)} 
+I2P hat das Ziel, Anonymität sowohl für Konsumenten als auch für Anbieter von Angeboten zu bieten. Dieses Ziel läßt sich nur in einem geschlossenen Netz verwirklichen.\\
+
+Es wird die Infrastruktur des WWW genutzt, um in einer darüber liegenden, verschlüsselten Transportschicht ein anonymes Kommunikationsnetz zu bilden. Der Datenverkehr wird mehrfach verschlüsselt über ständig wechselnde Teilnehmer des Netzes geleitet. Der eigene I2P-Router ist auch ständig an der Weiterleitung von Daten für Andere beteiligt. Das macht die Beobachtung einzelner Teilnehmer durch Dritte nahezu unmöglich. Die innerhalb des Invisible Internet bereitgestellten Angebote sind nicht lokalisierbar. Wie im normalen Internet sind die meisten Angebote Server-basiert. 
+\begin{itemize}
+ \item Webserver stellen die sogenannten \textit{eepsites} bereit, die Webseiten mit der Toplevel Domain \textit{.i2p}. Es gibt Suchmaschinen für die \textit{eepsites}. Das Äquivalent für Google ist \href{http://eepsites.i2p/}{http://eepsites.i2p}. 
+ \item Als E-Mail Dienst hat sich \textit{SusiMail} etabliert, ein zentraler Mailserver für I2P mit Gateway ins normale Internet. Eine neue Alternative ist das serverlose Projekt \textit{I2P-Bote}.
+ \item Das Äquivalent zum Usenet ist \textit{Syndie}. Es gibt öffentliche und private Diskussionsforen, die auf Syndicationservern gehostet werden.
+ \item Es gibt zwei redundante Server für IRC.
+ \item Für das Filesharing ist mit \textit{I2Psnark} eine Adaption von BitTorrent vorhanden. Der Tracker von \textit{Postman} ist das Äquivalent zur PirateBay im normalen Netz.
+\end{itemize}
+
+\subsubsection*{Freenet} 
+Freenet bietet Schutz gegen das umfangreichste Angriffsmodell. Freie Kommunikation unter den Bedingungen globaler Überwachung ist das Ziel des Projektes. Es stellt die höchsten Anforderungen an die Nutzer und erzielt die langsamsten Downloadraten.\\
+
+Im Unterschied zu I2P werden die Inhalte im Freenet redundant über alle Peers verteilt und verschlüsselt abgelegt. Es gibt keine Server für Webdienste, E-Mail usw. Der Zugriff auf die Inhalte erfolgt nicht über einfache URLs, sondern über komplexe Schlüssel, welche die Adressen der TOR Hidden Services als absolut harmlos erscheinen lassen. Einmal veröffentlichte Inhalte können im Freenet nicht mehr modifiziert werden, auch nicht vom Autor. Es ist jedoch möglich, aktualisierte Versionen zu veröffentlichen. Die Freenet Software stellt sicher, dass immer die aktuellste Version angezeigt wird.\\
+
+Neben Webseiten gibt es \textit{F-Mail} und mit \textit{Frost} ein Äquivalent zum Usenet. Das Tauschen von Dateien erfolgt direkt im Browser mit einer Oberfläche, die der Freenet-Konten bereitstellt.\\
+
+Unabhängig vom \textit{Open Freenet} kann man mit vertrauenswürdigen Freunden ein eigenes Netz konfigurieren, welches sich vollständig der Beobachtung durch Dritte entzieht. 

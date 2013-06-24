@@ -1,0 +1,34 @@
+Dass die Verschlüsselung von Daten der Erhaltung einer Privatsphäre dient, bemerkt man spätestens, wenn ein USB-Stick verloren geht. Wird ein Laptop gestohlen, möchte man die Fotosammlung sicher nicht im Internet sehen.\\
+
+Investigative Journalisten, Rechtsanwälte und auch Priester haben das Recht und die Pflicht, ihre Informanten bzw. Klienten zu schützen. Sie sollten sich frühzeitig Gedanken über ein Konzept zur Verschlüsselung machen. Es ist wirklich ärgerlich, wenn die Rote Hilfe einen unverschlüsselten Datenträger mit Mitgliederdaten verliert. Das kann ernste Konsequenzen haben.\\
+
+Als Whistleblower sind besondere Anforderungen an die Datensicherheit zu stellen. Neben der sicheren Aufbewahrung kommt es auch darauf an, keine Spuren auf den Rechnern zu hinterlassen. Im Fall Bradley Mannings konnten Forensiker viele Daten wieder herstellen
+
+Die kurzen Beispiele zeigen, dass unterschiedliche Anforderungen an eine Verschlüsselung bestehen können. Bevor man wild anfängt, alles irgendwie zu verschlüsseln, sollte man sich Gedanken über die Bedrohung machen, gegen die man sich schützen will:
+\begin{enumerate}
+ \item \textbf{Schutz sensibler Daten} wie z.B. Passwortlisten, Revocation Certificates o.ä. erfordert die Speicherung in einem Container oder verschlüsselten Archiv, welches auch im normalen Betrieb geschlossen ist.
+\item \textbf{Schutz aller persönlichen Daten} bei Verlust oder Diebstahl von Laptop oder USB-Stick erfordert eine Software, die transparent arbeitet ohne den Nutzer zu behindern und bei korrekter Anmeldung möglichst automatisch den Daten-Container öffnet (beispielsweise TrueCrypt für WINDOWS oder DM-Crypt für Linux). 
+\item \textbf{Backups auf externen Medien} enthalten in der Regel die wichtigen privaten Daten und sollten ebenfalls verschlüsselt sein. Dabei sollte die Wiederherstellung auch bei totalem Datenverlust möglich sein. Es ist nicht sinnvoll, die Daten mit einem PGP-Schlüssel zu chiffrieren, der nach einem Crash nicht mehr verfügbar ist.
+\item Wer eine \textbf{Manipulation der Sytemdaten} befürchtet, kann seinen Rechner komplett verschlüsseln (mit Truecrypt für WINDOWS, DM-Crypt für Linux oder GELI für FreeBSD).\\
+\end{enumerate}
+
+Zur \textbf{Herausgabe von Schlüsseln} im Fall einer Beschlagnahme des Rechners oder verschlüsselten Datenträgers gibt es immer wieder Missverständnisse.\\
+
+In Deutschland gelten folgende gesetzlichen Reglungen:
+\begin{itemize}
+ \item Richten sich die Ermittlungen gegen den Besitzer des Rechners oder Datenträgers muss man grundsätzlich keine Keys herausgeben.
+\item Richten sich die Ermittlungen gegen Dritte, kann man die Herausgabe von Keys verweigern, wenn man sich auf das Recht zur Zeugnisverweigerung berufen oder glaubhaft(!) versichern kann, dass man sich damit selbst belasten würde. Im Zweifel sollte man einen Anwalt konsultieren.
+\end{itemize}
+
+In Großbritannien ist es bereits anders. Gemäß dem dort seit Oktober 2007 geltendem RIPA-Act können Nutzer von Verschlüsselung unter Strafandrohung zur Herausgabe der Schlüssel gezwungen werden. Es drohen bis zu 2 Jahre Gefängnis oder Geldstrafen. Das die Anwendung des Gesetzes nicht auf die bösen Terroristen beschränkt ist, kann man bei Heise.de nachlesen. Es wurde als ersten gegen eine Gruppe von Tierschützern angewendet.\footnote{ \href{http://www.heise.de/newsticker/meldung/99313}{http://www.heise.de/newsticker/meldung/99313}}\\
+
+Bei Einreise in die USA sind die Grenzbehörden berechtigt, elektronische Geräte (Laptops und Smartphones) zu durchsuchen. Eine Herausgabe von Passwörtern kann ohne Durchsuchungs­beschluss nicht erzwungen werden, aber die Behörden können das Gerät aber zur weiteren Untersuchung einziehen, wenn man das Passwort nicht heraus geben will. Die EFF.org rät, mit einer leeren, unverschlüsselten Festplatte einzureisen und ein datenloses Handy zu nutzen: \href{https://www.eff.org/wp/defending-privacy-us-border-guide-travelers-carrying-digital-devices}{https://www.eff.org/wp/defending-privacy-us-border-guide-travelers-carrying-digital-devices}
+
+\subsubsection*{Das Container-Konzept}
+Der Container ist eine passende Metapher für das Konzept der vorgestellten Tools \textit{Truecrypt} und \textit{DM-Crypt}. Ein Container steht rum und nimmt Platz weg, egal ob er leer oder voll ist. In diesem Fall belegt der Container Platz auf der Festplatte oder dem USB-Stick.\\
+
+Ist der Container verschlossen, kommt niemand an die dort lagernden Daten heran. Mit einem Schlüssel kann der Container geöffnet werden (gemounted: in das Dateisystem eingefügt) und jeder, der an einem offenen Container vorbeikommt, hat Zugriff auf die dort lagernden Daten. Als Schlüssel dient eine Passphrase und/oder Schlüsseldatei(en).\\
+
+Der Zugriff auf Dateien innerhalb des geöffneten Containers erfolgt mit den Standardfunktionen für das Öffnen, Schließen und Löschen von Dateien. Auch Verzeichnisse können angelegt bzw. gelöscht werden. Die Verschlüsselung erfolgt transparent ohne weiteres Zutun des Nutzers.\\
+
+Ein Container schützt die Daten nur, wenn er geschlossen ist! Wenn man keinen ZUgriff auf die Daten braucht, sollte man den Container schließen. Einerseits ist bei einem geöffneten Container ein direkter Zugriff auf die Daten möglich. Außerdem können bei einem geöffneten Container die kryptografischen Schlüssel aus dem RAM des Rechners ausgelesen und später zum Entschlüsseln der Daten genutzt werden. Elcomsoft bietet mit dem \textit{Forensic Disk Decryptor} eine Tool für diesen Angriff auf Truecrypt, PGP und Bitlocker.\footnote{ \href{http://www.elcomsoft.com/news/531.html}{http://www.elcomsoft.com/news/531.html}}

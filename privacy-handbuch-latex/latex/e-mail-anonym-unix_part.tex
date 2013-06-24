@@ -1,0 +1,213 @@
+\section{Mixmaster für Unix/Linux}
+
+\subsection{Mixmaster installieren (Source)}
+Die Sourcen von Mixmaster stehen unter \href{http://mixmaster.sourceforge.net}{http://mixmaster.sourceforge.net} zum Download bereit. Für die Übersetzung werden die Entwicklerpakete folgender Komponenten benötigt, welche von nahezu allen Distributionen bereitgestellt werden:
+ 
+\begin{itemize}
+\item vi Editor
+\item ncurses Bibliothek
+\item OpenSSL Bibliothek
+\item PCRE Bibliothek
+\item zlib Bibliothek
+\item OpenPGP Programm (z.B. GnuPG)
+\end{itemize} 
+ 
+Nach dem Download ist das Archiv zu entpacken und in das neu angelegte Verzeichnis zu wechseln. Hier ist das Kommando \textit{./Install} einzugeben.\\
+
+Die Installationsroutine stellt einige kurze Fragen und bietet sinnvolle Vorgaben. Als Installationsverzeichnis ist es sinnvoll \textit{\$HOME/.Mix} zu übernehmen. Die Frage \textit{Do you want to set up a remailer?} ist mit ENTER zu verneinen.\\
+
+Die Meldung \textit{Client installation complete.} zeigt den erfolgreichen Abschluss der Installation an.\\
+
+Im Anschluß können die Remailer Listen initialisiert werden. Diese Listen enthalten die benötigten Informationen über nutzbare Remailer, die unterstützten Features und die öffentlichen Schlüssel der Remailer und sollten bei der Versendung einer E-Mail nicht älter als 24h sein.
+\begin{verbatim}
+   > ~/.Mix/mixmaster --update-pinger-list
+   > ~/.Mix/mixmaster --update-stats=noreply
+\end{verbatim}
+
+Sollte der Server \textit{noreply} nicht erreichbar sein, können \textit{deuxpi} oder andere Pinger  genutzt werden. Eine vollständige Übersicht über alle Mixmaster-Pinger bietet \href{http://www.noreply.org}{http://www.noreply.org}. Zukünftige Updates der Listen können dem Daemon \textit{mixmaster-smtp} überlassen werden.
+
+\subsection{Mixmaster-SMTP installieren}
+\textit{mixmaster-smtp} ist ein kleines Perl-Script, welches einen SMTP-Server bereitstellt, der von beliebigen E-Mail Clients versendete Mails an Mixmaster zur anonymen Versendung weiterleitet. Außerdem übernimmt es das Update der Remailer Listen bei Notwendigkeit.\\
+
+Die \textbf{Sourcen} stehen unter \href{https://www.awxcnx.de/wabbel.htm}{https://www.awxcnx.de/wabbel.htm} zum Download bereit. Nach dem Entpacken des Archives könnte man das Script und die Manualpage mit \textit{./Install} nach /usr/local/bin bzw. /usr/local/man/man1 kopieren. Dieser Schritt ist aber nicht zwingend nötig. Das Script im Unterverzeichnis \textit{bin/} startet aus beliebigen Verzeichnissen.\\
+
+Das Script benötigt einige Perl Module für die Arbeit. Diese können als User \textit{root} via CPAN installiert werden:
+\begin{verbatim}
+   # perl -MCPAN -e shell
+\end{verbatim} 
+
+Nachdem die Fragen zur Initialiserung des CPAN-Moduls beantwortet wurden, sind am CPAN-Prompt folgende Kommandos einzugeben:
+\begin{verbatim}
+   cpan> install Net::Server::Daemonize
+   cpan> install Net::Server::Mail::ESMTP
+   cpan> exit
+\end{verbatim}
+
+Im Anschluss sollte das Script \textit{mixmaster-smtp} problemlos starten. Die nötig Konfiguration wird in der Regel korrekt erkannt. Kleine Apassungen sind weiter unten beschrieben.\\
+
+Das Archiv enthält im Verzeichnis \textit{init.d} drei Startscripte (für Debian/Ubuntu, Gentoo und SuSE), um den Daemon beim Booten automatisch zu starten. Diese werden wie folgt installiert:
+\begin{itemize}
+ \item Debian / Ubuntu
+\begin{verbatim}
+# cp init.d/mixmaster-smtp.debian /etc/init.d/mixmaster-smtp
+# update-rc.d mixmaster-smtp defaults
+\end{verbatim} 
+\item SuSE Linux
+\begin{verbatim}
+# cp init.d/mixmaster-smtp.suse /etc/init.d/mixmaster-smtp
+# insserv mixmaster-smtp
+\end{verbatim} 
+\end{itemize}
+
+\subsection{Mixmaster konfigurieren}
+Die Konfiguration erfolgt in der Textdatei \textit{\$HOME/.Mix/mix.cfg} oder global für alle User in der Datei \textit{/etc/mixmaster/client.conf}. Linux wird an dieser Stelle seinem Ruf als Volltext-Adventure gerecht.\\
+
+Für die Versendung an den ersten Remailer der Kaskade wird ein Name für den Absender und eine Absenderadresse benötigt. Es sind folgende Zeilen in der Konfiguration hinzuzufügen:\\
+
+\begin{tabular}{ll}
+NAME  & realer Name \\ 
+ADDRESS  &  reale E-Mail Adresse\\ 
+\end{tabular} \\
+
+Mixmaster sollte für die Versendung der anonymen E-Mails an den ersten Remailer der Kaskade möglichst den lokalen Mail Transfer Agenten nutzen, um eine überflüssige Protokollierung durch den Mailserver des Providers zu vermeiden. Wenn \textit{sendmail} funktioniert, ist folgende Vorgabe korrekt:\\
+
+\begin{tabular}{ll}
+SENDMAIL &  sendmail -t\\
+\end{tabular} \\
+
+Soll statt dessen ein lokaler oder externer SMTP-Server für die Versendung genutzt werden, ist statt SENDMAIL folgende Zeile hinzuzufügen:\\
+
+\begin{tabular}{ll}
+SMTPRELAY &  mail.server.tld\\
+\end{tabular} \\
+
+Erfordert der SMTP-Server eine Anmeldung via SMTP-Auth, sind folgende Zeilen in der Konfigurationsdatei hinzuzufügen:\\
+
+\begin{tabular}{ll}
+SMTPUSERNAME & SMTP-UserName\\
+SMTPPASSWORD & SMTP-Passwort\\
+\end{tabular} \\
+
+Ausserdem sind in der Konfiguration die Schlüsselringe für OpenPGP-Verschlüsselung anzugegeben. Verwendet man GnuPG, sind folgende Zeilen korrekt:\\
+
+\begin{tabular}{ll}
+PGPPUBRING & /home/<username>/.gnupg/pubring.gpg\\
+PGPSECRING & /home/<username>/.gnupg/secring.gpg\\
+\end{tabular} \\
+
+
+\subsection{Mixmaster-SMTP konfigurieren}
+Mixmaster-SMTP nutzt die Konfigurationsdatei \textit{\$HOME/.Mix/smtp.conf} oder global für alle User in der Datei \textit{/etc/mixmaster/smtp.conf}. Ein Beispiel ist im Verzeichnis \textit{conf} des Quellpaketes enthalten.\\
+
+Wer eine ältere Version von mixmaster vor 3.0rc1 nutzt, muss das Update der Remailer Statistiken in der Konfiguration deaktivieren und sich selbst drum kümmern:\\
+
+\begin{tabular}{ll}
+REMAILER\_UPDATE & no\\
+\end{tabular} \\
+
+Das von P. Palfrader betreute Mixmaster-Paket für Debian GNU/Linux enthält ein eigenes Script für das Update. Wer dieses Paket nutzt, sollte das Update entsprechend konfigurieren:\\
+
+\begin{tabular}{ll}
+REMAILER\_UPDATE & debian\\
+\end{tabular} \\
+
+Wer die Software für den Onion Router (Tor) installiert hat, kann dieses Netzwerk nutzen, um keine Spuren in den Logs des Providers zu hinterlassen:\\
+
+\begin{tabular}{ll}
+TORIFY\_UPDATES & yes\\
+\end{tabular} \\
+
+\subsection{Installation für Debian GNU/Linux}
+Debian GNU/Linux und Ubuntu enthalten ein fertiges \textit{mixmaster}-Paket. Für \textit{mixmaster-smtp} gibt es ein Packet im Wabbel-Repository.  Die Einbindung des Wabbel-Repository ist auf der Website \href{https://www.awxcnx.de/wabbel.htm}{https://www.awxcnx.de/wabbel.htm} beschrieben.\\
+
+ Anschließend spülen die folgenden Kommandos alles nötige auf die Platte und starten den Daemon \textit{mixmaster-smtp}
+\begin{verbatim}
+  # apt-get update && aptitude install mixmaster mixmaster-smtp
+\end{verbatim}
+
+Alle Pakete sind sinnvoll konfiguriert. Lediglich die Identität für die Versendung einer E-Mail an den ersten Remailer der Kaskade ist in \textit{/etc/mixmaster/client.conf} zu konfigurieren:\\
+
+\begin{tabular}{ll}
+NAME  & realer Name \\ 
+ADDRESS  &  reale E-Mail Adresse\\ 
+\end{tabular} \\
+
+Sollte der Provider die Versendung von E-Mails von lokalen Rechnern unterbinden (Spamschutz), ist ein SMTPRELAY wie oben beschrieben, in der Datei \textit{/etc/mixmaster/client.conf} zu konfigurieren.
+
+\subsection{Anonyme E-Mails mit Mixmaster versenden}
+Wer mit dem \textbf{Editor vi} vertraut ist, kann Mixmaster auf der Kommandozeile starten, mit dem integrierten Editor eine E-Mail schreiben und anonym versenden.\\
+
+\textbf{mixmaster-smtp} bietet die Möglichkeit, eine E-Mail mit dem bevorzugten E-Mail Client zu schreiben, zu verschlüsseln und zur anonymen Versendung an Mixmaster zu übergeben. Auch das Update der Remailer Statistiken übernimmt das Script bei Bedarf. Das folgende Kommando in einer Konsole(!) startet den Daemon etwas geschwätzig, wenn er nicht beim Booten gestartet wurde:
+\begin{verbatim}
+   > mixmaster-smtp --verbose
+\end{verbatim} 
+
+Evtl. ist der vollständige Pfad zum Script anzugeben. Es startet ein SMTP-Server, welcher unter der Adresse \textit{localhost:8025} auf E-Mails wartet. Im E-Mail Client ist ein weiterer SMTP-Server für den Versand zu konfigurieren und evtl. eine Identität anzulegen.\\
+
+Eine dritte Möglichkeit nutzt einen beliebigen \textbf{Texteditor} oder besser eine komplette Textverarbeitung mit Rechtschreibprüfung und Vorlagenverwaltung, um die E-Mail auf Basis der folgenden Vorlage zu schreiben, als TXT-Datei zu speichern und diese mit Mixmaster anonym zu versenden.
+\begin{verbatim}
+To:
+Subject:
+Mime-Version: 1.0
+Content-Type: text/plain; charset=''utf-8''
+Content-Transfer-Encoding: 8bit
+
+Hallo alle miteinander,
+hier beginnt der Inhalt
+\end{verbatim} 
+
+In den ersten beiden Zeilen ist die E-Mail-Adresse des Empfängers und der Betreff der Nachricht einzutragen.  Zwischen dem Header und dem eigentlichen Inhalt ist eine Leerzeile frei zu lassen.\\
+
+Nachdem die Nachricht geschrieben wurde, ist die Datei unter einem neuen Namen als TXT-Datei zu speichern, beispielsweise unter
+\textit{\$HOME/anon-email.eml}.\\
+
+Diese E-Mail kann mit den folgenden Befehlszeilen versendet werden, welche für häufige Nutzung auch als Shell-Script gespeichert werden können:
+\begin{verbatim}
+  > ~/.Mix/mixmaster --update-stats=deuxpi
+  > ~/.Mix/mixmaster -m ~/anon-email.eml
+  > ~/.Mix/mixmaster -S
+  > shred -u ~/anon-email.eml}
+\end{verbatim} 
+
+Der erste Befehl aktualisiert die Remailer-Statistiken und kann entfallen, wenn diese nicht älter als 24h sind. Unter Debian GNU/Linux ist \textit{mixmaster-update} zu nutzen.\\
+
+Die zweite Befehlszeile übernimmt die Nachricht, wählt die Remailer-Kette aus und legt eine vorbereitete E-Mail im Spool-Verzeichnis ab. Der dritte Aufruf von Mixmaster versendet alle Mails aus dem Spool-Verzeichnis und der letzte Befehl beseitigt die Datei, indem sie zuerst mit Nullen überschrieben und anschließend gelöscht wird.\\
+
+Soll die E-Mail an der Empfänger OpenPGP verschlüsselt ausgeliefert werden, ist die zweite Befehlszeile zusätzlich um die Option \textit{--encrypt} zu erweitern.\\
+
+Im Prinzip ist es auch möglich, Attachements  an eine anonyme E-Mail zu hängen. Viele Remailer entfernen diese jedoch. Einige Remailer lassen Attachements bis zu 100KB passieren. Ich bin der Meinung, man kann auf Anhänge verzichten und werde hier nicht weiter darauf eingehen.
+
+\subsection{Anonymes News-Posting mit Mixmaster versenden}
+Wer mit dem Editor vi vertraut ist, kann Mixmaster auf der Kommandozeile starten, mit dem integrierten Editor ein News-Posting schreiben und anonym versenden.\\
+
+Eine zweite Möglichkeit nutzt einen beliebigen \textbf{Texteditor} oder besser eine komplette Textverarbeitung mit Rechtschreibprüfung und Vorlagenverwaltung, um das Posting auf Basis der folgenden Vorlage zu schreiben, als TXT-Datei zu speichern und diese mit Mixmaster anonym zu versenden.
+\begin{verbatim}
+To: mail2news@newsanon.org, mail2news@dizum.org
+Newsgroups:
+X-No-Archive: Yes
+Subject:
+Mime-Version: 1.0
+Content-Type: text/plain; charset=``utf-8'';
+Content-Transfer-Encoding: 8bit
+
+Ich möchte folgendes veröffnetlichen: blabla
+\end{verbatim}
+
+Zwischen dem Header und dem eigentlichen Inhalt ist eine Leerzeile frei zu lassen.\\
+
+Ein anonymes News-Posting wird per E-Mail an ein Mail2News Gateway geschickt. Diese E-Mail wird durch die Remailer-Kaskade anonymisiert. Das Gateway wandelt die anonyme E-Mail in ein News-Posting um und schickt es an die Newsgroups. Eine kurzer Liste aktueller Gateways:
+\begin{itemize}
+ \item mail2news (at) bananasplit.info
+\item mail2news (at) dizum.com
+\item mail2news (at) reece.net.au
+\item mail2news (at) m2n.mixmin.net
+\end{itemize}
+Nachdem die Nachricht geschrieben wurde, ist die Datei im TXT-Format unter einem neuen Namen zu speichern, beispielsweise unter \textit{\$HOME/anon-news.eml}. Diese Datei kann mit den folgenden Befehlszeilen an die Newsgroups gesendet werden:
+\begin{verbatim}
+  > ~/.Mix/mixmaster --update-stats=hermetix
+  > ~/.Mix/mixmaster -m ~/anon-news.eml
+  > ~/.Mix/mixmaster -S
+  > shred -u /home/<username>/anon-news.eml
+\end{verbatim}
+
+Der erste Befehl aktualisiert die Remailer-Statistiken und kann entfallen, wenn diese nicht älter als 24h sind. Unter Debian GNU/Linux ist \textit{mixmaster-update} zu nutzen.

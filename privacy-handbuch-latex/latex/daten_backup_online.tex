@@ -1,0 +1,16 @@
+\subsection{Online Backups}
+Neben dem Backup auf einem externen Datenträger kann man auch Online-Speicher nutzen. Als Cloud-Provider kann ich Wuala empfehlen. Bei DataStorageUnit.com, ADrive.com, rsync.net u.v.a.m. gibt es Angebote ab 3,- Euro monatlich. Wer einen eigenen (V)Server gemietet hat, kann seine Backups auch dort ablegen. Mit Ausnahme von Wuala muss man sich um die Verschlüsselung der Daten vor dem Upload selbst kümmern.\\
+ 
+Ein Online-Backup ist praktisch, wenn man mit Laptop in ein Land wie USA reist.  Bei der Einreise werden möglicherweise die Daten der Laptops gescannt und auch kopiert. Die EFF.org empfiehlt, vor der Reise die Festplatte zu ``reinigen`` \footnote{  \href{http://www.eff.org/deeplinks/2008/05/protecting-yourself-suspicionless-searches-while-t}{http://www.eff.org/deeplinks/2008/05/protecting-yourself-suspicionless-searches-while-t}}. Man könnte ein Online-Backup erstellen und auf dem eigenen Rechner die Daten sicher(!) löschen, also \textit{shred} bzw. \textit{wipe} nutzen. Bei Bedarf holt man sich die Daten wieder auf den Laptop. Vor der Abreise wird das Online-Backup aktualisiert und lokal wieder alles gelöscht.\\
+
+Mit dem Gesetzentwurf zum Zugriff auf Bestandsdaten der Telekommunikation (BR-Drs. 664/12) vom 24.10.2012 räumt die Bundesregierung den Geheimdiensten und Strafverfolgern die Möglichkeit ein, ohne richterliche Prüfung die Zugangsdaten zum Online-Speicher vom Provider zu verlangen. Um die gespeicherten Daten, die meist aus dem Bereich \textit{privater Lebensführung} stammen, angemessen vor dem Verfassungsschutz zu schützen, ist man auf Selbsthilfe und Verschlüsselung angewiesen.\\
+
+An ein Online-Backup werden deshalb folgende Anforderungen gestellt: 
+\begin{itemize}
+ \item Das Backup muss auf dem eigenen Rechner ver- und entschlüsselt werden, um die Vertraulichkeit zu gewährleisten.
+ \item Es sollten nur geänderte Daten übertragen werden, um Zeitbedarf und Traffic auf ein erträgliches Maß zu reduzieren.
+\end{itemize}
+
+\textit{Wuala} oder \textit{Team-Drive} können als privacy-freundliche Cloud-Speicher genutzt werden. \textit{duplicity} ist ein kleines Backuptool für Linux, dass die Daten lokal ver- und entschlüsselt, bevor sie in einen beliebigen Cloud-Speicher hochgeladen werden.
+
+

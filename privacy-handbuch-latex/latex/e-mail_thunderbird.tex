@@ -1,0 +1,371 @@
+\section{Mozilla Thunderbird}
+Informationen und Downloadmöglichkeiten für Mozilla Thunderbird stehen auf der deutschsprachigen Website des Projektes \footnote{ \href{http://www.mozilla.org/de/thunderbird/}{http://www.mozilla.org/de/thunderbird/}} für Windows, Linux und MacOS zur Verfügung.\\
+
+Linux Distributionen enthalten in der Regel Thunderbird. Mit der Paketverwaltung kann Thunderbird und die deutsche Lokalisierung komfortabel installiert und aktualisiert werden. Debian GNU/Linux bietet eine angepasste Version von Thunderbird unter dem Namen \textit{Icedove} (allerdings meist in einer veralteten Version). Das Mozilla Debian Team stellt eine aktuellere Version in einem separatem Repository und eine Anleitung\footnote{ \href{http://mozilla.debian.net/}{http://mozilla.debian.net/}} zur Installation bereit.\\
+
+\subsection{Account erstellen}
+Nach dem ersten Start von Thunderbird führt ein Assistent durch die Schritte zur Einrichtung eines E-Mail Kontos. Nach Eingabe der E-Mail-Adresse sowie des Passwortes erkennt der Assistent die nötigen Einstellungen für den Mailserver oft automatisch. Es können auch die Einstellungen eines bisher verwendeten Programms übernommen werden. Bei der Einrichtung des E-Mail Account sollten einige Punkte beachtet werden.\\
+
+Die Grafik im Bild \ref{abb:email_web} zeigt den Weg einer E-Mail vom Sender zum Empfänger. In der Regel ist man nicht direkt mit dem Internet verbunden. Der Zugang erfolgt über ein Gateway des Providers oder der Firma.\\
+
+\begin{figure}[htb]
+\begin{center}
+ \includegraphics[scale=0.5]{../grafiken/email_weg.png}
+\caption{Der Weg einer E-Mail durch das Web}
+\label{abb:email_web}
+\end{center}
+\end{figure}
+
+Der 1. Mailserver nimmt die E-Mail via SMTP entgegen und sendet sie an den 2. Mailserver. Hier liegt die E-Mail, bis der Empfänger sie abruft und löscht. Die gestrichelten Verbindungen zu den Mailservern können mit SSL bzw. TLS kryptografisch gesichert werden. Das hat nichts mit einer Verschlüsselung des Inhalts der E-Mail zu tun. Es wird nur die Datenübertragung zum Mailserver verschlüsselt und es wird sichergestellt, dass man wirklich mit dem gewünschten Server verbunden ist. Aktuelle Versionen von Thunderbird aktivieren dieses Feature beim Einrichten eines Account standardmäßig. \\
+
+Wie einfach es ist, unverschlüsselte Verbindungen zu belauschen, die Passwörter zu extrahieren und das Mail-Konto zu kompromittieren, wurde von T. Pritlove auf der re:publica 2007 demonstriert \footnote{ \href{http://tim.geekheim.de/2007/04/24/netzwerksicherheit-auf-der-republica/}{http://tim.geekheim.de/2007/04/24/netzwerksicherheit-auf-der-republica/}}.\\
+
+Bewusst oder unbewusst können auch Provider die sichere Übertragung deaktivieren und damit den Traffic mitlesen. Es wird einfach die Meldung des Mail-Servers 250-STARTTLS gefiltert und überschrieben. Scheinbar verfügen alle DSL-Provider über die Möglichkeit, dieses Feature bei Bedarf für einzelne Nutzer zu aktivieren\footnote{ \href{http://heise.de/-206233}{http://heise.de/-206233}}. Die Standard-Einstellung der meisten E-Mail Clients ist \textit{``TLS verwenden wenn möglich''}. Diese Einstellung ist genau in dem Moment wirkungslos, wenn man es braucht, weil der Traffic beschnüffelt werden soll.\\
+
+Alle brauchbaren Mail-Server bieten Möglichkeit der verschlüsselten Kommunikation via SSL/TLS oder STARTTLS. Diese Option ist in Thunderbird bei der Einrichtung eines neuen Kontos zu aktivieren. Der Assistent erledigt das in der Regel automatisch.\\
+
+\begin{figure}[htb]
+\begin{center}
+ \includegraphics[scale=0.75]{../screenshots/thunderbird_account.png}
+\caption{POP3-Account anlegen}
+\label{abb:tbaccount1}
+\end{center}
+\end{figure}
+
+SMTP, POP3 und IMAP sind für den Laien verwirrende Abkürzungen.
+\begin{description}
+ \item[SMTP] ist das Protokoll zum Versenden von E-Mails.
+ \item[POP3] ist das Protokoll zum Herunterladen von empfangenen E-Mails auf den lokalen Rechner. Dabei werden die E-Mails auf dem Server gelöscht.
+ \item[IMAP] ist ein Kommunikationsprotokoll, um die empfangenen E-Mails auf dem Server zu verwalten und nur zum Lesen temporär herunter zu laden. Auch die versendeten E-Mails werden bei der Nutzung von IMAP auf dem Mailserver des Providers gespeichert.\\
+
+ IMAP bietet damit die Möglichkeit, mit verschiedenen E-Mail Clients von unterschiedlichen Rechnern und Smartphones auf den Account zuzugreifen und stets Zugriff auf alle E-Mails zu haben. Die Möglichkeit des weltweiten Zugriffs auf seine Mails erkauft man sich aber mit Einschränkungen des Datenschutzes.\\
+
+ Die auf dem Server des Providers gespeicherten E-Mails unterliegen NICHT mehr dem Tele­kommunikationsgeheimnis nach Artikel 10 GG, wenn der Nutzer Gelegenheit hatte, sie zu löschen. Das BVerfG hat diese Rechtsauffassung 2009 in dem Urteil 2 BvR 902/06 bestätigt \footnote{ \href{https://www.bundesverfassungsgericht.de/pressemitteilungen/bvg09-079.html}{https://www.bundesverfassungsgericht.de/pressemitteilungen/bvg09-079.html}}.\\
+
+ Mit der Reform der Telekommunikationsüberwachung im Dezember 2012 können Geheim­dienste und Strafverfolge das Passwort für den Zugriff auf den Mail-Account ohne richter­liche Prüfung vom Mail-Provider verlangen und damit Zugang zu dem Postfach erhalten. Es wäre unschön, wenn Sie dort die Kommunikation der letzten 5 Jahre vorfinden.
+ \end{description}
+
+Deshalb empfehle ich die Nutzung von POP3 (SSL) statt IMAP (Bild \ref{abb:tbaccount1}).\\
+
+Für viele E-Mail Provoder werden automatisch sichere Einstellungen vom Assistenten vorgeschlagen (SSL bzw. STARTTLS). Wenn keine Vorschläge gefunden werden können, kann man auf \textit{manuelle Konfiguration} klicken und in dem Dialog Bild \ref{abb:tbaccount2} die Einstellungen per Hand anpassen. Die nötigen Daten für POP3- und SMTP-Server findet amn auf der Webseite des Mail-Providers. Außerdem muss man in der Regel den Usernamen an die Vorgaben des Providers anpassen.
+\begin{itemize}
+ \item Für den POP3-Server ist in der Regel Port \textit{995} (SSL) passend.
+ \item Viele SMTP-Server bieten neben STARTTLS für Port \textit{25} auch auf den Ports \textit{587} (STARTTLS) oder Port \textit{465} (SSL) verschlüsselte Verbindungen zum Senden von E-Mails.
+\end{itemize}
+
+\begin{figure}[htb]
+\begin{center}
+ \includegraphics[scale=0.75]{../screenshots/thunderbird_account2.png}
+\caption{POP3-Account anpassen}
+\label{abb:tbaccount2}
+\end{center}
+\end{figure}
+
+\subsection{Unsichere Verschlüsselungen deaktivieren}
+Aus Gründen der Kompatibiltät mit einigen Mail-Providern unterstützt Thunderbird noch immer veraltete und unsichere Verschlüsselungsoptionen für die Verbindung zu dem Mailservern. In den \textit{Erweiterten Einstellungen} kann man diese Optionen deaktivieren:
+\begin{verbatim}
+    security.enable_ssl3                             =  false
+    security.ssl.require_safe_negotiation            =  true
+    security.ssl.treat_unsafe_negotiation_as_broken  =  true
+    security.warn_submit_insecure                    =  true
+\end{verbatim} 
+Wenn man die im Bild \ref{abb:thunderbird_tlserr} gezeigte, schwer verständliche Fehlermeldung beim Abrufen oder Senden von E-Mails erhält, gibt es Probleme beim Aufbau einer sicheren Verbindung und man wechselt am besten den Mail-Provider. Meistens bietet der Server keine Secure Renegotiation beim Aufbau der verschlüsselten Verbindung. Das Problem wird seit 2009 als schwiegend eingestuft \footnote{ \href{https://www.verbraucher-sicher-online.de/news/fehlerhaftes-design-im-wichtigsten-verschluesselungsprotokoll-fuer-angriffe-nutzbar}{https://www.verbraucher-sicher-online.de/news/fehlerhaftes-design-im-wichtigsten-verschluesselungsprotokoll-fuer-angriffe-nutzbar}}.\\
+
+\begin{figure}[htb]
+\begin{center}
+ \includegraphics[scale=0.75]{../screenshots/tls-error.png}
+\caption{Fehlermeldung bei unsicherer Verbindung}
+\label{abb:thunderbird_tlserr}
+\end{center}
+\end{figure}
+
+In diesem Zusammenhang verweise ich auf die Antwort der Bundesregierung auf eine Kleine Anfrage zu Fernmeldeaufklärung des BND vom Mai 2012:
+\begin{quote}
+  Frage: \textit{Ist die eingesetzte Technik auch in der Lage, verschlüsselte Kommunikation (etwa per SSH oder PGP) zumindest teilweise zu entschlüsseln und/oder auszuwerten?}
+\end{quote} 
+\begin{quote}
+ Antwort: \textit{Ja, die eingesetzte Technik ist grundsätzlich hierzu in der Lage, \textbf{je nach Art und Qualität der Verschlüsselun}g.}
+\end{quote} 
+Tools zum Ausnutzen der Insecure Renegotiation gibt es auch als OpenSource (z.B. dsniff).
+
+\subsection{Sichere Konfiguration des E-Mail Client}
+Einige Hinweise für die sichere und unbeobachtete Nutzung des Mediums E-Mail mit Mozilla Thunderbird:
+\begin{itemize}
+ \item Mit der Verwendung von HTML in E-Mails steht dem Absender ein ganzes Bestiarium von Möglichkeiten zur Beobachtung des Nutzers zur Verfügung: HTML-Wanzen, Java Applets, JavaScript, Cookies usw. Am einfachsten deaktiviert man diese Features, wenn man nur die Anzeige von \textit{Reinem Text} zuläßt. Die Option findet man im Menüpunkt \textit{Ansicht -> Nachrichtentext} (siehe Bild \ref{abb:thunderbird_rein_text}). \\
+
+\begin{figure}[htb]
+\begin{center}
+ \includegraphics[scale=0.75]{../screenshots/thunderbird_rein.png}
+\caption{E-Mails als reinen Text darstellen}
+\label{abb:thunderbird_rein_text}
+\end{center}
+\end{figure}
+
+\item Die Option \textit{Anhänge eingebunden anzeigen} im Menü \textit{Ansicht} sollte man ebenfalls deaktivieren, um gefährliche Anhänge nicht schon beim Lesen einer E-Mail automatisch zu öffnen. Der alte Trick mit einem Virus in der E-Mail wird noch immer genutzt, insbesondere wenn man ein Opfer gezielt angreifen will, um den Rechner mit einem Trojaner zu infizieren.
+
+\item Es ist nicht immer möglich, E-Mails als Plain Text zu lesen. Viele Newsletter sind nur als HTML-Mail lesbar, eBay verwendet ausschließlich HTML-Mails für Benachrichtigungen usw. In der Regel enthalten diese HTML-only Mails mehrere Trackingelemente.\\
+
+Um diese E-Mails trotzdem lesen zu können (wenn auch nicht in voller Schönheit), kann man die Darstellung \textit{Vereinfachtes HTML} nutzen. Außerdem können folgende Features in den \textit{Erweiterten Einstellungen} deaktiviert werden, die jedoch nur für die Darstellung von \textit{Orginal HTML} relevant sind: 
+\begin{verbatim}
+    javascript.enabled                    =  false
+    network.cookie.cookieBehavior         =  2
+    dom.storage.enabled                   =  false
+    geo.enabled                           =  false
+    webgl.disabled                        =  true
+    layout.css.visited_links_enabled      =  false
+    gfx.downloadable_fonts.enabled        =  false
+    network.http.sendRefererHeader        =  0
+    security.enable_tls_session_tickets   =  false
+    network.http.use-cache                =  false
+\end{verbatim} 
+
+Alle Bilder in HTML-Mails, die von einem externen Server geladen werden, können direkt mit der E-Mail Adresse des Empfängers verknüpft sein. Anhand der Logdaten kann der Absender erkennen, wann und wo die E-Mail gelesen wurde. Einige Newsletter verwenden auch HTML-Wanzen. Im Newsletter von Paysafecard findet man beispielsweise ganz unten eine kleine 1x1-Pixel Wanze, die offenbar mit einer individuellen, nutzerspezifischen URL von einem Trackingservice geladen wird: 
+\begin{verbatim}
+   <IMG src="http://links.mkt3907.com/open/log/43.../1/0">
+\end{verbatim} 
+
+Easyjet.com (ein Billigflieger) kann offenbar die Aufrufe seiner Newsletter selbst zählen und auswerten. In den E-Mails mit Informationen zu gebuchten Flügen findet man folgende kleine Wanze am Ende der Mail:
+\begin{verbatim}
+   <IMG src="http://mail.easyjet.com/log/bEAS001/mH9..."
+        height=0 width=0 border=0>
+\end{verbatim}
+
+
+Um Tracking mit Bildern und HTML-Wanzen zu verhindern, kann man in den \textit{Erweiterten Einstellungen} das Laden externer Bilder blockieren: 
+\begin{verbatim}
+   permissions.default.image  =  2
+\end{verbatim} 
+
+Auch andere Medienformate können von einem externen Server geladen und als Wanzen genutzt werden. Einen deartigen Einsatz von Audio- oder Videodateien habe ich bisher nicht gefunden, aber technisch wäre es möglich. Man kann das Laden von Videos und Audiodateien mit folgenden Parametern unterbinden:
+\begin{verbatim}
+   media.webm.enabled  =  false
+   media.wave.enabled  =  false
+   media.ogg.enabled   =  false
+\end{verbatim} 
+
+Die Links in HTML-Mails führen oft nicht direkt zum Ziel sondern werden ebenfalls über einen Trackingservice geleitet, der jeden Aufruf des Link individuell für jede Empfänger­adresse protokollieren kann. Als Bespiel soll ein Link aus dem Paysafe­card Newsletter dienen, der zu einem Gewinnspiel bei Paysafecard führen soll: 
+\begin{verbatim}
+   <a href="http://links.mkt3907.com/ctt?kn=28&ms=3N...">
+   Gewinne Preise im Wert von 10.000 Euro</a>
+\end{verbatim} 
+
+Diesem Tracking kann man nur entgehen, wenn man diese Links in HTML-Mails nicht aufzuruft! Der Trackingservice hat die Möglichkeit, Logdaten von verschiedenen E-Mails zu verknüpfen und evtl. auch das Surfverhalten einzubeziehen. Wichtige Informationen findet man auch auf der Webseite des Absenders.
+
+\item Die \textit{extension blocklist} kann Mozilla nutzen, um einzelne Add-ons in Thunderbird zu deaktivieren. Es ist praktisch ein kill switch für Thunderbird Add-ons. Beim Aktualisieren der Blockliste werden außerdem detaillierte Informationen an Mozilla übertragen.\\
+
+Ich mag es nicht, wenn jemand irgendetwas remote auf meinem Rechner deaktiviert oder deaktivieren könnte. In den \textit{Erweiterten Einstellungen} kann man das Feature abschalten:
+\begin{verbatim}
+    extensions.blocklist.enabled = false
+\end{verbatim}
+
+\item Gespeicherte Passwörter für den Zugriff auf SMTP-, POP- oder IMAP-Server können mit einem Masterpasswort geschützt werden.
+\end{itemize}
+
+
+\subsection{Datenverluste vermeiden}
+Die folgenden Hinweise wurden von den Mozilla-Entwicklern erarbeitet, um den Nutzer bestmöglich vor Datenverlusten zu schützen:
+\begin{itemize}
+\item Das Antiviren-Programm ist so einzustellen, dass es den Profilordner von Thunderbird NICHT(!) scannt. Die automatische Beseitigung von Viren kann zu Datenverlusten führen.
+\item Der Ordner \textit{Posteingang} sollte so leer wie möglich gehalten werden. Gelesene E-Mails sollten auf themenspezifische Unterordner verteilt werden.
+\item Die Ordner sollten regelmäßig komprimiert werden. Hierzu ist mit der rechten Maustaste auf den Ordner zu klicken und der Punkt \textit{Komprimieren} zu wählen. Während des Komprimierens sollten keine anderen Aktionen in Thunderbird ausgeführt werden.\\
+
+Alternativ kann man in den Einstellungen von Thunderbird in der Sektion \textit{Erweitert} auch eine automatische Komprimierung konfigurieren, sobald es lohnenswert ist (siehe Bild \ref{abb:thunderbird_kompri}). Bei jedem Start prüft Thunderbird, ob die Ordner komprimiert werden können.
+\item Regelmäßig sollten Backups des gesamten Profils von Thunderbird angelegt werden. Unter WINDOWS sichert man \textit{C:/Dokumente und Einstellungen/<NAME>/Anwendungsdaten/Thunderbird}, unter Linux ist \textit{\$HOME/.thunderbird} zu sichern.
+\end{itemize}
+
+\begin{figure}[htb]
+\begin{center}
+ \includegraphics[scale=0.5]{../screenshots/thunderbird_kompri.png}
+\caption{Ordner automatisch komprimieren}
+\label{abb:thunderbird_kompri}
+\end{center}
+\end{figure}
+
+\subsection{Wörterbücher installieren}
+Nach der Installation von Thunderbird sind keine Wörterbücher für die Rechtschreibkontrolle vorhanden. Die Wörterbücher müssen zusätzlich installiert werden, wenn man auf das Feature nicht verzichten möchte. Nach dem Download der Wörterbücher \footnote{ \href{https://addons.mozilla.org/de/thunderbird/language-tools/}{https://addons.mozilla.org/de/thunderbird/language-tools/}} ist Thunderbird als zu starten. Der Menüpunkt \textit{Extras -> Add-ons} öffnet den Dialog für die Verwaltung. Wenn man oben rechts auf das kleine Werkzeug­symbol klickt (Bild \ref{abb:tbaddons}, kann man die Dateien mit den Wörterbüchern als Add-on installieren.\\
+
+\begin{figure}[htb]
+\begin{center}
+ \includegraphics[scale=0.7]{../screenshots/tb-addon-install.png}
+\caption{Wörterbücher in der Add-on Verwaltung installieren}
+\label{abb:tbaddons}
+\end{center}
+\end{figure}
+
+Danach kann man in den Einstellungen von Thunderbird die Rechtschreibprüfung aktivieren und die bevorzugte Sprache auswählen. Die Auswahl der Sprache kann man beim Schreiben einer Mail jederzeit ändern. 
+
+\subsection{X-Mailer Kennung modifizieren}
+Ich habe gelesen, dass es böse Buben geben soll, die via Internet ihre Software auf fremden Rechnern installieren möchten. In diesem Zusammenhang werden oft die Stichworte ``Spambot'' oder ``Bundstrojaner'' genannt.\\
+
+Voraussetzung ist die Kenntnis der vom Opfer genutzten Software. Genau wie jeder Webbrowser sendet auch Thunderbird eine User-Agent-Kennung im Header jeder E-Mail, die Auskunft über die genutzte Programmversion und das Betriebssystem liefert. Das folgende (veraltete) Beispiel stammt aus der Mail eines Unbekannten:
+
+\begin{verbatim}
+...
+User-Agent: Thunderbird 2.0.0.6 (X11/20070728)
+X-Enigmail-Version: 0.95.3
+...
+
+------- BEGIN PGP MESSAGE -------
+Version: GnuPG v1.4.6 (GNU/Linux)
+...
+\end{verbatim} 
+
+Aha, er nutzt also Thunderbird in der Version 2.0.0.6 unter Linux, hat die Enigmail-Erweiterung v.0.95.3 installiert und verwendet die GnuPG-Version 1.4.6. Das war damals eine typische Kombination für Ubuntu Edgy.\\
+
+Die User-Agent-Kennung kann in den erweiterten Einstellungen modifiziert werden. Im Einstellungs-Dialog findet man in der Sektion \textit{Erweitert} den Reiter \textit{Allgemein}. Ein Klick auf den Button Konfiguration bearbeiten öffnet eine Liste aller Optionen.\\
+
+\begin{figure}[htb]
+\begin{center}
+ \includegraphics[scale=0.65]{../screenshots/thunderbird_uafake.png}
+\caption{Neue Config-Variable anlegen}
+\label{abb:thunderbird_uafake}
+\end{center}
+\end{figure}
+
+Hier fügt man die neue String-Variable \textbf{general.useragent.override} als neuen Wert ein, indem man mit der rechten Maustaste auf einen freien Bereich klickt und im Kontext-Menü den Punkt \textit{Neu - String} wählt.Als Wert für diese Variable wird eine leere Zeichenkette eingesetzt. Damit sendet Thunderbird keine Kennung mehr. Nachteile sind nicht erkennbar.\\
+
+Wer das Add-on Enigmail für die Verschlüsselung nutzt, sollte dem Add-on die Geschwätzigkeit abgewöhnen und die Ausgabe von Versionen im Header deaktivieren. Anderenfalls kann ein Schnüffler anhand einer signierten oder verschlüsselten E-Mail Schlussfolgerungen über die verwendete Software ableiten. Folgende Parameter sind in den erweiterten Einstellungen zu setzen:
+
+\begin{verbatim}
+   extensions.enigmail.addHeaders            =  false
+   extensions.enigmail.useDefaultComment     =  true
+   extensions.enigmail.agentAdditionalParam  =  --no-emit-version
+\end{verbatim} 
+
+\subsection{Spam-Filter aktivieren}
+Das Mozilla Team bezeichnet nicht erwünschte E-Mails (Spam) als Junk\textit{}. Den integrierten lernfähigen Filter aktiviert man über den Menüpunkt \textit{Extras -> Junk-Filter}.\\
+
+Im Einstellungsdialog des Filters sollte man die beiden Optionen für das automatische Verschieben der Junk-Mails in einen speziellen Ordner aktivieren, am einfachsten in den Ordner \textit{Junk} des entsprechenden Kontos. Außerdem sollte der lernfähige Filter aktiviert werden. Ich bin immer wieder von der guten Erkennungsrate beeindruckt.
+
+\subsection{Spam vermeiden}
+Man muss nicht bei jeder Gelegenheit im Web seine richtige E-Mail Adresse angeben. Damit fängt man sich eine Menge Spam (Junk) ein.\\
+
+Außerdem ist die E-Mail Adresse ein wichtiges Identitätsmerkmal. Datensammler verwenden sie als ein Hauptmerkmal für die Identifikation, um darauf aufbauend Profile zu erstellen. Stichproben im Internet-Traffic weisen einen hohen Anteil von Suchanfragen nach Informationen zu den Inhabern von E-Mail Adressen aus.\\
+
+Um die eigene E-Mail Adresse nicht zu kompromittieren und trotzdem Angebote zu nutzen, welche die Angabe einer Mailadresse erfordern, kann man temporäre \textit{Wegwerf-Adressen} nutzen.\\
+
+Bei der Nutzung temporärer Mailadressen geht es nicht(!) um die Umgehung der Vorratsdatenspeicherung. Hinweise dafür findet man im Abschnitt \textit{``E-Mail anonym nutzen''}. Außerdem ist von einer VDS-artige Speicherung der IP-Adressen auszugehen, wenn der Anbieter keine Angaben zum Datenschutz macht.
+
+\subsubsection*{AnonBox des CCC}
+Bei der AnonBox.net des CCC  \footnote{ \href{https://anonbox.net}{https://anonbox.net}} kann ein E-Mail Account für den Empfang von einer Nachricht erstellt werden. Der Account ist bis 24:00 Uhr des folgenden Tages gültig und nicht verlängerbar. Eingehende Nachrichten kann man nur im Webinterface lesen und sie werden nach dem Abrufen gelöscht. Sie können nur 1x gelesen werden! Zusammen mit der E-Mail wird auch der Account gelöscht. Man kann praktisch nur eine Mail empfangen.\\
+
+Beim Erzeugen einer E-Mail Adresse erhält man einen Link, unter dem man ankommende Mails lesen kann. Wenn noch nichts angekommen ist, dann bleibt die Seite leer. Der Link ist als Lese­zeichen zu speichern, wenn man später nochmal nachschauen möchte.\\
+
+Die AnonBox bietet als einziger Anbieter SSL-Verschlüsselung und verwendet ein Zertifikat, das von CAcert.org signiert wurde. In den meisten Browsern ist diese CA nicht als vertrauenswürdig enthalten. Das Root-Zertifikat dieser CA muss von der Webseite zusätzlich importiert werden. 
+
+
+\subsubsection*{Wegwerf-Adressen}
+Einige Anbieter von Wegwerf-E-Mail-Adressen bieten einen sehr einfach nutzbaren Service, der keinerlei Anmeldung erfordert und auch kein Erstellen der Adresse vor der Nutzung. E-Mail Adressen der Form \textit{pittiplatsch@trash-mail.com} oder \textit{pittiplatsch@weg-werf-email.de} kann man überall und ohne Vorbereitung unbekümmert angeben. Das Postfach ist unbegrenzt gültig.\\
+
+In einem Webformular auf der Seite des Betreibers findet man später alle eingegangenen Spam- und sonstigen Nachrichten für das gewählte Pseudonym. Für das Webinterface des Postfachs gibt es in der Regel keinen Zugriffsschutz. Jeder, der das Pseudonym kennt, kann die Nachrichten lesen und löschen. Nachrichten werden nach 6-12h automatisch gelöscht. \\
+
+Liste einiger Anbieter (unvollständig):
+\begin{itemize}
+ \item \href{http://www.spambog.com/}{http://www.spambog.com} (weitere E-Mail Domains auf der Webseite, Account kann mit Passwort gesichert werden, Löschen der Mails ist möglich, Session-Cookies erforderlich)
+ \item \href{http://onewaymail.com/}{http://onewaymail.com} (weitere E-Mail Domains auf der Webseite, keine Cookies oder Javascript nötig, E-Mails können gelöscht werden)
+\item \href{http://www.trash-mail.com}{http://www.trash-mail.com} (keine Cookies oder Javascript nötig, E-Mails können gelöscht werden)
+\item \href{http://www.mailcatch.com/}{http://www.mailcatch.com} (keine Cookies oder Javascript nötig, E-Mails können gelöscht werden)
+\item \href{http://www.mailinator.com/}{http://www.mailinator.com/} (bietet 5 weitere Domains, keine Cookies oder Javascript nötig, E-Mails können gelöscht werden, POP3-Abruf möglich)
+\item \href{http://www.weg-werf-email.de/}{http://www.weg-werf-email.de} (Session-Cookies erforderlich, Passwortschutz möglich)
+\item \href{https://www.guerrillamail.com/}{https://www.guerrillamail.com} (HTTPS, Session-Cookies erforderlich, E-Mails können gelöscht werden) 
+\end{itemize}
+
+In der Regel speichern diese Anbieter die Informationen über eingehende E-Mails sowie Aufrufe des Webinterface und stellen die Informationen bei Bedarf den Behörden zur Verfügung. Es handelt sich dabei nicht Anonymisierungsdienste.\\
+
+\subsubsection*{Temporäre Adressen}
+Im Gegensatz zu Wegwerf-E-Mail-Adressen muss man eine temporäre E-Mail Adresse zuerst auf der Webseiten des Anbieter erstellen, die dann für 10min bis zu mehreren Stunden gültig ist. Erst danach kann diese Mail-Adresse verwendet werden. Bei Bedarf kann die Verfügbarkeit der E-Mail Adresse mehrfach verlängert werden. Das reicht, um sich in einem Forum anzumelden.
+ 
+\begin{itemize}
+ \item \href{http://www.10minutemail.com/}{www.10minutemail.com} (10min gültig, verlängerbar)
+ \item \href{http://www.tempmailer.de/}{www.tempmailer.de/} (60min gültig, Session-Cookies freigeben)
+ \item \href{http://freemail.ms/}{freemail.ms/} (24h gültig, Session-Cookies freigeben)
+ \item \href{http://emailisvalid.com/}{emailisvalid.com} (15min gültig, Session-Cookies freigeben)
+ \item \href{http://tempemail.co.za/}{tempemail.co.za} (30min gültig, Session-Cookies freigeben)
+ \item \href{http://www.squizzy.de/}{Squizzy.de} (60min gültig, Session-Cookies freigeben)
+ \item \href{http://sector2.org/}{sector2.org} (120min gültig, Session-Cookies freigeben)
+\item \href{http://topranklist.de/}{topranklist.de} (12h gültig, Session-Cookies freigeben)
+\end{itemize}
+
+Um eine temporäre E-Mail Adresse für die Anmeldung in einem Forum o.ä. zu nutzen, öffnet man als erstes eine der oben angegebenen Webseiten in einem neuen Browser-Tab. Session-Cookies sind für diese Website freizugeben, mit Javascript sind die Webseiten oft besser bedienbar. Nachdem man eine neue temporäre Mail-Adresse erstellt hat, überträgt man sie mit Copy \& Paste in das Anmeldeformular uns schickt das Formular ab. Dann wechselt man wieder zu dem Browser-Tab der temporären Mailadresse und wartet auf die eingehende Bestätigungsmail. In der Regel einhält diese Mail einen Link zur Verifikation. Auf den Link klicken - fertig. Wenn der Browser-Tab mit der temporäre E-Mail Adresse geschlossen wurde, hat man keine Möglichkeit mehr, ankommende Mails für diese Adresse zu lesen.
+
+\subsubsection*{Firefox Add-on Bloody Vikings}
+Das Firefox Addon \textit{Bloody Vikings} \footnote{ \href{https://addons.mozilla.org/de/firefox/addon/bloody-vikings/}{https://addons.mozilla.org/de/firefox/addon/bloody-vikings}} vereinfacht die Nutzung von Wegwerfadressen. Nach der Installation von der Webseite kann ein bevorzugter Dienst für die Wegwerfadressen gewählt werden.\\ 
+
+\begin{figure}[htb]
+\begin{center}
+ \includegraphics[scale=0.75]{../screenshots/bloody-vikings.png}
+\caption{Bloody Vikings konfigurieren}
+\label{abb:bloodyvikings}
+\end{center}
+\end{figure}
+
+In Zukunft kann man in jedem Anmeldeformular mit der rechten Maustaste auf das Eingabefeld der E-Mail Adresse klicken und aus dem Kontextmenü den Punkt \textit{Bloody Vikings} wählen. Es wird in einem neuen Browser Tab die Webseite des Anbieters geöffnet und die temporäre E-Mail Adresse in das Formularfeld eingetragen. Nach dem Absenden des Anmeldeformular wechselt man in den neu geöffneten Browser Tab und wartet auf die Bestätigungsmail.
+
+\subsection{Private Note}
+E-Mails werden auf dem Weg durch das Netz an vielen Stellen mitgelesen und ausgewertet. Ein Postgeheimnis existiert praktisch nicht. Kommerzielle Datensammler wie Google und Yahoo scannen alle Mails, die sie in die Finger bekommen. Geheimdienste wie NSA, SSSI, FRA oder BND haben Monitoringprogramme für den E-Mail Verkehr.\\
+
+Gelegentlich möchte man aber nicht, das eine vertrauliche Nachricht von Dritten gelesen wird. Verschlüsselung wäre eine naheliegende Lösung. Das ist aber nur möglich, wenn Absender und Empfänger über die nötige Kompetenz verfügen.\\
+
+Als Alternative kann man folgende Dienste der Firma\textit{ insophia} nutzen:
+\begin{itemize}
+ \item \textit{Certified Privnote}\footnote{ \href{https://certified.privnote.com/}{https://certified.privnote.com}} ist vom ULD mit dem EuroPrise Siegel zertifiziert. Die Zertifizierung garantiert die Respektierung der Privatsphäre der Nutzer durch den Anbieter.
+ \item \textit{Privnote}\footnote{ \href{https://privnote.com/}{https://privnote.com}} ist eine nicht-zertifizierten Version. Damit sind Änderungen an der Software und Weiterentwicklungen möglich.
+\end{itemize}
+
+Man schreibt die Nachricht auf der Webseite des Anbieters und klickt auf den Button \textit{Create Note}. Javascript muss dafür freigegeben werden. Es wird ein Link generiert, unter dem man die Nachricht EINMALIG abrufen kann. Die Daten werden verschlüsselt auf dem Server gespeichert und nur der Link enthält den Key, um die Daten zu entschlüsseln.\\
+
+Den Link sendet man per E-Mail dem Empfänger der Nachricht. Er kann die Nachricht im Browser abrufen. Nach dem Abruf der Nachricht wird sie auf dem Server gelöscht, sie ist also nur EINMALIG lesbar. Darauf sollte man den Empfänger hinweisen.\\
+
+Man kann den Link NICHT über irgendwelche Kanäle in Social Networks (z.B. Facebook) versenden. Wenn man auf den Link klickt, läuft im Hintergrund ein Crawl der Seite bevor man weitergeleitet wird. Facebook holt sich die Nachricht und der Empfänger kommt zu spät.\\
+
+\textit{PrivNote} ist nicht kryptografisch abhösicher wie die E-Mail Verschlüsselung mit OpenPGP. Wenn ein Angreifer unbedingt den Inhalt der Nachricht lesen will, kann er die Nachricht vor dem Empfänger abrufen und über den Inhalt Kenntnis erlangen. Der eigentliche Empfänger kann nur den Angriff erkennen, da die Nachricht auf dem Server gelöscht wurde. Damit sind die Angebote für private Nachrichten geeignet, aber nicht geeignet für geheime oder streng vertrauliche Informationen.\\
+
+Es gibt einige ähnliche Projekte, die ich NICHT empfehle: 
+\begin{itemize}
+ \item \textit{Burn Note} erfordert eine Registrierung mit E-Mail Adresse, was überflüssig ist. Für jeden Account wird die Nutzung des Dienstes protokolliert und eine monatliche Statistik erstellt. Außerdem werden die Notes mit einem Key verschlüsselt, der auf dem Server von Burn Note gespeichert wird. Im Gegensatz zu den Privnote-Diensten von insophia ist der Betreiber damit in der Lage, die Nachrichten zu entschlüsseln.
+
+ \item Road-Message sammelt aus meiner Sicht zuviel Daten. Beim Besuch der Webseite wird besipielsweise die innere Größe des Browserfensters ausgelesen, was ein sehr individueller Wert ist und gut für das Tracking nutzbar. Es gibt keine Privacy Policy auf der Webseite, welche Daten gespeichert werden und wie die Daten genutzt werden. Auch bei Road-Message wird der Schlüssel für das Entschlüsseln der Nachricht nicht in der URL kodiert (wie bei den Diensten von \textit{insophia}) sondern auf dem Server gespeichert.
+\end{itemize}
+
+\subsection{RSS-Feeds}
+RSS-Feeds bieten die Möglichkeiten, sich schnell über Neuigkeiten in häufig gelesenen Blogs zu informieren ohne die Webseiten einzeln abklappern zu müssen. Thunderbird enthält einen RSS-Reader, den man dafür nutzen kann.\\
+
+Um mehrere interessante RSS-Feeds zu sammeln, erstellt man in der \textit{Konten Verwaltung} ein neues Konto und wählt den Typ \textit{Anderes Konto hinzufügen...}.
+\begin{center}
+\includegraphics[scale=0.75]{../screenshots/thunderbird-rss0.png}
+\end{center}
+
+Im zweiten Schritt wählt man den Typ \textit{Blogs und RSS-Feeds} und danach eine beliebige Konten­bezeichnung.\\
+
+In den Einstellungen für das RSS-Feed Konto kann man festlegen, in welchem Intervall die Feeds abgerufen werden sollen und ob die RSS-Feeds beim Start von Thunderbird aktualisiert werden sollen. Danach kann man die \textit{Abonnements verwalten} und die Adressen der RSS-Feeds hinzufügen. Man kopiert die URL des RSS-Feeds von der Webseite des Blogs in das Feld für die Feed URL und klickt auf den Button \textit{Hinzufügen} wie im Bild \ref{abb:addrssfeeds} dargestellt.\\
+\begin{figure}[htb]
+\begin{center}
+ \includegraphics[scale=0.75]{../screenshots/thunderbird-rss2.png}
+\caption{RSS-Feed hinzufügen}
+\label{abb:addrssfeeds}
+\end{center}
+\end{figure}
+
+Die Neuigkeiten aus den Blogs kann man zukünftig wie E-Mails lesen. Dabei kann man eine simple Textanzeige wählen oder die Ansicht als Webseite. Wer die Ansicht als Webseite bevorzugt, sollte Javascript, Cookies und andere Tracking Elemente deaktivieren. Zum Kommentieren muss man allerdings die Webseite des Blogs im Browser aufrufen.
+
+\subsection{Filelink}
+Seit Version 13.0 bietet Thunderbird die Möglichkeit, große Dateianhänge bei einem Filehoster hochzuladen und dem Empfänger nur den Link zum Download per E-Mail zu senden. In der Version 16.0 unterstützt Thunderbird die Filehoster YouSendIt\footnote{ \href{https://www.yousendit.com}{https://www.yousendit.com}} und Box.net\footnote{ \href{https://www.box.com/}{https://www.box.com/}} sowie Ubuntu One.\\
+
+Ich kann dieses Feature nicht empfehlen. 
+\begin{enumerate}
+ \item YouSendIt protokolliert alle Aktivitäten und die Protokolle werden für drei Jahre gespeichert: 
+ \begin{quote}
+  \textit{YouSendIt will retain the Log Data collected from you in its active, internal company databases for up to six months, at which point it will migrate such Log Data to its offline archival systems, where YouSendIt will retain the Log Data for a period of three years.}
+ \end{quote} 
+ \item Die bei einem Cloud-Service gespeicherten Dateianhänge unterliegen nicht dem besonderen Schutz des Post- und Fernmeldegeheimnisses.
+ \item Außerdem ist das Filelink nicht in die E-Mail Verschlüsselung integriert. Auch wenn man eine verschlüsselte E-Mail schreibt, werden die Uploads unverschlüsselt auf dem Server abgelegt. Man muss sich selbst um die Verschlüsselung der Dateien kümmern. Dann kann man sie auch gleich selbst zu einem 1-Click-Hoster hochladen.
+\end{enumerate}
+
+Um nicht ständig mit der Frage belästigt zu werden, ob man einen großen Dateianhang bei einem Cloude-Anbieter speichern möchte, kann man das Feature in den Einstellungen deaktivieren. 
+\begin{figure}[htb]
+\begin{center}
+ \includegraphics[scale=0.75]{../screenshots/tb-filelink.png}
+\caption{Filelink deaktivieren}
+\label{abb:filelink}
+\end{center}
+\end{figure}

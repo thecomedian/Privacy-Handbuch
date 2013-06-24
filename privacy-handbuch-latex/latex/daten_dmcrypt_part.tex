@@ -1,0 +1,285 @@
+\section{DM-Crypt für Linux}
+DM-Crypt ist seit Version 2.6.4 fester Bestandteil des Linux-Kernels und somit in allen aktuellen Distributionen enthalten. Es nutzt den Device-Mapper. Folgende Software wird außerdem benötigt:\\
+
+\begin{itemize}
+ \item Das Tool \textbf{cryptsetup} (mit LUKS-Support) kann zum Erstellen, Öffnen und Schließen der verschlüsselten Container eingesetzt werden. Aktuelle Distributionen enthalten es: Debian GNU/Linux im Packet \textit{cryptsetup}, SuSE-Linux im Packet \textit{util-linux-crypto}.\\
+
+Einige Distributionen installieren das Tool unter dem Namen \textit{cryptsetup-luks}. Die im Folgenden beschrieben Befehlen sind dann entsprechend anzupassen. Besser wäre es, einen Link zu erstellen. Dann funktionieren auch die Scripte \textit{mount.crypt} und \textit{umount.crypt} aus der Sammlung pam-mount.
+\begin{verbatim}
+  # ln -s /usr/sbin/cryptsetup-luks /sbin/cryptsetup
+\end{verbatim} 
+
+\item Das Packet \textbf{pmount} enthält einen Wrapper für das \textit{mount}-Kommando, welcher automatisch verschlüsselte Laufwerke erkennt und vor dem Einbinden das Passwort abfragt. Aktuelle Debian-Distributionen verwenden es standardmäßig.
+
+\item Die Sammlung \textbf{pam-mount} enthält weitere Scripte, das das Öffnen und Schließen verschlüsselter Container vereinfachen. Die Scripte ermöglichen beispielsweise des Öffnen eines Containers automatisch beim Login. Unter Debian installiert man die Tools wie üblich mit
+\begin{verbatim}
+   # aptitude install libpam-mount.
+\end{verbatim}
+
+\item Das Kernelmodul \textbf{dm\_crypt} muss vor der Verwendung der oben genannten Scripte geladen werden. In Abhängigheit von der bevorzugten Distribution und der Installationsvariante wird das Modul bereits beim Booten geladen oder ist statisch in \textit{initrd.img} eingebunden. Einfach probieren.\\
+
+Sollte beim Erstellen oder Öffnen eines verschlüsselten Containers die folgende Fehlermeldung auftreten:
+\begin{verbatim}
+Command failed: Failed to setup dm-crypt key mapping.
+Check kernel for support for the aes-cbc-essiv:sha256 cipher
+\end{verbatim}
+
+ist das Kernel-Modul \textit{dm\_crypt} zu laden:
+\begin{verbatim}
+   # modprobe dm_crypt
+\end{verbatim}
+
+Außerdem sollte das Modul in die Liste der beim Systemstart zu ladenen Module eingefügt werden. In der Datei \textit{/etc/modules} ist die Zeile \textit{dm\_crypt} anzuhängen.
+\end{itemize}
+ 
+\subsection{Gedanken zum Passwort}
+An Stelle von \textit{Passwort} sollte man vielleicht die Bezeichnung \textit{Passphrase} bevorzugen. Sie suggeriert, dass es auch ein wenig länger sein darf und dass Leerzeichen durchaus erlaubt sind.\\
+
+Eine gute Passphrase sollte leicht merkbar aber schwer zu erraten sein. Außer Buchstaben sollte sie auch Zahlen und Sonderzeichen enthalten und etwa 20 Zeichen lang sein. Soetwas schüttelt man nicht einfach aus dem Ärmel. Wie wäre es mit folgender Phrase:
+
+\begin{center}
+\texttt{ das geht nur \%mich\% \_AN\_}
+\end{center}
+
+Zusätzlich zur Passphrase können auch Keyfiles als Schlüssel genutzt werden. Damit ist es möglich, eine Zwei-Faktor-Authentifizierung aufzubauen: eine Passphrase, die man im Kopf hat, und ein Keyfile, welches man in der Hand hat. Ein Angreifer müsste beides erlangen.\\
+
+Die LUKS-Erweiterung von \textit{cryptsetup} erlaubt es, bis zu 8 Passphrasen und Keyfiles zum Öffnen eines Containers zu nutzen. Damit ist es möglich, mehreren Nutzern den Zugriff mit einem eigenen Passwort zu erlauben.\\
+
+Soll ein verschlüsselter Container mit dem Login eines Nutzers automatisch geöffnet werden, muss eines der 8 möglichen Passwörter mit dem Login-Passwort des Nutzers identisch sein. Login-Manager wie KDM oder GDM können das eingegebene Passwort an das pam-mount Modul weiterreichen. Dieses Feature kann beispielsweise für ein verschlüsseltes \textit{/home} Verzeichnis genutzt werden.\\
+
+WICHTIG: bei Änderung des Login-Passwortes muss auch das Paswort für den Container geändert werden. Sie werden nicht automatisch synchronisiert.
+
+\subsection{Verschlüsselten Container erstellen}
+Alle folgenden Schritte sind als \textit{root} auszuführen. Zum Aufwärmen soll zuerst die Partition \textit{/dev/hda4} verschlüsselt werden. Debian und Ubuntu enthalten das Skript <em>luksformat</em>, dass alle Aufgaben erledigt.  
+
+\begin{verbatim}
+   # luksformat -t ext3 /dev/hda4
+\end{verbatim}
+
+Das ist alles. Der Vorgang dauert ein wenig und es wird 3x die Passphrase abgefragt. Ein Keyfile kann dieses Script nicht nutzen! Um einen USB-Stick komplett zu verschlüsseln, wählt man \textit{/dev/sdb1} oder \textit{/dev/sda1}. Es ist vor(!) Aufruf des Kommandos zu prüfen, unter welchem Device der Stick zur Verfügung steht.\\
+
+\subsubsection*{Verschlüsselten Container erstellen für Genießer}
+
+Am Beispiel einer verschlüsselten Containerdatei werden die einzelnen Schritte beschrieben, welche das Script \textit{luksformat} aufruft. Soll eine Partition (Festplatte oder USB-Stick) verschlüsselt werden, entfallen die Schritte 1 und 8. Das als Beispiel genutzte Device \textit{/dev/loop5} ist durch die Partition zu ersetzen, beispielsweise \textit{/dev/hda5} oder \textit{/dev/sdb1}. 
+
+\begin{enumerate}
+ \item Zuerst ist eine leere Imagedatei zu erstellen. Im Beispiel wird es unter dem Dateinamen \textit{geheim.luks} im aktuellen Verzeichnis erstellt. Der Parameter \textit{count} legt die Größe in MByte fest. Anschließend ist das Image als Loop-Device einzubinden. Das Kommando \textit{losetup -f} ermittelt das nächste freie Loop-Device (Ergebnis: \textit{loop0}).
+\begin{verbatim}
+   # dd if=/dev/zero of=geheim.luks bs=1M count=100
+   # losetup -f
+   /dev/loop0
+   # losetup /dev/loop0 geheim.luks
+\end{verbatim} 
+\item Die ersten 2 MByte sind mit Zufallswerten zu füllen. Das Füllen der gesamten Datei würde sehr lange dauern und ist nicht nötig:
+\begin{verbatim}
+   # dd if=/dev/urandom of=/dev/loop0 bs=1M count=2
+\end{verbatim}
+\item Anschließend erfolgt die LUKS-Formatierung mit der Festlegung der Verschlüsselung. Die Option -y veranlaßt eine doppelte Abfrage des Passwortes, das \textit{keyfile} ist optional
+\begin{verbatim}
+   # cryptsetup luksFormat -c aes-cbc-essiv:sha256 -s 256 -y 
+                         /dev/loop0 [ keyfile ]
+\end{verbatim}
+
+\item Das formatierte Device wird dem Device-Mapper unterstellt. Dabei wird das zuvor eingegebene Passwort abgefragt. Das Keyfile ist nur anzugeben, wenn es auch im vorherigen Schritt verwendet wurde. Der <name> kann frei gewählt werden. Unter /dev/mapper/<name> wird später auf den verschlüsselten Container zugegriffen:
+\begin{verbatim}
+   # cryptsetup luksOpen /dev/loop0 <name> [ keyfile ]
+\end{verbatim}
+\item Wer paranoid ist, kann das verschlüsselte Volume mit Zufallszahlen füllen. Der Vorgang kann in Abhängigkeit von der Größe der Containerdatei sehr lange dauern:
+\begin{verbatim}
+   # dd if=/dev/urandom of=/dev/mapper/<name>
+\end{verbatim}
+\item Ein Dateisystem wird auf dem Volume angelegt:
+\begin{verbatim}
+   # mkfs.ext3 /dev/mapper/<name>
+\end{verbatim}
+\item Das Volume ist nun vorbereitet und wird wieder geschlossen:
+\begin{verbatim}
+   # cryptsetup luksClose <name>
+\end{verbatim}
+\item Die Containerdatei wird ausgehängt:
+\begin{verbatim}
+   # losetup -d /dev/loop0
+\end{verbatim} 
+\end{enumerate}
+
+\subsection{Passwörter verwalten}
+Mit root-Rechten ist es möglich, bis zu 7 zusätzliche Passwörter für das Öffnen eines Containers festzulegen oder einzelne Passwörter wieder zu löschen.\\
+
+Für das Hinzufügen eines Passwortes zu der verschlüsselten Imagedatei \textit{geheim.img} im aktuellen Verzeichnis ist diese zuerst einzuhängen, beispielsweise als \textit{/dev/loop5}. Dieser Schritt entfällt für Partitionen:
+\begin{verbatim}
+   # losetup /dev/loop5 geheim.luks
+\end{verbatim}
+
+Das Hinzufügen eines Passwortes und damit eines neuen Keyslots erfolgt mit folgendem Kommando, wobei als <device> beispielsweise \textit{/dev/loop5} für die eingebundene Imagedatei oder \textit{/dev/hda5} für eine Festplattenpartition anzugeben ist. Das Keyfile ist optional.
+\begin{verbatim}
+   # cryptsetup luksAddKey <device> [ keyfile ]
+\end{verbatim} 
+
+Ein Keyslot und das zugehörige Passwort können mit folgendem Kommando wieder entfernt werden:
+\begin{verbatim}
+   # cryptsetup luksKillSlot <device> <slot>
+\end{verbatim}
+
+Als <slot> ist die Nummer des Keyslots anzugeben, eine Zahl von 0 is7. Es ist also nötig, sich zu merken, welches Passwort auf welchen Keyslot gelegt wurde. Eine Übersicht, welche Keyslots belegt und welche noch frei sind, liefert \textit{luksDump}:
+\begin{verbatim}
+   # cryptsetup luksDump <device>
+   LUKS header information for <device>
+   ...
+   Key Slot 0: DISABLED
+   Key Slot 1: ENABLED
+        Iterations:
+        Salt:
+
+        Key material offset:
+        AF stripes:
+   Key Slot 2: DISABLED
+   Key Slot 3: DISABLED
+   Key Slot 4: DISABLED
+   Key Slot 5: DISABLED
+   Key Slot 6: DISABLED
+   Key Slot 7: DISABLED
+\end{verbatim}
+
+\subsection{Verschlüsselten Container öffnen/schließen}
+Aktuelle Distributionen wie Debian oder Ubuntu erkennen verschlüsselte Partitionen auf Festplatten und USB-Sticks automatisch und fragen die Passphrase ab, sobald das Gerät erkannt wird. Einfach Anschließen, auf den Passwort-Dialog wie im Bild \ref{abb:dmcrypt_open} warten - fertig.
+
+\begin{figure}[htb]
+\begin{center}
+\includegraphics[scale=0.55]{../screenshots/Unlock_Encrypted_Data.png}
+\caption{Passwort-Abfrage für verschlüsselten USB-Stick}
+\label{abb:dmcrypt_open}
+\end{center}
+\end{figure}
+
+\subsubsection*{Auf der Kommandozeile}
+Sollte es mit dem automatischem Öffnen des verschlüsselten USB-Sticks nicht funktionieren, kann man auf der Kommandozeile nachhelfen. \textit{pmount} arbeitet mit User-Privilegien und bindet die Partition unter \textit{/media} ein. pmount kann keine Containerdateien öffnen.
+\begin{verbatim}
+   > pmount /dev/sda1 
+   Enter LUKS passphrase:
+\end{verbatim}
+
+Geschlossen wird der Container mit \textit{pumount}:
+\begin{verbatim}
+   > pumount /dev/sda1 
+\end{verbatim}
+
+Die Sammlung pam-mount enthält zwei weitere Scripte, welche die Arbeit mit verschlüsselten Containerdateien vereinfachen. Wurde außerdem \textit{sudo} entsprechend konfiguriert, stehen die folgenden Kommandos jedem Nutzer zur Verfügung. Eine verschlüsselte Partition (beispielsweise der USB-Stick unter /dev/sda1) kann mit folgendem Kommando geöffnet und im Verzeichnis /mnt eingebunden werden:
+\begin{verbatim}
+   > sudo /sbin/mount.crypt /dev/sda1 /mnt
+   Enter LUKS passphrase:
+\end{verbatim}
+
+Das folgende Kommando öffnet die verschlüsselte Imagedatei \textit{geheim.luks} aus dem aktuellen Verzeichnis und hängt sie unter \textit{/mnt} in das Dateisystem ein:
+\begin{verbatim}
+   > sudo /sbin/mount.crypt  geheim.luks  /mnt  -o  loop
+   Enter LUKS passphrase:
+\end{verbatim}
+
+Geschlossen wird der Container mit folgendem Komando:
+
+\begin{verbatim}
+   > sudo /sbin/umount.crypt /mnt
+\end{verbatim}
+
+Für häufig genutzte Container könnte man einen Menüeintrag oder ein Desktop-Icon anlegen. Dabei ist zu beachten, dass die Option \textit{Im Terminal ausführen} aktiviert wird! Anderenfalls kann man keine Passphrase eingeben.
+
+\subsubsection*{Für jene, die es genau wissen wollen}
+Das Öffnen einer Containerdatei auf der Komadozeile erfordert drei Schritte als \textit{root}. Als erstes ist die verschlüsselte Imagedatei einzuhängen. Dieser Schritt entfällt für Partitionen. Im zweiten Schritt ist das verschlüsselte Device dem Device-Mapper zu unterstellen. Der Name kann dabei frei gewählt werden. Im dritten Schritt kann es mit \textit{mount} in das Dateisystem eingehängt werden, beispielsweise nach \textit{/mnt}.
+\begin{verbatim}
+   # losetup  /dev/loop5  geheim.luks
+   # cryptsetup  luksOpen  /dev/loop5  <name> [ keyfile ]
+   # mount  /dev/mapper/<name>  /mnt
+\end{verbatim}
+
+Das Schließen des Containers erfolgt in umgekehrter Reihenfolge:
+\begin{verbatim}
+   # umount  /mnt
+   # cryptsetup  luksClose  <name>
+   # losetup -d /dev/loop5
+\end{verbatim}
+
+\subsubsection*{Komfortabel beim Login}
+Mit Hilfe des Modules pam-mount ist es möglich, das Anmeldepasswort zu nutzen, um standardmäßig beim Login einen oder mehrere Container zu öffnen. Insbesondere für verschlüsselte /home Partitionen ist dies sinnvoll und komfortabel.\\
+
+Folgende Konfigurationen sind für einen Crypto-Login anzupassen:
+\begin{enumerate}
+ \item \textbf{PAM-Konfiguration:} Dem PAM-Dämon ist mitzuteilen, dass er das Modul \textit{mount} zu verwenden hat und das Login-Passwort zu übergeben ist. Gut vorbereitete Distributionen wie Debian und aktuelle Ubuntu(s) benötigen nur einen Eintrag in den Dateien \textit{/etc/pam.d/login}, \textit{/etc/pam.d/kdm} und \textit{/etc/pam.d/gdm}:
+\begin{verbatim}
+   @include common-pammount
+\end{verbatim}
+
+\item \textbf{pam-mount Modul:} Das Modul wird konfiguriert in der XML-Datei \textit{/etc/security/pam\_mount.conf.xml}. Am Anfang der Datei findet man eine Section für Volumes, die beim Login geöffnet werden sollen. Im ersten Beispiel wird bei allen Logins die verschlüsselte Partition /dev/hda4 als /home eingebunden:
+\begin{verbatim}
+<volume fstype="crypt" path="/dev/hda4" mountpoint="/home" />
+\end{verbatim}
+
+Das zweite Beispiel zeigt die Einbindung einer verschlüsselten Containerdatei /geheim.luks als HOME für den User pitschie. Die Containerdatei wird nur geöffnet, wenn Pitschie sich anmeldet.
+\begin{verbatim}
+<volume user="pitschie" fstype="crypt" path="/geheim.luks" 
+        mountpoint="/home/pitschie" options="loop" />
+\end{verbatim}
+
+
+\item \textbf{fstab:} Da beim Booten keine Partition nach \textit{/home} gemountet werden soll, ist evtl. der entsprechende Eintrag in der Datei \textit{/etc/fstab} zu löschen.
+\end{enumerate}
+
+\subsection{Debian GNU/Linux komplett verschlüsseln}
+In einem komplett verschlüsselten Sytem sind sowohl die Daten als auch die Systemkonfiguration und Software verschlüsselt. Debian ab Version 4.0r1 (etch) bietet bereits beim Installieren die Option, ein komplett verschlüssltes System unter Ausnutzung der gesamten Festplatte zu installieren. Lediglich für \textit{/boot} bleibt ein kleiner unverschlüsselter Bereich.\\
+
+Um diese einfache Variante zu nutzen, wählt man im Installations-Dialog \textit{Festplatte partitionieren} die Option \textit{Geführt - gesamte Platte mit verschlüsseltem LVM}. Im folgenden Schritt ist die Passphrase einzugeben, welche das System sichert. Diese Passphrase wird später bei jedem Bootvorgang abgefragt.
+\begin{verbatim}
+ Partitionsmethode:
+
+    Geführt - verwende vollständige Festplatte
+    Geführt - gesamte Platte verwenden und LVM einrichten
+  > Geführt - gesamte Platte mit verschlüsseltem LVM 
+    Manuell 
+\end{verbatim} 
+
+Ubuntu-Nutzer können die \textbf{alternate desktop cd} nutzen, die kein Live-System enthält, dafür aber mehr Optionen für die Installation bietet. Die Standard-Edition von Ubuntu bietet dieses Feature nicht!\\
+
+Ein vollständig verschlüsseltes System macht es böswilligen Buben sehr schwer, bei einem \textit{heimlichen Hausbesuch} die Software zu manipulieren und einen Trojaner zu installieren. Es ist jedoch nicht unmöglich. Wer noch einen Schritt weiter gehen will, erstellt nach der Installation eine bootfähige CD-ROM mit einer Kopie des sauberen Verzeichnis \textit{/boot} und bootet in Zukunft immer von der CD. (Oder man geht zum Psychater und lässt seine Paranoia behandeln.)\\
+
+Man sollte nicht aus Zeitgründen auf ein Überschreiben der alten Daten mit Zufallszahlen verzichten. Um die Position verschlüsselter Daten auf der Platte zu verstecken und Daten der alten Installation zu vernichten, bietet die Installationsroutine die Option, den Datenträger mit Zufallszahlen zu überschreiben. Das dauert zwar einige Zeit, ist aber ein sinnvolles Feature.\\
+
+\subsection{HOME-Verzeichnis verschlüsseln}
+Die Verschlüsselung der persönlichen Daten im \$HOME-Verzeichnis bieten alle Linux-Distributionen bei der Installation an. Wer keine Komplettverschlüsselung nutzen möchte, sollte zumindest diese Option aktivieren. Der Container mit den verschlüsselten Daten wird beim Login automatisch geöffnet. Die Nutzung ist vollständig transparent. Bei Verlust des Laptops sind die Daten jedoch geschützt.
+
+\subsection{SWAP und /tmp verschlüsseln}
+Das \textit{/tmp}-Verzeichnis und der SWAP Bereich können unter Umständen persönliche Informationen enthalten, die im Verlauf der Arbeit ausgelagert wurden. Wenn eine komplette Verschlüsselung des Systems nicht möglich ist, sollte man verhindern, das lesbare Datenrückstände in diesen Bereichen verbleiben.\\
+
+Das Verzeichnis \textit{/tmp} kann man im RAM des Rechners ablegen, wenn dieser hinreichend groß dimensioniert ist. Mit dem Ausschalten des Rechners sind alle Daten verloren. Um diese Variante zu realisieren bootet man den Rechner im abgesicherten Mode, beendet die grafische Oberfläche (X-Server) und löscht alle Dateien in \textit{/tmp}. In der Datei \textit{/etc/fstab} wird folgender Eintrag ergänzt:
+\begin{verbatim}
+    tmpfs  /tmp  tmpfs    defaults,size=256m   0 0
+\end{verbatim}
+
+Die Bereiche SWAP und \textit{/tmp} können im Bootprozess als verschlüsselte Partitionen mit einem zufälligen Passwort initialisiert und eingebunden werden. Mit dem Ausschalten des Rechners ist das Passwort verloren und ein Zugriff auf diese Daten nicht mehr möglich.\\
+
+\textbf{Achtung:} Suspend-to-RAM und Suspend-to-Disk funtionieren mit einer verschlüsselten SWAP-Partition noch nicht.
+
+\subsubsection*{Debian GNU/Linux}
+Debian und Ubuntu enthalten ein Init-Script, welches eine einfache Verschlüsselung von SWAP und \textit{/tmp} ermöglicht, wenn diese auf einer eigenen Partition liegen.\\
+
+In der Datei \textit{/etc/crypttab} sind die folgenden Zeilen einzufügen, wobei \textit{/dev/hda5} und \textit{/dev/hda8} durch die jeweils genutzten Partitionen zu ersetzen sind:
+
+\begin{verse}
+cryptswp\hspace{1cm}/dev/hda5\hspace{1cm}/dev/urandom\hspace{1cm}swap\\
+crypttmp\hspace{1cm}/dev/hda8\hspace{1cm}/dev/urandom\hspace{1cm}tmp
+\end{verse}
+
+In der Datei \textit{/etc/fstab} sind die Einträge für swap und /tmp anzupassen:
+
+\begin{verse}
+/dev/mapper/cryptswp\hspace{0.5cm}none\hspace{0.5cm}swap\hspace{0.5cm}sw\hspace{0.5cm}0 0\\
+/dev/mapper/crypttmp\hspace{0.5cm}/tmp\hspace{0.5cm}ext2\hspace{0.5cm}defaults\hspace{0.5cm}0 0
+\end{verse}
+
+Anschließend ist der Rechner neu zu booten und beide Partitionen sind verschlüsselt.\\
+
+\textbf{Achtung:} Die Partition für \textit{/tmp} darf kein Dateisystem enthalten! Soll eine bereits verwendete \textit{/tmp}-Partionion verschlüsselt werden, ist diese erst einmal nach dem Beenden des X-Servers(!) zu dismounten und zu überschreiben:
+
+\begin{verbatim}
+   # umount /tmp
+   # dd if=/dev/zero of=/dev/hda8
+\end{verbatim}
+

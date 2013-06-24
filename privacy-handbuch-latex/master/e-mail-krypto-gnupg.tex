@@ -1,0 +1,46 @@
+\documentclass[notitlepage,a4paper,twoside,10pt]{article}
+
+\usepackage{mathpazo} 
+\usepackage{ngerman} 
+\usepackage[latin1]{inputenc} 
+\usepackage[T1]{fontenc} 
+\usepackage[pdftex]{graphicx} 
+\usepackage[pdftex,bookmarks=true,colorlinks,linkcolor=blue,urlcolor=blue,citecolor=blue]{hyperref} 
+
+%opening
+\title{E-Mail Verschlüsselung mit GnuPG\\und Mozilla Thunderbird}
+\date{\today}
+
+\hypersetup {
+    pdftitle= { E-Mail Verschlüsselung mit GnuPG und Mozilla Thunderbird }
+    pdfkeywords= { E-Mail Verschlüsselung GnuPG GNU Privacy Guard Mozilla Thunderbird }
+}
+
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+Weltweit wird der unverschlüsselte E-Mail Verkehr systematisch gescannt. Führend ist die NSA mit Echelon, das auch zur Industriespionage sowie zum Abhören von NGOs verwendet wird, und Abhörschnittstellen bei allen großen amerikanischen ISPs. Frankreich betreibt ein ähnliches System unter dem Namen \textit{French ECHELON}. Das russische Pendant zur NSA ist der SSSI (früher FAPSI). Der schwedische Geheimdienst FRA und das schweizer Onyx Projekt nutzen Supercomputer zur Verarbeitung der beim Schnorcheln anfallenden Datenmengen. Für Syrien, Iran, Saudi Arabien und Ägypten wurden entsprechende Aktivitäten nachgewiesen und die \textit{Great Firewall} von China verfügt ebenfalls über die nötigen Features.\\
+
+In Deutschland wird der E-Mail Verkehr im Rahmen der \textit{Strategischen Fernmeldeaufklärung} von den Geheimdiensten gescannt. Eine von der G-10 Kommision genehmigte Stichwortliste mit 16.400 Begriffen (Stand 2010) wird für die automatisierte Vorauswahl verwendet, um nach Waffenhandel, Prolieferation und Terroristen zu suchen. 37 Mio. E-Mails meldeten die Scanner im Jahr 2010 als verdächtig, die näher analysiert wurden.
+
+\end{abstract}
+\tableofcontents
+\newpage
+\section{Asymetrische Verschlüsselung}
+OpenPGP nutzt eine asymetrische Verschlüsselung. Das Verfahren ermöglicht es, eine öffentliche Komponente des Schlüssels, den sogenannten Public Key, auf einfache Art möglichst weit zu verbreiten und allen Partnern zur Verfügung zu stellen. Der geheime Teil des Schlüssels ist sicher zu verwahren.\\
+
+Damit ist man nicht auf einen vertraulichen Kanal zum Schlüsseltausch angewiesen, da der öffentliche Schlüssel ohne seinen geheimen Gegenpart wertlos ist. Wie die Keys genutzt werden, sollen folgende Beispiele beschreiben:
+\begin{itemize}
+\item Jeder Anwender generiert ein Schlüsselpaar bestehend aus einem geheimen und einem öffentlichen Schlüssel. Während der geheime Schlüssel sorgfältig geschützt nur dem Anwender selbst zur Verfügung stehen sollte, ist der öffentliche Schlüssel an alle Kommunikationpartner zu verteilen.
+\item Wenn der Anwender Anton eine signierte E-Mail an die Anwenderin Beatrice senden will, erstellt er eine Signatur mit \textit{seinem geheimen Schlüssel}. Die Anwenderin Beatrice kann mit dem \textit{öffentlichen Schlüssel von Anton} die Nachricht verifizieren.
+\item Wenn Beatrice eine verschlüsselte Nachricht an Anton senden will, nutzt sie den \textit{öffentlichen Schlüssel von Anton}, um die Nachricht zu chiffrieren. Nur Anton kann diese E-Mail mit seinem geheimen Schlüssel dechiffrieren und lesen.
+\end{itemize}
+
+
+
+\input{../latex/e-mail-krypto-gnupg_win_part}
+\input{../latex/e-mail-krypto-gnupg_part}
+\input{../latex/e-mail-krypto_ende}
+\end{document}

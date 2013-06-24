@@ -1,0 +1,31 @@
+\documentclass[notitlepage,a4paper,twoside,10pt]{article}
+
+\usepackage{mathpazo} 
+\usepackage{ngerman} 
+\usepackage[latin1]{inputenc} 
+\usepackage[T1]{fontenc} 
+\usepackage[pdftex]{graphicx} 
+\usepackage[pdftex,bookmarks=true,colorlinks,linkcolor=blue,urlcolor=blue,citecolor=blue]{hyperref} 
+
+%opening
+\title{E-Mail jenseits der Überwachung}
+\author{Unix / Linux}
+\date{\today}
+
+\hypersetup {
+    pdftitle= {E-Mail jenseits der Überwachung}
+    pdfkeywords= {anonyme E-Mail AnonBox Susimail Verschlüsselung GnuPG Quicksilver Mixmaster Internet Anonymität }
+}
+
+
+\begin{document}
+\maketitle
+\begin{abstract}
+Auch bei der Nutzung von GnuPG oder S/MIME für die Verschlüsselung von E-Mails ist es mitlesenden Dritten möglich, Absender und Empfänger zu protokollieren und anhand der erfassten Daten Kommunikationsprofile zu erstellen. Insbesondere die Vorratsdatenspeicherung und die darauf aufbauenden internationalen ESTI-Standards für Geheimdienste und Strafverfolger zeigen, dass diese nicht verschlüsselbaren Informationen für die Überwachung bedeutsam sind.\\
+
+Es gibt mehrere Projekte, die einen überwachungsfreien Austausch von Nachrichten ermöglichen und somit beispielsweise für investigative Journalisten und deren Informanten den nötigen Schutz bieten und die Erstellung von Kommunikationsprofilen für E-Mails behindern.
+\end{abstract}
+
+\input{../latex/e-mail-anonym_einleitung}
+\input{../latex/e-mail-anonym-unix_part}
+\end{document}

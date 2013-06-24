@@ -1,0 +1,181 @@
+\section{HTTPS nutzen}
+Viele Websites bieten HTTPS-Verschlüsselung an. Diese sichere Datenübertragung wird häufig nicht genutzt. Mit wenig Konfigurationsaufwand lässt sich die Nutzung von HTTPS für eine definierte Liste von Websites erzwingen.
+
+\subsubsection*{NoScript Enforce HTTPS}
+NoScript Enforce HTTPS ist einfach konfigurierbar, kann aber nur \textit{http://} durch \textit{https://} für eine Liste von Websites ersetzen. Die Liste muss man per Hand erstellen. Im Dialog \textit{Einstellungen} findet man auf dem Reiter \textit{Erweitert} unter \textit{HTTPS} eine editierbare Liste von Websites.\\
+
+\begin{figure}[htb]
+\begin{center}
+\includegraphics[scale=0.7]{../screenshots/noscript_STS.png}
+\caption{Einstellungen für NoScript STS}
+\label{abb:noscriptsts}
+\end{center}
+\end{figure}
+
+Standardmäßig ist die Liste leer. Wer das Webinterface eines E-Mail Providers nutzt, sollte die Domain hier eintragen. Außerdem sollte man die Webseite der Bank eintragen, wenn man Online-Banking nutzt.
+
+\subsubsection*{HTTPS-Everywhere}
+Das Firefox Add-on HTTPS-Everywhere\footnote{ \href{https://www.eff.org/https-everywhere}{https://www.eff.org/https-everywhere}} der EFF.org kann auch komplexe Umschreibungen der URLs realisieren, wie es beispw. für Wikipedia notwendig ist. Das Add-on bringt aber bereits über 2500 Regeln für häufig genutzte Webseiten mit. Die Konfiguration eigener Regeln ist aufwendiger als bei NoScript und erfolgt über XML-Dateien.\\
+
+Bei HTTPS-Everywhere sind Regeln standardmäßig deaktiviert, wenn der Server ein SSL-Zertifikat von CAcert.org nutzt (z.B www.ccc.de) Wenn Sie das Root-Zertifikat von CAcert.org im Browser importiert haben, dann können Sie diese Regeln in den Einstellungen von HTTPS-Everywhere mit Klick auf das Kreuz aktivieren (Bild \ref{abb:httpseverywherecacert}).
+
+\begin{figure}[htb]
+\begin{center}
+\includegraphics[scale=0.75]{../screenshots/httpseverywhere.png}
+\caption{Einstellungen für Https-Everywhere}
+\label{abb:httpseverywherecacert}
+\end{center}
+\end{figure}
+
+\subsubsection*{HTTPS-Finder}
+Das Add-on HTTPS-Finder\footnote{ \href{https://addons.mozilla.org/de/firefox/addon/https-finder/}{https://addons.mozilla.org/de/firefox/addon/https-finder/}} kann erkennen, ob eine Webseite auch via HTTPS erreichbar ist und erzwingt dann die Nutzung von HTTPS. Es können automatisch Regeln für HTTPS-Everywhere erstellt und aktiviert werden. Das Add-on ist eine gute Ergänzung für HTTPS-Everywhere und erspart das komplexe Erstellen der XML-Dateien von Hand.\\
+
+
+\section{Vertrauenswürdigkeit von HTTPS}
+IT-Sicherheitsforscher der EFF kommen in einer wissenschaftlichen Arbeit\footnote{ \href{https://eff.org/deeplinks/2010/03/researchers-reveal-likelihood-governments-fake-ssl}{https://eff.org/deeplinks/2010/03/researchers-reveal-likelihood-governments-fake-ssl}} zu dem Schluss, dass Geheim­dienste mit gültigen SSL-Zertifikaten schwer erkennbare man-in-the-middle Angriffe durchführen können. Diese Angriffe können routinemäßig ausgeführt werden, schreibt die EFF:
+\begin{quote}
+ \textit{Certificate-based attacks are a concern all over the world, including in the U.S., since governments everywhere are eagerly adopting spying technology to eavesdrop on the public. Vendors of this technology seem to suggest the attacks can be done routinely.}
+\end{quote} 
+\begin{enumerate}
+ \item Ein erster Angriff dieser Art gegen iranische Internet Nutzer wurde im August 2011 nachgewiesen. Er betraf neben Google die Webdienste mehrerer Geheimdienste (MI6, CIA, Mossad) und außerdem www.torproject.org. Bei diesem Angriff wurde keine Zertifikate einer standardmäßig vertrauenswürdigen Certification Authority genutzt, sondern die niederländische Certification Authority DigiNotar wurde gehackt, um gültige Zertifikate zu erlangen. Insgesamt wurden 531 SSL-Zertifikate kompromittiert.\footnote{ \href{https://threatpost.com/en\_us/blogs/final-report-diginotar-hack-shows-total-compromise-ca-servers-103112}{https://threatpost.com/en\_us/blogs/final-report-diginotar-hack-shows-total-compromise-ca-servers-103112}}
+
+ \item Neben DigiNotar wurden 2011 die Certification Authorities Comodo, InstantSSL und zwei weitere Sub-Registrare von Comodo erfolgreich angegriffen \footnote{ \href{http://heise.de/-1213999}{http://heise.de/-1213999}}. Die Angreifer konnten sich unbefugt gültige Zertifikate für die Webseiten von Google, Yahoo, Mozilla und Skype erstellen. Nach Beobachtung des SSL-Observatory der EFF wurden bei den Angriffen mindesten 248 Zertifikate erfolgreich kompromittiert. Auch in diesen Fällen soll der Angriff vom Iran ausgegangen sein.
+\end{enumerate}
+
+
+Die Software für einen man-in-the-middle Angriff mit den gefälschten Zertifikaten gibt es auch als Open Source, z.B. den mitm-proxy\footnote{ \href{http://crypto.stanford.edu/ssl-mitm/}{http://crypto.stanford.edu/ssl-mitm/}} der Stanford University oder dsniff \footnote{ \href{http://www.monkey.org/~dugsong/dsniff/}{http://www.monkey.org/~dugsong/dsniff/}}. Auf der ISS World (Messe für Übewachungstechnik) werden fertige Appliances angeboten, gegen Aufpreis auch mit gültigem CA-Zertifikat.\\
+
+Wer Kosten (für den Aufpreis) oder Mühen (für das Hacken einer CA) scheut, kann sich so einfach als Unberechtigter ein gültiges SSL-Zertifikat für einen Mail- oder Web-Server ausstellen zu lassen \footnote{ \href{https://bugzilla.mozilla.org/show\_bug.cgi?id=556468}{https://bugzilla.mozilla.org/show\_bug.cgi?id=556468}}. Man muss nur einen der zulässigen E-Mail Accounts für SSL-Admins registrieren und kann ein gültiges Fake-Zertifikat erstellen. Par ordre du mufti werden \textit{webmaster\@domain.tld, postmaster\@domain.tld, ssladmin\@domain.tld, ssladministrator\@domain.tld} u.a.m. von den Certification Authorities akzeptiert. Nicht immer sind diese Adressen reserviert und geschützt.
+
+\subsubsection*{Verbesserung der Vertrauenswürdigkeit von HTTPS}
+Es gibt einige Möglichkeiten, die Vertrauenswürdigkeit der HTTPS-Verschlüsselung zu verbessern und Angriffe mit falschen Zertifikaten zu erschweren.
+\begin{itemize}
+ \item \textbf{Zertifikate speichern:} Beim ersten Besuch der Webseite wird das SSL-Zertifikat gespeichert. Bei späteren Besuchen wird das aktuelle Zertifikat mit dem gespeicherten Zertifikat verglichen. Bei seltsamen Abweichungen wird eine Warnung angezeigt, die der Surfer allerdings bewerten muss. (Firefox Add-ons: Certificate Patrol, JonDoFox)
+\item \textbf{Vergleich mit Anderen:} Beim Besuch einer HTTPS-verschlüsselten Webseite wird das Zertifikat mit den Ergebnissen an anderen Punkten der Welt verglichen. Wenn alle Teilnehmer des Netzes das gleiche Zertifikat sehen, ist es wahrscheinlich Ok. Dieser Vergleich kann mit einer zeitlich begrenzten Speicherung kombiniert werden.\\
+(Firefox Add-ons:  HTTPS-Everywhere, Perspectives, Convergence.io)\\Obwohl die Idee auf den ersten Blick einleuchtend ist, gibt es einige Probleme bei großen Serverfarmen wie Google, Facebook, Amazon, PayPal... Diese Serverfarmen verwenden nicht immer ein einheitliches Zertifikat. Das führt zu Verwirrung bei einem externen Beobachter und zu inkonsistenten Ergebnissen der Notary Server. 
+
+ \item \textbf{Certificate Pinning:} Nur der Betreiber einer Webseite kann wirklich wissen, welche Zertifikate gültig sind. Diese Information muss verteilt und ausgewertet werden. Das wäre ein besserer Weg, als der Vergleich mit externen Beobachtern.\\
+Über einen unabhängigen Weg wird festgelegt, welche Zertifikate für die HTTPS-Verschlüsselung einer Webseite genutzt werden dürfen. Nur diese Zertifikate werden vom Browser akzeptiert. Google hat die Fingerprints der Zertifikate seiner Webseiten fest im Browser Chrome codiert. Dieses Verfahren skaliert aber nicht. Möglich wäre auch die Nutzung von DNSSEC mittels Sovereign Keys. Brauchbare Ideen zum Certificate Pinning sind noch in der Entwicklung.
+\end{itemize}
+
+\subsection{Firefox Add-ons}
+Ein paar kleine Erweiterungen für Firefox, welche die Vertrauenswürdigkeit der Zertifikate bei der Nutzung von HTTPS-ver­schlüsselten Verbindungen deutlich erhöhen können. 
+
+\subsubsection*{HTTPSEverywhere}
+HTTPS-Everywhere\footnote{ \href{https://www.eff.org/https-everywhere}{https://www.eff.org/https-everywhere}} kann das SSL-Obervatory der EFF.org nutzen. Wenn man diese Funktion in den Einstellungen des Add-on aktiviert (Bild \ref{abb:sslobservatory}), werden die SSL-Zertifikate der besuchten Webseiten an das SSL-Observatory gesendet. Ist das Zertifikat nicht ok, wird man ab Version 3.0 gewarnt. Es wird eine Datenbasis von weltweit verteilten Nutzern aufgebaut.\\
+
+Hinweis: Aufgrund eines Bug im Proxy-Handling sollte das SSL-Observatory nicht mit dem Anonymisierungsdienst JonDonym genutzt werden. Die Proxy-Einstellungen werden von HTTPSEverywhere ignoriert. In Kombination mit TorButton (TorBrowser) soll dieser Bug nicht auftreten.
+
+\begin{figure}[p]
+\begin{center}
+\includegraphics[scale=0.75]{../screenshots/ssl-observatory.png}
+\caption{SSL-Observatory aktivieren in HTTPS-Everywhere}
+\label{abb:sslobservatory}
+\end{center}
+\end{figure}
+
+\subsubsection*{Certificates Patrol}
+Certificates Patrol \footnote{ \href{https://addons.mozilla.org/de/firefox/addon/certificate-patrol/}{https://addons.mozilla.org/de/firefox/addon/certificate-patrol/}} speichert Informationen zu den Zertifikaten einer Website in einer internen Datenbank. Beim Erstbesuch wird mit einem Informationsbalken am oberen Seitenrand auf ein neues Zertifikat hingewiesen. Man kann es bei Bedarf überprüfen. Am einfachsten kann man ein SSL-Zertifikat prüfen, wenn die Fingerprints vom Webmaster veröffentlicht wurden.\\
+
+\begin{figure}[p]
+\begin{center}
+\includegraphics[scale=0.75]{../screenshots/patrol.png}
+\caption{Warnung bei setsamen Wechsel des SSL-Zertifikat}
+\label{abb:certificatespatrol}
+\end{center}
+\end{figure}
+
+Hat sich das Zertifikat bei späteren Besuchen der Website geändert, zeigt das Add-on Informationen oder Warnungen zum Zertifikatswechsel wie im Bild \ref{abb:certificatespatrol} gezeigt. Der Gefahrenwert wird dabei anhand einer Heuristik ermittelt. Im Beispiel wurde überraschend ein neues Zertifikat für die Webseite der EFF gefunden, obwohl das alte Zertifikat noch lange gültig gewesen wäre. Außerdem wurde die CA gewechselt. Der Nutzer muss bei Warnungen das neue Zertifikat bestätigen, da es ein Hinweis auf einen Angriff sein. Wie kann man prüfen, ob der Zertifikatswechsel ok ist?
+\begin{enumerate}
+ \item Häufig veröffentlicht der Webmaster der Seite eine Information zum Zertifikatswechsel im Blog mit den Informationen zum neuen Zertifikat.
+ \item Bei Banken u.ä. Diensten kann man telefonisch nachfragen, ob das SSL-Zertifikat geändert wurde.
+ \item Man kann prüfen, welches Zertifikat andere Teilnehmer im Netz sehen, beispielsweise mit dem Add-on \textit{Perspectives} (siehe unten). Das Projekt bietet auch eine Demo-Webseite \footnote{ \href{http://data.networknotary.org/notary\_web/notary\_query}{http://data.networknotary.org/notary\_web/notary\_query}}, wo man die Informationen der Notary Server abfragen kann. 
+\end{enumerate}
+
+\subsubsection*{Perspectives}
+Perspectives\footnote{ \href{https://addons.mozilla.org/en-US/firefox/addon/perspectives/}{https://addons.mozilla.org/en-US/firefox/addon/perspectives/}} vergleicht SSL-Zertifikate mit den bei Notary Servern bekannten Zertifikaten. Wenn alle Notary-Server das gleiche Zertifikat über einen längeren Zeitraum sehen, ist es wahrscheinlich gültig. Leider gibt es noch nicht viele, international verteilte Notary Server. Alle standardmäßig im Add-on enthaltenen Server werden vom MIT bereit gestellt.\\
+
+Aufgrund der nicht immer eindeutigen Resultate und der Performance der Notary Server ist Perspectives nicht unbedingt für eine ständige Validierung aller SSL-Zertifikate geeignet. Der Server awxcnx.de ist im Moment nur bei der Hälfte der Notary Server bekannt. Das führt zu einem Fehler bei Perspectives, obwohl eigentlich alles Ok ist.\\
+
+Ich empfehle daher die Abfrage der Notarys bei Bedarf (wenn man ein Zertifikat genauer prüfen möchte). Dafür sind die Einstellungen in den Preferences wie im Bild \ref{abb:perspectives} zu setzen.\\
+
+\begin{figure}[htb]
+\begin{center}
+\includegraphics[scale=0.75]{../screenshots/perspectives.png}
+\caption{Perspectives Konfiguration}
+\label{abb:perspectives}
+\end{center}
+\end{figure}
+
+Zukünftig kann man mit einem Klick der rechten Maustatste auf das Perspectives-Symbol in der Statusleiste einen Check des Zertifikates der Webseite erzwingen und sich die Notary Results anzeigen lassen.\\
+
+\subsubsection*{Convergence.io}
+Convergence (Beta): Während Certificate Patrol und Perspectives auf dem alten Zertifikats­system aufsetzen und es etwas verbessern, vollzieht Convergence.io einen radikalen Bruch. Das Add-on ersetzt die Validierung der Zertifikate im Firefox vollständig durch ein eigenes System. Dabei werden ähnlich wie bei Perspectives die Beobachtungen von Notary Server genutzt und mit dem aktuellen Zertifikat verglichen.\\ 
+
+Ich habe (noch) keine Erfahrungen mit Convergence.io gesammelt.
+
+\section{HTTPS Tracking}
+Beim Aufbau einer verschlüsselten HTTPS-Verbindung wird eine sogenannte Session initialisert. Die kryptografischen Details sollen an dieser Stelle nicht erläutert werden.\\
+
+Es ist möglich, diese HTTPS-Session für das Tracking zu nutzen und für bis zu 48h immer wieder zu erneuern. Dieses Tracking-Verfahren ist so gut wie nicht nachweisbar, da es voll­ständig durch den Webserver realisiert wird und keine Spuren im Browser hinterlässt. Man kann davon ausgehen, dass dieses Tracking als Ergänzung zu (Ever-) Cookies genutzt wird. Der Tracking-Service Woopa verwendet seit 2008 HTTPS Session Tracking.\\
+
+Für HTTPS Session Tracking gibt es zwei Möglichkeiten:
+\begin{description}
+ \item[Tracking via Session Resumption] ist im RFC 5077 beschrieben.
+
+ Gegen Tracking via Session Resumption kann man sich schützen, indem man im Firefox unter \textit{about:config} die folgende Variable auf FALSE setzt:  
+\begin{verbatim}
+  security.enable_tls_session_tickets    false  
+\end{verbatim} 
+Das führt zu geringen Einbußen der Performance, da für jede Seite eine neue SSL-Session ausgehandelt werden muss. Um die Performance-Einbußen etwas zu kompensieren, kann man \textit{SSL False Start} aktivieren. Dabei werden verschlüsselte Daten bereits gesendet, wenn die Verifizierung der SSL-Session noch nicht abgeschlossen ist. Ein Sicherheitsrisiko besteht dabei nicht. Sollte die Verifizierung der SSL-Session fehlschlagen, werden die bereits empfangenen Daten verworfen.
+\begin{verbatim}
+  security.ssl.enable_false_start    true  
+\end{verbatim}
+
+ \item[Tracking via SSL-Session-ID] wird ebenfalls von allen Webserven unterstützt. Auch Webshops können die Session-ID für das Tracking verwenden, z.B. die \textit{xtcModified eCommerce Shopsoftware}\footnote{ \href{http://www.modified-shop.org/wiki/SESSION\_CHECK\_SSL\_SESSION\_ID}{http://www.modified-shop.org/wiki/SESSION\_CHECK\_SSL\_SESSION\_ID}}.\\
+
+Gegen das Tracking via Session-ID schützen nur das TorBrowserBundle und der JonDoBrowser (Beta). Man kann sich nicht durch Konfigurationseinstellungen oder Add-ons schützen, da der Source-Code des Browser dafür modifiziert werden muss.
+ \end{description}
+
+
+
+
+\section{Starke Passwörter nutzen}
+Jeder kennt das Problem mit den Passwörtern. Es sollen starke Passwörter sein, sie sollen für jede Site unterschiedlich sein und außerdem soll man sich das alles auch noch merken und auf keinen Fall auf einen Zettel unter der Tastatur ``speichern''. 
+
+\begin{itemize}
+
+\item Was ist ein starkes Passwort? Diese Frage muss man unter Beachtung des aktuellen Stand der Technik beantworten. Wörterbuchangriffe sind ein alter Hut. Das Passwort darf kein Wort aus dem Duden sein, das ist einfach zu knacken. Für zufällige Kombinationen aus Buchstaben, Zahlen und Sonderzeichen kann man Cloud Computing für Brute Force Angriffe nutzen. Dabei werden alle möglichen Kombinationen durchprobiert. Ein 6-stelliges Passwort zu knacken, kostet 0,16 Euro. Eine 8-stellige Kombination hat man mit 400 Euro wahrscheinlich und mit 850 Euro sicher geknackt. Man sollte mindestens 10...12 Zeichen verwenden. (Stand: 2011)
+
+ \item Warum sollte man nicht das gleiche Passwort für viele Logins verwenden? Diese Frage beantwortet der Hack von Anonymous gegen HBGary. Den Aktivisten von Anonymous gelang es, Zugang zur User-Datenbank des Content Management Systems der Website zu erlangen. Die Passwörter konnten geknackt werden. Die Passwörter wurden vom Führungspersonal für weiterer Dienste genutzt: E-Mail, Twitter und Linked-In. Die veröffentlichten 60.000 E-Mails waren sehr peinlich für HBGary \footnote{ 
+ \href{http://www.heise.de/ct/artikel/Ausgelacht-1195082.html}{http://www.heise.de/ct/artikel/Ausgelacht-1195082.html}}.
+\end{itemize}
+
+
+Das Add-on \textbf{PwdHash}\footnote{ \href{https://addons.mozilla.org/de/firefox/addon/pwdhash/}{https://addons.mozilla.org/de/firefox/addon/pwdhash/}} vereinfacht den Umgang mit Passwörtern. Wenn man vor der Eingabe des Passwortes die Taste F2 drückt oder mit einem doppelten @@ beginnt,  wird es in einen einen Hash aus dem Master Passwort und der Domain umgerechnet. Das Ergebnis der Berechnung ist eine 10-stellige zufällige Kombination von Buchstaben und Zahlen und wird als Passwort gesendet. Damit ist es möglich, ein merkbares Master-Passwort für alle Sites zu nutzen, bei denen PwdHash funktioniert. Wichtig ist, dass die Domains der Webseiten für die Änderung und Eingabe der Passwörter identisch sind.\\
+
+PwdHash schützt auch vor Phishing-Angriffen. Da die Seite des Phishers von einer anderen Domain geliefert wird, als die originale Website, wird ein falscher Hash generiert, der für den Angreifer wertlos ist.\\
+
+Sollte man unterwegs auf einem Rechner das Add-on nicht installiert haben, ist das Login-Passwort natürlich nicht zu erraten. Auf der Website des Projektes \footnote{ \href{https://www.pwdhash.com}{https://www.pwdhash.com}} steht der Algorithmus auch als Javascript Applet zur Verfügung. Man kann sein Master Passwort und die Domain eingeben und erhält das generierte Login Passwort. Das kann  man mit Copy \& Paste in das Passwort Eingabefeld übernehmen.
+
+\subsubsection*{Passwortspeicher}
+Passwortspeicher sind kleine Tools, die Username/Passwort Kombinationen und weitere Informationen zu verschiedenen Accounts in einer verschlüsselten Datenbank verwalten. Es gibt mehrere Gründe, die für die Verwendung eines Passwortspeichers sprechen:
+\begin{itemize}
+ \item Viele Programme wie Pidgin oder Jitsi speichern Passwörter unverschlüsselt auf der Festplatte, wenn man die Option zur Speicherung aktiviert (nicht empfohlen!). Andere Programme bieten keinen Möglichkeit zur Speicherung von Passwörtern, fordern aber die Nutzung einer möglichst langen, sicheren Passphrase (z.B LUKS oder Truecrypt).
+ \item Bei vielen Accounts muss man sich neben Unsername und Passwort weitere Informationen merken wie z.B. die Antwort auf eine Security Frage oder PINs bei Bezahldienstleistern.
+ \item In der Regel enthalten Passwortspeicher eine Passwortgenerator, der wirklich zufällige und starke Passwörter generieren kann.
+ \item Das Backup wird deutlich vereinfacht. Man muss nur die verschlüsselte Datenbank auf ein externes Backupmedium kopieren.
+\end{itemize}
+
+Mir gefällt \textit{Keypass}\footnote{ \href{http://keypass.en.softonic.com/}{http://keypass.en.softonic.com}} (Windows) bzw. \textit{KeepassX} (Linux) sehr gut. Die Bedienung ist über­sichtlich. Man kann Einträge gruppieren, komplizierte Passworte können über die Zwischen­ablage in die Eingabefelder kopiert werden und müssen nicht (fehlerhaft) abgetippt werden.
+Um krypto­analytische Angriffe zu erschweren, kann man die Datenbank mehrere 10.000x mit AES256 verschlüsseln.\\
+
+\begin{figure}[htb]
+\begin{center}
+\includegraphics[scale=0.75]{../screenshots/keypass.png}
+\caption{KeepassX Hauptfenster}
+\label{abb:keypass}
+\end{center}
+\end{figure}
+
+Einige Passwortspeicher werben mit der Möglichkeit, die Datenbank zwischen verschiedenen Rechnern und Smartphones zu synchronisieren. Dabei wird die Datenbank \textit{in der Cloud} gespeichert. Das ist für mich ein Graus, vor allem, weil der geheimdienstliche Zugriff auf Daten \textit{in der Cloud} immer mehr vereinfacht wird.\footnote{ \href{https://www.awxcnx.de/gedanken-bestandsdaten.htm}{https://www.awxcnx.de/gedanken-bestandsdaten.htm}}

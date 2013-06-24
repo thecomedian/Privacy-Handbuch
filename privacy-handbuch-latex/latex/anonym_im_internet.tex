@@ -1,0 +1,257 @@
+\documentclass[notitlepage,twoside,a4paper,10pt]{report}
+
+
+\usepackage{ngerman} 
+\usepackage[latin1]{inputenc} 
+\usepackage[T1]{fontenc} 
+\usepackage[pdftex]{graphicx} 
+\usepackage[pdftex,bookmarks=true,colorlinks,linkcolor=blue,urlcolor=blue,citecolor=blue]{hyperref} 
+
+\sloppy
+
+\pagestyle{headings}
+
+%opening
+\title{Anonymität im Internet}
+\author{Verschlüsselte E-Mails mit Thunderbird schreiben,\\E-Mails und News-Postings anonymisiern,\\anonym Surfen mit Mozilla Firefox\\und Datenverschlüsselung}
+\date{\today}
+
+\hypersetup {
+    pdftitle= {Anonymität im Internet }
+    pdfkeywords= {anonyme E-Mail, Verschlüsselung GnuPG S/MIME GNU Privacy Guard Quicksilver Mixmaster Internet Anonymität Proxomitron Cookies TOR JAP Mixkaskade}
+}
+
+
+\begin{document}
+\maketitle
+\tableofcontents
+
+\input{einleitung_part}
+
+\vspace{0.5cm}
+\begin{quote}
+\small
+\textit{Was ziehe ich morgen Abend an? Etwas lässiges oder zeige ich mich eher gut angezogen? Jeans und der gestreiften Pullover würden gut passen zu Jazz - Live, außerdem edle Schuhe und Ringelsöckchen. Wahrscheinlich bringt ... die Kamera mit, um Fotos für den Artikel über die hiesige Szene zu sammeln.}
+\end{quote}
+
+
+\chapter{E-Mails verschlüssen}
+\input{e-mail-krypto_einleitung}
+\input{e-mail_thunderbird}
+
+\vspace{0.5cm}
+\begin{quote}
+\small
+\textit{Was trinkt man abends in einer Jazz-Bar, um in den angenehmen Zustand leichter Träumerei zu verfallen? Luis Brunuel empfiehlt Martini-Dry  - eiskalter englischer Gin, einige Tropfen Wermut (möglichst Noilly-Prat), ein Spritzer Angostura und 1-2 Eiswürfel so hart und kalt, dass sie nicht schmelzen und den Drink verwässern - ich habe es einmal versucht und einen Martini-Dry bestellt. In dem Glas schwappten zwei lauwarme Flüssigkeiten im Mischungsverhältnis 50:50.}
+\end{quote}
+
+\input{e-mail-krypto-gnupg_part}
+
+\vspace{0.4cm}
+\begin{quote}
+\small
+\textit{[1 ungelesene E-Mail im Postfach] - unverschlüsselt\\
+Wie kann man seine Freunde überzeugen, die Nachrichten in einen Umschlag zu stecken? Muss man zu jedem einzeln hingehen, GnuPG installieren und den E-Mail Client konfigurieren?}
+\end{quote}
+
+
+\input{e-mail-krypto-smime_part}
+\vspace{2cm}
+\begin{quote}
+\small
+\textit{Wo liegen denn meine Zigaretten? \textit{Coffee and Cigaretts} - Jim Jarmusch - schon eine Weile her - war ein guter Film und auch ein netter Abend mit ... Zur Zeit läuft ein neuer Jarmusch-Film im Kino: \textit{Broken Flowers}, sollte man sich vielleicht ansehen?}
+\end{quote}
+
+
+\chapter{E-Mails anonym nutzen}
+\input{e-mail-anonym_einleitung}
+
+
+\input{e-mail-anonym_part2}
+
+\begin{quote}
+\small
+\textit{Quicksilver gefällt mir etwas besser, als die Gedichte von diesem Papenfuß, die ich gestern Abend gelesen oder besser überflogen habe. Sie sagen mir nichts. Was ... nur daran findet? Der größte lebende deutsche Lyriker - man merkt es fast jedem Gedicht an, dass Papenfuß sich dafür hält:}
+\begin{verse}
+\small
+\textit{Was Wollt Ihr Fon Mir\\
+Wenn Ihr Euch Weiterhin Nichts\\
+Als Die Zaehne Putzt\\
+Geh Ich Wahrscheinlich Sterben\\
+Ihr Knaller}
+\end{verse}
+\textit{Oh Mann, was soll das! Man muss es nicht weiterlesen, es gibt Alternativen. Zu Quicksilvers etwas spödem Bedienkonzept gibt es im Moment keine Alternative. Ich hoffe, dass mit Einführung der Vorratsdatenspeicherung Erweiterungen für verschiedene E-Mail-Clients entwickelt werden.}
+\end{quote}
+
+\newpage
+\input{e-mail-anonym-unix_part}
+
+\begin{quote}
+\small
+\vspace{1cm}
+\textit{8:30 Uhr: nach einem netten Abend habe ich geschlafen wie ein Murmeltier. Warum bleibt es immer bei einem netten Abend? Ein flüchtiger Kuß zum Abschied - selbst dabei wird ostentativ ein Mindestabstand eingehalten.}
+
+\end{quote}
+
+
+\section{E-Mails anonym empfangen}
+\input{e-mail-nym_part}
+
+\begin{quote}
+\small
+\vspace{3cm}
+\textit{Für einen kurzen Moment, während ... mich gestern abend auf der Bank sitzend fotografierte, habe ich mehr Aufmerksamkeit gespürt als jemals zuvor. Konzentriert, ein Auge zusammengekniffen, das andere hinter der Kamera versteckt, versuchte ... mich einzufangen, mich wirklich zu treffen. Eine Kurzgeschichte von K. Askan schoss mir durch den Kopf. Was wäre gewesen, wenn ich einfach das T-Shirt ausgezogen und die Kleidung abgelegt hätte. Für einen kurzen Moment nackt sein - es war nur eine Vorstellung -  \textit{''Nahe Dran''}.}
+\end{quote}
+
+
+
+
+\chapter{Anonym Surfen}
+\input{surfen_einleitung}
+
+\vspace{1cm}
+\begin{quote}
+\small
+[Neue SMS empfangen] \textit{''wie geht es dir heute, was hast du geträumt letzte nacht?''}\\
+
+[SMS schreiben] \textit{''was könnte ich denn geträumt haben letzte nacht?''}\\
+
+[Neue SMS empfangen] \textit{''blumen auf einer wiese, ein sonnenuntergang ... die steuererklärung ist fertig''}
+\end{quote}
+
+
+\input{surfen_cookies}
+
+\begin{quote}
+\small
+[SMS schreiben] \textit{''nein, lieber blumen auf einer wiese, regen auf der haut... wovon träumst du?''}\\
+\end{quote}
+
+\input{surfen_javascript}
+
+\vspace{0.5cm}
+\begin{quote}
+\small
+[Neue SMS empfangen] \textit{''blaue augen, die verträumt... autsch, jetzt habe ich etwas auf die finger bekommen, also doch vom sonnenuntergang, das bandoneon schrummelt, ein cocktail ...''}\\
+
+[SMS schreiben] \textit{''träumen ist absolut erlaubt! wie geht es weiter und was ist mit den blauen augen?''}
+
+\end{quote}
+
+\input{surfen_werbung}
+
+\begin{quote}
+\small
+[Neue SMS empfangen] \textit{'' weitere träume: möchtest du eine zusammenfassung oder kurze momentschilderungen?''}\\
+
+[SMS schreiben] \textit{''einige kurze momente wären mir lieber, als ermunterung.'}
+\end{quote}
+
+
+\input{surfen_filter}
+
+\vspace{0.5cm}
+\begin{quote}
+\small
+[Neue SMS empfangen] \textit{''ein schwüler tag, donner grollt endlich, bringt Regen - ich stehe am fenster im dunkel und sehe den regen auf deiner haut, ich will dich, jetzt, so kühl und nass.''}
+\end{quote}
+
+\input{surfen_filter_privoxy}
+
+\vspace{0.5cm}
+\begin{quote}
+\small
+[Neue SMS empfangen] \textit{''du mußt nicht so lange überlegen, wie du mir auf die finger klopfst, mach es kurz''}\\
+
+[SMS schreiben] \textit{''in dieser situation ist rückzug nicht mehr relevant - oder?'}
+\end{quote}
+
+\input{surfen_filter_proxomitron}
+
+
+\begin{quote}
+\small
+\vspace{1cm}
+[Neue SMS empfangen] \textit{''rückzug ist nicht mehr relevant - gefangen in der vorhölle, stundenlang aufs handy starren, auf antwort warten - ein Gefühl von Leben.''}
+\end{quote}
+
+\input{surfen_filter_browser_ie}
+
+\vspace{1.0cm}
+\begin{quote}
+\small
+[SMS schreiben] \textit{''reisen im traumabteil - wohl ahnend, aussteigen nicht möglich - verlangen, neugiern, am ende das besinnen''}\\
+
+[Neue SMS empfangen] \textit{''... entspannt nebeneinander liegen auf verschwitzten laken, lässig nach dir fassend spüren, wie die lust schon wiederkehrt...''}\\
+\end{quote}
+
+\input{surfen_mixkaskaden}
+
+
+\begin{quote}
+\small
+[SMS schreiben] \textit{''ich grüble nach, ob unsere wahrnehmnungen wohl übereinstimmend sind?''}\\
+
+[Neue SMS empfangen] \textit{''ist deine sms eine einladung, unsere wahrnehmungen abzugleichen oder soll es noch so weiter treiben, jeder mit seinen wünschen/ängsten?''}\\
+\end{quote}
+
+\subsection{JAP - Anonymity \& Privacy}
+\input{surfen_jap}
+
+\begin{quote}
+\small
+[SMS schreiben] \textit{''dir würde das treibenlassen gefallen...''}
+\end{quote}
+
+\input{surfen_tor_win}
+
+\begin{quote}
+\small
+[Neue SMS empfangen] \textit{''ja, es ist nur der vorraum, habe gerade dein horoskop für heute gelesen. neugierig?''}\\
+
+[SMS schreiben] \textit{''unser horoskop du krebs - was steht drin?''}
+\end{quote}
+
+
+\input{surfen_tor}
+
+\vspace{0.5cm}
+\begin{quote}
+\small
+[Neue SMS empfangen] \textit{''vorher noch eine sicherheitsnachfrage: willst Du es wirklich wissen? es ist nicht leicht zu verdauen.''}
+\end{quote}
+
+\input{surfen_tor_browser}
+
+\begin{quote}
+\small
+[SMS schreiben] \textit{''Unbedingt!''}\\
+
+[Neue SMS empfangen] \textit{''ihre erotischen leistungen sind heute unglaublich. in einer flüchtigen affäre kommt ein unvergeßlicher tag auf sie zu.''}
+\end{quote}
+
+\input{surfen_zusamenfassung}
+
+\vspace{1cm}
+\begin{quote}
+\small
+[SMS schreiben] \textit{''ambivalente gefühlslage - melde mich Mo. wieder''}
+\end{quote}
+
+\chapter{Daten verschlüssen}
+\input{daten_einleitung}
+
+\input{daten_gnupg_part}
+
+\vspace{1cm}
+\begin{quote}
+\small
+\textit{Was nun? -- Im Cafe <\dots> steht vieleicht S. hinter dem Tresen, exotisch schön wie mein blühender Kaktus am Fenster und genauso stachlig, das richtige für ein wenig belanglosen Smalltalk.}
+\end{quote}
+
+
+\input{daten_truecrypt_part}
+
+\input{daten_dmcrypt_part}
+
+\end{document}

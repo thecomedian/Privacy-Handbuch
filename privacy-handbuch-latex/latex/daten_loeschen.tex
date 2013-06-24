@@ -1,0 +1,123 @@
+Neben der sicheren Aufbewahrung von Daten steht man gelegentlich auch vor dem Problem, Dateien gründlich vom Datenträger zu putzen. Es gibt verschiedene Varianten, Datein vom Datenträger zu entfernen. Über die Arbeit der einzelnen Varianten sollte Klarheit bestehen, anderenfalls erlebt man evtl. eine böse Überraschung.
+\section{Dateien in den Papierkorb werfen}
+Unter WIN wird diese Variante als \textit{Datei(en) löschen} bezeichnet, was etaws irreführend ist. Es wird überhaupt nichts beseitigt. Die Dateien werden in ein spezielles Verzeichnis verschoben. Sie können jederzeit wiederhergestellt werden. Das ist kein Bug, sondern ein Feature.\\
+
+Auch beim Löschen der Dateien in dem speziellen Müll-Verzeichnis werden keine Inhalte beseitigt. Lediglich die von den Dateien belegten Bereiche auf dem Datenträger werden als ``frei'' gekennzeichnet. Falls sie nicht zufällig überschrieben werden, kann ein mittelmäßig begabter User sie wiederherstellen. Forensische Toolkits wie \textit{Sleuthkit} unterstützen  dabei. Sie bieten Werkzeuge, die den gesamten, als frei gekennzeichneten Bereich, eines Datenträgers nach Mustern durchsuchen können und Dateien aus den Fragmenten wieder zusammensetzen.
+\section{Dateien sicher löschen (Festplatten)}
+Um sensible Daten sicher vom Datenträger zu putzen, ist es nötig, sie vor dem Löschen zu überschreiben. Es gibt diverse Tools, die einzelne Dateien oder ganze Verzeichnisse shreddern können.
+\begin{itemize}
+ \item Das GpgSX für Windows bietet als Erweiterung für den Explorer die Möglichkeit, Dateien und Verzeichnisse mit einem Mausklick sicher zu löschen: \textit{``Wipe...''}
+ \item Für WINDOWS gibt es AxCrypt (\href{http://www.axantum.com/AxCrypt/}{http://www.axantum.com/AxCrypt}). Das kleine Tool zur Verschlüsselung und Löschung von Dateien integriert sich in den Dateimanager und stellt zusätzliche Menüpunkte für das sichere Löschen von Dateien bzw. Verzeichnissen bereit.
+\item Unter Linux kann KGPG einen Reißwolf auf dem Desktop installieren. Dateien können per Drag-and-Drop aus dem Dateimanager auf das Symbol gezogen werden, um sie zu shreddern.
+\item Für Liebhaber der Kommandozeile gibt es \textit{shred} und \textit{wipe} für Linux. Einzelne Dateien kann man mit \textit{shred} löschen:
+\begin{verbatim}
+   > shred -u dateiname
+\end{verbatim} 
+Für Verzeichnisse kann man \textit{wipe} nutzen. Das folgende Kommando überschreibt rekursiv (Option -r) alle Dateien in allen Unterverzeichnissen 4x (Option -q) und löscht anschließend das gesamte Verzeichnis.
+\begin{verbatim}
+   > wipe -rcf verzeichnis
+\end{verbatim}
+Standardmäßig ohne die Option -q überschreibt \textit{wipe} die Daten 34x. Das dauert bei großen Dateien sehr lange und bringt keine zusätzliche Sicherheit.\\
+
+\textit{Btrfs} soll das kommende neue Dateisystem für Linux werden und wird bereits bei einigen Server-Distributionen eingesetzt. Bei diesem Dateisystem funktionieren shred und wipe NICHT. Btrfs arbeitet nach dem Prinzip \textit{Copy on Write}. Beim Über­schreiben einer Datei werden die Daten zuerst als Kopie in einen neuen Bereich auf der Festplatte geschrieben, danach werden die Metadaten auf den neuen Bereich gesetzt. Ein gezieltes Über­schreiben einzelner Dateien auf der Festplatte ist bei Btrfs nicht mehr möglich. 
+\end{itemize}
+
+Auch bei diesen Varianten bleiben möglicherweise Spuren im Dateisystem zurück. Aktuelle Betriebssysteme verwenden ein Journaling Filesystem. Daten werden nicht nur in die Datei geschrieben, sondern auch in das Journal. Es gibt kein Tool für sicheres Löschen von Dateien, welches direkten Zugriff auf das Journal hat. Die Dateien selbst werden aber sicher gelöscht.
+
+\section{Dateireste nachträglich beseitigen}
+Mit Bleachbit \footnote{ \href{http://bleachbit.sourceforge.net/download}{http://bleachbit.sourceforge.net/download}} kann man die Festplatte nachträglich von Dateiresten säubern. Das Programm gibt es für Windows und Linux. Linuxer können es auch aus den Repositories installieren.\\
+
+Nach der Installation ist Bleachbit als Adminstrator bzw. root zu starten und nur die Option \textit{Free disk space} zu aktivieren (Bild \ref{abb:bleachbit}). Außerdem ist in den Einstellungen ein schreibbares Verzeichnis auf jedem Datenträger zu wählen, der gesäubert werden soll. Anschließend startet man die Säuberung mit einem Klick auf den Button \textit{Clean}.\\
+
+\begin{figure}[htb]
+\begin{center}
+ \includegraphics[scale=0.75]{../screenshots/bleachebit-files.png}
+\caption{Bleachbit}
+\label{abb:bleachbit}
+\end{center}
+\end{figure}
+
+Die Säuberung einer größeren Festplatte dauert einige Zeit. Dabei werden nur die als \textit{frei} gekennzeichneten Bereiche überschrieben, das Dateisystem bleibt intakt.
+
+\section{Dateien sicher löschen (SSDs)}
+Alle oben genannten Tools für Festplatten funktionieren nicht mit Flash basierten Solid State Drives (SSD-Festpaltten und USB-Sticks)! Um die Speicherzellen zu schonen, sorgt die interne Steuerelektronik dafür, dass für jeden Schreibvorgang andere Zellen genutzt werden. Ein systematischen Überschreiben einzelner Dateien ist nicht möglich. Die Auswertung der Raw-Daten der Flash Chips ermöglicht eine Rekonstruktion mit forensischen Mitteln. Mehr Informationen liefert die Publikation \textit{Erasing Data from Flash Drives} \footnote{ \href{http://www.usenix.org/events/fast11/tech/full\_papers/Wei.pdf}{http://www.usenix.org/events/fast11/tech/full\_papers/Wei.pdf}}.\\
+
+Für SSDs ist die Trim Funktion zu aktivieren. Dabei werden den Speicherzellen eines Blocks beim Löschen der Datei auf den Ursprungszustand zurück gesetzt. Zusätzliche Maßnahmen zum sicheren Löschen sind dann nicht mehr nötig. Die meisten aktuellen Betriebssystem aktivieren Trim nicht(!) standardmäßig. Folgende Schritte sind nötig, um Trim nach der Installation für SSDs zu aktivieren:
+
+\begin{description}
+ \item[Windows 7 und neuer] kann TRIM aktivieren. Starten sie das Programm \textit{cmd} als Administrator, um ein Terminal zu öffnen. Im Terminal kann man mit folgendem Kommando den Status der Trim Funktion abfragen: 
+ \begin{verbatim}
+ > fsutil behavior query disabledeletenotify
+ \end{verbatim} 
+Wenn ein Wert = 0 ausgegeben wird, ist Trim aktiviert. Wird ein Wert = 1 ausgegeben, aktivieren sie die Trim Funktion mit folgendem Kommando:
+\begin{verbatim}
+ > fsutil behavior set disabledeletenotify 0
+ \end{verbatim} 
+
+\item[Linux] unterstützt seit Kernel 2.6.33 die TRIM Funktions für SSDs. Das Dateisystem auf der SSD ist mit der Option discard zu mounten, um TRIM zu aktivieren.
+\begin{itemize}
+ \item Für fest eingebaute Datenträger können die Optionen in der Datei /etc/fstab modifiziert und die Option discard eingefügt werden:
+\begin{verbatim}
+  UUID=[NUMS-LETTERS]  /  ext4  discard,errors=remount-ro  0 1
+ \end{verbatim} 
+ \item Die mount-Optionen für USB-Sticks können mit usbmount angepasst werden. Nach der Installations des Paketes \textit{usbmount} und \textit{pmount} kann man in \textit{/etc/usbmount/usbmount.conf} die Mount-Optionen anpassen. Folgende Einstellungen funktionieren bei mir unter Ubuntu\textit{ precise}:
+\begin{verbatim}
+ MOUNTOPTIONS="discard,noexec,nodev,noatime,nodiratime"
+ FS_MOUNTOPTIONS="-fstype=vfat,gid=floppy,dmask=0007,fmask=0117"
+\end{verbatim} 
+Alle Nutzer, die unter Windows mit vFAT formatierte USB-Sticks einsetzen wollen, müssen zur Gruppe floppy gehören (was standardmäßig unter Ubuntu der Fall ist). Die vFAT formatierten Sticks müssen als root ausgehängt werden (mit \textit{pumount}), bevor man den Stick abzieht. Anderenfalls kann es zu Datenverlusten kommen.
+\end{itemize}
+Hinweise: Debian squeeze verwendet noch einen Kernel 2.6.32. und kann mit der Option discard nichts anfangen.
+ \end{description}
+Ich werde für mich persönlich weiterhin die vollständige Verschlüsselung der USB-Sticks den Spielereien mit TRIM vorziehen. Damit werden nicht nur gelöschte Dateien geschützt sondern auch die noch vorhandenen Daten. Das Auslesen der RAW-Daten der Speicherzellen durch Forensiker ist dann ebenfalls wenig erfolgreich.
+
+\section{Gesamten Datenträger säubern (Festplatten)}
+Bevor ein Laptop oder Computer entsorgt oder weitergegeben wird, sollte man die Festplatte gründlich putzen. Am einfachsten erledigt man diesen Job mit Darik's Boot and Nuke (DBAN) \footnote{ \href{http://www.dban.org/}{http://www.dban.org/}} Live-CD. Nach dem Download ist das ISO-Image auf eine CD zu brennen und der Computer mit dieser CD zu booten. Es werden automatisch alle gefundenen Festplatten gelöscht - fertig.\\
+
+Eine beliebige Linux Live-CD tut es auch (wenn man bereits eine Live-CD nutzt). Nach dem Booten des Live Systems öffnet man ein Terminal (Konsole) und überschreibt die gesamte Festplatte. Bei einem Aufruf wird der Datenträger 4x überschrieben, es dauert einige Zeit.\\
+
+Für die erste IDE-Festplatte:
+\begin{verbatim}
+   > wipe -kq /dev/hda
+\end{verbatim} 
+Für SATA- und SCSI-Festplatte:
+\begin{verbatim}
+   > wipe -kq /dev/sda
+\end{verbatim} 
+
+Wenn die Live-CD das Tool \textit{wipe} nicht enthält, kann man alternativ \textit{dd} (disk doubler) nutzen. Um die erste IDE-Festplatte einmal mit NULL und dann noch einmal mit Zufallszahlen zu überschreiben, kann man folgende Kommandos nutzen:
+\begin{verbatim}
+   > dd if=/dev/zero of=/dev/hda
+   > dd if=/dev/urandom of=/dev/hda
+\end{verbatim} 
+
+(Einmal mit NULLEN überschreiben reicht, alles andere ist paranoid.)
+
+\section{Gesamten Datenträger säubern (SSDs)}
+Das komplette Löschen einer SSD-Platte oder eines USB-Sticks funktioniert am besten, wenn der Datenträger den ATA-Befehl SECURE-ERASE unterstützt. Diese Funktion muss allerdings durch den Datenträger bereitgestellt werden. Unter Linux kann man das Tool \textit{hdparm} nutzen, um diese Funktion aufzurufen.\\
+
+Als erstes ist zu prüfen, ob SECURE-ERASE unterstützt wird:
+\begin{verbatim}
+ > sudo hdparm -I /dev/X
+\end{verbatim} 
+Das Ergebnis muss einen Abschnitt \textit{Security} enthalten und muss auf \textit{not frozen} stehen. Falls die Ausgabe \textit{frozen} liefert, wird SECURE-ERASE im Bios des Rechners blockiert.
+\begin{verbatim}
+ Security:
+     Master password revision code = 64060
+         supported
+     not enabled
+     not locked
+     not frozen
+         expired: security count
+         supported: enhanced erase
+\end{verbatim}
+Dann kann man ein Passwort setzen und den Datenträger vollständig löschen:
+
+\begin{verbatim}
+ > sudo hdparm --user-master u --security-set-pass GEHEIM /dev/X
+ > sudo hdparm --user-master u --security-erase GEHEIM /dev/X
+\end{verbatim} 
+Falls der Datenträger SECURE-ERASE nicht unterstützt, bleibt nur das einfache Überschreiben des Datenträgers. Dabei werden aber nicht alle Speicherzellen garantiert gelöscht. Unter Linux auf der Kommandozeile wieder mit:
+\begin{verbatim}
+ > dd if=/dev/zero of=/dev/sdc1
+\end{verbatim} 

@@ -1,0 +1,56 @@
+\section{Ist S/MIME-Verschlüsselung unsicher?}
+Nach unserer Einschätzung ist die S/MIME-Verschlüsselung wesentlich schwächer, als OpenPGP. Die Ursachen liegen nicht in einer Schwäche der verwendeten Algorithmen, sondern in der Generierung und Speicherung der privaten Schlüssel außerhalb der Hoheit des Anwenders.\\
+
+Die Sicherheit asymmetrischer Kryptografie hängt entscheidend von der Vertrauenswürdikeit der privaten Schlüssel ab. Während der öffentliche Schlüssel möglichst breit zu verteilen ist, muss die Verfügungsgewalt für den privaten Schlüssel ausschließlich und vollständig(!) in der Hand des Anwenders liegen. Nur so kann gewährleistet werden, dass kein unbefugter Dritter die vertrauliche Kommunikation entschlüsseln kann.\\
+
+Um die Nutzung der S/MIME-Verschlüsselung für unbedarfte Anwender zu erleichtern, wird die Erzeugung und Aufbewahrung der privaten Schlüssel häufig durch organisatorische Schwächen kompromittiert.
+
+\subsubsection*{Erzeugen der privaten Keys}
+Alle Anbieter von Zertifizierungen für X.509 Zertifikate bieten eine webbasiertes Interface für die Erzeugung und Signatur der Zertifikate. In der Regel werden nach erfolgricher Überprüfung der Identität des Antragstellers zwei Varianten für die Generierung eines gültigen Zertifikates angeboten: 
+\begin{enumerate}
+ \item Man kann nach in einer selbst gewählten sicheren Umgebung den privaten Schlüssel und ein Certification Request (CSR) erzeugen. Der CSR enthält nur den öffentlich Schlüssel. Dieser wird im Webinterface hochgeladen und man erhält via E-Mail oder Download Link das signierte Zertifikat.
+ \item Man die komplette Generierung des privaten und öffentlichen Schlüssels der CA überlassen und muss darauf vertrauen, dass dieser keine Kopie des privaten Schlüssels speichert.
+\end{enumerate}
+
+Aus Bequemlichkeit nutzt die absolute Mehrheit der Anwender den 2. Weg und geht damit das Risiko ein, dass die Schlüssel bereits vor der Verwendung kompromittiert werden könnte.\\ 
+
+In einem Forschungspapier kommen die Sicherheitsforscher C. Soghoian und S. Stamm zu dem Schluss, das die US-Regierung von kooperierenden Certification Authorities die privaten Keys von X509-Zertifikaten erhalten könnte und die US-Behörden somit die Daten problemlos entschlüsseln können. Eine ähnliche Zusammenarbeit gibt es unserer Meinung nach auch zwischen Startcom-SSL und dem isrealischen Geheimdienst.
+
+\subsubsection*{Der Deutsche Bundestag}
+Der Deutsche Bundestag bietet allen Abgeordneten die Möglichkeit, S/MIME für die Verschlüsselung von E-Mails zu verwenden.\\
+
+Die Abgeordneten sind scheinbar nicht über diese Möglichkeit informiert. Bei der technischen Umsetzung gilt das Prinzip \textit{Security by obscurity}, wie ein Testbericht zeigt (\href{http://www.heise.de//tp/r4/artikel/27/27182/1.html}{http://www.heise.de//tp/r4/artikel/27/27182/1.html}).\\
+
+Um die Abgeordneten maximal von der ``komplizierten'' Technik des Entschlüsseln der E-Mail zu entlasten, erfolgt die Entschlüsselung auf einem zentralen Server des Bundestages. Auf diesem zentralen Server liegen auch die privaten Schlüssel und die Zertifikate der Abgeordneten.\\
+
+Damit ist gesichert, dass auch die Sekretärinnen keine Probleme haben, wenn der Absender einer E-Mail diese verschlüsselt und damit sicherstellen wollte, dass nur der Abgordnete selbst sie lesen kann.\\
+
+Hier wird eine Vertraulichkeit der Kommunikation vorgegaukelt. Gefährlich wird dieser Placebo, wenn ein Bürger auf die Sicherheit vertraut und sich gegenüber seinem Abgeordneten freimütiger äußert, als er es unverschlüsselt tun würde.
+
+\subsubsection*{Web.de (Free-) Mail-Account}
+Beim Anlegen eines Mail-Accounts bei Web.de wird automatisch ein S/MIME-Zertifikat für den Nutzer generiert. Der öffentliche und der private Schlüssel liegen auf dem Server des Anbieters. Der Schlüssel ist nicht durch ein Passwort geschützt.\\
+
+Dieses Feature wird von Web.de wie folgt beworben:\\
+
+\textit{``Versehen Sie Ihre E-Mail mit einer digitalen Unterschrift, kann diese auf dem Weg zum Empfänger nicht verändert werden. Die digitale Verschlüsselung sorgt dafür, dass die E-Mail auf dem Weg zum Empfänger nicht gelesen werden kann.''}\\
+
+Außerdem fordert die Website dazu auf, das Zertifikat im eigenen E-Mail Client zu importieren und für die Verschlüsselung zu nutzen.\\
+
+Diese Variante von S/MIME ist ein Placebo, den man ignorieren sollte.\\
+
+Die Werbebotschaft entspricht nicht der Wahrheit. Gemäß geltendem Recht ist die E-Mail beim Empfänger angekommen, wenn der Empfänger Gelegenheit hatte, sie zur Kenntnis zu nehmen. Vorher kann sie jedoch auf dem Server von Web.de entschlüsselt werden (auch von stattlichen Stellen).
+
+\subsubsection*{Projekt De-Mail}
+Auch das geplante Portale De-Mail für die rechtsverbindliche und sichere deutsche Alternative zur E-Mail soll X.509 Zertifikate für die Gewährleistung der vertraulichen Kommunikation nutzen. Die Anforderungen sehen eine Entschlüsselung der vertraulichen E-Mails durch Betreiber des Dienstes ausdrücklich vor. Als Grund wird die Notwendigkeit des Virescans genannt.\\
+
+Außerdem wirbt das Projekt damit, den Nutzern einen ``Datentresor'' für vertrauliche digitale Dokumente zur Verfügung zu stellen. Das Konzept kann jedoch nur als Placebo bezeichnet werden. Sowohl die verschlüsselten Dokumente als auch die Schlüssel für den Zugriff auf die Dokumente sollen beim Anbieter des Dienstes liegen. Die Entschlüsselung der vertraulichen Daten durch Mitarbeiter ist ebenfalls ausdrücklich vorgesehen.\\
+
+Das Projekt De-Mail wird in Zusammenarbeit mit dem ePA einen Key-Escrow (Hinterlegung der Schlüssel bei den Behörden) für unbedarfte Anwender vorrantreiben. Den Anwendern wird eine Sicherheit vorgegaukelt, die durch Behörden einfach kompromittiert werden kann.
+
+\subsubsection*{Schlußfolgerung}
+Im Gegensatz zu OpenPGP kann man bei S/MIME nicht sicher davon ausgehen, dass der Gegenüber seinen privaten Schlüssel selbst generiert hat und dass der Schlüssel ausschließlich ihm zur Verfügung steht.
+Es besteht damit die Gefahr, dass die Vertraulichkeit der Kommunikation nicht umfassend gewährleistet ist.\\
+
+In extremen Fällen ist die angebotene Verschlüsselung nur ein Placebo.\\
+
+Staatliche Projekte wie der ePA zusammen mit dem Projekt De-Mail weichen die Sicherheit der S/MIME Verschlüsselung weiter auf.

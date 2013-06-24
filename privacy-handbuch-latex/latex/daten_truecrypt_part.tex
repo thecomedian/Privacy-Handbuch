@@ -1,0 +1,162 @@
+\section{Truecrypt für WINDOWS}
+Truecrypt basiert auf dem Projekt \textit{Encryption for the masses}. Die Software bietet transparente Ver- und Entschlüsselung beim Laden oder Speichern von Daten unter WINDOWS XP/2000/2003 und Linux. Neben der Verschlüsselung von Daten auf der Festplatte ist es auch für USB-Sticks geeignet.\\
+
+Eine passende Metapher für das Konzept von Truecrypt ist der Container. Ein Container steht rum und nimmt Platz weg, egal ob er leer oder voll ist. In diesem Fall belegt der Container Platz auf der Festplatte oder dem USB-Stick.\\
+
+Ist der Container verschlossen, kommt niemand an die dort lagernden Daten heran. Mit einem Schlüssel kann der Container geöffnet werden (gemounted: in das Dateisystem eingefügt) und jeder, der an einem offenen Container vorbeikommt, hat Zugriff auf die dort lagernden Daten. Als Schlüssel dient eine Passphrase und/oder Schlüsseldatei(en).\\
+
+Der Zugriff auf Dateien innerhalb des geöffneten Containers erfolgt mit den Standardfunktionen für das Öffnen, Schließen und Löschen von Dateien. Auch Verzeichnisse können angelegt bzw. gelöscht werden. Die Verschlüsselung erfolgt transparent ohne weiteres Zutun des Nutzers.
+
+\subsubsection*{Mit doppeltem Boden}
+Ein Feature von Truecrypt ist das Konzept des \textit{versteckten Volumes}, eine Art doppelter Boden für den Container.\\
+
+Der Zugriff auf diesen Bereich ist mit einem zweiten Schlüssel geschützt, einer weiteren Passphrase und/oder Schlüsseldatei(en). Öffnet man den Container mit dem ersten Schlüssel, erhält man Zugriff auf den äußeren Bereich. Verwendet man den zweiten Schlüssel zum Öffnen des Containers, erhält man Zugriff auf den versteckten Inhalt hinter dem doppelten Boden.\\
+
+Während ein einfacher Container leicht als verschlüsselter Bereich erkennbar ist, kann der doppelte Boden innerhalb eines Containers ohne Kenntnis des zweiten Schlüssels nicht nachgewiesen werden. Ist man zur Herausgabe der Schlüssel gezwungen, kann man versuchen, nur den Schlüssel für den äußeren Container auszuhändigen und die Existenz des doppelten Bodens zu leugnen.\\
+
+Ob es plausibel ist, die Existenz des doppelten Bodens zu leugnen, hängt von vielen Faktoren ab. Zeigt z.B. die Historie der göffneten Dokumente einer Textverarbeitung, dass vor kurzem auf einen verschlüsselten Bereich zugegriffen wurde, und man präsentiert einen äußeren Container, dessen letzte Änderung Monate zurück liegt, trifft man wahrscheinlich auf einen verärgerten Richter.\\
+
+Auch der Index verschiedener Programme für die Indexierung der Dokumente auf dem lokalen Rechner (WINDOWS Suche, Google Desktop Search...) liefern möglicherweise Hinweise auf den versteckten Container.\\
+
+Wie gulli.com am 6.10.08 berichtete, ist es unter Umständen möglich, die Existens des versteckten Volumes nachzuweisen. Also Vorsicht bei Nutzung dieses Features.
+
+\subsection{Truecrypt installieren}
+Für die Installation von Truecrypt werden folgende Pakete benötigt:
+
+\begin{itemize}
+ \item Truecrypt von der Site des Projektes \href{http://www.truecrypt.org}{www.truecrypt.org}
+\item Deutsche Sprachanpassung aus den \href{http://www.truecrypt.org/localizations.php}{Language Packs} von Truecrypt
+\end{itemize}
+
+Nach dem Download sind die ZIP-Archive zu entpacken. In dem neuen Ordner \textit{truecrypt-x.y} findet man die Setup-Datei. Diese ist als Administrator zu starten und in dem Install-Assistenten sind die Vorgaben evtl. anzupassen.\\
+
+Ein Klick auf den Button \textit{Install} startet den Prozess. Im Anschluß findet man ein Icon auf dem Desktop und einen neuen Eintrag im Menü.\\
+
+Anschließend ist die Datei \textit{Language.de.xml} aus dem Paket der Sprachanpassung in das Verzeichnis der installierten EXE-Datei zu kopieren.
+
+\subsection{Gedanken zum Schlüssel}
+Bevor man einen verschlüsselten Container erstellt, sollte man sich Gedanken über den Schlüssel zum Öffnen des Containers machen.
+\begin{itemize}
+ \item Eine \textbf{Passphrase} sollte gut merkbar sein und mindestens 20 Zeichen lang sein. Außer Buchstaben sollte sie auch Sonderzeichen und Ziffern enthalten. Das schüttelt man nicht einfach aus dem Ärmel. Wie wäre es mit folgender Phrase:
+\begin{center}
+ \texttt{das geht nur \%mich\% \_AN\_}
+\end{center}
+\item Ein \textbf{Keyfile} kann eine beliebige Datei mit mindestens 1024 Byte Größe sein. Truecrypt bietet die Möglichkeit, gute Keyfiles zu generieren (Menüpunkt: \textit{Schlüsseldateien -> Schlüsseldatei aus Zufallswerten erstellen} im Hauptfenster).
+\end{itemize}
+
+Man kann z.B. einen USB-Stick mit Keyfile(s) vorbereiten. Dieser Stick enthält eine oder mehrere Dateien, welche als Keyfile(s) genutzt werden. Diese Datei(en) können als Standardschlüssel definiert werden (Menüpunkt: \textit{Schlüsseldateien -> Standardschlüsseldateien festlegen}). Zukünftig ist vor dem Öffnen eines Containers lediglich der Stick einzustecken. Es funktioniert wie ein mechanischer Schlüssel und man wird nicht mehr mit einer Passwortabfrage belästigt.\\
+
+\subsection{Verschlüsselten Container erstellen}
+Startet man Truecrypt oder klickt auf das blaue Symbol im Systray, so öffnet sich das Hauptfenster. Der Button \textit{Volume erstellen} ruft einen Assistenten auf, der schrittweise alle nötigen Angaben zur Erstellung eines Volumes abfragt und umfangreiche Erläuterungen bietet.\\
+
+Eingeschränkte Nutzer können lediglich verschlüsselte reguläre Containerdateien erstellen.\\
+
+Administratoren können außerdem Festplattenpartitionen und USB-Sticks verschlüsseln, Hidden Volumes (versteckte Container) erstellen und WINDOWS komlett verschlüsseln.\\
+
+\begin{figure}[htb]
+\begin{center}
+\includegraphics[scale=0.5]{../screenshots/truecrypt_1.png}
+\caption{Assistent zur Erstellung eines Containers}
+\label{abb:truecrypt_assi}
+\end{center}
+\end{figure}
+
+Im Folgenden wird der Ablauf zur Erstellung einer verschlüsselten Containerdatei beschrieben:
+\begin{enumerate}
+ \item Auswahl des Containertypes (reguläres oder verstecktes Volume). Soll ein verstecktes Volume erstellt werden, ist zuerst ein normales Volume zu erstellen, in dem anschließend das zweite Volume versteckt werden kann.
+\item Im zweiten Schritt ist der Dateiname für den Container anzugeben oder als Datenträger die Festplattenpartition bzw. der USB-Sticks (nur als Administrator). Es ist auch als eingeschränkter Nutzer möglich, eine Datei auf einem USB-Stick zu erstellen. Diese Datei könnte 2/3 des Sticks einnehmen. Der Stick kann dann bei Notwendigkeit auch ohne Truecrypt genutzt werden.
+\item Im dritten Schritt ist die Größe der Datei anzugeben. Dieser Schritt entfällt, wenn eine Partition oder USB-Stick komplett verschlüsselt wird.
+\item Im vierten Schritt ist der Schlüssel für das Öffnen des Containers festzulegen. Ein gutes Passwort sollte mindestens 20 Zeichen lang sein. Wer Probleme mit Passwörtern hat, läßt die Eingabefelder leer und nutzt Keyfiles (z.B. vom vorbereiteten USB-Stick).
+\item Die Verschlüsselungseinstellungen im fünften Schritt sind mit den Defaultwerten sinnvoll vorbelegt.
+\item Im letzten Schritt ist das Dateisystem festzulegen, mit welchem der verschlüsselte Bereich formatiert wird. FAT32 ist in den meisten Fällen ausreichend und kann auch unter Linux gelesen werden. Lediglich für sehr große Container oder die Verschlüsselung der \textit{Eigenen Dateien} würden wir NTFS empfehlen.
+\item Im Anschluß wird der Container erstellt. Es ist empfehlenswert, dabei mit der Maus einige sinnlose Bewegungen auszuführen, um hinreichend Entropie für die Zufallsinitialisierung anzusammeln.
+
+\end{enumerate}
+\begin{figure}[htb]
+\begin{center}
+\includegraphics[scale=0.5]{../screenshots/truecypt.png}
+\caption{Hauptfenster von Truecrypt}
+\label{abb:truecrypt_haupt}
+\end{center}
+\end{figure}
+
+\subsection{Verschlüsselten Container öffnen}
+Truecrypt-Container werden beim Öffnen grundsätzlich als neue Laufwerke eingehängt.
+Das in Bild \ref{abb:truecrypt_haupt} dargestellte Hauptfenster von Truecrypt bietet die Möglichkeit, einen Buchstaben für das Laufwerk und die einzubindende Container-Datei bzw. den Datenträger zu wählen.\\
+
+Zu beachten ist die Option \textit{Verlauf nicht speichern}. Ist diese Option aktiv, wird die Historie der geöffneten Container ständig gelöscht. Die Container sind auf der Festplatte oder dem USB-Stick nicht anhand eines speziellen Header als verschlüsselte Bereiche erkennbar. Sie sehen aus, wie zufälliger Datenmüll.\\
+
+\begin{figure}[htb]
+\begin{center}
+\includegraphics[scale=0.5]{../screenshots/truecrypt_use1.png}
+\caption{Eingabe des Schlüssels}
+\label{abb:truecrypt_open}
+\end{center}
+\end{figure}
+
+Anschließend ist der Button \textit{Einbinden} zu wählen. Das in Bild \ref{abb:truecrypt_open} dargestellte Fenster zur Eingabe der Schlüssel erscheint. Hier ist der Schlüssel für das Öffnen des Containers einzugeben (die Passphrase oder/und das Keyfile).\\
+
+Einige Abkürzungen für das Öffnen von Containern:
+\begin{itemize}
+ \item Ein Klick auf eine Datei mit der Endung .tc im Explorer öffnet das Hauptfenster von Truecrypt und setzt den Namen der Datei als zu öffnendes Volume.
+\item Es ist möglich, Favoriten zu definieren und diese alle zusammen über den Menüpunkt \textit{Volumes -> Favoriten einbinden} einzubinden. Favoriten definiert man, indem diese Container eingebunden werden und anschließend die Konfiguration über den Menüpunkt \textit{Volumes -> als Favoriten speichern} gesichert wird.
+\item Als Favoriten definierte Container können bei Start von Truecrypt automatisch eingebunden werden. Unter \textit{Einstellungen -> Voreinstellungen} ist hierfür die entsprechende Option zu aktivieren.
+\item Wird Truecrypt bei der Anmeldung automatisch gestartet, können auch die Favoriten bei Anmeldung eingebunden werden.
+\item Der Button \textit{Alle Datentr. einbinden} untersucht alle Partitionen und USB-Sticks auf Verschlüsselung. Es erscheint nacheinander der Dialog für die Schlüsseleingabe. Der Vorgang kann einige Zeit dauern.
+\end{itemize}
+
+\subsection{Verschlüsselten Container schließen}
+Alle geöffneten Container werden standardmäßig bei der Abmeldung geschlossen. Außerdem gibt es mehrere Möglichkeiten, einen geöffneten Container während der Arbeit wieder zu schließen:
+\begin{itemize}
+ \item Ein Klick mit der rechten Maustaste auf das Truecrypt-Icon im Systray öffnet ein Menü, welches für alle eingebundenen Container das Trennen anbietet.
+\item Im Hauptfenster von Truecrypt kann man mit der rechten Maustaste auf einen eingebundenen Container klicken und ihn trennen.
+\item Der Button \textit{Alle trennen} im Hauptfenster von Truecrypt schließt alle eingebundenen Container.
+\end{itemize}
+
+ACHTUNG: Auch ein Beenden von Truecrypt im Systray schließt die Container nicht(!). Der Dämon läuft weiter. Erst die Abmeldung des Nutzers oder ein Ausschalten des Systems schließt alle Container.
+
+\subsection{WINDOWS komplett verschlüsseln}
+Die aktuelle Version von Truecrypt ermöglicht es, WINDOWS bei laufenden Betrieb in einen verschlüsselten Container zu verschieben. Damit ist es für einen heimlichen Besucher sehr schwer, das System im ausgeschalteten Zustand zu kompromittieren. Es ist jedoch nicht unmöglich, wie das Stoned Bootkit zeigt, siehe \href{http://www.stoned-vienna.com/}{http://www.stoned-vienna.com}.\\
+
+\textbf{Wichtig:} Vorrausetzung für die Nutzung dieses Features ist die Möglichkeit, ein CD-ISO-Image zu brennen. Dieses Image, welches während der Installation angelegt und geprüft wird, enthält wesentliche Daten für die Wiederherstellung, wenn es zu Bitfehlern im Header der Systempartition kommt.\\
+
+\begin{figure}[htb]
+\begin{center}
+\includegraphics[scale=0.5]{../screenshots/truecrypt_sys_1.png}
+\caption{Assistent für die System-Verschlüsselung}
+\label{abb:truecrypt_sys}
+\end{center}
+\end{figure}
+
+Den Assistent für die Systemverschlüsselung startet man im Hauptfenster von Truecrypt über den Menüpunkt \textit{System - Encrypt System Partition}. Als Erstes wird abgefragt, ob nur die Partition von WINDOWS verschlüsselt werden soll oder die gesamte Festplatte. Die Verschlüsselung der gesamten Festplatte funktioniert nicht, wenn die Platte eine erweiterte Partition mit logischen Partitionen enthält oder wenn mehrere Betriebssysteme installiert sind.\\
+
+Da der Masterboot-Record modifiziert wird, bemüht sich Truecrypt, häufige Kombinationen verschiedener Betriebssysteme zu berücksichtigen.\\
+
+Nach der Abfrage des Algorithmus für die Verschlüsselung, der Passphrase (Die mindestens 20 Zeichen lang sein sollte, Keyfiles können nicht genutzt werden!), und der Generierung von Zufallszahlen folgt die Erstellung der Rescue Disk (Bild \ref{abb:truecrypt_rescue}).\\
+
+\begin{figure}[htb]
+\begin{center}
+\includegraphics[scale=0.5]{../screenshots/truecrypt_sys_2.png}
+\caption{Erstellung der Rescue-Disk}
+\label{abb:truecrypt_rescue}
+\end{center}
+\end{figure}
+
+Die Rescue-Disk wird als ISO-Image auf der Festplatte abgelegt und ist auf eine CD zu brennen. Die neue CD ist ins Laufwerk einzulegen. Truecrypt arbeitet erst weiter, wenn es die korrekte Erstellung der CD überprüft hat.\\
+
+Im vorletzten Schritt, stellt Truecrypt mehrere Möglichketen zum Löschen der alten, unverschlüsselten Daten zur Auswahl. Es genügt, die Daten einmal zu überschreiben. Dabei werden nicht die einzelnen Dateien überschrieben, sondern die Platte wird sektorenweise bearbeitet. Das garantiert, dass auch Fragmente gelöschter Dateien beseitigt werden.\\
+
+Da es sich bei der Systemverschlüsselung um einen tiefen Eingriff handelt, führt Truecrypt als nächstes einen Test durch. Der PC wird neu gebootet und der Anwender muss am Bootloader sein Passwort eingeben.\\
+
+Erst wenn dieser Test erfolgreich war, erfolgt die Verschlüsselung des Systems. Dieser Vorgang nimmt je nach Größe der Platte einige Zeit in Anspruch, ca 1-2min pro GByte.\\
+
+Nach Abschluß der Operation ist das System neu zu booten. Dabei wird vom Bootloader wieder das Passwort für den Zugriff auf die Systempartition abgefragt.
+
+\subsection{Traveller Disk erstellen}
+Truecrypt ermöglicht es, unter dem Menüpunkt \textit{Extras -> Traveller Disk erstellen} einen USB-Stick zu verschlüsseln und zusätzlich die Software selbst in einem unverschlüsselten Bereich hinzuzufügen.\\
+
+Der Stick kann so konfiguriert werden, dass beim Anschließen des Sticks mit Hilfe der Autostart Funktion Truecrypt startet, den verschlüsselten Container einbindet und den Explorer öffnet.\\
+
+Dieses Feature soll es ermöglichen, einen verschlüsselten USB-Stick auch an Computern zu nutzen, auf denen Truecrypt nicht installiert ist.\\
+
+Da man für diese Funktion Rechte als Administrator auf dem fremden Rechner benötigt, halte ich das Feature eher für Spielerei. Ein verantwortungsvoller Eigentümer hat mir noch nie diese Rechte eingeräumt und auch ich würde mir gut überlegen, ob jemand auf meinem Rechner Software installieren darf. Für viele Nutzer könnte es aber ein sinnvolles Feature sein.\\

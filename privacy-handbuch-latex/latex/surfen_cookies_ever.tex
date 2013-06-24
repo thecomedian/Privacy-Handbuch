@@ -1,0 +1,38 @@
+\section{EverCookies}
+80\% der Internetnutzer lehnen das Tracking ihres Surfverhaltens ab. Viele Surfer ergreifen einfache Maßnahmen gegen Tracking Cookies. Nach einer Untersuchung von AdTiger blockieren 52,5\% der Surfer die Annahme von Cookies, die nicht von der aufgerufenen Website stammen (sogenannte Third-Party-Cookies). Andere Studien \footnote{ \href{http://smorgasbork.com/component/content/article/84-a-study-of-internet-users-cookie-and-javascript-settings}{http://smorgasbork.com/component/content/article/84-a-study-of-internet-users-cookie-and-javascript-settings}} kommen auf 15\%...35\% Cookie-Verweigerer unter den Surfern (was mir seriöser erscheint). Dabei handelt es meist um Surfer, die regelmäßig auf dem Datenhighway unterwegs sind und somit die Erstellung präziser Profile ermöglichen könnten. Von Gelegenheits-Surfern kann man kaum umfassenden Interessen-Profile erstellen.\\ 
+
+Die Tracking-Branche reagiert auf diese Entwicklung mit erweiterten Markierungen, die unter der Bezeichnung \textit{EverCookie} zusammengefasst werden. Zusätzlich zum Tracking-Cookie werden weitere Markierungen im Browser gespeichert. Später kann ein gelöschtes Tracking-Cookie anhand dieser Markierungen wiederhergestellt werden.\\
+
+Nach empirischen Untersuchungen der University of California \footnote{ \href{http://www.law.berkeley.edu/privacycensus.htm}{http://www.law.berkeley.edu/privacycensus.htm}} nutzen viele Tracking­dienste EverCookie Techniken. Häufig werden seit 2005 Flash-Cookies bzw. LSOs parallel zu normalen Cookies eingesetzt, wobei diese Technik auf dem absteigenden Ast ist. 2011 nutzen 37\% der TOP100 Webseiten diese Technik, 2012 nur noch 17\%. Die Flash-Cookies werden durch HTML5-Speichertechniken wie DOMstorage ersetzt und ETags. 31\% der TOP100 Webseiten nutzen moderne HTML5-Techniken zur Markierung der Surfer (Stand 2012). 
+\begin{itemize}
+\item Die \textit{Google-Suche} nutzt DOMstorage, was eine Markierung von Nutzern auch bei deaktivierten Cookies ermöglicht.
+\item Die Firma \textit{Clearspring} protzt damit, präzise Daten von 250 Mio. Internetnutzern zu haben. Sie setzte bis 2010 Flash-Cookies ein, um gelöschte Cookies wiederherzustellen.
+\item \textit{Ebay.de} verwendet Flash-Cookies, um den Browser zu markieren.
+\item \textit{AdTiger.de} bietet umfangreiche Angebote zur gezielten Ansprache von Surfern und protzt damit, 98\% der Zugriffe über einen Zeitraum von deutlich länger als 24h eindeutig einzelnen Nutzern zuordnen zu können. Nach einer eigenen Studie kann AdTiger aber nur bei 47,5\% der Surfer normale Cookies setzen.
+\item Die Firma \textit{KISSmetrics} (\textit{``a revolutionary person-based analytics platform``}) setzte zusätzlich zu Cookies und Flash-Cookies noch ETags aus dem Cache, DOMStorage und IE-userData ein, um Surfer zu markieren. Aufgrund der negativen Schlagzeilen wird seit Sommer 2011 auf den Einsatz von ETags verzichtet.
+\end{itemize}
+
+\subsubsection*{EverCookies - never forget}
+Der polnische Informatiker Samy Kamkar hat eine Demonstration \footnote{ \href{http://samy.pl/evercookie/}{http://samy.pl/evercookie/}} von EverCookie Techniken erstellt, die verschiedene technische Möglichkeiten basierend auf HTML5 zeigen:
+\begin{itemize}
+\item Local Shared Objects (Flash Cookies)
+\item Silverlight Isolated Storage
+\item Cookies in RGB Werten von automatisch generierten Bildern speichern
+\item Cookies in der History speichern
+\item Cookies in HTTP ETags speichern
+\item Cookies in Browser Cache speichern
+\item window.name auswerten
+\item Internet Explorer userData Storage
+\item Internet Explorer userData Storage
+\item HTML5 Database Storage via SQLite
+\item HTTP-Auth speichern (zukünftig)
+\end{itemize}
+
+\subsubsection*{Verteidigungsstrategien}
+Zur Verteidigung gibt es drei Möglichkeiten:
+\begin{enumerate}
+\item Die Verbindung zu Tracking-Diensten kann mit \textbf{AdBlockern} komplett verhindert werden. Es sind Filterlisten zu nutzen, die in der Regel als Privacy Listen bezeichnet werden.
+\item Viele EverCookie Techniken nutzen Javascript. Die \textbf{Freigabe von Javascript} nur auf wenigen, vertrauenswürdigen Seiten schützt ebenfalls.
+\item Ein EverCookie-sicherer Browser kann nur mit Konfigurationseinstellungen nicht erreicht werden. Der Datenverkehr ist durch zusätzliche Maßnahmen zu reinigen. Bisher kann nur der \textbf{JonDoFox} und der \textbf{JonDoBrowser} alle von Samy Kamkar vorgestellten Techniken während des Surfens blockieren.
+\item Der \textbf{TorBrowser} beseitigt alle Markierungen beim Beenden der Surf-Session (Schließen des Browsers oder \textit{Neue Identität} im TorButton wählen). Während der Session ist man anhand von EverCookies wiedererkennbar. Dieses Verhalten entspricht der Zielstellung der Tor-Entwickler. 
+\end{enumerate}

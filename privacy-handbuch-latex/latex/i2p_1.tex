@@ -1,0 +1,24 @@
+
+
+\subsection{Installation des I2P-Routers}
+Für die Nutzung des Invisible Internet Projects benötigt man den I2P-Router, der als Proxy für verschiedene Anwendungen (Webbrowser, E-Mail Client...) dient und die Weiterleitung der Daten vom und zum I2P-Netz übernimmt. Der I2P-Router ist eine Java-Applikation und steht unter \href{http://www.i2p2.de}{www.i2p2.de} zum Download bereit.\\
+
+\begin{description}
+ \item[Windows:] Als erstes ist ein Java-Runtime-Environment (JRE) zu installieren. Das Installationsprogramm für Java gibt auf der Webseite www.java.com\footnote{ \href{http://www.java.com/de/}{http://www.java.com/de/}}. Der Installer möchte unbedingt die \textit{Ask-Toolbar} für alle Browser installieren. Das sollte man deaktivieren, braucht man nicht.\\
+
+ WICHTIG: Der Installer aktiviert auch ein Java-Plugin für alle Browser. Dieses Plug-in ist ein Sicherheitsrisiko und muss im Java Control Panel unter \textit{Systemsteuerung - Programme - Java} deaktiviert werden!
+\begin{center}
+\includegraphics[scale=0.55]{../screenshots/java-ctrl-klein.png}
+\end{center}
+
+ Anschließend kann der I2P-Router installiert werden. Die Datei \textit{i2pinstall-0.x.y.exe} von der I2P Downloadseite \href{http://www.i2p2.de/download.html}{http://www.i2p2.de/download.html} enthält einen kompletten Installer, der nach dem Start alles Nötige einrichtet. Einfach starten und dem Assistenten folgen. Nach der Installation findet man im Startmenü die neue Gruppe \textit{I2P} (Bild \ref{abb:i2pstartwin}).\\
+ 
+  \begin{figure}[htb]
+  \begin{center}
+  \includegraphics[scale=0.60]{../screenshots/i2p-win.png}
+  \caption{I2P im Startmenü von Windows}
+  \label{abb:i2pstartwin}
+  \end{center}
+  \end{figure}
+
+Die beiden Punkte zum Starten von I2P unterscheiden sich nur gering. Im ersten Fall hat man keine störende Konsole auf dem Desktop. \textit{I2P router console} öffnet den Webbrowser, um den Router zu konfigurieren oder abzuschalten mit der Adresse \href{http://localhost:7657}{http://localhost:7657}.

@@ -1,0 +1,31 @@
+\subsubsection*{rsync}
+Das Tool \textit{rsync} ist in allen Linux-Distributionen enthalten und insbesondere für Scripte einfach verwendbar. Es synchronisiert die Dateien eines Zielverzeichnisses mit dem Quellverzeichnis und überträgt dabei nur die Änderungen. Ein Beispiel zeigt das Sichern der E-Mails und Adressbücher von Thunderbird:
+
+\begin{verbatim}
+   rsync -av --delete $HOME/.thunderbird /backup_dir/.thunderbird
+\end{verbatim} 
+
+Eine zweite Variante zum Sichern des gesamten \$HOME inklusive der versteckten Dateien und exklusive eines Verzeichnisses (mp3) mit großen Datenmengen:
+
+\begin{verbatim}
+   rsync -av --delete --include=$HOME/. --exclude=$HOME/mp3 $HOME /backup_dir/
+\end{verbatim} 
+
+Die Option \textit{--delete} löscht im Orginal nicht mehr vorhandene Dateien auch in der Sicherungskopie. Weitere Hinweise liefert die Manualpage von rsync.\\
+
+Standardmäßig sichert rsync keine versteckten Dateien und Verzeichnisse, die mit einem Punkt beginnen. Diese Dateien und Verzeichnisse müssen mit einem "--include" angegeben werden. Im Beispiel werden alle versteckten Verzeichnisse und Dateien mit gesichert.\\
+
+Ein kleines Script, welches alle nötigen Verzeichnisse synchronisiert, ist schnell gestrickt. Eine backup-freundliche Struktur im \$HOME-Verzeichnis erleichtert dies zusätzlich. 
+
+\subsubsection*{Grsync}
+GRsync ist ein grafischen Interface für rsync. Auch dieses Tool ist in allen Linux/Unix Distributionen enthalten.\\
+
+Nach dem Start kann man mit dem Button ``+`` mehrere Profile für verschiedene, wiederkehrende Aufgaben anlegen. Jedem Profil wird ein Quell - und ein Zielverzeichnis sowei die rsync-Parameter zugeordnet. Ein Klick auf die kleine Rakete oben rechts startet die Synchronisation (Bild \ref{abb:grsync1}).
+
+\begin{figure}[htb]
+\begin{center}
+\includegraphics[scale=0.75]{../screenshots/grsync1.png}
+\caption{Hauptfenster von Grsync}
+\label{abb:grsync1}
+\end{center}
+\end{figure}

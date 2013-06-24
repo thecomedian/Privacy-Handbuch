@@ -1,0 +1,28 @@
+\item[Ubuntu:] Für Ubuntu kann man das offizielle PPA Repository der I2P Maintainer nutzen. Dieses Repository enthält nur den I2P-Router. Es wird mit folgenden Kommandos aktiviert und danach der I2P-Router installiert: 
+\begin{verbatim}
+  > sudo apt-add-repository ppa:i2p-maintainers/i2p
+  > sudo apt-get update
+  > sudo aptitude install i2p 
+\end{verbatim}
+Außerdem gibt es das I2P PPA-Repository von KYTV. Dieses Repository enthält neben dem I2P-Router weitere nützliche Software wie I2P-Bote. Das Repository wird mit folgendem Kommando aktiviert: 
+\begin{verbatim}
+  > sudo apt-add-repository ppa:i2p.packages/i2p
+\end{verbatim}
+Danach kann man wie üblich alles nötige auf die Platte spülen: 
+\begin{verbatim}
+  > sudo apt-get update
+  > sudo aptitude install i2p i2p-bote
+\end{verbatim}
+
+\item[Linux:]  Installieren Sie als erstes Java (Paket: \textit{default-jre}) mit der Paketverwaltung der Distribution. Anschließend kann der I2P-Router installiert werden. Den Installer \textit{i2pinstall-0.x.y.jar} findet man auf der Downloadseite des Projektes\footnote{ \href{http://www.i2p2.de/download.html}{http://www.i2p2.de/download.html}}. Nach dem Downlad startet man den Installer und wählt die Sprache sowie Verzeichnis für die Installation:
+\begin{verbatim}
+ > java -jar i2pinstall-*.jar
+\end{verbatim}
+In dem neu angelegten Installationsverzeichnis findet man das Script zum Starten/Stoppen des I2P-Routers:
+\begin{verbatim}
+ > ~/i2p/i2prouter start
+\end{verbatim}
+
+Stoppen lässt sich der Router in der Router-Konsole im Webbrowser unter  \href{http://localhost:7657}{http://localhost:7657} mit Klick auf den Link \textit{shutdown} oder obiges Kommando mit der Option \textit{stop}.
+
+\item[Linux (advanced):] K. Raven hat eine umfassende Anleitung geschrieben, wie man den I2P-Router in einer chroot-Umgebung installiert und mit AppAmor zusätzlich absichert. Lesenswert für alle, die es richtig gut machen wollen. Link: \href{http://wiki.kairaven.de/open/anon/chrooti2p}{http://wiki.kairaven.de/open/anon/chrooti2p}

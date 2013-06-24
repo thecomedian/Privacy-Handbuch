@@ -1,0 +1,18 @@
+Weltweit wird der unverschlüsselte E-Mail Verkehr systematisch gescannt. Führend ist die NSA mit \textit{Echelon}, das auch zur Industriespionage sowie zum Abhören von NGOs verwendet wird, und Abhörschnittstellen bei allen großen amerikanischen ISPs. Frankreich betreibt ein ähnliches System unter dem Namen \textit{French ECHELON}. Das russische Pendant zur NSA ist der SSSI (früher FAPSI). Der schwedische Geheimdienst FRA und das Schweizer Onyx Projekt nutzen Supercomputer zur Verarbeitung der abgeschnorchelten Datenmengen. Für Saudi Arabien, Syrien, Iran, Tunesien und Ägypten wurden entsprechende Aktivitäten nachgewiesen und die \textit{Great Firewall} von China verfügt ebenfalls über die nötigen Features.\\
+
+In Deutschland wird der E-Mail Verkehr im Rahmen der \textit{Strategischen Fernmeldeaufklärung} von den Geheimdiensten gescannt. Eine von der G-10 Kommision genehmigte Stichwortliste mit 16.400 Begriffen (Stand 2010) wird für die automatisierte Vorauswahl verwendet, um nach Waffenhandel, Prolieferation und Terroristen zu suchen. Im Jahr 2010 meldeten die Scanner 37 Mio. E-Mails als verdächtig. 2011 hat der BND es geschafft, die automatisierten Scanner mit einem Spamfilter zu kombinieren, so dass ``nur noch`` 2,1 Mio. E-Mails als verdächtig gemeldet und kopiert wurden. \\
+
+Mit dem \textbf{Verschlüsseln} von E-Mails wird die Vertraulichkeit der Kommunikation gewährleistet. Eine Nachricht kann nur vom Empfänger geöffnet und gelesen werden.
+
+\subsubsection*{Asymmetrischen Verschlüsselung}
+\begin{itemize}
+\item Jeder Anwender generiert ein Schlüsselpaar bestehend aus einem geheimen und einem öffentlichen Schlüssel. Während der geheime Schlüssel sorgfältig geschützt nur dem Anwender zur Verfügung stehen sollte, ist der öffentliche Schlüssel an alle Kommunikationpartner zu verteilen.
+\item Wenn der Anwender Anton eine signierte E-Mail an die Anwenderin Beatrice senden will, erstellt er eine Signatur mit \textit{seinem geheimen Schlüssel}. Die Anwenderin Beatrice kann mit dem \textit{öffentlichen Schlüssel von Anton} die Nachricht verifizieren, da nur Anton Zugriff auf seinen geheimen Schlüssel haben sollte.
+\item Wenn Beatrice eine verschlüsselte Nachricht an Anton senden will, nutzt sie den \textit{öffentlichen Schlüssel von Anton}, um die Nachricht zu chiffrieren. Nur Anton kann diese E-Mail mit seinem geheimen Schlüssel dechiffrieren und lesen.
+\end{itemize}
+
+Mit OpenPGP und S/MIME haben sich zwei Standards etabliert:
+\begin{itemize}
+ \item \textbf{OpenPGP:} PGP (Pretty Good Privacy) und die kostenlose Alternative GnuPG (GNU Privacy Guard) stellen für die Verschlüsselung eine lang erprobte Software zur Verfügung. In der Regel können gängige E-Mail Programme nicht out-of-the-box mit OpenPGP umgehen. Installation zusätzlicher Software ist nötig. Dafür ist es relativ einfach, die nötigen Schlüssel zu erzeugen. Für den Austausch der Schlüssel stellt das Internet eine ausgebaute Infrastruktur bereit.
+\item \textbf{S/MIME:} Das Secure MIME Protokoll (S/MIME) wurde 1998 entwickelt und ist heute in den meisten E-Mail Clients integriert. Es werden Zertifikate nach dem Standard X.509 für die Verschlüsselung genutzt. Diese Zertifikate werden von einer Certification Authority (CA) ausgestellt und beglaubigt. Es ist nötig, gegenüber der CA die Identität des Nutzers mit Ausweisdokumenten nachzuweisen.
+ \end{itemize}

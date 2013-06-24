@@ -1,0 +1,119 @@
+\subsection{Backups mit aespipe verschlüsseln}
+\textit{aespipe} ist Teil des AES-Loop Projektes und steht in fast allen Linux Distributionen zur Verfügung. Das Paket kann mit den Paketmanagern der Distribution installiert werden.
+
+\subsubsection*{Verschlüsseln}
+Das Programm \textit{aespipe} tut, was der Name vermuten läßt. Es ver- und entschlüsselt einen Datenstrom in einer Pipe mit dem AES-Algorithmus. Ein ganz einfaches Beispiel:
+\begin{verbatim}
+   > tar -cj datadir | aespipe > data.tar.bz2.enc
+\end{verbatim}
+
+Der Inhalt des Verzeichnisses \textit{datadir} wird in ein komprimiertes TAR-Archiv gepackt und anschließend verschlüsselt in die Datei \textit{data.tar.bz2.enc} geschrieben. Dabei wird eine mindestens 20 Zeichen lange Passphrase abgefragt.\\
+
+Wer eine etwas stärkere Verschlüsselung nutzen möchte:
+\begin{verbatim}
+  > tar -cj datadir | aespipe -C 10 -e aes256 > data.tar.bz2.enc
+\end{verbatim}
+
+Die Option \textit{-C 10} bewirkt, das der Schlüssel selbst 10.000x mit AES bearbeitet wird. Das erschwert Brute-Force-Attacken. Mit \textit{-e aes256} nutzt das Programm 256 Bit lange Schlüssel.\\
+
+Es ist auch möglich, eine asymmetrische Verschlüsselung mit einem GnuPG-Key zu nutzen. Das Password wird dabei mit dem Programm \textit{gpg} verschlüsselt:
+\begin{verbatim}
+   > tar -cj data_dir | aespipe -K gpgkey > data.tar.bz2.enc
+\end{verbatim}
+
+Der GnuPG-Key kann dabei mit seiner ID (z.B. 0x35AD65GF) oder mit einer E-Mail Adresse spezifiziert werden und sollte als vertrauenswürdiger Key im Keyring vorhanden sein.
+
+\subsubsection*{Entschlüsseln}
+Entpacken kann man das verschlüsselte Archiv mit folgendem Kommando:
+\begin{verbatim}
+   > aespipe -d < data.tar.bz2.enc | tar -xj
+\end{verbatim}
+
+\subsubsection*{Für Maus-Schubser}
+Die Dateimanager der Linux-Desktops KDE und Gnome bieten mit sogenannten \textit{Aktionen} die Möglichkeit, zusätzlich Befehle in das Kontextmenü der Dateien zu integrieren. Für Konqueror (KDE) erstellt man eine kleine Textdatei und speichert sie mit der Endung \textit{.desktop} im Verzeichnis \textit{~/.kde/share/apps/konqueror/servicemenus}\\
+
+Die Datei \textit{encryptfileaespipe.desktop} könnte folgenden Inhalt haben:
+\begin{verbatim}
+  [Desktop Entry]
+  ServiceTypes=all/allfiles
+  Actions=encryptfileaespipe
+
+  [Desktop Action encryptfileaespipe]
+  TryExec=aespipe
+  Exec=konsole -e bash -c "cat %f | aespipe -T > %f.enc"
+  Name=Datei verschlüsseln (aespipe)
+  Icon=encrypted
+\end{verbatim} 
+
+Zukünftig findet man im Kontextmenü einer Datei unter \textit{Aktionen} den Menüpunkt \textit{Datei verschlüsseln (aespipe)} (Bild \ref{abb:konqaespipe}). Wählt man diesen Punkt, öffnet sich ein Terminal zur doppelten Passwortabfrage. Anschließend findet man eine neue Datei im Verzeichnis mit der zusätzlichen Endung .enc, die man auf das Backup-Medium schieben kann. Verzeichnisse sind zuerst zu komprimieren. Einträge dafür sind im Servicemenü bereits vorhanden.
+
+\begin{figure}[htb]
+ \begin{center}
+  \includegraphics[scale=0.75]{../screenshots/konq_aespipe.png}
+  \caption{Neue Aktion im Servicemenü von Konqueror}
+\label{abb:konqaespipe}
+ \end{center}
+\end{figure}
+
+\subsection{Verschlüsselte Backups mit dar}
+Der Disk Archiver \textit{dar} steht auf der Projektwebseite\footnote{ \href{http://dar.linux.free.fr}{http://dar.linux.free.fr}} zum Download bereit und ist auch in fast allen Linux Distributionen enthalten. Mit KDar \footnote{ \href{http://sourceforge.net/projects/kdar/}{http://sourceforge.net/projects/kdar/}} (für KDE) und DarGUI \footnote{ \href{http://sourceforge.net/projects/dargui/}{http://sourceforge.net/projects/dargui/}} (für GTK) stehen grafische GUIs zur Verfügung.\\
+
+Ich möchte hier nicht das 30-seitige Manual-Page von \textit{dar} wiedergeben, das Programm bietet viele Möglichkeiten, und  beschränke mich auf die einfache Erstellung eines verschlüsselten, komprimierten Backups für ein abgeschlossenes Projekt. Neben diesem einfachen Voll-Backup sind auch inkrementelle Backups möglich, eine Manager zur Verwaltung verschiedener Backups steht zur Verfügung, spezielle Optionen für Cron-Jobs...\\
+
+Standardmäßig erstellt \textit{dar} ein Backup der Dateien des aktuellen Verzeichnisses:
+\begin{verbatim}
+   > cd $HOME/Projekt_X
+   > dar -c $HOME/backup/projekt_full -K bf:
+\end{verbatim} 
+
+Mit der Option ``-K bf:'' aktiviert man die Verschlüsselung. Es wird beim Erstellen des Backups nach einer Passphrase gefragt.\\
+
+Nach dem Durchlauf des Programms findet man im Verzeichnis \$HOME/backup die Dateien \textit{projekt\_full.1.dar}, \textit{projekt\_full.2.dar}.... usw. Das gesamte Backup wird Brenner-freundlich in mehrere Slices aufgeteilt, die man auf eine CD oder DVD brennen kann. Die weiteren Parameter können in einer Konfigurationsdatei festgelegt werden.\\
+
+Um ein inkrementelles Backup zu erstellen, das auf ein älteres Backup aufbaut und nur geänderte Dateien sichert, ist die Option -A mit den Pfad zum alten Backup anzugeben:
+
+\begin{verbatim}
+   > cd $HOME/Projekt_X
+   > dar -c $HOME/backup/projekt_diff1 -A $HOME/backup/projekt_full -K bf:
+\end{verbatim} 
+
+Das Wiederherstellen des Backups von den CD-ROMs ins aktuelle Verzeichnis erfolgt mit folgendem Kommando:
+\begin{verbatim}
+   > mkdir Projekt_X
+   > cd Projekt_X
+   > dar -x -p /media/cdrom
+\end{verbatim} 
+
+Die Option -p sorgt dafür, dass nach jedem Slice eine Pause gemacht wird, um dem User die Möglichkeit zu geben, die CD zu wechseln.\\
+
+Um nicht bei jedem Aufruf einen Rattenschwanz von Optionen angeben zu müssen, bietet dar die Möglichkeit, Standards in den Dateien /etc/darrc oder \$HOME/.darrc zu speichern. Die folgende kommentierte Vorlage kann in einen Editor übernommen und gespeichert werden:
+\begin{verbatim}
+# Allgemeine Optionen
+all:
+
+# Backups mit gzip komprimiert
+-z9
+# Backups mit Blowfisch verschlüsselt
+-K bf:
+
+# Option für das Anlegen von Backups
+create:
+
+# Größe einer Slice (für DVDs: -s 4G)
+-s 700M
+# Komprimierte Dateien nicht nochmals komprimieren
+-Z *.gz
+-Z *.bz2
+-Z *.mp3
+# Keine BAK-Dateien sichern
+-X *~
+-X *.bak
+
+# Option für das Extrahieren von Backups
+extract:
+
+# ein Beep nach jedem Slice
+-b
+\end{verbatim} 
+
+Weitere Optionen findet man in der Dokumentation.

@@ -1,0 +1,67 @@
+\section{TrueCrypt für Linux}
+TrueCrypt, hauptsächlich für WINDOWS entwickelt, steht auch für Linux zum Download zur Verfügung - eine Option für alle, die verschlüsselt Daten zwischen Linux und WINDOWS tauschen möchten.\\
+
+\textbf{Achtung:} Die Linux-Version verwendet ein eigenes Kernel-Modul für den Datenzugriff. Dieses ist nach einem Update des Kernels oder einem Upgrade der Distribition wahrscheinlich unbrauchbar. Die gesamte Installation muss erneut durchlaufen werden. Solange die verwendete Distribution kein zum Kernel passend kompiliertes TrueCrypt bietet, würde ich die Verwendung auf den Datenaustausch mit WINDOWS beschränken.\\
+
+Mit \textbf{OneKript} steht auf Sourceforge.net ein grafisches GUI für Linux zum Download bereit. Dieses GUI ist für KDE konzipiert und nutzt den Kommander. \href{http://onekript.sourceforge.net/}{http://onekript.sourceforge.net/}
+
+\subsubsection*{Installation}
+Die komplexe Installation ist von en Entwicklern gut gelöst. Man benötigt die Quellen des verwendeten Kernel, welche mit den Tools zur Packetverwaltung installiert werden können.\\
+
+Das TrueCrypt-Archiv ist nach dem Download in das Verzeichnis \textit{/usr/src} zu entpacken. Anschließend ist in das Verzeichnis mit den Linux-Sourcen zu wechseln und die Übersetzung mit em Script \textit{build.sh} zu starten. Das Ergebnis wird dann mit \textit{install.sh} installiert.
+
+\begin{verbatim}
+  # tar -xzf truecrypt-4.2.a-source-code.tgz -C /usr/src
+  # cd /usr/src/truecrypt-4.2.a/Linux
+  # ./build.sh
+  .....
+  # ./install.sh
+\end{verbatim}
+
+Die Übersetzung dauerte auf meinem Rechner mehr als 30min. Anscheinend wird dabei auch der Kernel neu kompiliert (aber nicht installiert!).
+
+\subsubsection*{Container öffnen}
+Für den transparenten Zugriff auf verschlüsselte Container wird der Device-Mapper genutzt. Das öffnen eines Containers erfolgt in zwei Schritten:
+\begin{enumerate}
+ \item Als erstes wird der Container dem Device-Mapper unterstellt. Im Beispiel wird die verschlüsselte Containerdatei \textit{geheim.tc} vom USB-Stick als erstes TrueCrypt Device gemappt.
+\begin{verbatim}
+  > truecrypt -N 1 /media/usbstick/geheim.tc
+\end{verbatim}
+\item Anschließend kann das Device mit dem mount-Befehl in das Dateisystem eingebunden werden, beispielsweise nach \textit{/mnt}.
+\begin{verbatim}
+   > mount /dev/mapper/truecrypt1 /mnt
+\end{verbatim}
+\end{enumerate}
+
+Beide Schritte können mit dem folgenden Kommando zusammengefasst werden, welches automatisch das nächste freie TrueCrypt Device nutzt.
+\begin{verbatim}
+  > truecrypt /media/usbstick/geheim.tc /mnt
+\end{verbatim}
+
+\subsubsection*{Container schließen}
+Auch das Schließen eines Containers erfolgt in zwei Schritten. Als estes ist das Device mit dem umount-Befehl auszuhängen, anschließend wird das Mapping des Containers aufgehoben:
+\begin{verbatim}
+  > umount /mnt
+  > truecrypt -d 1
+\end{verbatim}
+
+Auch hier gibt es ein Vereinfachung. Das folgende Kommando hängte alle TrueCrypt Devices aus und schließt die Container:
+\begin{verbatim}
+  > truecrypt -d
+\end{verbatim}
+
+\subsubsection*{Weitere Features}
+Es ist auch unter Linux möglich, verschüsselte Container zu erstellen. Der folgende Befehl startet die Erstellung einer verschlüsselten Containerdatei auf dem USB-Stick. Dabei werden alle Informationen nacheinander abgefragt:
+\begin{verbatim}
+  > truecrypt -c /media/usbstick/geheim.tc
+\end{verbatim}
+
+Da TrueCrypt sehr empfindlich auf Bitfehler im Kopf der Datei reagiert, empfehlen die Entwickler, eine Sicherung des Headers zu speichern um diesen bei Bedarf wieder herstellen zu können:
+\begin{verbatim}
+  > truecrypt --backup-header BackupDatei Container
+\end{verbatim}
+
+Mit dem folgenden Befehl kann ein gesicherter Header wieder hergestellt werden:
+\begin{verbatim}
+  > truecrypt --restore-header BackupDatei Container
+\end{verbatim}

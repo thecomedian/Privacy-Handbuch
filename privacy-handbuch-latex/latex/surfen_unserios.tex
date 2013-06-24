@@ -1,0 +1,107 @@
+\section{Finger weg von unserösen Angeboten}
+Neben Projekten, die sich wirklich um eine anonyme Lösung für Surfer bemühen, gibt es immer wieder Angebote, die unbedarfte Anwender ködern wollen.
+
+\subsection{Web-Proxys}
+Web-Proxys mit HTTPS-Verschlüsselung sind ein probates Mittel, um Zensur im Internet zu um­gehen. Sie sind aber als Anonymisierungsdienste unbrauchbar. Mit kruden HTML-Elementen oder Javascript ist es möglich, die meisten Web-Proxys auszutricksen und die reale IP-Adresse des Nutzers zu ermitteln.\\
+
+Die folgende Tabelle zeigt eine Liste bekannter Webproxys, die den Anonymitätstest der JonDos GmbH nicht bestehen:
+\begin{center}
+\begin{tabular}{llll}
+\textbf{Betreiber} & \textbf{HTML/CSS} & \textbf{Javascript} & \textbf{Java}\\
+\hline
+Anonymouse & gebrochen & gebrochen & gebrochen\\
+Cyberghost Web & & gebrochen & gebrochen\\
+Hide My Ass! &  & gebrochen & gebrochen\\
+WebProxy.ca &  & gebrochen & gebrochen\\
+KProxy &  & gebrochen & gebrochen\\
+Guardster &  & gebrochen & gebrochen\\
+Megaproxy & gebrochen & nicht verfügbar & nicht verfügbar\\
+Proxify &  & gebrochen & gebrochen\\
+Ebumna & gebrochen & gebrochen & gebrochen
+\end{tabular}
+\end{center}
+
+Einige Webproxys erlauben es, Javascript mit dem Aktivieren einer Option auf der Startseite zu blockieren. Es ist zwingend notwendig, diese Option zu aktivieren, da alle Webproxys mit Java­script ausgetrickst werden können! Außerdem sollte man Javascript im Browser deaktivieren, damit keine Scripte in Bildern, Werbebannern o.ä. durch den Proxy geschmuggelt werden können.
+
+\subsubsection*{CTunnel.com}
+\href{http://ctunnel.com/}{CTunnel.com} ist ein ganz besonderer Web-Proxy, der hier etwas ausführlicher behandelt werden soll. Man verspricht zwar eine anonyme Nutzung des Internet. Die Entwickler haben sich aber große Mühe gegeben, die Nutzung des Dienstes mit deaktiviertem Javascript unmöglich zu machen. Der gesamte Inhalt der Website ist encoded und wird mit Javascript geschrieben.\\
+
+Die IP-Adressen der Nutzer werden bei aktiviertem Javascript gleich an drei Datensammler verschickt. Neben Google Analytics erhalten auch xtendmedia.com und yieldmanager.com diese Information. Google Analytics ist bekannt, die beiden anderen Datensammler sind ebenfalls Anbieter von Werbung. Die Website enthält keinen Hinweis auf die Datenweitergabe. Zumindest im Fall von Google Analytics besteht jedoch eine Informationspflicht.\\
+
+Die Ereignisse rund um den \href{http://www.gulli.com/news/palin-email-hacker-mutma-2008-09-23/}{Sahra-Palin-Hack} zeigen, dass auch der Dienst selbst Informationen über die Nutzer speichert. Die Kommunikationsdaten werden selbst bei kleinen Vergehen an Behörden weitergegeben. Eine seltsame Auffassung von Anonymität.
+
+
+\subsection{Free Hide IP}
+\textit{Free Hide IP} wird von \textit{Computerbild} als Anonymisierungsdienst angepriesen. 
+\begin{quote}
+Mit \textit{Free Hide IP} bleiben Sie beim Surfen im Internet anonym. So sind Sie vor Datensammlern und anderen Gefahren geschützt. Die Free-Version der Software verbindet Sie nach einem Klick auf die Schaltfläche \textit{Hide IP} mit einem amerikanischen Proxy-Server und vergibt eine neue IP-Adresse für Ihren Rechner. 
+\end{quote}
+
+Der Dienst erfüllt nicht einmal einfachste Anforderungen. Nutzer können in mehreren Varianten deanonymisiert werden beispielsweise ganz einfach mit (verborgenen) HTTPS-Links.\\
+
+Als Tool zur Umgehung von Zensur ist der Dienst auch nicht geeignet. Die amerikanischen Proxy-Server setzen das Filtersystem \textit{Barracuda} ein und es werden die Internetsperren des COICA-Zensurgesetz umgesetzt.
+
+\subsection{5socks.net}
+Im Forum der GPF tauchte vor einiger Zeit die Frage auf, was wir von \textit{5socks.net} halten. 5socks.net ist ein Provider, die die Nutzungs von SOCKS-Proxies im Abbo anbietet.\\
+
+Eine kurze Recherche brachte folgende Ergebnisse: 
+
+\begin{enumerate}
+ \item Fagen wir mal nach 5.socks.net:  
+ \begin{verbatim}
+   domain: 5socks.net
+   IPv4-adress: 174.36.202.143
+   addr-out: s3d.reserver.ru
+   whois.nic.mil [0] Undefined error: 0
+ 
+   OrgName: SoftLayer Technologies Inc.
+   OrgID: SOFTL
+   Address: 1950 N Stemmons Freeway
+   City: Dallas
+   StateProv: TX
+   PostalCode: 75207
+   Country: US
+\end{verbatim} 
+
+\item Softlayer Technologies Inc. == Layered Technologies\\
+\href{http://seo-mannsgarn.de/proxy-ip-vandalismus.htm}{http://seo-mannsgarn.de/proxy-ip-vandalismus.htm}
+\item Zu dieser Firma findet man bei cryptome.info:  
+\begin{verbatim}
+   Layered Technologies Incorporated 
+   [NSA-affiliated IP range]
+   Frisco TX US
+   72.232.0.0 - 72.233.127.255
+   ns2.layeredtech.com [72.232.210.195]
+   ns1.layeredtech.com [72.232.23.195]
+ 
+\end{verbatim} 
+\end{enumerate}
+
+Keiner möchte einen NSA-affiliated Anonymisierungsserver nutzen - oder?
+
+\subsection{BlackBelt Privacy, Cloakfish und JanusVM}
+Tor Onion Router ist ein populärer Anonymisierungsdienst. Der Hauptnachteil ist die geringe Geschwindigkeit. die Entwickler von TorProject.org sind sich dieses Problems bewusst und sie arbeiten daran, die Geschwindigkeit ohne Einbußen bei der versprochenen Anonymität zu erhöhen . Daneben gibt es immer wieder ein paar Scharlatane, die mit Voodoo-Methoden eine höhere Geschwindigkeit versprechen. Wir raten davon ab, diese Projekte zu nutzen.\\
+
+\textbf{Tor BlackBelt Privacy} verspricht durch eine Voodoo artige Anpassung der Konfiguration eine Erhöhung der Geschwindigkeit bei der Nutzung von Tor. Eine Analyse der Änderungen an der Konfiguration durch Tor Entwickler kommt zu dem Schluss, dass minimale Verbesserungen bei der Geschwindigkeit möglich sein könnten. Allerdings verursachen die Modifaktionen eine starke Erhöhung der Belastung des Tor Netzwerkes und sie vereinfachen Angriffe zur Reduzierung der Anonymität, wie sie auf der Defcon17 vorgestellt wurden.\\ 
+
+Der Maintainer von BlackBelt Privacy versichert, dass die originale Software von Tor und Vidalia ohne Modifikationen am Code genutzt wird. Das kann nicht überprüft werden, da das Projekt nur Binaries für WINDOWS bereitstellt. Die Bereitstellung der \textit{tollen torrc} würde für alle Betriebssystem aussreichen oder wäre als Ergänzung sinnvoll. Suspect.\\
+
+\textbf{Cloakfish} ist ein Projekt, welches kommerziellen Zugriff auf das kostenfrei zugängliche Tor-Netz bieten möchte. Eine Client-Software, die als Closed-Source zum Download bereitsteht, soll vor allem SEOs ermöglichen, sich über die Tor-Exit-Nodes mit vielen verschiedenen IP-Adressen im Web zu bewegen. (laut Eigen-Werbung bis zu 15.000 verschieden Adressen pro Monat)\\
+
+Durch die Verwendung von nur einem Tor-Node statt der üblichen drei Tor-Nodes in einer Verbindung wird die Anonymität der Nutzer stark eingeschränkt und nicht die nächste Stufe der Anonymität erreicht, wie ein schnell aufgezogenes Werbe-Blog suggerieren möchte. \\
+
+Die Tor-Entwickler missbilligen diese Nutzung des Tor-Netzwerkes, da die Load-Balancing Algorithmen von Tor durch diese Software gestört werden. Entgegen der Behauptung auf der Projekt-Webseite sind die Entwickler von Cloakfish den Tor Developern unbekannt.\\
+
+Diskussionen zu Cloakfish und verunglückte Beispiele von Postings, die unter falschem Pseudonym Werbung für die Software machen wollen, findet man bei gulli, im Forum der GPF und im Forum von JonDonym. Die Software wird bei den Black SEO intensiv beworben.\\
+
+\textbf{JanusVM} ist eine VMware Appliance für anonymes Surfen. Die Appliance soll mit openVPN, Tor, Privoxy usw. eine Schlüssel-fertige Lösung bieten. Roger Dingledine von TorProject.org kommentierte die JanusVM im Dezember 2011 auf der OR-Talk Liste mit folgenden Worten:
+\begin{quote}
+ \textit{``Probably has been unsafe to use for years.''}
+\end{quote} 
+
+\subsection{Proxy-Listen}
+In der Anfangszeit des Internets nutzten Cypherpunks die Möglichkeit, ihre IP-Adresse mit mehreren Proxies zu verschleiern. Der Datenverkehr wird über ständig wechselnde Proxies geleitet, so dass der Webserver ständig eine andere IP-Adresse sieht. Es gibt Tools, die diesen Vorgang automatisieren.\\
+
+Der Vorteil liegt in der im Vergleich zu Mixkaskaden und Onion-Routern höheren Geschwindigkeit. Der offensichtliche Nachteil ist, dass der Datenverkehr zwischen eigenem Rechner und den Proxies meist unverschlüsselt ist.\\
+
+Inzwischen ist diese Idee häufig pervertiert. Im Internet kursierende Proxylisten sind alles andere als anonym. So wurde beispielsweise im Mai 2007 in der Newsgruppe \textit{alt.privacy.anon-server} eine Liste gepostet, die mit verschiedenen DNS-Namen für Proxies gut gefüllt war. Eine Überprüfung der Liste ergab, dass hinter allen die gleiche IP-Adresse und somit derselbe Server steckt. Der Betreiber des Servers erhält eine website-übergreifende Zusammenfassung des Surfverhaltens der Nutzer!

@@ -1,0 +1,73 @@
+
+Das Usenet ist noch immer eine umfangreiche Quelle für Informationen zu aktuellen Themen.\\
+
+Dabei geht es nicht immer um die im Artikel veröffentlichten Informationen. Auch über den Absender läßt sich viel herausfinden. Die folgenden Hinweise sollen eine Recherche zur Erstellung eines Persönlichkeitsprofiles erschweren:
+
+\begin{itemize}
+ \item Um eine langfristige Speicherung der Postings zu verhindern sollte ein zusätzlicher Header ins Posting eingefügt werden: \textit{X-No-Archive: yes}
+\item Es sollte ein News-Server genutzt werden, der SSL-Verschlüsselung bietet und möglichst wenig über den Absender preisgibt.
+\item Man könnte seine Identität regelmäßig wechseln, sofern keine besondere Reputation mit einer bestimmten Identität verbunden ist.
+\item Mail2News-Gateways können zum Versenden des Postings genutzt werden. Das Posting wird per E-Mail an das Gateway gesendet, welches es dann an den Newsserver übermittelt. In der Regel übernehmen Mail2News-Gateways die Absender- und IP-Adresse. Eine Liste gut erreichbarer Gateways:
+\begin{itemize}
+ \item mail2news (at) m2n.mixmin.net
+\item mail2news (at) dizum.com
+\item mail2news (at) bananasplit.info
+\item mail2news (at) reece.net.au
+\end{itemize}
+
+\item Remailer bieten die Möglichkeit, anonyme Beiträge zu veröffentlichen. Das Posting wird dabei als anonyme E-Mail an ein Mail2News-Gateway gesendet.\\
+
+Da anonymes Posten insbesondere in deutschen News-Gruppen nicht gern gesehen wird, sollte man gut überlegen, ob es wirklich nötig ist. Ein Pseudonym reicht meistens auch.\\
+
+Wer die nötige Installation der Software scheut, kann ein Webinterface nutzen unter:
+\begin{itemize}
+ \item \href{https://www.awxcnx.de/anon-news.htm}{https://www.awxcnx.de/anon-news.htm}
+ \item \href{https://www.cotse.net/cgi-bin/mixnews.cgi}{https://www.cotse.net/cgi-bin/mixnews.cgi}
+ \item \href{https://www.bananasplit.info/cgi-bin/anon.cgi}{https://www.bananasplit.info/cgi-bin/anon.cgi}
+\end{itemize}
+
+
+\end{itemize}
+
+\section{News-Server}
+Der Server news.mixmin.net bietet SSL-Verschlüsselung für den lesenden Zugriff und einen ebenfalls TLS-verschlüsselten SMTP-Zugang für das Senden von News-Beiträgen.\\
+
+Server-Einstellungen:
+\begin{verbatim}
+   News-Server: news.mixmin.net
+   Port:        563 (SSL-verschlüsselt)
+
+   SMTP-Server: news.mixmin.net
+   Port:        25 (TLS-verschlüsselt)
+\end{verbatim}
+
+news.mixmin.net verwendet ein SSL-Zertifikat, welches von CAcert.org signiert wurde. Standartmäßig wird diese CA nur von wenigen Newsreadern aktzeptiert. Das Root-Zertifikat von CAcert.org ist von \href{http://www.cacert.org}{http://www.cacert.org} zu holen und zu importieren.\\
+
+Die Nutzung von TOR als anonymisierender Proxy ist nach unseren Erfahrungen problemlos möglich.
+\newpage
+\section{Thunderbird konfigurieren}
+\begin{enumerate}
+ \item Anlegen eines neuen SMPT-Servers. Diese Server findet man im Dialog \textit{Konten...} ganz unten. Der bereits konfigurierte Standard-Server tut es aber auch (und protokolliert jedes Posting).
+\item Erstellen und Einrichten eines News-Kontos. Dabei ist auch der SMTP-Server auszuwählen.
+\item Hinzufügen des Headers \textit{X-No-Archive: yes} für das News-Konto.\\
+
+Im Einstellungs-Dialog von Thunderbird findet man in der Sektion \textit{Erweitert} den Reiter \textit{Allgemein}. Ein Klick auf den Button \textit{Konfiguration bearbeiten} öffnet eine Liste aller Optionen.\\
+
+\begin{figure}[htb]
+\begin{center}
+ \includegraphics[scale=0.65]{../screenshots/thunderbird_uafake.png}
+\caption{Neue Config-Variable anlegen}
+\label{abb:thunderbird_allconfig}
+\end{center}
+\end{figure}
+
+Hier fügt man zwei neue String-Variablen mit folgenden Werten ein (\textbf{N} entspricht dabei der id-Nummer des News-Kontos):\\
+
+% use packages: array
+\begin{tabular}{ll}
+mail.identity.id\textbf{N}.headers &  archive\\ 
+mail.identity.id\textbf{N}.header.archive & X-No-Archive: yes
+\end{tabular}
+\item Abonnieren der News-Gruppen.
+\end{enumerate}
+

@@ -1,0 +1,29 @@
+\subsection{Mozilla Firefox konfigurieren}
+Auch Mozilla Firefox kann einen installierten Content-Filter nutzen.\\
+
+\begin{figure}[htb]
+\begin{center}
+\includegraphics[scale=0.60]{../screenshots/browser_20.png}
+\caption{Einstellungsdialog in Firefox 2.0}
+\label{abb:firefox_einst_verb_20}
+\end{center}
+\end{figure}
+
+Im Browser \textbf{Firefox 1.5} ist hierfür der Dialog \textit{Einstellungen} zu öffnen und zur Sektion \textit{Allgemein} zu wechseln. Die Konfiguration des genutzten Proxy erreicht man über den Button \textit{Verbindungs-Einstellungen}.\\
+
+Im Browser \textbf{Firefox 2.0} ist der Dialog \textit{Einstellungen} überarbeitet worden. Die Verbindung zum Internet kann in der Sektion \textit{Erweitert} auf dem Reiter \textit{Netzwerk} konfiguriert werden. Hier findet man den Button \textit{Einstellungen}, der ebenfalls den in Bild \ref{abb:firefox_einst_verb} gezeigte Dialog öffnet.\\
+
+\begin{figure}[htb]
+\begin{center}
+\includegraphics[scale=0.60]{../screenshots/browser_2.png}
+\caption{Verbindungs-Einstellungen}
+\label{abb:firefox_einst_verb}
+\end{center}
+\end{figure}
+
+Es ist die Option \textit{manuelle Proxy-Konfiguration} zu aktivieren, als Host der eigene Rechner mit \textit{localhost} anzugeben und der Port einzutragen, an welchem der Content-Filter lauscht. Für Proxomitron ist Port \textit{8080} anzugeben, für Privoxy Port \textit{8118}.\\
+
+Außerdem kann eine Liste von Ausnahmen angegeben werden, eine Liste von Websites, welche ohne Content-Filter besucht werden sollen. Hier sind alle vertrauenswürdigen Websites einzutragen, welchen mit eingeschaltetem Content-Filter nicht korrekt funktionieren. In jedem Fall sollten lokale Webseiten nicht gefiltert werden (\textit{localhost, 127.0.0.1}).\\
+
+Läuft der Content-Filter nicht auf dem eigenen Rechner sondern auf einem Gateway, ist statt \textit{localhost} der Name oder die IP-Adresse dieses Rechners einzutragen.
+ 

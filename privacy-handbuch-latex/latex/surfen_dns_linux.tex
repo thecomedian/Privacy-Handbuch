@@ -1,0 +1,44 @@
+\subsection{Linux konfigurieren}
+Unter Linux sind nichts-standardmäßige Einstellungen leichter realiserbar. Es ist auch relativ einfach, einen lokalen DNS-Cache zu nutzen, um die zensurfreien DNS-Server nicht übermäßig zu belasten.\\
+
+\subsubsection*{pdnsd und resolvconf verwenden}
+Der \textit{pdnsd} ist ein leichtgewichtiger DNS-Cache-Daemon. Er steht auf allen Linux-Distributionen zur Verfügung. Unter Debian und Unbuntu installiert man ihn zusammen mit \textit{resolvconf}: 
+\begin{verbatim}
+ > sudo aptitude install resolvconf pdnsd 
+\end{verbatim} 
+Bei der Installation des \textit{pdnsd} wird man gefragt, wie die Namensauflösung erfolgen soll. Wählen Sie zuerst einmal \textit{recursive}. Laden Sie die vorbereitete Konfigurationsdatei \href{https://www.awxcnx.de/download/pdnsd-gpfserver.conf}{https://www.awxcnx.de/download/pdnsd-gpfserver.conf} herunter und speichern Sie die Datei im Verzeichnis \textit{/usr/share/pdnsd}.\\ 
+
+Anschließend in der Datei /etc/default/pdnsd den AUTO\_MODE anpassen:  
+\begin{verbatim}
+ START_DAEMON=yes
+ AUTO_MODE=gpfserver
+ OPTIONS=
+\end{verbatim} 
+Den Eigentümer der Config-Datei auf \textit{root} setzen und den Daemon neu starten: 
+\begin{verbatim}
+ sudo chown root:root /usr/share/pdnsd/pdnsd-gpfserver.conf
+ sudo invoke-rc.d pdnsd restart 
+\end{verbatim} 
+Der DNS-Traffic geht via TCP-Protokoll auf Port 110 zu den unzensierten DNS-Servern. Es ist schwer zu erkennen, dass es sich DNS-Traffic handelt und eine Umleitung auf DNS-Server der Provider ist wenig wahrscheinlich. Zur Sicherheit gelegentlich testen.
+
+\subsubsection*{bind9 und resolvconf verwenden}
+Die Pakete \textit{bind9} und \textit{resolvconf} sind in allen Distributionen fertig konfiguriert vorhanden und bieten einen vollständigen DNS-Nameserver. Nach der Installation mit der Paketverwaltung läuft der Nameserver und ist unter der Adresse 127.0.0.1 erreichbar. Die Tools aus dem Paket \textit{resolvconf} sorgen für die automatische Umkonfiguration, wenn \textit{bind9} gestartet und gestoppt wird. Für Debian und Ubuntu können die Pakete mit \textit{aptitude} installiert werden:
+\begin{verbatim}
+ > sudo aptitude install resolvconf bind9
+\end{verbatim} 
+Die unzensierten DNS-Server sind in der Datei \textit{/etc/bind/named.conf.opions} einzutragen. Die Datei enthält bereits ein Muster. Dabei kann optional auch ein nicht üblicher Port angegeben werden:
+\begin{verbatim}
+ forwarders {
+      94.75.228.29 port 110; 
+      62.75.219.7  port 110;
+ };
+ listen-on { 127.0.0.1; };
+\end{verbatim} 
+(Standardmäßig lauscht der Daemon an allen Schnittstellen, auch an externen. Die Option \textit{listen-on} reduziert das auf den lokalen Rechner.)\\
+
+Wer etwas ratlos ist, mit welchem Editor man eine Konfigurationsdatei anpasst, könnte \textit{``kdesu kwrite /etc/bind/named.conf.opions''} oder \textit{``gksu gedit /etc/bind/named.conf.opions''} probieren.\\
+
+Nach der Anpassung der Konfiguration ist \textit{bind9} mitzuteilen, dass er die Konfigurationsdateien neu laden soll:
+\begin{verbatim}
+   > sudo invoke-rc.d bind9 reload
+\end{verbatim} 

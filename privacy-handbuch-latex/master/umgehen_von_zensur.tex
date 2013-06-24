@@ -1,0 +1,38 @@
+\documentclass[notitlepage,a4paper,twoside,10pt]{article}
+
+% \usepackage{mathpazo} 
+\usepackage{ngerman} 
+\usepackage[latin1]{inputenc} 
+\usepackage[T1]{fontenc} 
+\usepackage[pdftex]{graphicx} 
+\usepackage[pdftex,bookmarks=true,colorlinks,linkcolor=blue,urlcolor=blue,citecolor=blue]{hyperref}
+
+\sloppy
+
+%opening
+\title{Zensur im Internet umgehen}
+\date{\today}
+
+\hypersetup {
+    pdftitle= {Umgehung von Zensur im Internet}
+    pdfkeywords= {Zensur DNS-Server}
+}
+
+
+\begin{document}
+\maketitle
+\tableofcontents
+
+\newpage
+\section{Einführung der Zensur in Deutschland}
+\input{../latex/zensur}
+\newpage
+\input{../latex/zensur_simple}
+\newpage
+\input{../latex/surfen_dns}
+\input{../latex/surfen_dns_win}
+\input{../latex/surfen_dns_linux}
+\input{../latex/surfen_dns_test}
+
+
+\end{document}

@@ -1,0 +1,38 @@
+\documentclass[notitlepage,a4paper,twoside,10pt]{article}
+
+\usepackage{mathpazo} 
+\usepackage{ngerman} 
+\usepackage[latin1]{inputenc} 
+\usepackage[T1]{fontenc} 
+\usepackage[pdftex]{graphicx} 
+\usepackage[pdftex,bookmarks=true,colorlinks,linkcolor=blue,urlcolor=blue,citecolor=blue]{hyperref} 
+
+%opening
+\title{S/MIME Verschlüsselung\\mit Mozilla Thunderbird}
+\date{\today}
+
+\hypersetup {
+    pdftitle= { S/MIME Verschlüsselung mit Mozilla Thunderbird }
+    pdfkeywords= { E-Mail Verschlüsselung S/MIME  Zertifikate Thunderbird }
+}
+
+
+\begin{document}
+\maketitle
+\begin{abstract}
+Weltweit wird der unverschlüsselte E-Mail Verkehr systematisch gescannt. Führend ist die NSA mit Echelon, das auch zur Industriespionage und zum Abhören von NGOs verwendet wird, und Abhörschnittstellen bei allen großen amerikanischen ISPs. Frankreich betreibt ein ähnliches System unter dem Namen \textit{French ECHELON}. Das russische Pendant zur NSA ist der SSSI (früher FAPSI). Der schwedische Geheimdienst FRA und das schweizer Onyx Projekt nutzen Supercomputer zur Verarbeitung der beim Schnorcheln anfallenden Datenmengen. Für Syrien, Iran, Saudi Arabien und Ägypten wurden entsprechende Aktivitäten nachgewiesen und die \textit{Great Firewall} von China verfügt ebenfalls über die nötigen Features.\\
+
+In Deutschland wird der E-Mail Verkehr im Rahmen der \textit{Strategischen Fernmeldeaufklärung} von den Geheimdiensten gescannt. Eine von der G-10 Kommision genehmigte Stichwortliste mit 16.400 Begriffen (Stand 2010) wird für die automatisierte Vorauswahl verwendet, um nach Waffenhandel, Prolieferation und Terroristen zu suchen. 37 Mio. E-Mails meldeten die Scanner im Jahr 2010 als verdächtig, die näher analysiert wurden.
+
+\end{abstract}
+\tableofcontents
+\newpage
+\section{Einleitung}
+\input{../latex/e-mail-krypto_einleitung}
+\newpage
+\input{../latex/e-mail-krypto-smime_part}
+\input{../latex/e-mail-krypto-smime_anhang}
+\input{../latex/e-mail-krypto-smime_unsicher}
+\input{../latex/e-mail-krypto_ende}
+
+\end{document}

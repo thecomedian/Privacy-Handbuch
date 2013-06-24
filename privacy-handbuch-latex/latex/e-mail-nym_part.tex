@@ -1,0 +1,32 @@
+
+\subsection{Dauerhafter Nym-Account}
+Für anonyme Antworten via E-Mail bietet das Mixmaster Netzwerk die Nutzung von Nym-Accounts. Ein Nym-Account ist ein Postfach, welches die Identität des Inhabers versteckt. Eingehende E-Mails werden über eine Remailer Kaskade an die reale Adresse des Nutzers weiter geleitet, wobei jeder Remailer der Kaskade den empfangenen Stuff in einen zusätzlichen kryptografischen Umschlag steckt, den nur der richtige Empfänger öffnen kann.\\
+
+Der Empfänger erhält eine E-Mail, die mehrfach OpenPGP konform verschlüsselt wurde. Er kann jeden Umschlag mit einem nur ihm bekannten Passwort öffnen und die ursprüngliche Nachricht wieder herstellen.\\
+
+Die Installation der benötigten Software (Quicksilver bzw. Mixmaster) ist breits beschrieben worden. Nutzer von Quicksilver für WINDOWS sollten zusätzlich das Modul \textit{Nym} mit Hilfe des Update Wizard installieren. Es vereinfacht die Verwaltung von Nym-Accounts.
+
+\subsubsection*{Nym-Account einrichten}
+Die folgende kurze Anleitung nutzt den Nym Wizard von Quicksilver für WINDOWS. Wie man mit Texteditor und GnuPG unter Linux arbeit, steht unter \href{http://hp.kairaven.de/quick/quicknym.html}{http://hp.kairaven.de/quick/quicknym.html}.
+\begin{enumerate}
+ \item Als erstes ist ein Nym-Server und ein Name für den Account auszuwählen. Bekannte Server sind z.B. \textit{nym.alias.net, hod.aarg.net} oder \textit{nym.komite.net}. An einen dieser Server schickt man eine leer E-Mail an den Account \textit{list}, beispielsweise an \textit{list@nym.alias.net}. Die Antwort enthält alle auf diesem Server gehosteten Accounts. Anhand dieser Antwort kann man einen nicht genutzten Namen wählen.
+\item Ein OpenPGP-Schlüsselpaar (Typ: RSA!) ist für den gewählten Namen zu erstellen (z.B. für \textit{pitschie@nym.alias.net} ) und der öffentliche Teil auf die Schlüsselserver zu exportieren. Um die Anonymität des Accounts zu gewährleisten, sendet man des öffentlichen Schlüssel per anonymer E-Mail an einen Schlüsselserver oder nutzt einen Hidden Service des Onion Router Netzes. Die Gültigkeitsdauer des Schlüsselpaares sollte nicht \textit{unbegrenzt} sein, sondern der geplanten Nutzungsdauer des Accounts entsprechen.
+\item Der öffentliche PGP-Schlüssel des Accounts \textit{config} des gewählten Nym-Servers ist in den Cypherpunk Keyring zu importieren. http://www.quicksilvermail.net/nymserver.txt enthält alle Schlüssel. Diese Datei kann nach dem Dowload in den Cypherpunk Keyring übernommen werden. Nutzer von Quicksilver öffnen den Keyring über den Menüpunkt \textit{Keyring -> Open -> Cypherpunk} und wählen in der Toolbar \textit{Import}.
+\item Ein Reply-Block ist zu erstellen. Der Nym-Wizard von Quicksilver fragt dabei nacheinander die nötigen Angaben ab.
+
+\begin{figure}[htb]
+\begin{center}
+\includegraphics[scale=0.5]{../screenshots/qs_nym.png}
+\caption{Nym-Wizard von Quicksilver}
+\label{abb:qs_nym}
+\end{center}
+\end{figure}
+
+Im in Bild \ref{abb:qs_nym} angezeigten Template sind für die Werte \textit{remailer\_a} und \textit{remailer\_b} zwei gut erreichbare Remailer einzutragen. Die Seiten http://pinger.bananasplit.info/mlist2.html oder http://rlist.ath.cx/mlist2.html listen verfügbare Remailer auf.\\
+
+Für \textit{you@your.net} ist die reale E-Mail Adresse und als \textit{passphrasea} \dots \textit{passphrasec} sind drei Passwörter einzutragen. Mit diesen Passwörtern verschlüsseln die Remailer die eingehende E-Mail symetrisch, bevor sie weitergeleitet wird. Die Entschlüsselung erfolgt mit den gleichen Passwörtern in umgekehrter Reihenfolge.
+\item Der erstellte Reply-Block ist als anonyme E-Mail an den \textit{config} Account des gewählten Servers zu schicken, z.B. an \textit{config@nym.alias.net}. Diese E-Mail ist mit dem Schlüssel des gewünschten Accounts zu signieren und mit dem Schlüssel des Servers zu verschlüsseln. Der Schlüsselserver überprüft die Signatur anhand des öffentlichen Schlüssels vom Schlüsselserver! Unter Quicksilver übernimmt der Nym Wizard diesen Schritt.
+\item Nach 1-2 Tagen erhält man eine Antwort vom Nym-Server. Diese Antwort ist an den Nym-Server als Bestätigung zurückzuschicken (signiert und verschlüsselt).
+\item Nach weiteren 1-2 Tagen ist der Account freigeschaltet, was mit einer leeren E-Mail an den \textit{list} Account des Servers überprüfen kann.
+\item Die Erreichbarkeit der genutzten Remailer sollte während der Dauer der Nutzung des Accounts regelmäßig überprüft werden. Ist einer der gewählten Remailer nicht mehr erreichbar, muss an den \textit{config} Account des gewählten Servers ein neuer Reply-Block geschickt werden. Einige Pinger stellen die nötigen Informationen über die Erreichbarkeit im Internet bereit, beispielsweise http://rlist.ath.cx/mlist2.html oder http://pinger.bananasplit.info/mlist2.html
+\end{enumerate}

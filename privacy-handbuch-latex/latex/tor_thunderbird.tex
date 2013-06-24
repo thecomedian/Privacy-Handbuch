@@ -1,0 +1,238 @@
+\section{Anonyme E-Mails mit Thunderbird}
+Nicht nur beim Surfen, sondern auch bei jedem Versenden und Abrufen von E-Mails werden IP-Adressen erfasst und ausgewertet. Die anhaltende Diskussion um die Vorratsdatenspeicherung zeigt, dass diese Daten bedeutsam sind. Um unbeobachtet sein E-Mail Konto nutzen zu können, ist es möglich, diese Daten mit Anonymisierungsdiensten zu verschleiern.\\
+
+\subsubsection*{Vorbereitung}
+Es ist wenig sinnvoll, einen bisher ganz normal genutzten E-Mail Account bei einem Provider mit Vorratsdatenspeicherung plötzlich anonym zu nutzen. Es haben sich in den letzten Monaten genug Daten angesammelt, die eine Identifizierung des Nutzers ermöglichen.\\
+
+Der erste Schritt sollte also die Einrichtung eines neuen E-Mail Accounts sein. In der Regel erfolgt die Anmeldung im Webinterface des Providers. Für die Anmeldung ist ein Anonymiserungsdienst (JonDonym, Tor) zu nutzen. Einige Vorschläge für E-Mail Provider findet man im Kaptiel \textit{Mozilla Thunderbird nutzen}.\\
+
+Man kann den E-Mail Account in der Regel komplett im Webinterface des Providers nutzen. Dafür brauchen Sie nur einen anonymisierten Browser wie JonDo+JonDoFox oder das TorBrowserBundle. Besser ist jedoch die Nutzung eines E-Mail Clients. Man muss sich nicht durch ein überladenes Webinterface kämpfen, es gibt keine Probleme mit Cookies und Javascriptund die OpenPGP Verschlüsselung ist wesentlich einfacher. Außerdem ist die SSL-Verschlüsselung bei den meisten Webseiten nicht auf dem aktuellen Stand der Technik und somit häufig als unsicher einzustufen.
+
+\subsubsection*{Thunderbird-Profil erstellen}
+Ich empfehle, für anonyme E-Mails Thunderbird mit einem anonymen Profil zu nutzen. Damit vermeidet man den Cookie- und Javascript Trouble der verschiedenen Webseiten und reduziert das Traffic Volumen. Außerdem ist Verschlüsselung mit OpenPGP oder S/MIME möglich.\\ 
+
+Ein separates Profil gewährleistet eine konsequente Trennung von nicht-anonymer und anonymer E-Mail Kommunikation. Anderenfalls kommt man bei mehreren Konten schnell einmal durcheinander und gefährdet durch eine hektisch gesendete Mail die Anonymität des Accounts. \\
+
+Man startet den Profil-Manager in der Konsole bzw. DOS-Box mit der Option -P:
+\begin{verbatim}
+   > thunderbird -P
+\end{verbatim}
+
+Es öffnet sich der Dialog Bild \ref{abb:tb_profil_tor} zur Verwaltung verschiedener Profile.\\
+
+\begin{figure}[htb]
+\begin{center}
+\includegraphics[scale=0.75]{../screenshots/tb_profil2.png}
+\caption{Profilmanager für Thunderbird}
+\label{abb:tb_profil_tor}
+\end{center}
+\end{figure}
+
+Es ist ein neues Profil zu erstellen und die Option \textit{Beim Starten nicht nachfragen} zu deaktivieren. In Zukunft wird Thunderbird genau wie Firefox bei jedem Start fragen, welches Profil genutzt werden soll.\\
+
+\subsubsection*{Thunderbird-Profil konfigurieren}
+Am einfachsten konfiguriert man das Profil anonym, indem man das Add-on TorBirdy installiert. Am einfachsten installiert man TorBirdy mit dem Add-on Manager von Thunderbird unter \textit{Extras -> Add-ons}. Im Suchfeld gibt man \textit{TorBirdy} ein. Ein Klick auf den Button \textit{Installieren} holt das Add-on. Nach der Installation muss Thunderbird neu gestartet werden.\\
+
+\begin{figure}[htb]
+\begin{center}
+\includegraphics[scale=0.75]{../screenshots/torbirdy-install.png}
+\caption{Add-on aus Datei installieren}
+\label{abb:tb_torbirdy_install}
+\end{center}
+\end{figure}
+
+Das Add-on TorBirdy erledigt folgende Aufgaben: 
+\begin{itemize}
+ \item Es werden alle sicherheits- und privacy-relevanten Einstellungen aktiviert, die im Kapitel \textit{Thunderbird nutzen} beschrieben wurden. Eine sichere und anonyme Nutzung ist ohne weitere Konfigurations gewährleistet.
+\item Der Assistent für die Kontenerstellung wird deaktiviert, da der Assistent aufgrund eines Fehlers unter Umständen den Proxy umgeht. Beim Anlegen eines neuen E-Mail Kontos sind POP3- und SMTP-Server per Hand zu konfigurieren. Dabei ist auf die Aktivierung der SSL-Verschlüsselung zu achten.
+\item Die Proxy-Einstellung werden angepasst. Dabei kann man in der Statusleiste unten rechts wählen, ob man Tor oder JonDonym (Premium) nutzen möchte.
+\begin{center}
+ \includegraphics[scale=0.75]{../screenshots/torbirdy-proxy.png}
+\end{center}
+Hinweis: Tor muss am Port 9050 lauschen. Dafür ist eine Anpassung der Konfiguration nötig, siehe: \textit{Tor mit weiteren Anwendungen nutzen}.
+\end{itemize}
+Danach kann man das Add-on Enigmail für die OpenPGP-Verschlüsselung installieren und die Wörterbücher der bevorzugten Sprachen hinzufügen.\\
+
+\subsubsection*{OpenPGP Keyserver verwenden}
+Bei der Verwendung von \textit{JonDo} als Proxy werden auch alle Verbindungen zu den OpenPGP Keyservers anonymisieriert, wenn man die Schlüsselverwaltung von Enigmail nutzt.\\
+
+Da das TorBrowserBundle keinen HTTP-Proxy mehr enthält, sollte man mit \textit{Tor} keine Keyserver in der Schlüsselverwaltung von Enigmail nutzen. Statt Keyserver kann man den Hidden Service \href{http://qtt2yl5jocgrk7nu.onion}{http://qtt2yl5jocgrk7nu.onion} mit dem TorBrowser nutzen (Hidden Service für https://keys.indymedia.org). Im Webinterface kann man nach Schlüsseln suchen oder einen eigenen Schlüssel veröffentlichen. Gefundene Schlüssel kann man mit der Maus markieren, in die Zwischenablage kopieren und dann in der Enigmail importieren.\\
+
+Live-CDs wie die JonDo Live-CD/DVD sind in der Regel sinnvoll konfiguriert, enthalten einen HTTP-Proxy für Tor und können auch mit \textit{Tor} als Proxy die Keyserver anonym nutzen. Dabei wird ebenfalls der Tor Hidden Service von keys.indymedia.org genutzt.
+
+\subsubsection*{Hinweise für die Nutzung}
+Anonymisierungsdienste sperren den Port \textit{25} für die Versendung von E-Mails, um nicht von Spammern missbraucht zu werden. In der Regel bieten die Provider auch den Port \textit{465} für SSL-verschlüsselte Verbindungen oder \textit{587} für TLS-verschlüsselte Versendung von E-Mails.\\
+
+Im Dialog \textit{Konten...} findet man in der Liste links auch die Einstellungen für den SMTP-Server. In der Liste der Server ist der zu modifizierende Server auszuwählen und auf den Button \textit{Bearbeiten} zu klicken. In dem sich öffnenden Dialog ist der Port entsprechend zu ändern.\\
+
+TorBirdy erzwingt sicher SSL/TLS Verbindungen. Nicht alle E-Mail Provider unterstützen eine sichere SSL/TLS Verschlüsselung nach dem Stand der Technik. Probleme mit Yahoo!, Cotse und AOL sind bekannt. Diese Provider bieten keine Secure Renegotiation, was seit 2009 als schwerwiegender Bug im SSL-Protokoll bekannt ist. Wenn ständig trotz korrekter Konfiguration nur eine Fehlermeldung beim Senden von E-Mails erscheint, dann kann man mit der OpenSSL Bibliothek prüfen, ob eine sicher SSL-Verschlüsselung überhaupt möglich ist:
+\begin{verbatim}
+ > openssl s_client -connect smtp.aol.com:465
+ ...
+ Server public key is 2048 bit
+ Secure Renegotiation IS NOT supported
+ Compression: NONE
+ Expansion: NONE
+ SSL-Session:
+     Protocol : TLSv1
+     Cipher : DHE-RSA-AES256-SHA
+     ...
+\end{verbatim} 
+Sollte \textit{Secure Renegotiation} NICHT unterstützt werden, kann man sich nur einen neuen E-Mail Provider suchen.
+
+\subsubsection*{Spam-Blacklisten}
+Viele große E-Mail Provider sperren Tor-Nodes bei der Versendung von E-Mails via SMTP aus. Sie nutzen Spam-Blacklisten, in denen Tor-Relays häufig als ``potentiell mit Bots infiziert'' eingestuft sind. Wenn der E-Mail Provider eine dieser DNSBL nutzt, sieht man als Anwender von Tor nur eine Fehlermeldung beim Senden von Mails. Der Empfang funktioniert in der Regel reibungslos.\\
+
+\subsubsection*{GoogleMail und Anonymisierungsdienste}
+GoogleMail (oder GMail) mag eine anonyme Nutzung der kostenfreien Accounts nicht. Kurz zusammengefasst kann man sagen, dass Google entweder eine IP-Adresse der Nutzer haben möchte oder die Telefonnummer. Stellungnahme des \textit{Google account security team} zu einer Anfrage der Tor Community:
+\begin{quote}
+\textit{Hello,}\\
+
+\textit{I work for Google as TL of the account security system that is blocking your access.}\\
+
+\textit{Access to Google accounts via Tor (or any anonymizing proxy service) is not allowed unless you have established a track record of using those services beforehand. You have several ways to do that:}\\
+
+\textit{1) With Tor active, log in via the web and answer a security quiz, if any is presented. You may need to receive a code on your phone. If you don't have a phone number on the account the access may be denied.}\\
+
+\textit{2) Log in via the web without Tor, then activate Tor and log in again WITHOUT clearing cookies. The GAPS cookie on your browser is a large random number that acts as a second factor and will whitelist your access.}\\
+
+\textit{Once we see that your account has a track record of being successfully accessed via Tor the security checks are relaxed and you should be able to use TorBirdy.}\\
+
+\textit{Hope that helps,}\\
+\textit{Google account security team}
+\end{quote}
+Außerdem werden nach einem Bericht von Wired \footnote{ \href{http://www.wired.com/threatlevel/2012/03/ff\_nsadatacenter/all/1}{http://www.wired.com/threatlevel/2012/03/ff\_nsadatacenter/all/1}} zukünftig alle E-Mails der GMail Accounts in das NSA-Datacenter in Bluffdale kopiert.
+
+\section{Anonym Bloggen}
+Es gibt viele Gründe, um anonym zu Bloggen. Auf die möglichen Gründe möchte ich nicht weiter eingehen und mich auf einige technische Hinweise für die Umsetzung beschränken. 
+
+Die einfachste Variante:
+\begin{itemize}
+ \item Man braucht einen anonymen Browser (TorBrowserBundle oder Jondo+JonDoFox).
+ Gut geeignet sind die Live-CDs TAILS und JonDo Live-CD, da diese neben einem fertig konfigurierten Browser für anonymes Surfen auch die nötigen Tools zur Anonymisierung von Bildern und Dokumenten enthalten und keine Spuren auf dem PC hinterlassen.
+
+\item Man braucht eine anonyme E-Mail Adresse, die nur in Zusammenhang mit dem Blog verwendet wird (für die Registrierung, als Kontaktadresse...). Dabei ist es nicht unbedingt nötig, Thunderbird als E-Mail Client zu konfigurieren. Man kann die wenigen Mails auch im Webinterface des Providers im Browser lesen bzw schreiben. Dabei ist stets Tor oder JonDonym zu nutzen.
+
+\item Man braucht einen Bloghoster, der anonyme Registrierung oder Registrierung mit Fake-Daten ermöglicht und anonym mit Paysafecard oder UKash bezahlt werden kann. \textit{Wordpress.com} ist empfehenswert oder die kostenfreie Variante von \textit{Twoday.net}. Um Premium Features bei \textit{Wordpress.com} zu nutzen, kann man anonym mit Bitcoin bezahlen. Seit Nov. 2012 akzeptiert Wordpress Bitcoins als Zahlungsmittel \footnote{ \href{http://en.blog.wordpress.com/2012/11/15/pay-another-way-bitcoin/}{http://en.blog.wordpress.com/2012/11/15/pay-another-way-bitcoin/}}.
+
+\item Registrierung und Verwaltung des Blogs sowie das Schreiben von Artikeln können komplett im Browser durchgeführt werden. Dabei ist stets der Anonymisierungsdienst zu nutzen. Man sollte darauf achten, dass man nicht hektisch unter Zeitdruck schnell mal einen Beitrag verfasst. Dabei können Fehler passieren, die den Autor deanonymisieren.
+
+\item Im Blog veröffentlichte Bilder und Dokumente sind stets vor dem Upload zu anonymisieren. Vor allem Bilder von Digitalkameras enthalten eine Vielzahl von Informationen, die zur Deanonymisierung führen können. Fotos von Freunden oder Bekannten sollte man nicht veröffentlichen, da durch Freundschaftsbeziehungen eine Deanonymisierung möglich ist.
+
+\item Jede Blogsoftware bietet die Möglichkeit, den Zeitpunkt der Veröffentlichung von neuen Artikeln festzulegen. Davon sollte man Gebrauch machen und neue Artikel nicht sofort veröffentlichen sondern erst einige Stunden später freigeben, wenn man nicht online ist.
+
+\item Stilometrie (Deanonymisierung anhand des Schreibstils) ist inzwischen fester Bestandteil geheimdienstlicher Arbeit. Es ist mit (teil-) automatisierten Verfahren möglich, anonyme Texte einem Autor zuzuordnen, wenn der Kreis der Verdächtigen eingeschränkt ist und genügend Textproben der Verdächtigen vorliegen. Mit Ruhe und Konzentration beim Verfassen von Blogartikeln ist es möglich, seinen individuellen Schreibstil zu verstellen. 
+
+\end{itemize}
+
+
+\section{Anonymes Instant-Messaging mit Pidgin}
+Der Instant-Messenger \textit{Pidgin} ist optimal für anonyme Jabbern vorbereitet. Er unterstützt SOCKS- und HTTP-Proxys, für jeden Account können unterschiedliche Proxys definiert werden, das OpenPGP- und OTR-Plugin für das Jabber-Protokoll ermöglicht eine starke Verschlüsselung der Chats.\\
+
+Um einen Jabber-Account anonym zu nutzen, ist lediglich vor(!) der Registrierung des Accounts Tor oder JonDo als Proxy einzutragen. (Bei JonDo sind die Premiumdienste erforderlich.)\\
+
+\begin{figure}[htb]
+\begin{center}
+\includegraphics[scale=0.7]{../screenshots/pidgin2.png}
+\caption{Proxy-Einstellungen in Pidgin für JonDonym}
+\label{abb:pidgin2}
+\end{center}
+\end{figure}
+
+Der Screenshot Bild \ref{abb:pidgin2} zeigt die Proxy-Konfiguration für JonDonym.\\
+
+Wenn man Tor als Anonymisierungsdienst nutzen möchte, dann hängt die Konfiguration davon ab, welchen Tor Daemon man bevorzugt. Man kann eine Stand-alone Version von Tor starten, das TorBrowserBundle startet eine Instanz von Tor und auch TorChat (s.u.) startet einen eigenen Tor Daemon. Als Proxy sind folgende Werte zu setzen: 
+
+\begin{center}
+\begin{tabular}{l|c|c|c}
+  & TorBrowserBundle & Tor (stand alone) & Tor (TorChat) \\
+\hline
+Type & Tor/Privacy & Tor/Privacy & Tor/Privacy\\
+Host & localhost & localhost & localhost\\
+Port & 9150 & 9050 & 11109
+\end{tabular}
+\end{center}
+
+Wichtig: Für Tor ist der Proxytyp \textit{Tor/Privacy (SOCKS5)} zu nutzen. Die anderen Proxys sind nicht sicher und umgehen bei der Auflösung der DNS-Namen die Proxy Einstellungen. Wenn man das TorBrowserBundle nutzen möchte, ist eine Anpassung der Konfiguration in Vidalia nötig, siehe: \textit{TorBrowserBundle mit weiteren Anwendungen nutzen}. \\
+
+Um die Möglichkeit des direkten Dateitransfers zwischen Kommunikationspartnern zu nutzen, muss ein Datei Transfer Proxy angegeben werden, da der Instant Messaging Client hinter den Proxy Kaskaden nicht direkt erreichbar ist. Man kann den Datei Transfer Proxy auf dem Reiter \textit{Erweitert} der Kontoeinstellungen konfigurieren.\\
+
+Nicht alle Jabber-Server bieten Datei Transfer Proxys an. Informationen findet man auf der Website des Anbieters. Für einige Anbieter eine kurze Liste der Datei Transfer Proxys:
+\begin{itemize}
+ \item Swissjabber: \textit{proxy.swissjabber.com}
+ \item Draugr.de: \textit{proxy.draugr.de}
+\end{itemize}
+
+\section{Anonymes Instant-Messaging mit TorChat}
+TorChat ist ein Instant-Messaging Client mit einem genialen Konzept. Jeder Account ist ein Tor Hidden Service. Die Kommunikation erfolgt direkt zwischen den Beteiligten, es gibt keinen Serverdienst wie bei Jabber (XMPP) oder anderen Instant-Messaging Varianten. Die Verschlüsselung wird durch Tor sichergestellt. Außerdem kann ein externer Beobachter nicht erkennen, welche Art der Kommunikation abläuft.\\
+
+Die Projektwebseite stellt Installationspakete für Windows und Debian basierte Linux Distributionen zum Download bereit. Außerdem kann man die Sourcen nutzen.
+\begin{description}
+ \item[Windows:] Das ZIP-Archiv ist nach dem Download zu entpacken - fertig. Im Verzeichnis \textit{bin} findet man die Datei \textit{torchat.exe}. Ein Doppelklick auf die Datei startet alles Nötige. Zur Vereinfachung des Starts kann man eine Verknüpfung erstellen und auf den Desktop ziehen.
+ \item[Debian, Ubuntu, Mint:] Vor der Installation sind die Abhängigkeiten zu installieren. TorChat benötigt \textit{Tor, Python-2.x} und die GUI-Bibliothek \textit{WxGTK für Python}:
+  \begin{verbatim}
+    > sudo aptitude install tor python-wxgtk2.8
+  \end{verbatim} 
+Anschließend installiert man das DEB-Paket mit dem bevorzugten GUI-Tool (Ubuntu Software Center, KPackage, Gdebi...) oder auf der Kommandozeile mit:
+  \begin{verbatim}
+    > sudo dpkg -i torchat-*.deb
+  \end{verbatim} 
+\item[Sourcen:] Sourcen: Für alle Nicht-Debian Linuxe und UNIXe kann man das Source-Paket nutzen. Auch hier benötigt man\textit{ Tor, Python-2.x} sowie \textit{WxGTK für Python}. Nach der Installation der nötigten Bibliotheken und dem Entpacken der Sourcen startet man TorChat in dem \textit{src}-Verzeichnis:
+  \begin{verbatim}
+    > python torchat.py
+  \end{verbatim} 
+ \end{description}
+
+Beim Start von TorChat wird eine Instanz von Tor mit den passenden Parametern gestartet. Ein Account wird automatisch erstellt, wenn noch nicht vorhanden. Dann dauert es 15-20min bis der Account bekannt wird.\\
+
+Die Bedienung ist einfach. Man klickt mit der rechten Maustaste in das Hauptfenster und fügt eine TorChat-ID hinzu. Wenn das Symbol farbig dargestellt wird, kann man eine Nachricht schreiben oder eine Datei senden. Farblos dargestellt Accounts sind nicht online. Eine TorChat-ID ist eine kryptische Tor Hidden Service Adresse ohne die Endung \textit{.onion}.\\ 
+\begin{figure}[htb]
+\begin{center}
+\includegraphics[scale=0.73]{../screenshots/torchat.png}
+\caption{TorChat Hauptfenster}
+\label{abb:torchat}
+\end{center}
+\end{figure}
+
+WICHTIG: TorChat ist immer über den Menüpunkt \textit{Beenden} zu schließen. Nur dann wird auch die gestartete Instanz von Tor sauber beendet. 
+
+
+\section{Anonymes Filesharing}
+Mit der Verbreitung von Three-Strikes-Regelungen bei Urheberrechtsverletzungen in einigen Ländern wie Frankreich, Großbritannien, Irland und bei den ACTA-Verhandlungen wächst der Bedarf für anonymes Filesharing.
+
+\subsubsection{BitTorrent über einen Anonymisierungsdienst ???}
+Die naheliegende Variante ist es, BitTorrent über einen Anonymisierungsdienst wie Tor zu nutzen, um die eigene IP-Adresse zu verstecken. Das funktioniert nur begrenzt. Das BitTorrent-Protokoll überträgt die IP-Adresse des Clients auch im Header der Daten und es ist relativ einfach möglich, die Teilnehmer zu deanonymiseren. Im Moment hat die Abmahn-Industrie den Weg noch nicht gefunden. Im Blog von TorProjekt.org findet man eine ausführliche Erläuterung, warum BitTorrent via Tor NICHT anonym ist \footnote{
+\href{https://blog.torproject.org/blog/bittorrent-over-tor-isnt-good-idea}{https://blog.torproject.org/blog/bittorrent-over-tor-isnt-good-idea}}.\\ 
+
+\subsubsection{Anonymes Filesharing}
+1-Click-Hoster sind die einfachste Variante. Mit einem Webbrowser kann man anonym via Tor oder JonDonym Daten bei einem 1-Click-Hoster hochladen und den Download-Link veteilen. 
+\begin{itemize}
+\item Auf diesen Hostern sind die Uploads nur eine begrenzte Zeit verfügbar (1-4 Wochen):
+
+\begin{itemize}
+ \item \href{http://www.senduit.com}{http://www.senduit.com}
+ \item \href{http://www.wikisend.com}{http://www.wikisend.com} (Passwortschutz möglich)
+ \item \href{http://www.turboupload.com}{http://www.turboupload.com} (Löschen der Uploads möglich)
+ \item \href{http://www.filefactory.com}{http://www.filefactory.com} (benötigt Javascript)
+ \item \href{http://www.share-now.net}{http://www.share-now.net}
+ \item \href{https://storage.anonymous-proxy-servers.net }{https://storage.anonymous-proxy-servers.net }\\(nur für Premium-Kunden von JonDonym)
+\end{itemize}
+
+\item Für Langzeit-Hosting kann man folgende Dienste verwenden:
+\begin{itemize}
+ \item \href{http://rapidshare.de}{http://rapidshare.de} (benötigt Javascript)
+ \item \href{http://www.mediafire.com}{http://www.mediafire.com} (Registrierung für Uploads nötig)
+ \item \href{http://ompldr.org}{http://ompldr.org} (benötigt Cookies für Uploads)
+\end{itemize}
+
+\end{itemize}
+
+\subsubsection{Anonyme Peer-2-Peer Netze}
+Einige Projekte für anonymes, unbeobachtetes Filesharing: 
+\begin{itemize}
+\item \textbf{I2P Snark:} Das Invisible Internet Project bietet anonymes Filesharing innerhalb des Netzes. Eine kurze Einführung findet man im Kapitel zum Invisible Internet.
+\item \textbf{GNUnet:} bietet ein anonymes zensurresistentes Filesharing ohne zentrale Server. Alle Teilnehmer leiten Daten für andere Teilnehmer weiter und stellen selbst Dateien bereit. Da weitergeleitete Daten nicht von Daten unterscheidbar sind, die von einem Teilnehmer selbst stammen, ergibt sich eine hohe Anonymität. Es ist ein echtes GNU-Projekt (bitte nicht mit Gnutella verwechseln). Weitere Informationen auf der Projektwebsite \href{http://gnunet.org/?xlang=German}{http://gnunet.org}.
+\item \textbf{StealthNet:} ist ebenfalls ein anonymes, dezentrales Filesharing Netzwerk. Die aktuelle Client-Software benötigt ein .Net 2.0 Framework. Anleitungen und Downloads gibt es auf der Projektwebsite \href{http://www.stealthnet.de}{http://www.stealthnet.de/}.
+\item \textbf{Anomos:} ist ein relativ junges Projekt. Es kombiniert das BitTorrent Protokoll mit einem Tor-ähnlichem Layer für End-to-End Verschlüsselung und Anonymisierung. Es können normale Torrent-Dateien genutzt werden, die jedoch auf einem Anonmos-Tracker bekannt sein müssen. Download und Informationen auf der Projektwebsite \href{http://anomos.info/}{http://anomos.info}.
+\end{itemize}
+

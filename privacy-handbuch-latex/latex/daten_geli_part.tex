@@ -1,0 +1,200 @@
+\section{GELI für FreeBSD}
+GELI ist seit Version 6.0 fester Bestandteil von FreeBSD. Ähnlich wie DM-Crypt für Linux nutzt es ein generisches Framework zum Öffnen beliebiger Container als Device, ein Kernelmodul zur Verschlüsselung und ein Userland-Tool zur die Verwaltung der verschlüsselten Container.\\
+
+GELI bietet folgende Feature:
+
+\begin{itemize}
+ \item Es können komplette Slices, einzelne Partitionen und Dateien fester Größe als verschlüsselte Container genutzt werden.
+\item Für jeden Container können mehrere Keyfiles und/oder Passwörter genutzt werden.
+\item Verschiedene Algorithmen stehen zur Auswahl: AES, Blowfish, 3DES.
+\item Es ist möglich, dass System komplett zu verschlüsseln.
+\end{itemize}
+
+Bevor man mit dem Erstellen eines verschlüselten Containers beginnt, sollte man sich wie üblich Gedanken über den Schlüssel machen. Eine Passphrase sollte einfach zu merken aber schwer zu erraten sein. Ein gutes zufälliges Keyfile lässt sich mit folgendem Kommando generieren:
+
+\begin{verbatim}
+  > dd if=/dev/random of=key_01.key bs=128 count=1
+\end{verbatim} 
+
+\subsection{Container vorbereiten}
+Je nach verwendetem Container sind verschieden Vorbereitungen nötig. Eine Containerdatei ist zu erstellen und als Loop-Device einzuhängen. Eine Partition oder ein gesamtes Slice ist mit zufälligen Daten zu überschreiben. Alle Schritte sind als \textit{root} auszuführen:
+
+\begin{enumerate}
+ \item \textbf{Erstellen einer Containerdatei:}\\ Als erstes ist eine leere Datei der gewünschten Größe zu erstellen (im Beispiel 1GB). Anschließend wird diese Datei als neues Device geöffnet und steht unter \textit{/dev/md1} für die Verschlüsselung zur Verfügung:
+\begin{verbatim}
+   # dd if=/dev/zero of=geheim.f bs=1m count=1024
+   # mdconfig -a -t vnode -f geheim.f
+\end{verbatim} 
+\item \textbf{Löschen einer Partition:}\\ Am besten löscht man eine vorhandene Partition durch (mehrfaches?) Überschreiben mit zufälligen Daten. Dieser Vorgang kann einige Zeit in Anspruch nehmen.
+\begin{verbatim}
+   # dd if=/dev/random of=/dev/ad0s1f
+\end{verbatim} 
+\end{enumerate}
+
+\subsection{Container erstellen}
+Als Container wird im folgenden Beispiel das Loop-Device \textit{/dev/md1} genutzt. Wer eine Partition verschlüsseln möchte, muss in allen Kommandos \textit{md1} durch \textit{ad0s1f} oder ähliches ersetzen.
+
+\begin{enumerate}
+ \item Als erstes wird ein neuer GELI Provider initiaisiert:
+\begin{verbatim}
+   # geli init -l 256 -s 4096 -K key_01.key /dev/md1
+   Enter new passphrase:
+   Reenter new passphrase:
+\end{verbatim} 
+
+Der Parameter \textit{-l 256} legt als Verschlüsselung AES256 fest, den stärksten zur Verfügung stehenden Algorithmus und mit \textit{-s 4096} wird die Sektorgröße gegenüber dem Standard vergrößert, was zu einer Verbesserung der Performance führt.\\
+
+Mit der Option \textit{-K} wird ein Keyfile angegeben. Diese letzte Option kann entfallen, wenn nur eine Passphrase für den Zugriff verwendet werden soll. Die Nutzung einer Passphrase könnte mit dem Parameter \textit{-p} deaktiviert werden.\\
+
+Soll der Provider später beim Booten automatisch geöffnet werden, ist zusätzlich der Parameter \textit{-b} anzugeben.
+
+\item Als zweiten Schritt wird der GELI Provider geöffnet und dem GEOM-Framework unterstellt:
+\begin{verbatim}
+   # geli attach -k key_01.key /dev/md1
+   Enter passphrase:
+\end{verbatim} 
+
+Der Name des GEOM Providers bekommt den Zusatz \textit{.eli}, der Inhalt ist also als \textit{/dev/md1.eli} erreichbar.
+
+\item Um zu verhindern, dass mögliche Schnüffler erahnen, an welcher Stelle im Container Daten gespeichert wurden, ist er komplett zu beschreiben. Ich denke, dass verschlüsselten Nullen nicht von Zufallszahle unterscheidbar sind, paranoide Nutzer können statt \textit{/dev/zero} auch \textit{/dev/random} als Datenquelle nutzen. Der Vorgang dauert dann wesentlich länger.
+\begin{verbatim}
+   # dd if=/dev/zero of=/dev/md1.eli bs=1m
+\end{verbatim} 
+
+\item Wer eine Slice komplett verschlüsselt hat, muss an dieser Stelle mit dem Tool \textit{bsdlabel} partitionieren. In diesem Beispiel oder bei Verschlüsselung einzelner Partitionen kann es entfallen und mit dem Anlegen eines neuen Filesystems fortgefahren werden:
+\begin{verbatim}
+   # newfs /dev/md1.eli
+\end{verbatim} 
+
+\item Abschließend wird der Container wieder geschlossen:
+\begin{verbatim}
+   # geli detach /dev/md1.eli
+\end{verbatim} 
+\end{enumerate}
+
+\subsection{Container öffnen/schließen}
+Das Öffnen eines verschlüsselten Containers erfordert 2-3 Schritte als \textit{root}:
+
+\begin{enumerate}
+ \item Einbinden der Containerdatei. Dieser erste Schritt kann entfallen, wenn man eine verschlüsselte Partition oder Slice öffnet.
+\item Öffnen des GELI Providers. Wichtig ist der Parameter \textit{-d}. Er sorgt dafür, dass der Provider später automatisch mit dem umount wieder geschlossen wird.
+\begin{verbatim}
+   # geli attach -d -k key_01.key /dev/md1
+   Enter passphrase:
+\end{verbatim} 
+Es ist das gleiche Keyfile, wie bei der Initialisierung anzugeben (allerdings mit kleinem \textit{-k} !). Auch die Abfrage der Passphrase ist mit \textit{-p} zu deaktivieren, wenn diese bei der Initialisierung nicht genutzt wurde.
+\item Verzeichnis erstellen, Mounten des verschlüsselten Filessystems und setzen des Eigentümers:
+\begin{verbatim}
+   # mkdir  /home/<user>/geheim
+   # mount /dev/md1.eli /home/<user>/geheim
+   # chown -R <user> /home/<user>/geheim
+\end{verbatim} 
+\end{enumerate}
+
+Das Schließen des Containers geht wesentlich einfacher, als Vorschlag diesmal mit \textit{sudo}:
+\begin{verbatim}
+   > sudo umount /home/<user>/geheim
+\end{verbatim} 
+
+\subsection{Passwörter verwalten}
+GELI kann für jeden Container mehrere Kombinationen von Keyfiles und Passphrase verwalten. Um einer weiteren Person Zugriff auf den Container zu gewähren kann eine zweite Schlüsselkombination hinzugefügt werden:
+\begin{verbatim}
+   # geli setkey -n 1 -K key_02.key /dev/md1
+   Enter passphrase:
+   Enter new Passphrase:
+   Reenter new Passphrase:
+\end{verbatim} 
+
+Die Option \textit{-K keyfile} kann entfallen, wenn der Zugriff nur mit einer Passphrase gesichert werden soll. Mit der Option \textit{-P} kann die Abfrage der Passphrase deaktiviert werden.\\
+
+Der Schlüssel kann später auch geändert werden. Das Beispiel zeigt die Änderung für die zweite Person:
+\begin{verbatim}
+   # geli setkey -n 1 -k key_02.key -K key_02_new.key /dev/md1
+   Enter passphrase:
+   Enter new Passphrase:
+   Reenter new Passphrase:
+\end{verbatim} 
+
+Mit dem kleinen \textit{-k} wird das alte Keyfile angegeben, mit großem \textit{-K} das neue Keyfile. Gleichfalls ist mit kleinem \textit{-p} die alte Abfrage der Passphrase zu deaktivieren und mit großem \textit{-P} die zukünftige Abfrage der Passphrase.\\
+
+Ein Löschen der Schlüssel ist mit folgendem Kommando möglich:
+\begin{verbatim}
+   # geli delkey -n 1 /dev/md1
+\end{verbatim} 
+
+\subsection{SWAP verschlüsseln}
+Das Verschlüsseln des SWAP-Bereiches geht ganz einfach:
+\begin{verbatim}
+   # dd if/dev/random of=/dev/ad0s1b bs=1m
+   # geli onetime -d ad0s1b<br>
+   # swapon
+\end{verbatim} 
+
+\subsection{System komplett verschlüsseln}
+Mit einem koplett verschlüselten FreeBSD erhält man ein hochsicheres System. Der Aufwand ist allerdings beträchtlich.\\
+
+Die FreeBSD Installations-CD enthält ein Live-System, welches für die Installation eines komplett verschlüsselten Systems genutzt werden. Nach dem Booten des Live-Systems ist ein symbilischer Link von \textit{/dist/lib} nach \textit{/lib} zu erstellen, falls es noch nicht existiert. Dann kann es losgehen.
+
+\begin{enumerate}
+ \item Die Festplatte aufteilen und das für FreeBSD vorgesehene Slice mit \textit{dd} reinigen. Ich verwende im folgenden \textit{/dev/ad0} für die Installation von FreeBSD.
+\item Das gesamte Slice verschlüsseln. Wichtig ist der Parameter -b, da der Container spätern beim Booten geöffnetet werden soll. Auf ein Keyfile verzichte ich diesmal:
+
+\begin{verbatim}
+   # geli init -b -l 256 -s 4096 /dev/ad0
+\end{verbatim}
+
+\item Den Container öffnen und partitionieren. Für die Partitionierung ist das Tool \textit{bsdlabel} zu verwenden!
+\begin{verbatim}
+   # geli attach /dev/ad0
+   Enter passphrase:
+   # bsdlabel -w /dev/ad0s1.eli
+   # bsdlabel -e /dev/ad0s1.eli
+\end{verbatim} 
+Für die weiteren Schritte gehe ich davon aus, dass die Partitionen a (Root), b (swap) und d (/usr) angelegt wurden. Wer zusätzlich eigene Partitionen für /tmp und /var verwendet, muss die Befehle für das Anlegen der Dateisystem und zum mounten ergänzen.
+\item Die Dateisysteme sind auf den Partitionen anzulegen (swap braucht kein Dateisystem):
+\begin{verbatim}
+   # newfs /dev/ad0.elia
+   # newfs /dev/ad0.elid
+\end{verbatim} 
+
+\item Die Partitionen sind für die Installation einzubinden:
+\begin{verbatim}
+   # mkdir /installation
+   # mount /dev/ad0.elia /installation
+   # mkdir /installation/usr
+   # mount /dev/ad0.elid /installation/usr
+\end{verbatim} 
+
+\item Dann kann die Installation beginnen. Es ist das Script \textit{install.sh} zu nutzen, \textit{sysinstall} funktioniert (noch) nicht.
+\begin{verbatim}
+   # export DESTDIR=/installation/
+   # mount /cdrom
+   # cd /cdrom/6.1-RELEASE/base
+   # ./install.sh
+\end{verbatim} 
+
+\item Um das verschlüsselte System booten zu können, braucht man einen USB-Stick, welcher den usw. enthält. Wurde der Stick unter \textit{/usbdisk} eingebunden, sind folgende Kommandos zur nötig:
+\begin{verbatim}
+   # cp -Rpv /installation/boot /usbdisk
+   # cd /usbdisk/boot/kernel
+   # gzip kernel geom_eli.ko acpi.ko
+\end{verbatim} 
+
+\item Anschließend ist dem Kernel mitzuteilen, dass er das Modul \textit{geom\_eli.ko} beim Booten zu laden hat:
+\begin{verbatim}
+   # echo geom_eli_load=\"YES\" >> /usbdisk/boot/loader.conf
+\end{verbatim} 
+\item Die Datei \textit{fstab} der neuen Installation ist anzupassen, so dass beim Booten die verschlüsselten Partitionen zu laden sind. Der Inhalt meiner fstab:
+\begin{verbatim}
+   /dev/ad0.elia /    ufs  rw 1 1
+   /dev/ad0.elid /usr ufs  rw 1 1
+   /dev/ad0.elib none swap sw 0 0
+\end{verbatim} 
+\item Diese Datei ist anschließend auch auf den USB-Stick zu kopieren:
+\begin{verbatim}
+   # mkdir /usbdisk/etc
+   # cp  /installation/etc/fstab /usbdisk/etc/fstab
+\end{verbatim} 
+
+\item Jetzt ist es Zeit, das Live-System herunterzufahren und den Rechner mit dem vorbereiteten USB-Stick zu booten. Ist das neu installierte FreeBSD erwacht, kann die Installation mit \textit{sysinstall} fortgesetzt werden. Eine Kopie des USB-Sticks sollte angelegt werden, da man bei Verlust des Sticks nicht mehr an seine daten kommt.
+\end{enumerate}

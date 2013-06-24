@@ -1,0 +1,17 @@
+\ 
+\item Das Tool \textbf{sudo} vereinfacht die Nutzung der pam-mount Scripte. Die Nutzung dieses Tools ist in verschiedenen Distributionen sehr unterschiedlich. Während Ubuntu es für fast alles nutzt, was mit root-Rechten ausgeführt wird, muss man unter SuSE-Linux das Paket \textit{sudo} erst installieren und konfigurieren.\\
+
+In der Datei \textit{/etc/sudoers} wird festgelegt, wer welches Kommando mit root-Rechten ausführen darf. Die folgende Zeile erlaubt es allen Nutzern, verschlüsselte Container einzubinden und wieder zu schließen.
+\begin{verbatim}
+ %users  ALL=NOPASSWD: /sbin/mount.crypt,/sbin/umount.crypt
+\end{verbatim}
+
+Die Datei ist mit dem Kommando \textit{visudo} als \textit{root} zu editieren. Für alle, die mit dem Editor vi nicht vertraut sind, ein kurzer Ablauf einer Session:
+\begin{enumerate}
+ \item Nach dem Start wechselt die Taste <i> in den Editiermodus.
+\item Der Editiermodus wird mit der Taste <ESC> wieder verlassen.
+\item Anschließend wird die Datei mit \textit{:w <ENTER>} gespeichert.
+\item Der Editor wird mit \textit{:p <ENTER>} beendet.
+\end{enumerate}
+\end{itemize}
+ 

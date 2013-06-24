@@ -1,0 +1,8 @@
+\section{Quick and Dirty mit GnuPG}
+Eine Möglichkeit ist die Verschlüsselung einzelner Dateien mit GnuPG oder PGP. Einfach im bevorzugten Dateimanager mit der rechten Maustaste auf eine Datei klicken und den Menüpunkt \textit{Datei verschlüsseln} wählen. Mit der Auswahl eines Schlüssels legt man fest, wer die Datei wieder entschlüsseln kann. Für Backups wird in der Regel der eigene Schlüssel verwendet. Es ist auch möglich, mehrere Schlüssel für verschiedene Empfänger zu nutzen. Die Verwaltung der OpenPGP Schlüssel ist im Kapitel \textit{E-Mails verschlüsseln} beschrieben. Anschließend ist das unverschlüsselte Orginal NICHT(!) in den Papierkorb sondern in den Reißwolf zu werfen.\\
+
+Sollen mehrere Dateien in einem Container verschlüsselt werden, erstellt man ein Verzeichnis und kopiert die Dateien dort hinein. Anschließend verpackt man dieses Verzeichnis mit \textit{WinZip, 7zip} oder anderen Tools in ein Archiv und verschlüsselt dieses Archiv.\\
+
+Wird die Option \textit{Symmetrisch verschlüsseln} gewählt, erfolgt die Verschlüsselung nicht mit einem Schlüssel sondern nur mit einer Passphrase. Die Entschlüsselung erfordert dann ebenfalls nur die Angabe dieser Passphrase und keinen Key. Diese Variante wird für Backups empfohlen, die man auch nach einem Crash bei totalem Verlust aller Schlüssel wieder herstellen will.\\
+
+Zum Entschlüsseln reicht in der Regel ein Klick (oder Doppelklick) auf die verschlüsselte Datei. Nach Abfrage der Passphrase für den Schlüssel liegt das entschlüsselte Orginal wieder auf der Platte.

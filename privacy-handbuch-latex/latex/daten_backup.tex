@@ -1,0 +1,44 @@
+\section{Backups verschlüsseln}
+Es ist beruhigend, wenn alles Nötige für eine komplette Neuinstallation des Rechners zur Verfügung steht:
+Betriebssystem, Software und ein Backup der persönlichen Daten. Betriebssystem und Software hat man als Linux-Nutzer mit einer Installations-CD/DVD der genutzen Distribution und evtl. einer zweiten CD für Download-Stuff schnell beisammen. Für WINDOWS wächst in kurzer Zeit eine umfangreiche Sammlung von Software.\\
+
+Für das Backup der persönlichen Daten haben ich eine kleine Ideensammlung zusammengestellt, die keinen Anspruch auf Vollständigkeit erhebt. Grundsätzlich sollten diese Daten verschlüsselt werden. Als Schlüssel für den Zugriff sollte eine gut merkbare Passphrase genutzt werden. Keyfiles oder OpenPGP-Schlüssel könnten bei einem Crash verloren gehen.
+
+\begin{enumerate}
+ \item Die persönlichen Daten oder einzelne Verzeichnisse mit häufig geänderten Dateien könnte man regelmäßig mit einer Kopie auf einem verschlüsselten Datenträger synchronisieren (USB-Stick, externe Festplatte). Da nur Änderungen übertragen werden müssen, geht es relativ schnell. 
+\item Einzelne, in sich geschlossene Projekte könnten platzsparend als komprimiertes verschlüsseltes Archiv auf einem externen Datenträger abgelegt werden.
+\item Größere abgeschlossene Projekte könnten auf einem optischen Datenträger dauerhaft archiviert werden.
+\end{enumerate}
+
+\subsection{Schnell mal auf den USB-Stick}
+Inzwischen gibt es preiswerte USB-Sticks mit beachtlicher Kapazität. Aufgrund der einfachen Verwendung sind sie für Backups im privaten Bereich gut geeignet. Für große Datenmengen kann man auch eine externe USB-Festplatte nutzen.  Wer eine Beschlag­nahme der Backup Medien befürchtet, findet vielleicht eine Anregung bei true-random\footnote{ \href{http://true-random.com/homepage/projects/usbsticks/small.html}{http://true-random.com/homepage/projects/usbsticks/small.html}}.\\
+
+Das Backup-Medium sollte man mit TrueCrypt oder DM-Crypt \underline{komplett} verschlüsseln. Die vollständige Verschlüsselung verhindert eine Manipulation des Datenträgers. Der Verfassungsschutz demonstrierte auf der CeBIT 2007, dass sich mit manipulierten Sticks Trojaner einschleusen lassen. Die vollständige Verschlüsselung des Backup Mediums macht es überflüssig, sich um eine zusätzliche Verschlüsselung der Daten beim Backup zu kümmern. Man die Daten nach dem Öffnen des Backup Containers einfach synchronisieren.\\
+
+Die von verschiedenen Herstellern angebotenen Verschlüsselungen sind oft unsicher. USB-Datentresore mit Fingerabdruckscanner lassen sich einfach öffnen\footnote{ \href{http://heise.de/-270060}{http://heise.de/-270060}}. Viele USB-Sticks mit Verschlüsselung verwenden zwar starke Algorithmen (in der Regel AES256), legen aber einen zweiten Schlüssel zur Sicherheit auf dem Stick ab, der mit geeigneten Tools ausgelesen werden kann und Zugriff auf die Daten ermöglicht. Selbst eine Zertifizierung des NIST ist keine Garantie für eine saubere Implementierung, wie ein Artikel bei Heise \footnote{ \href{http://heise.de/-894962}{http://heise.de/-894962}} zeigt.
+
+\subsubsection*{Unison-GTK}
+Für die Synchronisation der Daten steht z.B. Unison-GTK \footnote{ \href{http://www.cis.upenn.edu/~bcpierce/unison/}{http://www.cis.upenn.edu/~bcpierce/unison/}} für verschiedene Betriebssysteme (auch WINDOWS) zur Verfügung und bietet ein GUI für die Synchronisation. Die Installation ist einfach: Download, Entpacken und Binary starten. Linuxer können das Paket \textit{unison-gtk} mit der Paketverwaltung installieren.\\
+
+\begin{figure}[htb]
+\begin{center}
+\includegraphics[scale=0.55]{../screenshots/unison_1.png}
+\caption{Profil nach dem Start von Unison-GTK auswählen}
+\label{abb:unison1}
+\end{center}
+\end{figure}
+
+Nach dem ersten Start wählt man Quell- und Zielverzeichnis für das Default-Profil. Es ist möglich, mehrere Profile anzulegen. Bei jedem weiteren Start erscheint zuerst ein Dialog zur Auswahl des Profiles (Bild \ref{abb:unison1}).\\
+
+Nach Auswahl des Profiles analysiert Unison die Differenzen und zeigt im Haupfenster an, welche Aktionen das Programm ausführen würde. Ein Klick auf \textit{Go} startet die Synchronisation.\\
+
+\begin{figure}[htb]
+\begin{center}
+\includegraphics[scale=0.55]{../screenshots/unison_2.png}
+\caption{Hauptfenster von Unison-GTK}
+\end{center}
+\end{figure}
+
+\textbf{Achtung:} Unison synchronisiert in beide Richtungen und eignet sich damit auch zum Synchronisieren zweier Rechner. Verwendet man einen neuen (leeren) Stick, muss auch ein neues Profil angelegt werden! Es werden sonst alle Daten in den Quellverzeichnissen gelöscht, die im Backup nicht mehr vorhanden sind.\\
+
+Neben der Möglichkeit, lokale Verzeichnisse zu synchronisieren, kann Unison auch ein Backup auf einem anderen Rechner via FTP oder SSH synchronisieren.

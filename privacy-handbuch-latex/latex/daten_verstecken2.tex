@@ -1,0 +1,27 @@
+\section{stegdetect}
+Auch die Gegenseite ist nicht wehrlos. Manipulationen von steghide, F5, outguess, jphide usw. können z.B. mit \textit{stegdetect} \footnote{ \href{http://www.outguess.org/download.php}{http://www.outguess.org/download.php}} erkannt werden. Ein GUI steht mit \textit{xsteg} zur Verfügung, die Verschlüsselung der Nutzdaten kann mit \textit{stegbreak} angegriffen werden. Beide Zusatzprogramme sind im Paket enthalten.\\
+
+Der Name \textit{stegdetect} ist eine Kurzform von \textit{Steganografie Erkennung}. Das Programm ist nicht nur für den Nachweis der Nutzung von \textit{steghide} geeignet, sondern erkennt anhand statistischer Analysen auch andere Tools.
+
+Auch \textit{stegdetect} ist ein Tool für die Kommandozeile. Neben der zu untersuchenden Datei kann mit einem Parameter -s die Sensitivität eingestellt werden. Standardmäßig arbeitet stegdetect mit einer Empfindlichkeit von 1.0 ziemlich oberflächlich. Sinnvolle Werte liegen bei 2.0...5.0.
+\begin{verbatim}
+   > stegdetect -s 2.0 bild.jpg
+   F5(***)
+\end{verbatim}
+Im Beispiel wird eine steganografische Manipulation erkannt und vermutet, dass diese mit dem dem Tool F5 eingebracht wurde (was nicht ganz richtig ist da \textit{steghide} verwendet wurde).\\
+
+\textbf{Frage:} Was kann man tun, wenn auf der Festplatte eines mutmaßlichen Terroristen 40.000 Bilder rumliegen? Muss man jedes Bild einzeln prüfen?\\
+
+\textbf{Antwort:} Ja - und das geht so:
+
+\begin{enumerate}
+ \item Der professionelle Forensiker erstellt zuerst eine 1:1-Kopie der zu untersuchenden Festplatte und speichert das Image z.B. in \textit{terroristen\_hda.img}
+\item Mit einem kurzen Dreizeiler scannt er alle 40.000 Bilder in dem Image:
+\begin{verbatim}
+> losetup -o $((63*512)) /dev/loop0 terroristen_hda.img
+> mount -o ro,noatime,noexec /dev/loop0 /mnt
+> find /mnt -iname "*.jpg" -print0 | xargs -0 stegdetect -s 2.0 >> ergebnis.txt
+\end{verbatim} 
+(Für Computer-Laien und WINDOWS-Nutzer sieht das vielleicht nach Voodoo aus, für einen Forensiker sind das jedoch Standardtools, deren Nutzung er aus dem Ärmel schüttelt.)
+\item Nach einiger Zeit wirft man eine Blick in die Datei \textit{ergebnis.txt} und weiß, ob es etwas interessantes auf der Festplatte des Terroristen gibt.
+\end{enumerate}

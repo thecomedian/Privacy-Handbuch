@@ -1,0 +1,23 @@
+\section{JavaScript}
+JavaScript ist eine der Kerntechniken des modernen Internet, birgt aber auch einige Sicherheitsrisiken.
+\begin{enumerate}
+\item Mit Hilfe von Javascript kann man ein Vielzahl von Informationen über den Browser und das Betriebssystem auslesen. Bildschirmgröße, Farbeinstellungen, installierte Plugins und Hilfs-Applikationen.... Die Website \href{http://browserspy.dk}{http://browserspy.dk} zeigt eine umfangreiche Liste.\\
+
+Diese Informationen können zu einem individuellen Fingerabdruck verrechnet werden. Anhand dieses Fingerabdruck kann der Surfer wiedererkannt werden, auch wenn er die IP-Adresse mit VPNs oder Anonymisierungsdiensten verschleiert. Die EFF geht davon aus, dass diese Methode von vielen Datensammlern genutzt wird.
+\begin{itemize}
+ \item \textit{Yahoo! Web Analytics} nutzt Javascript Tracking Code, wenn Cookies blockiert werden.
+ \begin{quote}
+  \textit{In case Yahoo! Web Analytics cannot set a cookie, the system can still retrieve information from the JavaScript tracking code, the IP address and the web browser user agent. \footnote{ \href{http://help.yahoo.com/l/us/yahoo/ywa/documentation/install\_guide/ig\_get\_started.html}{http://help.yahoo.com/l/us/yahoo/ywa/documentation/install\_guide/ig\_get\_started.html}} }
+ \end{quote}  
+ \item Ein weiteres Beispiel ist die Firma \textit{bluecave} \footnote{ \href{http://www.bluecava.com}{http://www.bluecava.com}}. Das Trackingscript \textit{BCAL5.js} sammelt Informationen zur verwendeten Software, installierte Schriftarten, Bildschirmgröße, Browser Plug-ins und ein paar mehr Daten, um daraus einen individuellen Fingerprint zu berechnen. \textit{bluecave} protzt damit, 99\% der Surfer zu erkennen.
+ \item Der Trackingdienst Multicounter \footnote{ \href{http://www.multicounter.de/features.html}{http://www.multicounter.de/features.html}} und die Google Suche speichern die per Javascript ausgelesene Bild­schirm­größe als individuelles Merkmal.
+\end{itemize}
+
+\item Einige EverCookie Techniken nutzen Javascript, um zusätzliche Markierungen im Browser zu hinterlegen und gelöschte Tracking Cookies wiederherzustellen.
+
+\item Durch Einschleusen von Schadcode können Sicherheitslücken ausgenutzt und der der Rechner kann kompromittiert werden. Das Einschleusen von Schadcode erfolgt dabei auch über vertrauenswürdige Webseiten, beispielsweise mit Cross Site Scripting, wenn diese Websites nachlässig programmiert wurden. Werbebanner können ebenfalls bös­artigen Javascriptcode transportieren. Im Januar 2013 lieferten die Server des Werbe­netzwerkes OpenX Scripte aus, die Rechner durch Ausnutzung mehrerer Sicherheitslücken im Internet Explorer kompromittierten.\footnote{ \href{http://heise.de/-1787511}{http://heise.de/-1787511}}
+\end{enumerate}
+
+Ein generelles Abschalten ist heutzutage nicht sinnvoll. Ähnlich dem Cookie-Management benötigt man ein Whitelisting, welches JavaScript für vertrauenswürdige Websites zur Erreichung der vollen Funktionalität erlaubt, im allgemeinen jedoch deaktiviert. Gute Webdesigner weisen den Nutzer darauf hin, dass ohne Javascript eine deutliche Einschränkung der Funktionalität zu erwarten ist. 
+
+

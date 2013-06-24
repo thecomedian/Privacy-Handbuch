@@ -1,0 +1,30 @@
+\documentclass[notitlepage,a4paper,twoside,10pt]{article}
+
+\usepackage{mathpazo} 
+\usepackage{ngerman} 
+\usepackage[latin1]{inputenc} 
+\usepackage[T1]{fontenc} 
+\usepackage[pdftex]{graphicx} 
+\usepackage[pdftex,bookmarks=true,colorlinks,linkcolor=blue,urlcolor=blue,citecolor=blue]{hyperref} 
+
+%opening
+\title{S/MIME Verschlüsselung mit Mozilla Thunderbird}
+\date{\today}
+
+\hypersetup {
+    pdftitle= { S/MIME Verschlüsselung mit Mozilla Thunderbird }
+    pdfkeywords= { E-Mail Verschlüsselung S/MIME  Zertifikate Thunderbird }
+}
+
+
+\begin{document}
+\maketitle
+\tableofcontents
+\newpage
+\section{Einleitung}
+\input{e-mail-krypto_einleitung}
+\newpage
+\input{e-mail-krypto-smime_part}
+\input{e-mail-krypto-smime_anhang}
+
+\end{document}

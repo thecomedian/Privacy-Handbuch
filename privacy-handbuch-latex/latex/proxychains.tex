@@ -1,0 +1,21 @@
+\section{Nicht-proxyfähige Internetanwendungen}
+Mit Hilfe von proxifier-Tools können auch Applicationen anonymisoert werden, die keine Unterstützung für Proxies bieten. Unter Windows kann man Widecap nutzen (\href{http://widecap.com}{http://widecap.com}). Linux/UNIX Distributionen enthalten das nette Tool \textit{proxychains}.
+
+\subsubsection*{proxychains für Linux/UNIX}
+Nachdem man \textit{proxychains} mit dem Paketmanager der Distribution installiert hat, ist die Standardkonfiguration bereits für Tor Onion Router vorbereitet. Sollen statt Tor die Premium-Dienste von  JonDonym genutzt werden, ist eine Konfigurationsdatei in \textit{\$(HOME)/.proxychains/proxychains.conf} zu erstellen:
+\begin{verbatim}
+ strict_chain
+ proxy_dns 
+ [ProxyList]
+ http 127.0.0.1 4001 
+\end{verbatim}
+
+Um den Traffic beliebiger Anwendungen zu anonymisieren, startet man die Anwendung unter Kontrolle von \textit{proxychains}. Unbeobachtete Administration eines Servers mittels SSH ist möglich mit: 
+\begin{verbatim}
+ proxychains ssh user@server.tld
+\end{verbatim}
+
+Den Instant Messenger Kopete (KDE/Linux) kann man anonymisieren: 
+\begin{verbatim}
+ proxychains kopete
+\end{verbatim}

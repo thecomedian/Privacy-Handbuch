@@ -1,0 +1,404 @@
+\subsection{Installation der Enigmail-Erweiterung}
+Enigmail \footnote{ \href{http://enigmail.mozdev.org/}{http://enigmail.mozdev.org}} ist eine Erweiterung für Mozilla Thunderbird, welche eine Schnittstelle zu GnuPG bereitstellt und den Umgang mit Verschlüsselung im täglichen E-Mail Chaos vereinfacht. Am einfachsten installiert man Enigmail mit dem Add-on Manager von Thunderbird. Den Manager findet man unter \textit{Extras - Add-ons}. Im Suchfeld gibt man \textit{Enigmail} ein. Ein Klick auf den Button \textit{Installieren} holt das Add-on.
+
+\begin{figure}[htb]
+\begin{center}
+\includegraphics[scale=0.75]{../screenshots/enigmail_inst.png}
+\caption{Installation von EnigMail}
+\label{abb:enigmailinst}
+\end{center}
+\end{figure}
+
+Nach Installation von Enigmail muss Thunderbird neu gestartet werden! Nach dem Neustart kann man den Konfigurations-Assistenten unter \textit{OpenPGP - OpenPGP-Assistent} aufrufen. Dabei werden folgende Schritte durchlaufen:
+
+\begin{enumerate}
+ \item Abfrage, ob gesendete E-Mails standardmäßig signiert und verschlüsselt werden sollen. Um unbedarfte Anwender nicht zu verwirren, kann man diese Funktion deaktivieren.
+\item Abfrage, ob gesendete E-Mails standardmäßig verschlüsselt werden sollen. Da man meist nur OpenPGP-Schlüssel von wenigen Empfängern hat, kann man diese Option zunächst deaktivieren. Später, wenn sich die Verschlüsselung im Bekanntenkreis durchgesetzt hat, ist eine Aktivierung vielleicht sinnvoll.
+\item Optimierung der Einstellungen für GnuPG. Die Vorgaben sind sinnvoll und sollten übernommen werden.
+\item Generieren der Schlüsselpaare für alle vorhandenen Konten. Die Passphrase für den Zugriff auf den privaten Key sollte man sich vorher gut überlegen und merken! Es heißt \textit{Passphrase} und nicht \textit{Passwort}. Die Passphrase darf ruhig etwas länger sein und auch Leer- bzw. Sonderzeichen enthalten.\\
+
+Die Vorschläge des Assitenten sind erst einmal sinnvoll. Individuelle Anpassungen (z.B. 4096 Bit Schlüssellänge usw.) kann man nur beim Erstellen eines neuen Schlüssels in der Schlüsselverwaltung wählen.\\
+
+Kryptografischen Funktionen können nicht unbegrenzt den Fortschritten der Kryptoanalys widerstehen. Es ist sinnvoll, die Nutzungszeit des Schlüssels mit einem Haltbarkeitsdatum zu versehen. Eine Nutzung länger als \textbf{5 Jahre} sollte man nur in begründeten Ausnahmen in Erwägung ziehen. Bei der Schlüsselerstellung sollte ein Verfallsdatum angegeben werden.\\
+
+ Mit jedem Schlüsselpaar kann auch ein Zertifikat für den Rückruf erstellt und sicher gespeichert werden. Mit diesem Zertifikat kann man einen Schlüssel für ungültig erklären, wenn der private Key kompromittiert wurde oder die Passphrase in Vergessenheit gerät.\\
+Dieser 4. Schritt kann übersprungen werden, wenn man bereits gültige OpenPGP Schlüssel hat.
+\item FERTIG
+\end{enumerate}
+
+Sollte Enigmail das Programm \textit{gpg} nicht finden, weil man lieber die Version 2 \textit{gpg2} von GnuPG nutzen möchte oder weil man es unter WINDOWS in einem selten verwendeten Verzeichnis liegt, wählt man den Menüpunkt \textit{OpenPGP / Einstellungen} und gibt in der Dialogbox den Pfad zum GPG-Programm ein.
+
+\subsection{Schlüsselverwaltung}
+Die Schlüsselverwaltung findet man in Thunderbird unter dem Menüpunkt \textit{OpenPGP - Schüssel verwalten}. Ist die Liste noch leer, wählt man zuerst den Menüpunkt \textit{Erzeugen - Neues Schlüsselpaar}. Diesen Schritt übernimmt jedoch auch der Assistent zur Einrichtung von Enigmail.
+
+\begin{figure}[htb]
+\begin{center}
+\includegraphics[scale=0.75]{../screenshots/enigmail_schl.png}
+\caption{Schlüsselverwaltung von EnigMail}
+\label{abb:enigmail_schl}
+\end{center}
+\end{figure}
+
+\subsubsection*{Exportieren des eigenen öffentlichen Schlüssels}
+Um verschlüsselt zu kommunizieren, muss den Kommunikationspartnern der eigene öffentliche Schlüssel zur Verfügung gestellt werden. Der einfachste Weg nutzt die Schlüsselserver im Internet. In der Schlüsselverwaltung findet man den Menüpunkt \textit{Schlüssel-Server / Schlüssel hochladen}. Der öffentliche Schlüssel wird auf den Schlüsselserver exportiert und steht dort allen Partnern zur Verfügung. Die verschiedenen Server synchronisieren ihren Datenbestand.\\
+
+Alternativ könnte man den öffentlichen Schlüssel als E-Mail Attachment versenden oder als Datei auf einem Webserver ablegen. Den Menüpunkt für den Export in eine Datei findet man unter \textit{Datei - Schlüssel exportieren} in der Schlüsselverwaltung. Um den Schlüssel als Attachment an eine Mail anzuhängen, aktivieren Sie die Option \textit{OpenPGP - Meinen öffentlichen Schlüssel anhängen} beim Schreiben einer Mail wie im Bild \ref{abb:enigmailaddkey} zu sehen.
+
+\begin{figure}[htb]
+\begin{center}
+\includegraphics[scale=0.75]{../screenshots/enigmail_add_key.png}
+\caption{OpenPGP-Schlüssel versenden}
+\label{abb:enigmailaddkey}
+\end{center}
+\end{figure}
+
+\subsubsection*{Import der Schlüssel der Partner}
+Um an einen Kommunikationspartner verschlüsselte E-Mails zu senden oder die Signatur erhaltener Nachrichten zu prüfen, benötigt man den öffentlichen Schlüssel des Partners.
+
+\begin{itemize}
+ \item Am einfachsten läßt sich dieser importieren, wenn man eine signierte E-Mail erhalten hat. Ein Klick auf den blauen Stift rechts oben im Header der E-Mail reicht aus, um den öffentlichen Schlüssel von einem Schlüsselserver zu importieren.
+\item Zum Importieren des Schlüssel eines Partners aus einer Datei, die man als Attachement oder per Download erhalten hat, wählt man den Menüpunkt \textit{Datei / Importieren} in der Schlüselverwaltung.
+\item Wenn der Schlüssel als Text angeboten wird, sieht es etwa so aus:
+\begin{verbatim}
+ -----BEGIN PGP PUBLIC KEY BLOCK-----
+ Version: SKS 1.1.1
+ 
+ mQENBEt5GIIBCACOnOeTtfBIUbdcOmw5DlLuxkQB4uQ/8HbSUaH96s1z
+ HqFA/31GB70podyEKqc41T2TDdWWITfdy1dpxeGwopBK/wljPAuNAgJQ
+ ....
+ fU7xEW/RQT76n0RfTXnbj2m/DRPmoivcXW5G/zJM6QUjl++vO7OB+3xb
+ SnDCMQtaWHM57eLcmnsMAK3qHOYlVrNUTSvEgatjUqLU
+ =fP9T
+ -----END PGP PUBLIC KEY BLOCK-----
+\end{verbatim} 
+Man kann die Zeilen von BEGIN ...bis... END mit der Maus markieren und in die Zwischen­ablage kopieren. In der Schlüssel­verwaltung von Enigmail importiert man den Schlüssel wie im Bild \ref{abb:enigmailimp} dargestellt mit \textit{Bearbeiten - Aus Zwischenablage importieren}.
+
+\begin{figure}[htb]
+\begin{center}
+\includegraphics[scale=0.75]{../screenshots/enigmail-clip.png}
+\caption{OpenPGP-Schlüssel aus Zwischenablage importieren}
+\label{abb:enigmailimp}
+\end{center}
+\end{figure}
+
+\item Auch ohne eine signierte E-Mail erhalten zu haben, kann man die Schlüsselserver nach dem zu einer E-Mail Adresse gehörenden Schlüssel durchsuchen. Die Funktion findet man unter dem Menüpunkt \textit{Schlüssel-Server / Schlüssel suchen}. Man gibt in der sich öffnenden Dialogbox die E-Mail-Adresse des Empfängers ein und bestätigt mit Ok.\\
+
+Wurden zur Suchanfrage passende Schlüssel gefunden, werden diese in einer Liste angezeigt. Wählen Sie aus dieser Liste den zu importierenden Schlüssel und bestätigen Sie mit OK. Wenn mehrere passende Schlüssel für eine E-Mail Adresse gefunden wurden, ist in der Regel der neueste Schlüssel die richtige Wahl.
+
+\begin{figure}[htb]
+\begin{center}
+\includegraphics[scale=0.75]{../screenshots/enigmail_suche2.png}
+\caption{Mehrere OpenPGP-Schlüssel gefunden}
+\label{abb:enigmailsuche}
+\end{center}
+\end{figure}
+
+\end{itemize}
+
+
+\subsection{Signieren und Verschlüsseln erstellter E-Mails}
+Wurde in den Kontoeinstellungen in der Sektion \textit{OpenPGP} die Option  \textit{Nachrichten standardmäßig verschlüsseln} aktiviert, sind beim Schreiben einer E-Mail keine weiteren Hinweise zu beachten. Anderenfalls ist für jede E-Mail explizit festzulegen, dass sie verschlüsselt werden soll.\\
+
+Das Fenster für das Erstellen einer neuen E-Mail (Bild \ref{abb:thunder_email_neu}) zeigt nach der Installation des Enigmail-PlugIns einen neuen Button \textit{OpenPGP}. Klickt man auf diesen Button, öffnet sich der im Bild \ref{abb:thunder_email_neu} gezeigte Dialog, der es ermöglicht, die Krypto-Eigenschaften für diese E-Mail festzulegen.\\
+
+Sollte die E-Mail Anhänge enthalten, ist die Option \textit{PGP / MIME} zu aktivieren, um die Attachements standardkonform zu verschlüsselt.\\
+
+\textbf{Achtung:} Die Betreffzeile wird nicht (!) mit verschlüsselt. Sicher wird man die Kontonummer nicht in der Betreffzeile schreiben, aber auch ein ausführlicher Betreff ermöglicht zusammen mit der/den Adressen der Empfänger einige Aussagen über die Kommunikation.\\
+
+Wenn man als Betreff beispielsweise schreibt:
+\begin{quote}
+ \textit{Treffen der Aktivisten-Gruppe ... am 13.01.09}
+\end{quote} 
+
+und diese Mail per CC an alle Mitglieder der Gruppe versendet, sind 90\% der relevanten Informationen bekannt und man kann sich die Verschlüsselung der Mail sparen.\\
+
+Soll jede versendete E-Mail verschlüsselt werden, wenn der Schlüssel des Empfängers vor­handen ist, kann die entsprechende Option in den Konto Einstellungen unter \textit{OpenPGP -> Sicherheit} aktiviert werden. Alternativ ist es auch möglich, lediglich für bestimmte Empfänger festzulegen, dass alle E-Mails signiert oder verschlüsselt werden sollen. Diese Regeln kann man unter \textit{OpenPGP -> Empfängerregeln} definieren.
+
+\begin{figure}[htb]
+\begin{center}
+\includegraphics[scale=0.55]{../screenshots/gpg_senden.png}
+\caption{Signieren und Verschlüsseln einer E-Mail}
+\label{abb:thunder_email_neu}
+\end{center}
+\end{figure}
+
+\subsection{Adele - der freundliche OpenPGP E-Mail-Roboter}
+Adele ist der freundliche OpenPGP E-Mail-Roboter der G-N-U GmbH. Man kann mit dem Robot seine ersten verschlüsselten Mails austauschen und ein wenig üben ohne Freunde mit Anfänger­probleme zu belästigen.
+
+\begin{description}
+ \item[1: Den eigenen Schlüssel an Adele senden:] Als erstes schickt man den eigenen öffentlichen Schlüssel per E-Mail an \textit{adele@gnupp.de}. Den Schlüssel hängt man als Anhang an die Mail an, indem man die Option \textit{OpenPGP - Meinen öffentlichen Schlüssel anhängen} vor dem Versenden der Mail aktiviert (Bild \ref{abb:enigmailaddkey})
+
+ \item[2. Verschlüsselte Antwort von Adele:] Als Antwort erhält man nach einigen Minuten eine verschlüsselte E-Mail von Adele. Die E-Mail wird nach Abfrage der Passphrase entschlüsselt und enthält den Schlüssel von Adele:
+
+\begin{verbatim}
+ Hallo,
+ 
+ hier ist die verschlüsselte Antwort auf Ihre E-Mail.
+ 
+ Ihr öffentlicher Schlüssel wurde von mir empfangen.
+ 
+ Anbei der öffentliche Schlüssel von adele@gnupp.de,
+ dem freundlichen E-Mail-Roboter.
+ 
+ Viele Grüße,
+ adele@gnupp.de
+ 
+ -----BEGIN PGP PUBLIC KEY BLOCK-----
+ Version: GnuPG v1.4.9 (GNU/Linux)
+ 
+ mQGiBDyFlIkRBACfVHJxv47r6rux7TwT4jHM7z/2VfyCrmcRegQEsbdLfqu3mEmK
+ RouuaDQukNINWk2V2ErOWzFnJqdzpapeuPJiOWp0uIEvU3FRPhYlytw9dFfwAHv4
+ MJ7639tAx9PfXBmZOd1PAoE451+VLhIGlLQiFGFppJ57SZ1EQ71/+/nkSwCg8Mge
+ ....
+ EQIABgUCPIWUlQASCRDlczRpkqs/9wdlR1BHAAEBv20AoJJGeeZjMCSbXtmNSwfW
+ QsLOd0+4AKCdXwt552yi9dBfXPo8pB1KDnhtbQ==
+ =ERT8
+ -----END PGP PUBLIC KEY BLOCK-----
+\end{verbatim} 
+
+\item[3. Schlüssel von Adele importieren:] Man kann die Zeilen von \texttt{BEGIN PGP PUBLIC KEY BLOCK} bis einschließlich \texttt{END PGP PUBLIC KEY BLOCK} mit der Maus markieren, in die Zwischenablage kopieren und in der Schlüsselverwaltung über \textit{Bearbeiten - Aus Zwischenablage importieren} einfügen.\\
+
+ Alternativ holt man sich Adeles Schlüssel mit der ID 0x92AB3FF7 von einem Keyserver.
+
+\item[4. Adele verschlüsselte E-Mails schreiben] Jetzt kann man Adele verschlüsselte E-Mails schicken. Als Antwort erhält man umgehend eine gleichfalls verschlüsselte E-Mail mit dem gesendeten Text als Zitat.
+\begin{verbatim}
+ Hallo,
+ 
+ hier ist die verschlüsselte Antwort auf Ihre E-Mail.
+ 
+ Ich schicke Ihnen Ihre Botschaft im Wortlaut zurück, damit Sie
+ sehen, dass ich sie erfolgreich entschlüsseln konnte.
+ 
+ > Hello Adele,
+ >
+ > hope you are feeling well.
+\end{verbatim} 
+
+ \end{description}
+
+\subsection{Verschlüsselung in Webformularen}
+Auch bei der Nutzung eines Webmail Accounts oder Webforms für die Versendung anonymer E-Mails muss man auf Verschlüsselung nicht verzichten.\\
+
+Einige grafische Tools für die Schlüsselverwaltung wie z.B. GPA (\textit{GNU Privacy Assistent}) \footnote{ \href{http://www.gnupg.org/related\_software/gpa/index.de.html}{http://www.gnupg.org/related\_software/gpa/index.de.html}} oder KGPG enthalten einen Editor. Man kann den Text in diesem Editor schreiben, mit einem Klick auf den entsprechenden Button signieren oder verschlüsseln und das Ergebnis über die Zwischenablage in die Textbox der Website einfügen. Entschlüsseln funktioniert umgekehrter.\\
+
+Enthält das bevorzugte Tool für die Schlüsselverwaltung keinen Texteditor, kann man folgende Alternativen nutzen, die auch für unterwegs (auf dem USB-Stick) geeignet sind:
+\begin{enumerate}
+ \item Das kleine Tool \textbf{gpg4usb} \footnote{ \href{http://gpg4usb.cpunk.de}{http://gpg4usb.cpunk.de}} bietet einen Editor mit den Buttons für das Ver- und Entschlüsseln des Textes, Dateiverschlüsselung sowie eine kleine Schlüsselverwaltung (Signieren und Prüfen der Signatur steht noch auf der ToDo Liste). Das ZIP-Archiv enthält Versionen für Windows und Linux. Es kann einfach auf dem USB-Stick genutzt werden.
+\item Die Applikation \textbf{Portable PGP} \footnote{ \href{http://ppgp.sourceforge.net/}{http://ppgp.sourceforge.net}} ist eine Java-Anwendung (plattformunabhängig), die ebenfalls Texte und Dateien ver- und entschlüsseln kann. Eine einfach Schlüsselverwaltung ist ebenfalls  enthalten. Zusätzlich zu Portable PGP benötigt man eine Java Laufzeitumgebung. Eine portable Version der Sun-JRE gibt es bei portableapps.com.
+\end{enumerate}
+
+\subsection{GnuPG SmartCard nutzen}
+Die Sicherheit asymmetrischer Verschlüsselung hängt in hohem Maße von der sicheren Aufbewahrung des privaten Keys ab. Nutzt man GnuPG auf mehreren Rechnen, insbesondere wenn andere Nutzer Administrator- bzw. Root-Privilegien auf diesen Rechnern haben, könnte der private Key in falsche Hände gelangen.\\
+
+Böswillige Buben könnten mit einem Trojaner versuchen, den privaten Key zu kopieren und das Passwort mit Tools wie \textit{Elcomsoft Distributed Password Recovery} \footnote{ \href{http://www.elcomsoft.de/programme/edpr.html}{http://www.elcomsoft.de/programme/edpr.html}} ermitteln. Die unbedachte Entsorgung einer Festplatte oder eines Computers ist ein weiteres Risiko, wenn der private Key nicht zuverlässig gelöscht wurde.\\
+
+\textbf{SmartCards:} ermöglichen eine sichere Nutzung von GnuPG unter diesen Bedingungen. Der private Key ist ausschließlich auf der SmartCard gespeichert, er verläßt diese sichere Umgebung nicht. Sämtliche kryptografischen Operationen werden auf der Card ausgeführt. CardReader (USB) und GnuPG-SmartCards gibt es bei kernelconcepts.de \footnote{\href{http://www.kernelconcepts.de/shop/products/security.shtml?hardware}{http://www.kernelconcepts.de/shop/products/security.shtml?hardwaree}}.\\
+
+\textbf{CryptoStick:} Da das Handling mit CardReader und SmartCard unter Umständen etwas umständlich sein kann, wurde ein USB-Stick entwickelt, der CardReader plus eine SmartCard in einem kleinen Gehäuse enthält und voll kompatibel mit der Version 2.0 der OpenPGP SmartCard ist. Weitere Informationen gibt es auf der Webseite des Projektes \footnote{ \href{http://www.crypto-stick.com}{http://www.crypto-stick.com}}.
+
+\begin{figure}[htb]
+\begin{center}
+\includegraphics[scale=0.6]{../screenshots/cryptostick2.jpeg}
+\caption{CryptoStick}
+\label{abb:cryptostick}
+\end{center}
+\end{figure}
+
+\subsubsection*{Hardware-Treiber installieren}
+Vor der Nutzung der SmartCard ist der Hardware-Treiber für den CardReader zu installieren.
+\begin{itemize}
+   \item WINDOWS: Die Lieferung des CardReaders von kernelconcepts.de enthält eine CD mit den nötigen Treiber für WINDOWS. Das zum Gerät passende ZIP-Archiv ist zu entpacken und \textit{setup.exe} als Administrator zu starten.\\
+
+   Für den CryptoStick gibt es den PC Twin USB PC/SC Treiber \footnote{ \href{http://support.gemalto.com/?id=46}{http://support.gemalto.com/?id=46}}.
+
+\item Linux: Da Linux out-of-the-box viel mehr Hardware unterstützt als Windows, sind die nötigen Treiber in den Repositories enthalten. Unter Debian/Ubuntu installiert man alles Nötige für die Nutzung der SmartCard mit folgendem Kommando: 
+\begin{verbatim}
+  # aptitude install pcscd libpcsclite1 libccid
+\end{verbatim}
+
+Die Pakete \textit{openct} und \textit{opensc} sollten entfernt werden, da diese zu Beeinträchtigungen führen können. 
+\end{itemize}
+\begin{verbatim}
+  # aptitude purge openct opensc
+\end{verbatim}
+
+
+Außerdem benötigen die aktuelle OpenPGP-SmartCard und der Crypto-Stick GnuPG mindestens in der Version 1.4.9+ oder die 2.0.12+. Unter WINDOWS funktioniert erst die Version 1.4.10. Aktualisieren sie ihre GnuPG Version, wenn nötig.\\
+
+Wer ``gpg2'' nutzen möchte, sollte beachten, dass der ``gpg-agent'' unbedingt nötig ist. In der Datei \textit{\$HOME/.gnupg/gpg.conf} ist am Ende einfach ein \texttt{use-agent} einzufügen. Dann meldet man sich vom Desktop ab und wieder an.\\
+
+Nachdem die Software installiert wurde, sollte man prüfen, ob alles funktioniert. SmartCard anschließen und auf der Konsole bzw. DOS-Box eingeben: 
+\begin{verbatim}
+  > gpg --card-status
+  Application ID ...: D27600xxxxxxxxxxxxxxx
+  Version ..........: 2.0
+  Manufacturer .....: unknown
+  .... 
+\end{verbatim}
+
+\subsubsection*{SmartCards und CryptoStick mit Enigmail nutzen}
+Enigmail ist seit der Version 1.0.1 voll kompatibel mit der SmartCard und dem CryptoSick. Das Add-on bietet eine grafische Oberfläche, um die SmartCard zu verwalten. Diese Funktionen öffnet man über den Menüpunkt \textit{OpenPGP - Smartcard verwalten}.
+
+\begin{figure}[htb]
+\begin{center}
+\includegraphics[scale=0.55]{../screenshots/smartcard1.png}
+\caption{SmartCard verwalten}
+\label{abb:smartcard1}
+\end{center}
+\end{figure}
+
+\begin{enumerate}
+ \item Als Erstes kann man die Card personalisieren und den Namen usw. editieren, eine URL für den Public Key angeben... (\textit{Edit Card Data}).
+
+\item Im zweiten Schritt sollte der PIN und der Admin-PIN geändert werden. Der PIN ist eine 6-stellige Zahlenkombination (Default: 123456), welche den User-Zugriff auf die Card sichert. Der Admin-PIN ist eine 8-stellige Zahlenkombination (Default: 12345678) für die Verwaltungsoperationen.\\
+
+Wurde der PIN 3x falsch eingegeben, wird die Card gesperrt und kann mit dem Admin-PIN wieder entsperrt werden (\textit{Unblock PIN}). Wird der Admin-PIN 3x falsch eingegeben, ist die SmartCard zerstört!.\\
+
+Die Festlegung auf 6- bzw. 8-stellige Zahlenkombinationen legt es nahe, ein Datum aus dem persönlichen Leben als PINs zu nutzen. Das reduziert die Vergesslichkeit. Es sollte jedoch kein einfach zu erratenes Datum wie der Geburtstag des Töchterchens sein.
+
+\begin{figure}[htb]
+\begin{center}
+\includegraphics[scale=0.55]{../screenshots/smartcard3.png}
+\caption{SmartCard-PINs ändern}
+\label{abb:smartcard3}
+\end{center}
+\end{figure}
+
+\item Als letzten Schritt vor der Nutzung der SmartCard im täglichen Krypto-Chaos sind die Keys auf der SmartCard zu generieren. Der entsprechende Dialog bietet die Auswahl eines Mail-Account an, für den die SmartCard genutzt werden soll. Für diesen Account darf kein(!) OpenPGP-Key vorhanden sein. Anderenfalls bricht der Vorgang mit einer wenig verständlichen Fehlermeldung ab.\\
+
+Es sollte unbedingt bei der Erzeugung des Schlüssels ein Backup der Card-Keys angelegt und mit einem Passwort gesichert werden. Später ist kein Zugriff auf diese Schlüssel mehr möglich. Bei Beschädigung der SmartCard kann der gesicherte Card-Key in eine neue SmartCard importiert werden. Das Backup wird im GnuPG-Verzeichnis abgelegt und ist auf einem sicheren Datenträger zu speichern!\\
+
+Wurden die Schlüssel erfolgreich generiert, findet man in der \textit{Schlüsselverwaltung} ein neues Paar. Der Public Key dieses Schlüsselpaares kann wie üblich exportiert und den Partnern zur Verfügung gestellt werden. Der Private Key dieses Paares definiert lediglich, dass die kryptografischen Operationen auf einer SmartCard auszuführen sind. Er ist ohne die passende Card unbrauchbar.
+\end{enumerate}
+
+\subsubsection*{Funktionen für Genießer}
+Die Nutzung von gpg auf der Kommandozeile bietet etwas mehr Möglichkeiten, als bisher im Enigmail-GUI implementiert sind. Natürlich stehen auch die mit dem GUI durchführbaren Funktionen auf der Kommandozeile zur Verfügung.\\
+
+Einen Überblick über alle SmartCard-Funktionen gibt die Hilfe. Als erstes muss man den Admin Mode aktivieren, dann hat man vollen Zugriff auf alle Funktionen:
+\begin{verbatim}
+   > gpg --card-edit
+   Befehl> admin
+   Befehl> help
+\end{verbatim} 
+
+Neue Schlüssel generiert man auf der SmartCard mit:
+\begin{verbatim}
+   > gpg --card-edit
+   Befehl> admin
+   Befehl> generate
+\end{verbatim} 
+
+Hat man mehrmals den PIN falsch eingegeben kann man ein neuen (alten) PIN (rück-)setzen, wenn man den Admin-PIN kennt:
+\begin{verbatim}
+   > gpg --card-edit
+   Befehl> admin
+   Befehl> passwd
+\end{verbatim} 
+
+Möglicherweise hat man bereits eine OpenPGP Schlüssel mit vielen Signaturen. Den möchte man nicht wegwerfen und im Web of Trust noch einmal von vorn beginnen. Als Ausweg bietet es sich an, einen vorhandenen, starken Schlüssel mit der SmartCard zusätzlich zu schützen. Der Zugriff auf den geheimen Schlüssel ist dann nur mit der SmartCard möglich. Es ist dem vorhanden Schlüssel mit der ID key-id ein Subkey der SmartCard hinzuzufügen. Das geht nur auf der Kommandozeile:
+\begin{verbatim}
+   > gpg --edit-key key-id
+   command> addcardkey
+\end{verbatim}
+
+Dabei wird ein evtl. auf der SmartCard vorhandener Key zertört!
+
+\subsection{SSL-Verschlüsselung für Keyserver aktivieren}
+Seit Anfang Oktober 2012 bietet der Keyserverpool sks-keyservers.net einen Sub-Pool mit SSL-Verschlüsselung für das Abrufen und Senden von OpenPGP-Schlüsseln \footnote{ \href{http://permalink.gmane.org/gmane.comp.encryption.pgp.sks/3559}{http://permalink.gmane.org/gmane.comp.encryption.pgp.sks/3559}}. Die SSL-Verschlüsselung verhindert, dass ein Lauscher beobachtet, welche OpenPGP-Schlüssel man sucht und herunter lädt.\\
+
+Um diesen sicheren Sub-Pool zu nutzen, sind folgende Schritte nötig:
+\begin{enumerate}
+ \item Man benötigt eine Version von GnuPG, die das \textit{hkps://} Protokoll unterstützt. Man kann \textit{gnupg2} nutzen oder das Paket \textit{gnupg-curl} installieren. Für Windows bietet \textit{gpg4win} ein Paket mit \textit{gnupg2}, unter Linux installiert man eines der genannten Pakete mit dem bevorzugten Paketmanager.
+ \item Das CA-Root Zertifikat des Keyserverpool \textit{sks-keyservers.netCA.pem}\footnote{ \href{https://sks-keyservers.net/sks-keyservers.netCA.pem}{https://sks-keyservers.net/sks-keyservers.netCA.pem}} ist herunter zu laden und auf dem eigenen Rechner zu speichern.
+ \item In der Konfiguration von Enigmail sind die \textit{Experten Optionen} zu aktivieren und folgende Werte einzutragen:
+\begin{enumerate}
+ \item Bei der Nutzung von \textit{gnupg2} ist der Pfad zu diesem Programm auszuwählen.
+ \item Auf dem Reiter \textit{Schlüssel-Server} ist der HKPS-Pool als einziger Schlüssel-Server einzutragen:
+   \begin{verbatim}
+hkps://hkps.pool.sks-keyservers.net
+   \end{verbatim} 
+ \item Auf dem Reiter \textit{Erweitert} sind als \textit{Zusätzliche Parameter für GnuPG} die nötigen Keyserver-Optionen einzutrage:
+   \begin{verbatim}
+--keyserver-options ca-cert-file=<Path to>/sks-keyservers.netCA.pem
+   \end{verbatim} 
+\end{enumerate}
+
+\end{enumerate}
+
+
+\subsection{Web des Vertrauens}
+Im Prinzip kann jeder Anwender einen Schlüssel mit beliebigen E-Mail Adressen generieren. Um Vertrauen zu schaffen, gibt es das \textbf{Web of Trust}.\\
+
+Hat Beatrice die Echtheit des Schlüssels von Anton überprüft, kann sie diesen mit ihrem geheimen Schlüssel signieren und auf die Schlüsselserver re-exportieren. Conrad, der den Schlüssel von Beatrice bereits überprüft hat, kann damit aufgrund der Signatur auch dem Schlüssel von Anton vertrauen. Es bildet sich ein weltweites Netz von Vertrauensbeziehungen. Die Grafik Bild \ref{abb:weboftrust} zeigt eine mögliche Variante für den Key von Anton (A).\\
+
+\begin{figure}[htb]
+\begin{center}
+\includegraphics[scale=0.55]{../grafiken/web_of_trust.png}
+\caption{Beispiel für ein Web of Trust}
+\label{abb:weboftrust}
+\end{center}
+\end{figure}
+
+\subsubsection*{OpenPGP-Schlüssel signieren}
+
+Die Echtheit eines Schlüssels kann anhand des Fingerabdrucks geprüft werden. Zu jedem Schlüssel existiert ein eindeutiger Fingerabdruck. Dieser lässt sich in den Eigenschaften des Schlüssels anzeigen. In der Schlüsselverwaltung ist der zu prüfende Schlüssel auszuwählen und über den Menüpunkt \textit{Anzeigen - Eigenschaften} den im Bild \ref{abb:enigmail_schl_eigensch} dargestellten Dialog zu öffnen.\\
+
+Der angezeigte Fingerabdruck des Schlüssels kann mit dem Wert verglichen werden, den man vom Eigentümer des Schlüssels erhalten hat. Sind beide identisch, kann das Vertrauen des öffentlichen Schlüssels auf ein hohes Niveau gesetzt werden. Den Dialog findet man in der Schlüsselverwaltung unter \textit{Bearbeiten - Vertrauenswürdigkeit}.\\
+
+\begin{figure}[htb]
+\begin{center}
+\includegraphics[scale=0.5]{../screenshots/schluessel_eigensch.png}
+\caption{Schlüssel-Eigenschaften}
+\label{abb:enigmail_schl_eigensch}
+\end{center}
+\end{figure}
+
+Hat man sich von der Echtheit des Schlüssels überzeugt, kann man ihn in Absprache mit dem Schlüsseleigentümer auch signieren und den signierten Schlüssel auf einen Keyserver exportieren. Wenn viele Nutzer die Ergbnisse ihrer Überprüfung online verfügbar machen, entsteht das Web-of-Trust und es wird schwer, gefälschte Schlüssel in Umlauf zu bringen.
+
+\subsubsection*{Certification Authorities}
+Diese Infrastruktur kann auch von vertrauenswürdigen Institutionen (Certification Authorities, CAs) genutzt werden. Die Nutzer wenden sich an die CA und lassen gegen Vorlage von Ausweisdokumenten den eigenen OpenPGP-Key signieren. Alle Partner benötigen lediglich den öffentlichen Schlüssel der CA, um die Echtheit der Schlüssel zu überprüfen.\\
+
+Beispiele für Certification Authorities sind:
+\begin{itemize}
+\item CAcert.org signiert auch OpenPGP-Schlüssel
+\item Krypto-Kampagne der Zeitschrift c't
+\item PCA des Deutschen Forschungsnetzes (DFN-PCA)
+\end{itemize}
+
+\subsubsection*{Keysigning-Party}
+Wenn sich mehrere OpenPGP-Nutzer treffen um sich gegenseitig die Echtheit ihrer Schlüssel zu bestätigen, nennt man es eine \textit{Keysigning-Party}. Dabei kommt es nicht darauf an, dass die Beteiligten sich persönlich kennen. Die Echtheit des Schlüssels können auch Unbekannte gegen Vorlage von Ausweisdokumenten und Fingerprint des Key bestätigen.\\
+
+Eine Keysigning-Party läuft üblicherweise folgendermaßen ab:
+\begin{enumerate}
+   \item Der Organisator lädt zu einer Party ein und bittet um Anmeldungen.
+\item Wer an der Party teilnehmen möchte, sendet seinen public OpenPGP-Key zusammen mit Namen und dem Fingerprint an den Organisator.
+\item In Vorbereitung der Party erstellt der Organisator einen Keyring für alle Beteiligte und eine Liste mit Namen, Key-IDs und Fingerprints von allen Teilnehmern.
+\item Der Keyring und die Liste werden an alle Teilnehmer verteilt. Die Teilnehmer können auf der Party die Identität gegenseitig durch Vorlage von Ausweisdokumenten prüfen.
+\item Wieder zuhause können die Schlüssel im Party-Keyring signiert und an die Inhaber per E-Mail versendet werden. In der Regel erfolgt dieser Schritt nicht beim Treffen.
+\end{enumerate}
+
+Wer häufiger an Keysigning-Partys teilnimmt, kann unter Linux das Tool \textit{caff} für den letzten Schritt nutzen. Das Tool ist im Paket \textit{signing-party} für nahezu alle Linux-Ditributionen verfügbar und kann mit dem Paket-Manager der Wahl installiert werden.\\
+
+Nach der Installation ist die Datei \$HOME/.caffrc als Textdatei anzulegen und die Werte für den eigenen Namen, E-Mail Adresse, OpenPGP-ID sowie die Parameter zur Versendung von E-Mails sind zu konfigurieren:
+
+\begin{verbatim}
+$CONFIG{'owner'} = 'Michi Müller';
+$CONFIG{'email'} = 'm@m.de';
+$CONFIG{'keyid'} = [ qw{01234567890ABCDE} ];
+
+$CONFIG{'mailer-send'} =  [ 'smtp', Server => 'mail.server', Auth => ['user','pass'] ];
+\end{verbatim} 
+
+Ein kleines Kommando im Terminal signiert alle Schlüssel des Party-Keyring, verpackt sie in E-Mails, die mit dem
+Key der Empfänger verschlüsselt werden, und sendet die E-Mails an die Inhaber der OpenPGP-Keys:
+
+\begin{verbatim}
+ > caff --key-file party-keyring.asc
+\end{verbatim} 
+
+\subsection{Schlüssel zurückrufen}
+Soll ein Schlüsselpaar nicht mehr verwendet werden (beispielsweise weil der geheime Schlüssel kompromittiert wurde
+oder die Passphrase in Vergessenheit gefallen ist), kann der öffentliche Schlüssel für ungültig erklärt werden.\\
+
+Öffnen Sie die Schlüsselverwaltung, wählen Sie den Schlüssel, der für ungültig erklärt werden soll. Rufen Sie den Menüpunkt \textit{Bearbeiten / zurückrufen} auf. Nach einer Sicherheitsfrage und Eingabe der Passphrase wird der Schlüssel auf den Schlüsselservern im Internet für ungültig erklärt. Auch wenn der geheime Schlüssel nicht mehr vorliegt oder die Passphrase in Vergessenheit geraten ist, kann der öffentliche Schlüssel für ungültig erklärt werden, indem das unter Punkt 4 erstellte Rückrufzertifikat importiert wird.
+

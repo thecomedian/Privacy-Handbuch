@@ -1,0 +1,21 @@
+\subsubsection*{Content-Filter für JAP konfigurieren}
+Im Anschluß der Installation ist der Webrowser oder Content-Filter entsprechend zu konfigurieren, so dass Anfragen nicht direkt ins Internet geleitet werden, sondern über den JAP-Proxy. Wird ein Content-Filter (z.B. Privoxy oder Proxomitron) genutzt, ist die Kette \textit{Browser -> Filter -> JAP einzuhalten}.\\
+
+\begin{itemize}
+ \item \textbf{Privoxy:} Für die Weiterleitung an den JAP Client ist folgende Zeile in der Datei \textit{config.txt} der Privoxy Konfiguration einzufügen. Linux-User finden die Konfiguration in der Regel im Verzeichnis /etc/privoxy (SuSe Linux: \textit{/var/lib/privoxy/etc}).
+\begin{verbatim}
+forward localhost:4001 .
+\end{verbatim}
+Wichtig: nicht den Punkt am Ende der Zeile vergessen!
+\item \textbf{Proxomitron:} Ein Klick auf das Proxomitron-Symbol im Systray startet das Kontrollpanel von Proxomitron. Der Button \textit{Proxy} im Kontrollpanel öffnet den im Bild \ref{abb:proxo_proxy} gezeigten Dialog. Eine neuen Proxy kann man mit einem Klick auf den Button \textit{Neu} hinzufügen. Für den JAP Client ist in diesem Dialog \textit{localhost:4001} einzutragen.\\
+
+\begin{figure}[htb]
+\begin{center}
+\includegraphics[scale=0.65]{../screenshots/proxo_settings_3.png}
+\caption{Auswahl eines weiteren Proxy}
+\label{abb:proxo_proxy}
+\end{center}
+\end{figure}
+
+ Die Weiterleitung zur Mixkaskade kann mit der Option \textit{externen Proxy} nutzen im Kontrollpanel aktiviert und deaktiviert werden.
+\end{itemize}

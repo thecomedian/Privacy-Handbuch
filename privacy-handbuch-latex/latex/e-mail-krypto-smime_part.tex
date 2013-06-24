@@ -1,0 +1,143 @@
+\section{S/MIME mit Thunderbird}
+S/MIME nutzt Zertifikate nach dem Standard X.509 für die Verschlüsselung und Signatur von E-Mails. Eine \textit{Certification Authority} (CA) bestätigt mit einer Signatur die Echtheit und die Identität des Besitzers eines ausgegebenen Zertifikates. Für diese Signatur wird das \textit{Root Certificate} der CA genutzt. Die Root Certificates etablierter CAs sind in nahezu allen Browsern und E-Mail Clients enthalten. Wer diesen Zertifikaten vertraut, vertraut auch ohne weitere Nachfrage den damit signierten persönlichen Zertifikaten anderer Nutzer.\\
+
+\subsection{Kostenfreie Certification Authorities}
+
+In der Regel kostet dieser Service bei einer etablierten CA 30-100 Euro pro Jahr. \href{http://www.cacert.org}{\textbf{CAcert.org}} bietet eine kostenfreie Alternative für die Ausstellung und Signatur von X.509 Zertifikaten. CAcert.org ist ein \textit{Web of Trust} von Nutzern, welche sich gegenseitig bei einem persönlichen Treffen die Identität bestätigen. Einfache Nutzer werden durch Assurer verifiziert, die ehrenamtlich für CAcert.org arbeiten.\\
+
+Für jede Bestätigung durch einen Assurer erhält der Nutzer bis zu 35 Punkte. Sobald man 50 Punkte angesammelt hat, also nach mindestens 2 unabhängigen Bestätigungen, kann man sich auf der Website ein Class-3 Zertifikat mit dem eigenen Namen generieren. Mit einem Punktestand von 100 Punkten kann man den Status eines Assurers beantragen.\\ 
+
+Auch ohne Bestätigungen durch Assurer kann man ein Zertifikat zu erzeugen. Dieses Class-1 Zertifikat enthält nur die E-Mail Adresse des Besitzers und keinen verifizierten Namen.\\
+
+Der Weg zur Erstellung eines S/MIME-Zertifikates:
+\begin{itemize}
+ \item Wer häufig CAcert.org nutzt, sollte das Root-Zertifikat dieser CA in den Browser importieren. Man erspart sich damit lästige Nachfragen beim Besuch der Website. Die Root Zertifikate von CAcert.org ist standardmäßig nicht in den häufig genutzten Browsern enthalten. CAcert.org bietet sie auf der Webseite zum Download.
+\item Es ist notwendig, die Root-Zertifikate von CAcert.org in den E-Mail Client als vertrauenswürdige CA zu importieren. Nur so kann die Gültigkeit des eigenen Zertifikates überprüft werden.
+\item Die Anmeldung folgt dem üblichen Schema. Nach Eingabe der Kontaktdaten erhält man eine E-Mail zu Verifizierung und kann sich im Anschluss auf der Website einloggen, um die persönlichen Angaben zu vervollständigen.
+\item Zur Bestätigung der Identität kann man auf der Website einen Assurer in der Nähe suchen und um ein persönliches Treffen bitten. Zum Treffen ist ein Ausdruck des WOT-Formulars für den Assurer mitzubringen.
+\item Hat man 50 Punkte durch Bestätigungen von mehreren Assurer erreicht, kann man auf der Webseite ein Zertifikat erstellen. Das Zertifikat und den Privaten Key findet man nach dem Vorgang in der Zertifikatsverwaltung des Browsers unter \textit{Eigene Zertifikate}! Es gibt keinen Downloadlink o.ä.
+\item Das Zertifikat wird aus der Zertifikatsverwaltung des Browsers als *.P12 Datei exportiert und im E-Mail Client wieder importiert.
+\end{itemize}
+
+\subsection{Erzeugen eines Zertifikates}
+Die verschiedenen Certification Authoroties (CAs) bieten ein Webinterface, um nach der Überprüfung der Identität ein signiertes Zertifikat zu erstellen. In der Regel stehen zwei Wege zur Auswahl:
+\begin{enumerate}
+ \item Der Anbieter (CA) führt den kompletten Vorgang aus: die Generierung des privaten Key inklusive Sicherung mit einer Passphrase, die Generierung des Certification Request (CSR), die Signierung des CSR und die Erstellung der Zertifikatsdatei mit privatem und öffentlichem Schlüssel.\\
+
+CAcert.org hat eine Lösung entwickelt, den privaten Key im Browser des Nutzers zu generieren und nur den CSR (public Key) zur Signatur auf den eigenen Server zu laden. Viele CAs generieren aber beide Schlüssel auf dem eigene Server und haben damit Zugriff auf den Private Key.
+
+\item Der Anwender generiert den privaten Key und den CSR selbst, lädt nur den CSR auf den Server des Anbieters, der CSR wird dort signiert und als Zertifikat wieder zum Download bereitgestellt.
+\end{enumerate}
+
+Da die Sicherheit asymmetrischer Verschlüsselung davon abhängt, dass nur der Anwender Zugriff auf den privaten Schlüssel hat, sollte man sich die Mühe machen und den zweiten Weg gehen. Anderenfalls ist es möglich, dass der private Schlüssel bereits vor der ersten Verwendung kompromittiert wird. Man sollte den Certification Authorithies nicht blind vertrauen.\\
+
+Die OpenSSL-Bibliothek bietet alles Nötige. Die Tools sind unter Linux installiert. Ein grafisches Interface ist \textit{TinyCA}. Download: \href{http://tinyca.sm-zone.net}{http://tinyca.sm-zone.net}
+
+\subsubsection*{Schrittweise Anleitung für die Kommandozeile}
+
+\begin{enumerate}
+ \item Generieren eines passwortgeschützten privaten Schlüssels in der Datei \textit{mein.key}:
+\begin{verbatim}
+> openssl genrsa -out mein.key -des3 2048
+\end{verbatim} 
+\item Generieren eines Certification Request (CSR) in der Datei \textit{mein.csr}, die folgenden Daten werden dabei abgefragt:
+\begin{verbatim}
+> openssl req -new -key mein.key -out mein.csr
+Enter pass phrase for mein.key:
+....
+Country Name (2 letter code) [AU]: DE
+State or Province Name (full name) []: Berlin
+Locality Name (eg, city) []: Berlin
+Organization Name (eg, company) []: privat
+Organizational Unit Name (eg, section) []:
+Common Name (eg, YOUR name) []: Max Musterman
+Email Address []: max@musterman.de
+\end{verbatim} 
+
+ \item en CSR übergibt man der CA. Die Datei enthält nur den öffentlichen Schlüssel. Die CA signiert diesen CSR und man erhält ein signiertes Zertifikat als Datei \textit{mein.crt} via E-Mail oder als Download Link.
+
+\item Diese Datei kann man an alle Kommunikationspartner verteilen.
+
+\item Für den Import im eigenen E-Mail Client fügt man privaten Schlüssel und signiertes Zertifikat zu einer PKCS12-Datei \textit{mein.p12} zusammen.
+\begin{verbatim}
+> openssl pkcs12 -export -in mein.crt -inkey mein.key -out mein.p12
+\end{verbatim} 
+Diese passwortgeschützte Datei kann in allen E-Mail Clients importiert werden und sollte sicher verwahrt werden.
+\end{enumerate}
+
+\subsection{S/MIME-Krypto-Funktionen aktivieren}
+Liegt eine Datei mit signiertem Zertifikat und geheimem Schlüssel vor, können die S/MIME-Funktionen für ein E-Mail Konto aktiviert werden. Es ist der Dialog mit den Konto-Einstellungen zu öffnen und in die Sektion \textit{S/MIME-Sicherheit} zu wechseln (Bild \ref{abb:thunder_smime_konto}).\\
+
+\begin{figure}[htb]
+\begin{center}
+\includegraphics[scale=0.55]{../screenshots/thunderbird_smime_konto.png}
+\caption{Kontoeinstellungen zur S/MIME-Sicherheit}
+\label{abb:thunder_smime_konto}
+\end{center}
+\end{figure}
+
+Zuerst ist das persönliche Zertifikat zu importieren. Ein Klick auf den Button \textit{Zertifikate} öffnet den Manager für eigene Zertifikate (Bild \ref{abb:thunder_smime_zert}). Hier ist der Button \textit{Importieren} zu wählen und das gespeicherte persönliche Zertifikat mit öffentlichem und geheimem Schlüssel zu importieren.\\
+
+\begin{figure}[htb]
+\begin{center}
+\includegraphics[scale=0.5]{../screenshots/thunderbird_einst_zert_3.png}
+\caption{Zertifikatsmanager für eigene Zertifikate}
+\label{abb:thunder_smime_zert}
+\end{center}
+\end{figure}
+
+Es folgt eine Abfrage des Passwortes, mit dem der Zugriff auf den geheimen Schlüssel geschützt werden soll und evtl. die Frage nach dem Passwort, mit welchem die Datei verschlüsselt wurde. Der Zertifikatsmanager ist im Anschluss mit einem Klick auf den Button \textit{Ok} zu schließen und in den Konto-Einstellungen das frisch importierte Zertifikat für das Signieren und Entschlüsseln auszuwählen.\\
+
+Sollen alle ausgehenden Nachrichten standardmäßig signiert werden, kann die entsprechende Option aktiviert werden.\\
+
+Thunderbird bietet die Möglichkeit, das Online Certifate Status Protocol (OCSP) für die Validierung von Zertifikaten zu nutzen. Standardmäßig ist die Nutzung dieser Funktion sinnvoll deaktiviert. Da nur validierte Zertifikate für die Verschlüsselung und Signaturprüfung genutzt werden können, muss man das Root Zertifikat der ausstellenden CA von der Website herunterladen und importieren. Dies kann vereinfacht werden, wenn man im Dialog \textit{Einstellungen} in der Sektion \textit{Datenschutz} auf dem Reiter \textit{Sicherheit} den Button \textit{OCSP...} wählt und die Option \textit{OCSP verwenden} aktiviert. Damit hat man jedoch keine Möglichkeit zu entscheiden, ob man der CA wirklich vertraut.
+
+\subsection{Zertifikate der Partner und der CA importieren}
+Im Gegensatz zu OpenPGP, das im Internet eine ausgereifte Infrastruktur zur Verteilung öffentlicher Schlüssel bereitstellt, muss der Inhaber eines S/MIME-Zertifikates selbst die Verteilung übernehmen. Am einfachsten ist es, dem Partner eine signierte E-Mail zu senden. Alle E-Mail Clients mit S/MIME Support können aus der Signatur das Zertifikat importieren und tun dies in der Regel ohne Nachfrage.\\
+
+Bevor der Empfänger einer signierten E-Mail die Signatur prüfen und verschlüsselt antworten kann, muss er das Zertifikat verifizieren. Viele Root-Zertifikate sind bereits in gängigen E-Mail Clients enthalten. Einige muss der Nutzer jedoch erst selbst importieren. Diese Root-Zertifikate stehen auf den Websites der Ausstellers zum Download bereit. Wurde die Gültigkeit verifiziert, kann der Empfänger im Anschluß verschlüsselt antworten.\\
+
+Es ist auch möglich, eine Datei nur mit dem öffentlichen Schlüssel des Zertifikates auf den Rechner des Partners zu transferieren. Dort ist die Datei in Thunderbird zu importieren.\\
+
+Für den Import eines Zertifikates in Thunderbird ist der Dialog \textit{Einstellungen} zu öffnen. In der Sektion \textit{Datenschutz} auf dem Reiter \textit{Sicherheit} ist der Button \textit{Zertifikate} zu wählen (Bild \ref{abb:thunder_smime_zert2}), um die Verwaltung zu öffnen.\\
+
+\begin{figure}[htb]
+\begin{center}
+\includegraphics[scale=0.5]{../screenshots/thunderbird_einst_zert.png}
+\caption{Dialog Sicherheits-Einstellungen}
+\label{abb:thunder_smime_zert2}
+\end{center}
+\end{figure}
+
+Im Zertifikatsmanager ist auf dem Reiter \textit{Zertifikate anderer Personen} der Button \textit{Importieren} zu finden, welcher eine Dateiauswahl öffnet, um das erhaltene Zertifikat aus einer lokal gespeicherten Datei zu importieren.\\
+
+Die Root-Zertifikate weiterer Certification Authorities (CAs) können auf dem Reiter \textit{Zertifizierungsstellen} importiert werden.
+
+\subsection{Nachrichten verschlüsseln und signieren}
+Wenn das persönliche Zertifikat bestehend aus öffentlichem und geheimem Schlüssel importiert wurde, ist es möglich, signierte E-Mails zu versenden. Wurden Zertifikate mit den öffentlichen Schlüsseln der Kommunikationspartner importiert, kann die Nachricht auch verschlüsselt werden.\\
+
+\begin{figure}[htb]
+\begin{center}
+\includegraphics[scale=0.5]{../screenshots/thunderbird_smime_email.png}
+\caption{Verschlüsseln oder Signieren einer E-Mail}
+\label{abb:thunder_smime}
+\end{center}
+\end{figure}
+
+Für die Wahl der Optionen steht im Editor einer neuen Nachricht der Button S/MIME zur Verfügung. Klickt man auf den kleinen schwarzen Pfeil unmittelbar neben dem Button S/MIME, öffnet sich das im Bild \ref{abb:thunder_smime} dargestellte Menü zum Festlegen der Kryptographie-Optionen für die aktuelle Nachricht.\\
+
+Eine Möglichkeit, für bestimmte Empfänger die Einstellungen für Verschlüsselung dauerhaft festzulegen, bietet Thunderbird in der Standard-Konfiguration nicht. Man muß bei jeder neu verfassten E-Mail daran denken, sie wenn möglich zu verschlüsseln! Das ist sehr fehleranfällig.\\
+
+Eine Lösung bietet das Plug-In \textbf{Virtual Identity}. Es kann bei jeder versendeten E-Mail die gewählten Einstellungen für die Verschlüsselung speichern. Damit lernt Thunderbird, welche Verschlüsselungseinstellungen für welche Empfänger gelten. Die Einstellungen werden bei jeder neuen E-Mail an den Empfänger als Default aktiviert.\\
+
+Nach der Installation des Plug-Ins muss man unter dem Menüpunkt \textit{``Extras - Virtual Identity - Einstellungen''} die Speicherung der Einstellungen für die Verschlüsselung aktivieren. (Bild \ref{abb:vertual_id1})\\
+
+\begin{figure}[htb]
+\begin{center}
+\includegraphics[scale=0.5]{../screenshots/virtual-id1.png}
+\caption{Einstellungen des Plug-In Virtual Identity}
+\label{abb:vertual_id1}
+\end{center}
+\end{figure}
+
+Unter dem Menüpunkt \textit{``Extras - Virtual Identity - Datenspeicher''} findet man die gesammelten Daten und kann sie auch editieren.

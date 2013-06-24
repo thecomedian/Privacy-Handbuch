@@ -1,0 +1,43 @@
+\documentclass[notitlepage,a4paper,10pt,normalheadings]{article}
+
+% \usepackage{mathpazo} 
+\usepackage{ngerman} 
+\usepackage[latin1]{inputenc} 
+\usepackage[T1]{fontenc} 
+\usepackage[pdftex]{graphicx} 
+\usepackage[pdftex]{hyperref}
+
+\sloppy
+
+%opening
+\title{Anonym Surfen}
+\author{Eine Anleitung insbesondere für Mozilla Firefox und KDE}
+\date{\today}
+
+\hypersetup {
+    pdftitle= { Anonym Surfen mit Mozilla Firefox }
+    pdfkeywords= {Anonym Surfen Mozilla Firefox Cookies Java-Script Werbung Mixkaskaden Tor Jap }
+}
+
+
+\begin{document}
+\maketitle
+\tableofcontents
+
+\newpage
+\section{Ein Konzept für anonymes Surfen}
+\input{surfen_einleitung}
+\input{surfen_cookies}
+\input{surfen_javascript}
+\input{surfen_werbung}
+\input{surfen_filter}
+\input{surfen_filter_privoxy}
+\input{surfen_filter_proxomitron}
+\newpage
+\input{surfen_filter_browser}
+\include{surfen_mixkaskaden}
+\input{surfen_jap}
+\input{surfen_tor}
+\include{surfen_zusamenfassung}
+
+\end{document}

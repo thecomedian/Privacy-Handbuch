@@ -1,0 +1,95 @@
+\subsection{Anonym Surfen mit dem JonDoFox}
+Um mit Firefox und JonDonym anonym zu surfen, reicht es nicht, einfach nur den Proxy umzuschalten. Weitere Daten sollten blockiert oder modifiziert werden, um in einer möglichst großen Anonymitätsgruppe abzutauchen.\\
+
+Die JonDos GmbH bietet einfertiges Profil für Firefox zum Download an. Neben der Anpassung der Proxy-Einstellungen bietet es weitere Features für spurenarmes, sicheres und anonymes Surfen. JonDoFox ist optimiert für sicheres und anonymes Surfen. Neben der Anpassung der Proxy-Einstellungen bietet es einige Hilfmittel, um sich anonym im Web zu bewegen. Es wird der HTML-Header modifiziert, Cookies und Javascript werden kontrolliert, SSL-Zertifikate werden besser überprüft und Werbung wird blockiert.\\ 
+
+Download: \href{https://www.anonym-surfen.de/jondofox.html}{https://www.anonym-surfen.de/jondofox.html}
+
+\begin{itemize}
+   \item Für WINDOWS startet man das Install-Script \textit{JonDoFox.paf.exe} nach dem Download und folgt den Anweisungen. Man kann zwischen der Installation auf dem eigenen Rechner oder als portable Version auf dem USB-Stick wählen. Die Installation auf dem Rechner setzt vorraus, dass Firefox bereits vorhanden ist. Bei der USB-Version wird ein portabler Firefox mit installiert.
+
+   \item Für Debian und Ubuntu steht das Paket \textit{jondofox-de} im Software-Repository der JonDos GmbH bereit. Nach der Installation des Paketes findet man in der Programm­gruppe \textit{Internet} den Menüpunkt\textit{ JonDoFox}.\\ \href{https://www.anonym-surfen.de/help/firststeps2.html}{https:///www.anonym-surfen.de/help/firststeps2.html}\\
+
+    Der JonDoFox ist nicht mehr mit dem in Debian \textit{squeeze} enthaltenen \textit{Iceweasel} kompatibel. Es ist nötig, eine aktuellere Version des Browsers zu installieren, die vom Mozilla Debian Team bereitgestellt wird. Eine Anleitung zur Nutzung des Repositories findet man unter \href{http://mozilla.debian.net/}{http://mozilla.debian.net}.
+
+\item Für andere Linux Distributionen lädt man das Archiv \textit{jondofox\_linux\_de.tar.bz2} herunter, entpackt es und startet das Install-Script. Das Script legt einen Menüpunkt in der Programmgruppe Internet an und integriert das JonDoFox-Profil in eine bestehede Firefox Konfiguration. Firefox oder Iceweasel sind zuvor zu installieren.
+ \begin{verbatim}
+   > tar -xjf jondofox_linux.tar.bz2
+   > cd jondofox_linux_de
+   > ./install_linux.sh
+  \end{verbatim}
+\end{itemize}
+Nach der Installation fragt Firefox bei jedem Start, welche Konfiguration genutzt werden soll (Bild \ref{abb:jap_profil}). Damit wird der Nutzer auch gezwungen, den Browser zu schließen, bevor er zum anonymen Surfen wechselt.\\
+
+\begin{figure}[htb]
+\begin{center}
+\includegraphics[scale=0.55]{../screenshots/jondofox_start.png}
+\caption{Profil beim Start von Firefox wählen}
+\label{abb:jap_profil}
+\end{center}
+\end{figure}
+
+\subsubsection*{Erste Schritte nach der Installation}
+Als Erstes sollte man den Anonymitätstest von JonDos besuchen, um sicher zu gehen, dass alles richtig funktioniert. Ein Lesezeichen ist vorbereitet. \href{http://ip-check.info/}{http://ip-check.info}\\
+
+Die Lesezeichen kann man vom Profil \textit{default} übernehmen (exportieren und immportieren) oder via Firefox Sync holen.
+
+\subsubsection*{Cookies und Javascript}
+JonDoFox setzt einige Restriktionen, um eine hohe Anonymität beim Surfen zu garantieren. Gelegentlich kommt es dabei auch zu Einschränkungen der Funktion einiger Websites.\\
+
+Um grundsätzlich die Anonymität zu wahren, sind die Annahme von Cookies und das Ausführen von Javascript deaktiviert. Viele Webseiten nutzen Cookies und Javascript. Neben der Sammlung von Informationen über den Surfer können diese Techniken auch sinnvoll eingesetzt werden. Professionelle Webdesigner weisen einen Surfer auf die notwendigen Freigaben hin:\\
+\begin{center}
+\includegraphics[scale=0.75]{../screenshots/cookies_required1.png}
+\end{center}
+Weniger gute Webseiten liefern seltsame Fehlermeldungen:
+\begin{center}
+\includegraphics[scale=0.75]{../screenshots/cookies_wrong1.png}
+\end{center}
+Ganz schlechte Websites machen irgendwas, aber nicht was man erwartet.\\
+
+Bei diesen Problemen sollte man als erstes Cookies temporär freigeben. Diese Kekse wird man einfach wieder los. CookieMonster ermöglicht es, die Restriktion für einzelne, vertrauenswürdige Webseiten temporär oder dauerhaft aufzuheben.\\
+
+\begin{figure}[htb]
+\begin{center}
+\includegraphics[scale=0.7]{../screenshots/Cookies1.png}
+\caption{Cookies für eine Websites freigeben}
+\label{abb:jap_cookies}
+\end{center}
+\end{figure}
+
+\begin{description}
+\item[Erlaube Cookies temporär] erlaubt es dem aktuellen Server, nur für diese Sitzung Cookies zu setzen. Mit dem Schließen des Browsers werden die Cookies und die Ausnahme­reglung gelöscht.
+\item[Erlaube Cookies] erlaubt es dem aktuellen Server, unbegrenzt gültige Cookies zu setzen. Diese Variante wird nur benötigt, wenn man bei einem späteren Besuch der Website automatisch wieder angemeldet werden möchte.
+\item[Verweigere Cookies] erlaubt es dem aktuellen Server nicht, Cookies zu setzen.
+\item[Erlaube Sessioncookies] erlaubt es dem aktuellen Server, Cookies zu setzen. Mit dem Schließen des Browsers werden diese Cookies wieder gelöscht. Bei folgenden Besuchen dürfen wieder neue Cookies gesetzt werden.
+ \end{description}
+
+Wenn die Freigabe von Cookies das Problem nicht löst, kann man \textbf{Javascript} für einzelne Domains mit einem Klick auf das NoScript-Symbol in der Toolbar temporär freigegeben. Hat man die nötigen Freigaben für Javascript eingerichtet, kann man die Einstellungen für die aktuelle Webseite speichern, um nicht bei jedem Besuch von vorn beginnen zu müssen.
+
+\subsubsection*{Flash Videos (Youtube o.ä.)}
+Aus Sicherheitsgründen ist Flash im JonDoFox deaktiviert. Es ist möglich, mit Flash-Applets die Proxy-Einstellungen zu umgehen und die reale IP-Adresse des Surfers zu ermitteln.\\
+
+Um Videos von Youtube o.ä betrachten zu können, ist es nötig, die Videos herunter zu laden und dann mit einem Mediaplayer (z.B. VLC-Player) zu betrachten. Für den Download enthält der JonDoFox das Add-on Unplug. Sie können die Videos in verschiedenen Formaten und Qualitätsstufen speichern. Das Format MP4 kann von allen Mediaplayern abgespielt werden.
+
+\begin{figure}[htb]
+\begin{center}
+\includegraphics[scale=0.75]{../screenshots/unplug.png}
+\caption{Video-Download mit Unplug}
+\label{abb:unplugjondofox}
+\end{center}
+\end{figure}
+
+\subsubsection*{Temporäre E-Mail Adressen}
+Der JonDoFox unterstützt die Verwendung temporärer E-Mail Adressen für die Anmeldung in Foren o.ä. Fünf Anbieter können mit zwei Mausklicks genutzt werden.\\
+
+Um eine temporäre E-Mail Adresse zu nutzen, klickt man mit der rechten Maustaste auf das Eingabefeld für die E-Mail Adresse und wählt den Menüpunkt E\textit{-Mail Adresse generieren (temporär)}. Wenn man auf den kleinen Pfeil am Ende des Menüeintrages klickt, dann kann man den Anbieter auswählen. Anderenfalls wird der Standard-Anbieter genommen, der in den Einstellungen konfiguriert werden kann.\\
+
+Es wird ein neuer TAB mit dem temporären Postfach geöffnet und gleichzeitig die E-Mail Adresse in das Eingabefeld kopiert. Während man auf die Mail wartet muss man den Posteingang im temporären Postfach öfters aktualisieren. Nutzen Sie dafür nur bei der AnonBox.net den \textit{Reload} Button des Browsers. Bei allen anderen Anbietern wird eine neue Adresse generiert und die alte Adresse ist verloren. Klicken Sie auf den Button \textit{Aktualisieren} in der Webseite!
+
+\begin{figure}[htb]
+\begin{center}
+\includegraphics[scale=0.75]{../screenshots/jondofox-temp-mail.png}
+\caption{Temporäre E-Mail Adresse generieren}
+\label{abb:tempmailjondofox}
+\end{center}
+\end{figure}

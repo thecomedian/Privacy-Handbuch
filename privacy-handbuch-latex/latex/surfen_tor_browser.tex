@@ -1,0 +1,74 @@
+\subsection{Anonym Surfen mit Tor}
+Das TorBrowserBundle ist für anonymes Surfen vorbereitet. Man startet alle nötigen Komponenten (Tor, Vidalia, Browser) mit dem Tool \textbf{Start Tor Browser.exe} (Windows) oder \textbf{start-tor-browser} (Linux) (Bild \ref{abb:torbrowser}). Mit dem Schließen des Browsers werden auch Tor und Vidalia beendet.\\
+
+\begin{figure}
+\begin{center}
+\includegraphics[scale=0.55]{../screenshots/tbb-screenshot3a.png}
+\caption{Start des TorBrowser}
+\label{abb:torbrowser}
+\end{center}
+\end{figure}
+
+Der TorBrowser ist für anonymes Surfen konfiguriert. Tracking-Spuren und Werbung sehen die Entwickler nicht als Problem, da der Datenverkehr anonymisiert ist. Es ist empfehlenswert, zusätzlich einige Anpassungen vorzunehmen, um überflüssige Spuren im Netz zu minimieren.
+
+\subsubsection*{Javascript deaktivieren}
+TorProject.org empfiehlt in den offiziellen FAQ Javascript nicht zu deaktivieren.
+\begin{quote}
+ \textit{However, we recommend that even users who know how to use NoScript leave JavaScript enabled if possible, because a website or exit node can easily distinguish users who disable JavaScript from users who use Tor Browser bundle with its default settings (thus users who disable JavaScript are less anonymous).}
+\end{quote} 
+Ein Test mit Panopticlick lässt aber das Gegenteil als sinnvoll vermuten.
+\begin{itemize}
+ \item \textbf{Mit aktiviertem Javascript:}
+\begin{quote}
+\textit{ Within our dataset of several million visitors, \underline{only one in 33,726 browsers} have the same fingerprint as yours.}
+\end{quote} 
+Die Tabelle der ausgewerteten Features zeigt, dass (bei mir) die per Javascript aus­gelesene Bildschirmgröße den höchsten Informationswert hat. Genau diese Merkmal wird von Googles Suche seit einiger Zeit ausgewertet oder von Trackingdiensten wie  Multicounter \footnote{ \href{http://www.multicounter.de/features.html}{http://www.multicounter.de/features.html}} als individuelles Merkmal registriert. 
+\begin{center}
+\includegraphics[scale=0.7]{../screenshots/tor-panopticlick1.png}
+\end{center}
+\item \textbf{Javascript deaktiviert}
+\begin{quote}
+ \textit{Within our dataset of several million visitors, \underline{only one in 2,448 browsers} have the same fingerprint as yours.}
+\end{quote} 
+\begin{center}
+\includegraphics[scale=0.7]{../screenshots/tor-panopticlick2.png}
+\end{center}
+Auch wenn Panopticlick einer wissenschaftlichen Untersuchung nicht standhält und auch manipulierbar ist, sind die Ergebnisse mit Unterschieden von mehr als einer Zehnerpotenz ein deutlicher Hinweis.
+\end{itemize}
+
+Javascript ermöglicht das Auslesen vieler Informationen, die zu einem individuellen Fingerprint verrechnet werden können. Auch ein bösartiger Exit-Node könnte diese Informationen erlangen, wie TorProject.org in den FAQ erwähnt. Javascript sollte allgemein verboten werden und nur für vetrauenswürdige Webseiten freigegeben werden (siehe Screenshot oben). Das verbessert auch die Geschwindigkeit beim Laden von Webseiten.
+
+\subsubsection*{Werbung und Trackingscripte blockieren}
+Das TorBrowserBundle enthält keinen Werbeblocker. TorProject.org argumentiert, dass mit einem Werbeblocker das Internet gefiltert wird und jede Filterung lehnen die Entwickler grundsätzlich ab. Außerdem möchte TorProject.org nicht in den Ruf kommen, Geschäftsmodelle im Internet zu stören. Als drittes könnten möglicherweise unterschiedliche Filterlisten als Merkmal für den Browserfingerprint genutzt werden. Es gibt allerdings bisher keine wiss. Untersuchungen, die diese Vermutung belegen oder entkräften.\\
+
+Das Blockieren von Werbung reduziert nicht nur die Belästigung. Da das Tor-Netz langsam ist, wird auch der Seitenaufbau beschleunigt, wenn überflüssige Daten nicht geladen werden.\\
+
+Empfehlenswert ist die Installation von AdBlock Plus. Nach der Installation kann man die Sperrliste \textit{EasyList Germany + EasyList} abbonieren sowie die \textit{EasyPrivacy} und \textit{SocialMediaBlock} hinzufügen, wie es im Kapitel \textit{Spurenarm Surfen} beschrieben wurde.
+
+
+\subsubsection*{Cookies und EverCookies}
+Im Gegensatz zum JonDoFox akzeptiert der TorBrowser standardmäßig Cookies von der auf­gerufenen Webseite und lässt EverCookie Markierungen zu. Ein Ändern der Einstellungen zur Annahme von Cookies empfehle ich nicht. Viele Webdienste nutzen EverCookie Techniken zum Tracking, wenn Cookies gesperrt wurden.\\
+
+Man sollte dem Anonymitätskonzept des TorBrowser folgen und bei Bedarf gelegentlich alle Identifikationsmerkmale löschen. Alle Cookies und alle bekannten EverCookie Markierungen werden beim Beenden des Browsers gelöscht oder wenn man den Menüpunkt \textit{Neue Identität} der Zwiebel in der Toolbar wählt (Bild \ref{abb:torbrowsercookies}). Insbesondere vor und nach dem Login bei einem Webdienst sollte man alle Markierungen entfernen, um eine Verknüpfung des Surfverhaltens mit Accountdaten zu verhindern.\\
+
+\begin{figure}
+\begin{center}
+\includegraphics[scale=0.7]{../screenshots/torbutton_cookies.png}
+\caption{Neue Identät im TorBrowser wählen}
+\label{abb:torbrowsercookies}
+\end{center}
+\end{figure}
+
+
+\subsubsection*{TorBrowserBundle mit weiteren Anwendungen nutzen}
+Im TorBrowserBundle startet Vidalia den Tor Daemon mit einem zufällig gewählten SOCKS Port und teil diesen Port nur dem TorBrowser mit. Alle anderen Programme können den Tor Daemon nicht erreichen. Wenn man diesen Tor Daemon nicht nur mit dem TorBrowser sondern auch mit einem E-Mail Client oder Instant Messaging Client nutzen möchte, muss man dieses Verhalten ändern und einen festen SOCKS Port vorgeben.\\
+
+In den Einstellungen von Vidalia ist die Option \textit{Konfiguriere den Kontroll-Port automatisch} auf dem Reiter \textit{Fortgeschritten} zu deaktivieren. Dann lauscht der Tor Daemon am Port 9150 für andere Anwendungen (SOCKS-Port) und nutzt den Kontroll-Port 9151 für die Kommunikation mit Vidalia.
+
+\begin{figure}
+\begin{center}
+\includegraphics[scale=0.75]{../screenshots/vidalia02.png}
+\caption{Automatische Auswahl des SOCKS-Port und des Kontroll-Port deaktivieren}
+\label{abb:torbrowsercookies}
+\end{center}
+\end{figure}

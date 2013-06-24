@@ -1,0 +1,327 @@
+
+\chapter{Anonyme E-Mails versenden}
+
+ Auch bei der Nutzung von GnuPG für die Verschlüsselung von E-Mails ist es mitlesenden Dritten möglich, Absender und Empfänger zu protokollieren und anhand der erfassten Daten Kommunikationsprofile zu erstellen. Insbesondere die Diskussion um die Vorratsdatenspeicherung zeigt, dass diese nicht verschlüsselbaren Information für die Überwachung bedeutsam sind.\\
+
+Mit Hilfe anonymisierender Remailer-Kaskaden kann die Erstellung von Kommunikationsprofilen behindert werden. Der Versand einer Nachricht über diese Kaskaden ist mit der Versendung eines Briefes vergleichbar, der in mehreren Umschlägen steckt. Jeder Empfänger innerhalb der Kaskade öffnet einen Umschlag und sendet den darin enthaltenen Brief ohne Hinweise auf den vorherigen Absender weiter. Der letzte Remailer der Kaskade liefert den Brief an den Empfänger aus.\\
+
+Technisch realisiert wird dieses Prinzip vom Mixmaster-Netzwerk mittels asymmetrischer Verschlüsselung. Der Absender wählt aus der Liste der verfügbaren weltweit verteilten Remailer n verschiedene Rechner aus, verschlüsselt die E-Mail mehrfach mit den öffentlichen Schlüsseln der Remailer in der Reihenfolge ihres Durchlaufes und sendet das Ergebnis an den ersten Rechner der Kaskade. Dieser entschlüsselt mit seinem geheimen Schlüssel den ersten Umschlag, entnimmt dem Ergebnis die Adresse des folgenden Rechners und sendet die jetzt (n-1)-fach verschlüsselte E-Mail an diesen Rechner. Der letzte Rechner der Kaskade liefert die (hoffentlich PGP-verschlüsselte) E-Mail an den Empfänger aus.\\
+
+Mitlesende Dritte können lediglich protokollieren, das eine E-Mail mit unbekanntem Inhalt und Absender empfangen wurde.\\
+
+Um die Traffic-Analyse zu erschweren wird die Weiterleitung jeder E-Mail innerhalb der Kaskade verzögert. Es kann somit 2\dots48h dauern, ehe die Mail dem Empfänger zugestellt wird!\\
+
+\textbf{Wichtig:} da die E-Mail keine Angaben über den Absender enthält, funktioniert der \textit{Antworten-Button} der Clients auf der Empfängerseite nicht! Der Text der E-Mail sollte einen entsprechenden Hinweis an exponierter Stelle enthalten!\\
+\section{Quicksilver für WINDOWS}
+Die folgenden Kapitel erläutern den Einsatz von Quicksilver unter WINDOWS zur Versendung anonymer E-Mails. Auch der anonyme Empfang von E-Mails ist mittels Nym-Accounts möglich, soll jedoch nicht Gegenstand dieses Tutorial sein.\\
+\begin{quote}
+\small
+\textit{Quicksilver gefällt mir etwa so gut, wie Gedichte von diesem Papenfuß, die ich gestern Abend gelesen oder besser überflogen habe. Sie sagen mir nichts. Was ... nur daran findet? Der größte lebende deutsche Lyriker - man merkt es fast jedem Gedicht an, dass Papenfuß sich dafür hält:}
+\begin{verse}
+\small
+\textit{Was Wollt Ihr Fon Mir\\
+Wenn Ihr Euch Weiterhin Nichts\\
+Als Die Zaehne Putzt\\
+Geh Ich Wahrscheinlich Sterben\\
+Ihr Knaller}
+\end{verse}
+\textit{Oh Mann, was soll das! Man muss es nicht weiterlesen, es gibt Alternativen. Zu Quicksilver gibt es im Moment keine Alternative. Ich hoffe, dass mit Einführung der Vorratsdatenspeicherung Erweiterungen für verschiedene E-Mail-Clients entwickelt werden.}
+\end{quote}
+
+Für den Empfang von E-Mails kann der Standard-Mail-Client genutzt werden, welcher um eine Komponente zur Entschlüsselung von E-Mails erweitert wurde, z.B. Thunderbird (der E-Mail-Client der Mozilla-Foundation) mit dem EnigMail-PlugIn. \\
+
+\subsection{Installation von Quicksilver}
+Quicksilver für WINDOWS steht als selbstentpackendes Archiv \textit{QS1.2.x.exe} unter folgender Adresse zum Download bereit:\\
+
+ftp://ftp.quicksilvermail.net/pub/quicksilver/ \\
+
+Nach dem Download ist die EXE-Datei zu starten und den Anweisungen des Setup zu folgen. Unter WINDOWS XP sollte das Setup nicht(!) als Administrator sondern unter dem später genutzten Account gestartet werden. Während der Installation ist der für die Versendung zu nutzende E-Mail-Account und SMTP-Server anzugeben. Auf Grundlage dieser Angaben wird ein Template für die Erstellung neuer E-Mails generiert. Dieses Template kann bei Bedarf später modifiziert werden:
+\begin{center}
+\includegraphics[scale=0.65]{qs_install_1.png}
+\end{center}
+
+Nach dem Abschluss der Installation ist Quicksilver zu starten um die weitere benötigten Komponenten einzurichten. Unmittelbar nach dem ersten Start erkennt QS, das Mixmaster noch nicht installiert ist und fordert sie auf, diese Komponente zu installieren:
+\begin{center}
+\includegraphics[scale=0.65]{qs_install_2.png}
+\end{center}
+Es sollte \textit{Get Mixmaster} gewählt werden, da ohne diese Komponente Quicksilver nicht nutzbar ist. Mixmaster ist unter der gleichen FTP-Adresse zu finden und der folgende Dialog des Update-Wizard kann mit dem Button \textit{Next} betätigt werden:
+\begin{center}
+\includegraphics[scale=0.65]{qs_install_3.png}
+\end{center}
+
+In der Liste der Dateien ist das Mixmaster-Archiv \textit{Mix2x.zip} auszuwählen und die Auswahl mit dem Button  \textit{Next} zu bestätigen:
+\begin{center}
+\includegraphics[scale=0.65]{qs_install_4.png}
+\end{center}
+
+Nach dem Download ist das Setup für Mixmaster auszuführen.  Im folgenden Dialog ist der Button \textit{Run Setup} zu wählen:
+\begin{center}
+\includegraphics[scale=0.65]{qs_install_5.png}
+\end{center}
+
+Nach der üblichen Auswahl des Installationsverzeichnisses wird Mixmaster installiert und gestartet. Für die Initialisierung des Zufallsgenerators ist es nötig, im folgenden Fenster mit der Maus Bewegungen auszuführen, bis eine hinreichende Entropie angesammelt wurde (100\%):
+\begin{center}
+\includegraphics[scale=0.65]{qs_install_6.png}
+\end{center}
+
+Da die Versendung anonymer E-Mails nur verschlüsselt sinnvoll ist, wird außerdem GnuPG benötigt. Quicksilver bietet ein eigenes GnuPG-PlugIn, welches über den Menüpunkt \textit{Help - Update Wizard} installiert werden kann.\\
+
+In dem sich auf die Auswahl des Download-Servers folgend öffnende Dialogbox ist die GnuPG-Komponente \textit{QSpgp1.1.x.zip} zu wählen und die Auswahl mit dem Button \textit{Next} zu bestätigen:
+\begin{center}
+\includegraphics[scale=0.65]{qs_install_8.png}
+\end{center}
+
+Nach dem Download ist wie oben beschrieben das Setup zu starten. 
+
+\subsubsection{Listen der Mixmaster-Server aktualisieren}
+Nach erfolgreicher Installation aller Komponenten sind die Listen der anonymisierenden Remailer zu initialisieren. Anhand dieser Listen und der darin enthaltenen Schlüssel generiert Quicksilver beim Versand eine mehrfach verschlüsselte E-Mail, welche von Remailer zu Remailer gesand wird. Dabei kann jeder Remailer nur das folgende Ziel entschlüsseln.\\
+
+Für das Update der Listen ist der Menüpunkt \textit{Tools - Remailers} zu wählen. In dem sich öffnen Dialog sind die Checkboxen wie gezeigt zu aktivieren und der Prozess mit einem Klick auf den Button \textit{Update} zu starten:
+\begin{center}
+\includegraphics[scale=0.65]{qs_install_7.png}
+\end{center}
+
+Die nach dem erfolgreichen Update geöffneten Fenster mit den Schlüsseln der Server können geschlossen werden, wobei die Frage nach dem Speichern der Schlüsselringe mit \textit{Ja} beantwortet werden sollte. 
+
+\begin{quote}
+\small
+\textit{8:30 Uhr: nach einem netten Abend habe ich geschlafen wie ein Murmeltier. Warum bleibt es immer bei einem netten Abend? Ein flüchtiger Kuß zum Abschied - selbst dabei wird ostentativ ein Mindestabstand eingehalten.}
+\end{quote}
+
+\subsection{PGP-Schlüssel verwalten}
+Soll eine E-Mail anonym versendet werden, ist es als erstes nötig, den öffentlichen PGP-Schlüssel des Empfängers zu importieren. Die PGP-Schlüsselverwaltung kann über den Menüpunkt \textit{Keyring - Open - Personal Pgp} oder über das Toolbar-Icon mit dem blauen Schlüssel geöffnet werden:
+\begin{center}
+\includegraphics[scale=0.65]{qs_use_1.png}
+\end{center}
+
+Der öffentliche Schlüssel des Empfängers kann über den Toolbar-Button  \textit{Importieren} aus einer Datei oder der Zwischenablage importiert werden. Nach dem Importieren ist der Keyring zu speichern und die Schlüsselverwaltung kann wieder geschlossen werden. Die einfache Schlüsselverwaltung von Quicksilver bietet keine Möglichkeit, die Schlüsselserver im Internet zu durchsuchen.\\
+
+Komfortabler lassen sich die Schlüssel beispielsweise mit EinigMail für Thunderbird oder dem Tool GPA verwalten. Mit Quicksilver lassen sich diese Schlüsselringe nutzen. Es ist der Konfigurationsdialog unter \textit{Tools -> Options} zu öffnen und auf den Reiter \textit{PGP} zu wechseln. Hier sind die mit EnigMail oder anderen Tools verwalteten Schlüsselringe einzutragen.\\
+
+Die Schlüsselringe von GnuPG liegen normalerweise im Verzeichnis \textit{C:/Dokumente und Einstellungen/ ihr Name /Anwendungsdaten/gnupg/} und haben die Endung *.gpg! Es muss die Option alle \textit{Dateien anzeigen} im Dateiauswahldialog aktiviert werden.
+\begin{center}
+\includegraphics[scale=0.65]{qs_options.png}
+\end{center}
+
+Der Button \textit{Advanced} führt zu einem Dialog, welcher die Auswahl eines alternativen Programms zur Schlüsselverwaltung ermöglicht. Hier könnte zum Beispiel Thunderbird gewählt werden.
+
+\subsection{Anonyme E-Mail schreiben}
+Für das Erstellen einer neuen E-Mail ist das Toolbar-Icon ganz links, der Unterpunkt Message, zu wählen. Es öffnet sich ein Fenster mit dem gewählten Template:
+\begin{center}
+\includegraphics[scale=0.55]{quicksilver_email.png}
+\end{center}
+
+Quicksilver lässt an dieser Stelle den gewohnten Komfort vieler E-Mail-Clients vermissen, ist jedoch effektiv nutzbar. Tragen sie folgende Punkte ein:
+\begin{description}
+\item[Fcc:] outbox
+\item[Host:] ihr SMTP-Host
+\item[From:] Absender-E-Mail-Addr.
+\item[From:] 2. From-Zeile kann für die Festlegung eines Nicknamens genutzt werden.
+\item[Chain:] *,*; copies=1\\
+Es wird die Remailer-Kaskade festgelegt, welche für die Versendung genutzt wirden. Ein Stern überlässt es Quicksilver, einen beliebigen, verfügbaren Remailer für diese Position auszuwählen. Da es möglich sein könnte, dass eine E-Mail nicht ausgeliefert wird, können mehrere Kopien gesendet werden. Im Beispiel wird 1 Kopie gesendet.
+\item[To:]  E-Mail-Addr. des Empfänger
+\item[Subject:]  Betreff-Zeile
+\item[Leerzeile!]
+\item[Inhalt] der Nachricht.
+\end{description} 
+
+Der Text unterhalb der doppelten Tilde wird nicht gesendet, er dient der Beschreibung des Templates. Vor dem Senden der Nachricht ist das Toolbar-Icon für die Verschlüsselung zu aktivieren und in der Quicksilver-Toolbar die Checkbox für das Update!\\
+
+\begin{quote}
+\small
+[Neue SMS empfangen] \textit{''wie geht es dir heute, was hast du geträumt letzte nacht?''}\\
+
+[SMS schreiben] \textit{''Was könnte ich denn geträumt haben letzte Nacht?''}
+\end{quote}
+
+\subsection{Weitere Features von Quicksilver}
+\subsubsection{SMPT Authorisierung}
+Erfordert der für den Versand der E-Mails genutzte Server eine Anmeldung mit Benutzername und Passwort, ist diese unter dem Menüpunkt \textit{Tools - Smtp Authentication} zu konfigurieren. Die nötigen Angaben erfahren sie von ihrem Provider oder System-Administrator.
+
+\subsubsection{Adressbuch}
+Quicksilver bietet ein rudimentäres Adressbuch, um Listen häufig genutzter E-Mail-Adressen und News-Groups zu speichern. Dieses Adressbuch kann über den Menüpunkt \textit{Tools - Adressbook} geöffnet werden.
+\begin{center}
+\includegraphics[scale=0.65]{qs_adress.png}
+\end{center}
+
+Die hier zeilenweise eingegebenen Adressen stehen beim Schreiben einer neuen E-Mail zur Verfügung und können mit wenigen Mausklicks übernommen werden.
+
+\subsubsection{Versand über Mixkaskade}
+Die Version 2.6 von Quicksilver bietet die Möglichkeit, den externen SMTP-Server für den Versand der E-Mails über Mixkaskaden oder anonymisierende Proxies zu kontaktieren. Dieses Feature dient einer höheren Anonymität gegen mitlesende Dritte auf der Seite des Absenders.\\
+
+In der Toolbar einer neuen E-Mail ist der Button \textit{Proxy} zu finden. Hier kann der zu nutzende Proxy konfiguriert werden. Insbesondere sinnvoll ist es, das Onion-Router-Netz für die Kontaktierung des SMTP-Servers zu nutzen, siehe Kapitel 3.3.
+
+\begin{quote}
+\small
+[Neue SMS empfangen] \textit{''blumen auf einer wiese, ein sonnenuntergang ... die steuererklärung ist fertig''}
+\end{quote}
+
+\section{Mixmaster für Unix/Linux}
+\subsection{Installation (Debian)}
+Am einfachsten lässt sich Mixmaster unter Debian GNU/Linux installieren. Als User \textit{root} reicht folgendes Kommando, um Mixmaster zu installieren: \textit{apt-get install mixmaster}\\
+
+Mit der Installation der Package kann auch das Update der Remailer-Listen global konfiguriert werden. Die Remailer-Listen enthaten Informationen über die nutzbaren Remailer und sollten bei Aufuf von \textit{mixmaster} nicht älter als 24h sein. Debconf bietet bei der Installation die Auswahl folgender Optionen:
+
+\begin{enumerate}
+ \item Permanente Internetverbindung: Das Update der Remailer-Listen erfolgt täglich einmal mittels Cron-Job.
+\item Einwahlverbindung: das Update der Remailer-Listen erfolgt bei jeder Einwahl ins Internet.
+\item Kein Update: Der Nutzer ist selbst für das Update der Remailer-Listen verantwortlich. Eine Anleitung ist im Abschnitt \textit{Remailer-Listen aktualisieren} beschrieben.
+\end{enumerate}
+
+Die Auswahl kann später mit dem Kommando \textit{dpkg-reconfigure mixmaster} später geändert werden.
+
+\subsection{Installation (Sourcen)}
+Für alle anderen Distributionen ist Mixmaster aus den Quellen zu übersetzen. Es werden die Entwicklerpakete für folgende Komponenten benötigt, welche von nahezu allen Distributionen bereitgestellt werden:
+\begin{itemize}
+\item vi Editor
+\item ncurses Bibliothek
+\item OpenSSL Bibliothek
+\item PCRE Bibliothek
+\item zlib Bibliothek
+\item OpenPGP Programm (z.B. GnuPG)
+\end{itemize} 
+Die Sourcen von Mixmaster stehen unter folgender Adresse zum Download bereit:
+\begin{itemize}
+\item http://mixmaster.sourceforge.net
+\end{itemize} 
+Nach dem Download ist das Archiv zu entpacken und in das neu angelegte Verzeichnis zu wechseln. Hier ist das Kommando \textit{./install.sh} einzugeben.\\
+
+Als Installationsverzeichnis ist \textit{/home/user/.Mix} angegeben werden. Dieses Verzeichnis sollte auch in den Pfad aufgenommen werden.\\
+
+Die Frage \textit{Do you want to set up a remailer?} ist mit ENTER zu verneinen.\\
+
+Die Meldung \textit{Client installation complete.} zeigt den erfolgreichen Abschluss der Installation an.
+
+\subsection{Konfiguration von Mixmaster}
+Die Konfiguration erfolgt in der Textdatei \textit{/home/user/.Mix/mix.cfg}. Linux wird an dieser Stelle seinem Ruf als Volltext-Adventure gerecht. Es sind folgende Zeilen hinzuzufügen:\\
+
+\begin{tabular}{ll}
+ADDRESS  &  reale E-Mail Adresse\\ 
+NAME  & realer Name \\ 
+\end{tabular} \\
+
+Um sinnvolle Defaultwerte für die Versendung anonymer E-Mails zu definieren, sollte die Remailer-Kette und die Anzahl der zu versendenden Kopien  festgelegt werden. Ein Stern überlässt es dem Programm, einen geeigneten Remailer auszuwählen. Bei längeren Ketten für eine hohe Anonymität ist es möglich, das eine E-Mail nicht ankommt. In diesem Fall sollten 2 oder höchstens 3 Kopien gesendet werden.\\
+
+\begin{tabular}{ll}
+CHAIN & *,*\\
+NUMCOPIES & 1\\
+\end{tabular} \\
+
+Mixmaster sollte für die Versendung der anonymen E-Mails an den ersten Remailer der Kaskade den gleichen Server verwenden, wie ihr E-Mail-Client. Verwenden Sie einen localen MTA ist folgende Zeile hinzuzufügen:\\
+
+\begin{tabular}{ll}
+SENDMAIL &  sendmail -t\\
+\end{tabular} \\
+
+Soll statt dessen ein externer SMTP-Server für die Versendung genutzt werden, ist folgende Zeile hinzuzufügen:\\
+
+\begin{tabular}{ll}
+SMTPRELAY &  mail.server.tld\\
+\end{tabular} \\
+
+Erfordert der SMTP-Server eine Anmeldung via SMTP Auth, sind folgende Zeilen in der Konfigurationsdatei hinzuzufügen:\\
+
+\begin{tabular}{ll}
+SMTPUSERNAME & SMTP Auth-Name\\
+SMTPPASSWORD & das Passwort\\
+\end{tabular} \\
+
+Ausserdem sind in der Konfiguration die Schlüsselringe für OpenPGP-Verschlüsselung angegeben werden. Verwenden Sie GnuPG, sind folgende Zeilen hinzuzufügen:\\
+
+\begin{tabular}{ll}
+PGPPUBRING & /home/user/.gnupg/pubring.gpg\\
+PGPSECRING & /home/user/.gnupg/secring.gpg\\
+\end{tabular} \\
+
+Die Remailer-Listen enthalten Informationen über die nutzbaren Remailer, deren Adresse sowie deren öffentliche PGP-Schlüssel (siehe folgendes Kapitel). Mixmaster erwartet in der Konfigurationsdatei die Informationen, wo diese Stat-Files zu finden sind sind. Die folgenden Zeilen sind ein Beispiel.\\
+
+\begin{tabular}{ll}
+PGPREMPUBASC & /home/user/.mix/stats/pubring.asc\\
+PUBRING	& /home/user/.mix/stats/pubring.mix\\
+TYPE1LIST & /home/user/.mix/stats/rlist.txt\\
+TYPE2REL & /home/user/.mix/stats/mlist.txt\\
+TYPE2LIST & /home/user/.mix/stats/type2.list\\
+\end{tabular} \\
+
+Das Verzeichnis \textit{/home/user/.Mix/stats/} ist anzulegen. Ansonsten erhält man eine Fehlermeldung beim Update der Dateien.\\
+
+ Wird das automatische Update der Debian/GNU Linux Package genutzt (siehe oben), sollte die Angabe der Stat-Files in der lokalen Konfiguration entfallen. Die globale Konfigurationsdatei \textit{/etc/mixmaster/mix.cfg} enthält die nötigen Angaben.
+
+\subsection{Remailer-Listen aktualisieren}
+Mixmaster benötig Informationen über die nutzbaren Remailer, die unterstützten Featuren und die öffentlichen Schlüssel der Remailer. Diese Informationen werden von mehreren Servern im Internet gesammelt und zum Download bereitgestellt. Eine Übersicht zu verschiedenen Downloadmöglichkeiten liefert folgende Seite:\\
+
+http://www.noreply.org/allpingers/allpingers.txt\\
+
+Mixmaster benötigt aktuelle Kopien von folgenden Dateien, die nicht älter als 24h sein sollten:
+\begin{description}
+\item[mlist.txt] Liste der nutzbaren Mixmaster Remailer.
+\item[rlist.txt] Liste der nutzbaren Cypherpunk Remailer.
+\item[pubring.mix] Schlüsselring der Mixmaster Remailer.
+\item[pubring.asc] Schlüsselring der Cypherpunk Remailer.
+\item[type2.list] Liste der Mixmaster Remailer mit Remailer Adresse, Schlüssel-ID, Mixmasterversion, Kürzel der unterstützten Funktionen.
+\end{description} 
+
+Für das Update dieser Dateien hat P. Palfrader das Perl-Script \textit{mixmaster-update} geschrieben. Es ist Teil des Debian-Paketes mixmaster und wird mit Installation dieses Paketes vollständig konfiguriert. Es kann entweder regelmäßig als Cron-Job aufgerufen werden oder beim Herstellen einer Einwahlverbindung. \\
+
+Für Nutzer anderer Distibutionen steht es unter folgender Adresse zum Download bereit:\\
+
+http://www.barbarakaemper.de/download/mixmaster-update.tar.gz\\
+
+Nach dem Download ist das Archiv zu entpacken und die benötigten Komponenten als root mit dem Kommando \textit{./install.sh} zu installieren. Das Script \textit{mixmaster-update} wird damit nach \textit{/usr/local/bin/} kopiert, die Manual-Datei nach \textit{/usr/local/man/man1} und eine aktuelle Liste der Datei allpingers.txt nach \textit{/etc/mixmaster}.\\
+
+Die Konfiguration der Updates erfolgt in  \textit{/home/user/.Mix/update.conf}. Eine Beispielkonfiguration ist in dem Archiv im Unterverzeichnis \textit{conf} enthalten. Es ist ein Pinger aus der Datei \textit{/etc/mixmaster/allpingers.txt} für den Download auszuwählen und das Zielverzeichnis anzugeben. Das Zielverzeichnis für die Remailer-Listen muss identisch mit dem in der Mixmaster-Konfiguration  \textit{/home/user/.Mix/mix.cfg} angegebenen Ort der Remailer-Listen sein. Außerdem kann ein Proxy konfiguriert werden. Eine einfache Beispielkonfiguration könnte wie folgt aussehen:\\
+
+\begin{tabular}{ll}
+SOURCE & bigapple\\
+DESTINATION & /home/user/.Mix/stats/
+\end{tabular}\\
+
+Das Update kann vom Nutzer auf der Kommandozeile durch Aufruf von \textit{mixmaster-update} unmittelbar vor der Versendung einer anonymen E-Mail ausgeführt werden oder es kann regelmäßig als Cron-Job gestartet werden. Das Script \textit{smtp2mix} prüft, ob die Remailer-Listen aktuell sind und ruft bei Bedarf das Update automatisch auf.
+
+\begin{quote}
+\small
+[SMS schreiben] \textit{''Nein, lieber Blumen auf einer Wiese, Regen auf der Haut... Wovon träumst Du?''}\\
+\end{quote}
+
+\subsection{Anonyme E-Mails mit Mixmaster versenden}
+Wer mit dem Editor vi vertraut ist, kann Mixmaster auf der Kommandozeile starten, mit dem integrierten Editor eine E-Mail schreiben und anonym versenden.\\
+
+Eine zweite Möglichkeit nutzt einen beliebigen Texteditor oder besser eine komplette Textverarbeitung mit Rechtschreibprüfung und Vorlagenverwaltung, um die E-Mail auf Basis der folgenden Vorlage zu schreiben, als TXT-Datei zu speichern und diese mit Mixmaster anonym zu versenden.
+\begin{verse}
+To:\\
+Subject: \\
+Mime-Version: 1.0\\
+Content-Type: text/plain; charset=''iso-8859-1''\\
+Content-Transfer-Encoding: 8bit\\
+.\\
+Hallo alle miteinander,\\
+hier beginnt der Inhalt\\
+\end{verse} 
+
+In den ersten beiden Zeilen ist die E-Mail-Adresse des Empfängers und der Betreff der Nachricht einzutragen. Zwischen dem Header und dem eigentlichen Inhalt ist eine Leerzeile frei zu lassen.\\
+
+Nachdem die Nachricht geschrieben wurde, ist die Datei unter einem neuen Namen zu speichern, beispielsweise unter
+\textit{/home/user/anon-email.eml}.\\
+
+Diese E-Mail kann mit den folgenden Befehlszeilen versendet werden, welche für häufige Nutzung auch als Shell-Script gespeichert werden können:
+\begin{verse}
+> mixmaster-update\\
+> mixmaster -m /home/user/anon-email.eml\\
+> mixmaster -S\\
+> rm /home/user/anon-email.eml\\
+\end{verse} 
+
+Der erste Befehl aktualisiert die Remailer-Statistiken und kann entfallen, wenn diese nicht älter als 24h sind.\\
+
+Die zweite Befehlszeile übernimmt die Nachricht, wählt die Remailer-Kette aus und legt eine vorbereitete E-Mail im Spool-Verzeichnis ab. Der zweite Aufruf von Mixmaster versendet alle Mails aus dem Spool-Verzeichnis und der letzte Befehl löscht die TXT-Datei.\\
+
+Soll die E-Mail an der Empfänger OpenPGP verschlüsselt ausgeliefert werden, ist die zweite Befehlszeile zusätzlich um die Option \textit{--encrypt} zu erweitern.
+\newpage
+
+\begin{quote}
+\small
+[Neue SMS empfangen] \textit{''blaue augen, die verträumt... autsch, jetzt habe ich etwas auf die finger bekommen, also doch vom sonnenuntergang, das bandoneon schrummelt, ein cocktail ...''}\\
+
+[SMS schreiben] \textit{''Träumen ist absolut erlaubt! Wie geht es weiter?''}
+
+\end{quote}

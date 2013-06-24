@@ -1,0 +1,10 @@
+\section{Mixkaskaden nutzen}
+Mixkaskaden verwischen gegenüber Webservern Spuren über die Herkunft der Anfragen, indem sie die Anfragen verschiedener Surfer miteinander verwirbeln. Die verschlüsselte Kommunikation über Mixe verhindert auch die Auswertung durch mitlesende Dritte, verringern aber die Downloadgeschwindigkeit spürbar!\\
+
+Es wird ein Client als Proxy auf dem lokalen Rechner des Surfers installiert und gestartet. Der Browser bzw. der Content-Filter wird entsprechend konfiguriert, so dass Anfragen nicht direkt ins Internet gesendet werden, sondern über den lokalen Proxy der Mixkaskade.\\
+
+Mixkaskaden sind ein Hammer unter den Tools zur Anonymisierung, aber nicht jedes Problem ist ein Nagel. Das Tracking von Anbietern wie DoubleClick verhindert man effektiver, indem man den Zugriff auf Werbung unterbindet. Anbieter wie z.B. Google erfordern es, Cookies und JavaScript zu kontrollieren. Anderenfalls wird man trotz Nutzung von Mixen identifiziert.\\
+
+\textbf{Hinweis für Einwahlverbindungen}: Die Clients stellen eine aktive Verbindung zur Mixkaskade her und halten diese Verbindung aufrecht! Damit wird das automatische Trennen der Einwahlverbindung bei Inaktivität verhindert. Man muß nach dem Schließen des Browsers auch die Verbindung zur Mixkaskade trennen (JAP) oder das Client-Programm beenden (TOR). \\
+
+\textbf{Java} sollte für das anonyme Surfen über Mixkaskaden deaktiviert weren. Es ist möglich, mit Java-Applets den Proxy zu umgehen.\\

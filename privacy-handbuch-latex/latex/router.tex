@@ -1,0 +1,21 @@
+\section{DSL-Router und Computer vorbereiten}
+Um als vollwertiger Teilnehmer an einem anonymen Peer-2-Peer Netz teilzunehmen, muss der eigene Rechner vom Internet aus erreichbar sein. Nur dann können andere Teilnehmer des Netzes den eigenen Knoten kontaktieren. Als typischer Heimnutzer mit DSL-Anschluss sind einige Anpassungen nötig, damit der eigene Rechner aus dem Internet erreichbar ist.
+
+\begin{enumerate}
+ \item Der DSL-Router muss den ankommenden Datenverkehr der anderen Peer-2-Peer Teil­nehmer an den eigenen Rechner weiterleiten. Einige Programme können den Router mit UPnP konfigurieren. Aufgrund der Sicherheitsprobleme bei UPnP \footnote{ \href{http://heise.de/-1793625}{http://heise.de/-1793625}} sollte man dieses Feature auf dem Router deaktivieren und Weiterleitung per Hand konfigurieren.\\
+
+Der Screenshot \ref{portforward} zeit die Konfiguration für einen Linksys Router. Für I2P wurde im Beispiel der Port 8888 gewählt, für GnuNet muss man die Ports 1080 und 2086 weiterleiten. 
+\begin{figure}[htb]
+\begin{center}
+\includegraphics[scale=0.75]{../screenshots/router-portforward.png}
+\caption{Portforwarding auf dem Router}
+\label{portforward}
+\end{center}
+\end{figure}
+
+ \item Die Konfiguration der Weiterleitung auf dem DSL-Router ist einfacher, wenn der eigene Rechner innerhalb des privaten lokalen Netzwerkes eine feste IP-Adresse hat. Dafür ändert man die Konfiguration der Netzwerkschnittstelle von \textit{DHCP} auf \textit{feste IP-Adresse}. 
+
+ \item Außerdem muss die Firewall auf dem lokalen Rechner den ankommenden Datenverkehr der anderen Peer-2-Peer Teilnehmer auf den Ports durchlasssen, für die eine Weiterleitung im Router konfiguriert wurde.
+
+ \item Für GnuNet und Freenet braucht eine DNS-Namen, um bei wechselnden IP-Adressen unter einer festen Adresse erreichbar zu sein. Mit einem DynDNS-Service kann man dieses Problem lösen. Es gibt meherere freie DynDNS Dienste \footnote{ \href{http://dnslookup.me/dynamic-dns/}{http://dnslookup.me/dynamic-dns}} für diesen Zweck. (Für I2P nicht nötig!)
+\end{enumerate}

@@ -1,0 +1,135 @@
+Die folgende grobe Übersicht soll die Orientierung im Dschungel der nachfolgend beschriebenen Möglichkeiten etwas erleichtern.
+
+\begin{itemize}
+ \item \textbf{Einsteiger:} Datensammler nutzen verschiedene Möglichkeiten, Informationen über die Nutzer zu generieren. Die Wiedererkennung des Surfers bei der Nutzung verschiedener Dienste kann mit einfachen Mitteln erschwert werden. (Datensammler meiden und Alternativen nutzen, Cookies und JavaScript kontrollieren, Werbung filtern, SSL-verschlüsselte Verbindungen nutzen, E-Mail Client sicher konfigurieren...)
+
+\item \textbf{1. Grad:} Zensur umgehen. Immer mehr Länder führen Zensur-Maßnahmen ein, um den Zugriff auf unerwünschte Inhalte zu sperren. Mit den \textit{Simple Tricks} oder unzensierten DNS-Servern können diese Sperren umgangen werden.
+
+\item \textbf{2. Grad:} Persönliche Daten und Inhalte der Kommunikation werden verschlüsselt. Das verwehrt unbefugten Dritten, Kenntnis von persönliche Daten zu erlangen. (Festplatte und Backups verschlüsseln mit Truecrypt, DM-Crypt oder FileVault, E-Mails verschlüsseln mit GnuPG oder S/MIME, Instant Messaging mit OTR...)
+
+\item \textbf{3. Grad:} Anhand der IP-Adresse ist ein Nutzer eindeutig identifizierbar. Im Rahmen der Vorratsdatenspeicherung werden diese Daten für 6 Monate gespeichert. Mixkaskaden (JonDonym) oder Onion Router (Tor) bieten eine dem realen Leben vergleichbare Anonymität. Remailer bieten die Möglichkeit, den Absender einer E-Mail zu verschleiern.
+
+\item \textbf{4. Grad:} Eine noch höhere Anonymität bietet das \textit{Invisible Internet Projekt} (I2P) oder das \textit{Freenet Projekt}. Eine dezentrale und vollständig verschlüsselte Infrastruktur verbirgt die Inhalte der Kommunikation und wer welchen Dienst nutzt. Auch Anbieter von Informationen sind in diesen Netzen anonym.
+\end{itemize}
+Die einzelnen Level bauen aufeinander auf! Es macht wenig Sinn, die IP-Adresse zu verschleiern, wenn man anhand von Cookies eindeutig identifizierbar ist. Auch die Versendung einer anonymen E-Mail ist in der Regel verschlüsselt sinnvoller.
+
+\section{Nachdenken}
+Eine Graduierung in den Kampfsportarten ist keine Garantie, dass man sich im realen Leben erfolgreich gegen einen Angreifer zur Wehr setzen wird. Ähnlich verhält es sich mit dem \textit{Digitalen Aikido}. Es ist weniger wichtig, ob man gelegentlich eine E-Mail verschlüsselt oder einmal pro Woche Anonymisierungsdienste nutzt. Entscheidend ist ein konsequentes, datensparsames Verhalten.\\
+
+Ein kleines Beispiel soll zum Nachdenken anregen. Es ist keinesfalls umfassend oder vollständig. Ausgangspungt ist eine reale Person P mit Namen, Geburtsdatum, Wohnanschrift, Fahrerlaubnis, Kontoverbindung\dots).\\
+
+Im Internet verwendet diese Person verschiedene Online-Identitäten:
+\begin{enumerate}
+ \item Facebook Account (es könnte auch Xing oder ein ...VZ sein).
+\item Eine E-Mail Adresse mit dem realen Namen bei einem Provider, der die Vorratsdatenspeicherung (VDS) umsetzt.
+\item Eine anonyme/pseudonyme E-Mail Adresse bei einem ausländischen Provider, der nicht zur Vorratsdatenspeicherung verpflichtet ist.
+\item Pseudonyme in verschiedenen Foren, die unter Verwendung der anonymen E-Mail Adresse angelegt wurden.
+\item Für Kommentare in Blogs verwendet die Person meist ein einheitliches Pseudonym, um sich Anerkennung und Reputation zu erarbeiten. (Ohne Reputation könnte das soziale Gefüge des Web 2.0 nicht funktionieren.)
+\end{enumerate}
+
+\begin{figure}[htb]
+\begin{center}
+\includegraphics[scale=0.55]{../screenshots/nachdenken.png}
+\caption{Datenverkettung}
+\label{abb:nachdenken}
+\end{center}
+\end{figure}
+
+Mit diesen Online-Identitäten sind verschiedene Datenpakete verknüpft, die irgendwo gespeichert und vielleicht nicht immer öffentlich zugänglich sind. Um übersichtlich zu bleiben nur eine minimale Auswahl:
+\begin{itemize}
+ \item Das Facebook Profil enthält umfangreiche Daten: Fotos, Freundeskreis\dots
+\item Bei der Nutzung von vielen Webdiensten fallen kleine Datenkrümel an. Auch E-Mails werden von den Datensammlern ausgewertet. Die IP-Adresse des Absenders kann mit anderen Einträgen von Cookies oder User-Tracking-Systemen zeitlich korreliert werden und so können den Profilen die Mail-Adressen und reale Namen zugeordnet werden.
+\item Von dem anonymen E-Mail Postfach findet man VDS-Daten bei den \underline{Empfängern} der E-Mails. Diese Datenpakete enthalten einen Zeitstempel sowie die IP-Adresse und E-Mail Adresse des Absenders und können mit weiteren Daten verknüpft werden.
+\item In Foren und Blogs findet man Postings und Kommentare, häufig mit den gleichen Pseudonymen, die auch für die E-Mail Adressen verwendet werden.
+\item Online-Einkäufern erforden in der Regel die Angaben zur Kontoverbindung und einer Lieferadresse, die der Person zugeordnet werden können.
+\end{itemize}
+
+\subsubsection*{Verkettung der Informationen und Datenpäckchen}
+Die verschiedenen Datenpakete können auf vielfältige Art verknüpft werden. Diese \underline{Datenverkettung} ist eine neue Qualität für Angriffe auf die Privatsphäre, die unterschätzt wird.
+
+\begin{enumerate}
+ \item Online Communities wie Facebook bieten viele Möglichkeiten. Neben der Auswertung von Freundschaftbeziehungen gibt es auch viele Fotos. Dieser Datenpool ist schon sehr umfangreich:
+\begin{itemize}
+ \item Wirtschaftswissenschaftler haben eine Methode vorgestellt, um Meinungsmacher und kreative Köpfe in Online-Communities zu identifizieren \footnote{ \href{http://www.heise.de/tp/r4/artikel/31/31691/1.html}{http://www.heise.de/tp/r4/artikel/31/31691/1.html}}.
+\item MIT-Studenten erkennen homosexuelle Neigungen ihrer Kommilitonen anhand der Informationen über  Freundschaften in den Facebook-Profilen \footnote{ \href{http://www.heise.de/tp/r4/artikel/31/31181/1.html}{http://www.heise.de/tp/r4/artikel/31/31181/1.html}}.
+\item Der Grünen-Vorsitzende Özdemir pflegte eine Freundschaft mit dem Intensivstraftäter Muhlis Ari, ist in seinem Facebook-Profil erkennbar \footnote{ \href{http://www.heise.de/tp/r4/artikel/32/32138/1.html}{http://www.heise.de/tp/r4/artikel/32/32138/1.html}}.
+\end{itemize}
+
+\item Dem Facebook Profil kann man durch Kombination mit anderen Datenkrümeln den realen Namen und die meisten genutzten E-Mail Adressen zuordnen. Die Firma Rapleaf ist z.B. darauf spezialisiert. Auch pseudonyme Facebook Accounts können deanonymisiert werden.
+\item Durch Analyse der im Rahmen der VDS gespeicherten IP-Adressen können bei zeitlicher Übereinstimmung beide E-Mail Adressen der gleichen Person zugeordnet werden. Ein einzelner passender Datensatz reicht aus. (Wenn nicht konsequent Anonymisierungsdienste für das anonyme Postfach verwendet werden.)
+\item Die Verbindung zwischen anonymer E-Mail Adresse und Foren Account ergibt sich durch die Nutzung der E-Mail Adresse bei Anmeldung.
+\item Durch Vergleiche von Aussagen und Wortwahl lassen sich Korrelationen zwischen verschiedenen Nicknamen in Foren und Blogs herstellen. Dem Autor sind solche Korrelationen schon mehrfach offensichtlich ins Auge gesprungen und konnten durch Nachfrage verifiziert werden.
+\item Durch Datenschutzpannen können Informationen über Online-Einkäufe mit anderen Daten verknüpft werden. Dabei schützt es auch nicht, wenn man sich auf das Gütesiegel des TÜV Süd verlässt und bei einem Händler einkauft, der bisher nicht negativ aufgefallen ist. Eine kleine Zusammenfassung vom 29.10.09 bis 04.11.09:
+\begin{itemize}
+ \item Die Bücher der Anderen (500.000 Rechnungen online einsehbar \footnote{ \href{http://www.netzpolitik.org/2009/exklusiv-die-buecher-der-anderen}{http://www.netzpolitik.org/2009/exklusiv-die-buecher-der-anderen}} )
+\item Die Libris Shops (Zugang zu Bestellungen von 1000 Buchshops \footnote{ \href{http://www.netzpolitik.org/2009/exklusiv-die-libri-shops-der-anderen}{http://www.netzpolitik.org/2009/exklusiv-die-libri-shops-der-anderen}} )
+\item Sparkassen-Shops (350.000 Rechnung online einsehbar \footnote{ \href{http://www.netzpolitik.org/2009/zugriff-auf-350-000-rechnungen-im-sparkasse-shop}{http://www.netzpolitik.org/2009/zugriff-auf-350-000-rechnungen-im-sparkasse-shop}} )
+\item Acht Millionen Adressen von Quelle-Kunden sollen verkauft werden \footnote{ \href{http://www.zeit.de/digital/datenschutz/2009-11/quelle-kundendaten-verkauf}{http://www.zeit.de/digital/datenschutz/2009-11/quelle-kundendaten-verkauf}})
+\end{itemize}
+Eine reichhaltige Quelle für Datensammler, die Profile ihrer Zielpersonen vervollständigen wollen oder nach potentiellen Zielpersonen rastern.
+\end{enumerate}
+
+Durch die Verkettung der Datenpäckchen konnten in dem fiktiven Beispiel alle Online Identitäten de-anonymsiert werden. Für den Sammler, der diese Datensammlung in der Hand hält, ergibt sich ein komplexes Persönlichkeitsbild der Person P. Diese Datensammlung könnte das Leben von P in vielerlei Hinsicht beeinflussen, ohne dass dem Betroffenen klar wird, das hinter scheinbar zufälligen Ereignissen ohne Zusammenhang bewusste Entscheidungen stehen.
+\begin{itemize}
+ \item Die Datensammlungen werden mit kommerziellen Zielen ausgewertet, um uns zu manipulieren und unsere Kauf-Entscheidungen zu beeinflussen.
+\item Personalabteilungen rastern routinemäßig das Internet nach Informationen über Bewerber. Dabei ist Google nur ein erster Ansatzpunkt. Bessere Ergebnisse liefern Personensuchmaschinen und soziale Netzwerke. Ein kurzer Auszug aus einem realen Bewerbungsgespräch:
+\begin{itemize}
+\item Personalchef: \textit{Es stört Sie sicher nicht, dass hier geraucht wird. Sie rauchen ja ebenfalls.}
+\item Bewerber: \textit{Woher wissen Sie das?}
+\item Personalchef: \textit{Die Fotos in ihrem Facebook-Profil \dots}
+\end{itemize}
+Qualifizierten Personalchefs ist dabei klar, dass eine kurze Recherche in Sozialen Netzen kein umfassendes Persönlichkeitsbild liefert. Die gefundenen Indizien können aber den Ausschlag für eine Ablehnung geben, wenn man als Frau gebrauchte Unterwäsche anbietet oder der Bewerber eine Nähe zur Gothic-Szene erkennen lässt.
+\item Von der israelischen Armee ist bekannt, dass sie die Profile in sozialen Netzen überprüfen, wenn Frauen den Wehrdienst aus religiösen Gründen verweigern. Zur Zeit verweigern in Israel 35\% der Frauen den Wehrdienst. Anhand der sozialen Netze wird der Lebenswandel dieser Frauen überprüft. Es werden Urlaubsfotos in freizügiger Bekleidung gesucht oder Anhaltspunkte für Essen in einem nicht-koscheren Restaurant. Auch aktiv wird dabei gehandelt und Fake-Einladungen zu einer Party während des Sabbats verschickt.
+\item Firmen verschaffen sich unrechtmäßig Zugang zu Verbindungs- und Bankdaten, um ihrer Mitarbeiter auszuforschen. (Telekom- und Bahn-Skandal)
+\item Identitätsdiebstahl ist ein stark wachsendes Delikt. Kriminelle duchforsten das Web nach Informationen über reale Personen und nutzen diese Identitäten für Straftaten. Wie sich Datenmissbrauch anfühlt: Man wird plötzlich mit Mahnungen für nicht bezahlte Dienstleitungen überschüttet, die man nie in Anspruch genommen hat
+ \footnote{ \href{http://www.zeit.de/digital/datenschutz/2010-01/identitaetsdiebstahl-selbsterfahrung}{http://www.zeit.de/digital/datenschutz/2010-01/identitaetsdiebstahl-selbsterfahrung}}.
+\item Mit dem Projekt INDECT hat die EU ein Forschungsprojekt gestartet und mit 14,8 Mio Euro ausgestattet, um unsere Daten-Spuren für Geheimdienste zu erschließen \footnote{ \href{http://www.zeit.de/digital/datenschutz/2009-09/indect-ueberwachung}{http://www.zeit.de/digital/datenschutz/2009-09/indect-ueberwachung}}.
+\end{itemize}
+
+\subsubsection*{Ich habe doch nichts zu verbergen\dots}
+\dots oder habe ich nur zu wenig Fantasie, um mir die Möglichkeiten der Datensammler vorstellen, mein Leben zu beeinflussen?
+
+\section{Ein Beispiel}
+Das Seminar für angewandte Unsicherheit (SAU) hat ein sehr schönes Lehrbeispiel im Internet vorbereitet. Jeder kann nach Informationen dieser fiktiven Person selbst suchen und das Profil verifizieren. Es geht um folgende Person:
+\begin{center}
+\includegraphics[scale=0.7]{../grafiken/beisp.png}
+\end{center}
+Diese Informationen könnte ein Personalchef einer Bewerbung entnehmen oder sie sind der Krankenkasse bekannt oder sie ist bei einer Demo aufgefallen\dots Eine kurze Suche bei Google und verschiedenen Personensuchmaschinen liefert nur sehr wenige Treffer, im Moment sind es 3 Treffer. Gleich wieder aufgeben?\\
+
+Die moderne Studentin ist sozial vernetzt. Naheliegend ist es, die verschiedenen Netzwerke wie StudiVZ usw. nach F. abzusuchen. Bei Facebook wird man erstmals fündig. Es gibt ein Profil zu dieser Person mit Fotos, Interessen und (wichtig!) eine neue E-Mail Adresse:
+
+\begin{center}
+\includegraphics[scale=0.7]{../grafiken/beisp2.png}
+\end{center}
+
+Bezieht man diese Adresse in die Suche bei anderen Sozialen Netzwerken mit ein, wird man bei MySpace.com erneut fündig. Hier gibt es ein Profil mit dieser E-Mail Adresse und man findet den Twitter-Account von F. sowie ein weiteres Pseudonym:
+\begin{center}
+\includegraphics[scale=0.7]{../grafiken/beisp3.png}
+\end{center}
+
+Mit den beiden gefundenen Pseudonymen g.....17 und f.....85 kann man erneut bei Google suchen und die Ergebnisse mit den Informationen aus den Profilen zusammenfassen.
+\begin{itemize}
+\item g.....17 ist offenbar depressiv. Das verordnete Medikament deutet auf Angstzustände hin, wurde von der Patientin nicht genommen sondern ins Klo geworfen.
+\item Sie hat Probleme im Studium und will sich krankschreiben lassen, um an Prüfungen nicht teilnehmen zu müssen.
+\item Außerdem hat sie ein massives Alkohol-Problem und beteiligt sich am \textit{Syncron-Saufen} im Internet. Scheinbar ist sie auch vereinsamt.
+\item F. ist offenbar lesbisch, sie sucht nach einer Frau bei abgefuckt.de.
+\item F. ist im linksradikalen Spektrum aktiv. Sie hat an mehreren Demonstrationen teilgenommen und berichtet über  Erfahrungen mit Hausdurchsuchungen. Möglicherweise ist das die Ursache für ihre Angstzustände.
+\item Öffentlich prangert sie in einem Diskussionsforum die Firma ihres Vaters an (wegen Ausspionierens von Mitarbeitern).
+\item Ihre linksgerichtete Grundhaltung wird durch öffentliche Unterstützung der Kampagne \textit{Laut ficken gegen Rechts} unterstrichen.
+\item Von regelmäßiger Arbeit hält sie nicht viel.
+\item Die angebene Adresse ist falsch. F. wohnt in einer 11-Personen-WG in einem besetzten Haus in Alt-Moabit. Die WG sucht nach einem neuem Mitglied.
+\item Die Wuschliste bei Amazon und Fotos bei Flickr\dots
+\end{itemize}
+ 
+Würden sie als Personalchef diese fiktive Person einstellen?\\
+
+Welche Ansatzpunkte ergäben sich für den Verfassungsschutz?\\
+
+Was könnte zukünftig für die Krankenkasse interessant sein?\\
+
+Was hätte F. tun können, um die Profilbildung zu vermeiden?
+
+\subsubsection*{Bedeutung der Pseudonyme}
+Die Suche nach Informationen über F. fiel relativ leicht. Sie verwendete die gleichen Pseudonyme mehrfach und die Pseudonyme waren eindeutig und einfach zu googeln. Damit ergeben sich viele Verknüpfungen von einzelnen Informationshäppchen. Als Verteidigung gegen diese Recherche kann man viele unterschiedliche Pseudonyme verwenden oder zumindest schwer googelbare Pseudonyme, wenn man wieder­erkannt werden möchte.\\
+
+Die Wiedererkennbarkeit lässt sich messen. Auf der Website \textit{How unique are your usernames?} \footnote{ \href{http://planete.inrialpes.fr/projects/how-unique-are-your-usernames/}{http://planete.inrialpes.fr/projects/how-unique-are-your-usernames}} kann man den Entropiewert seiner bevorzugten Pseudonyme berechnen lassen. Gute und schwer googelbare Pseudonyme haben Entropiewerte < 20. Werte über 40 sind sehr eindeutig und die damit verbunden Informationen somit leicht verknüpfbar. 

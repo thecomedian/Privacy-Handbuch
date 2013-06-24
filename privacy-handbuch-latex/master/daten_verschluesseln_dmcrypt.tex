@@ -1,0 +1,31 @@
+\documentclass[notitlepage,a4paper,10pt,twoside]{article}
+
+%\usepackage{mathpazo} 
+\usepackage{ngerman} 
+\usepackage[latin1]{inputenc} 
+\usepackage[T1]{fontenc} 
+\usepackage[pdftex]{graphicx} 
+\usepackage[pdftex,bookmarks=true,colorlinks,linkcolor=blue,urlcolor=blue,citecolor=blue]{hyperref}
+
+\sloppy
+
+%opening
+\title{Daten verschlüsseln}
+\author{mit DM-Crypt für Linux}
+\date{\today}
+
+\hypersetup {
+    pdftitle= { Daten verschlüsseln mit DM-Crypt für Linux }
+    pdfkeywords= {Daten verschlüsseln Verschlüsselung DM-Crypt Linux cryptsetup }
+}
+
+
+\begin{document}
+\maketitle
+\tableofcontents
+
+\section{Einleitung}
+\input{../latex/daten_einleitung}
+\newpage
+\input{../latex/daten_dmcrypt_part}
+\end{document}

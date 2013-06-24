@@ -1,0 +1,32 @@
+\section{Simple Tricks}
+Die besten Möglichkeiten zur Umgehung von Zensur sind \textit{Anonymisierungsdienste} mit Anti-Censorship Funktion wie JonDonym oder Tor. Stehen diese Dienste nicht zur Verfügung, kann man es auch mit den Simple Tricks versuchen. Die \textit{Simple Tricks} wurden bereits an der ``Great Firewall'' in China erprobt und sind teilweise recht erfolgreich. Das einfache Prinzip ist im Bild \ref{abb:simpletrick} dargestellt.\\
+
+\begin{figure}[hbt]
+\begin{center}
+\includegraphics[scale=0.5]{../screenshots/simple_trick.png}
+\caption{Prinzip der Simple Tricks}
+\label{abb:simpletrick}
+\end{center}
+\end{figure}
+
+Wenn man auf eine Website nicht zugreifen kann (oder man befürchtet, nicht zugreifen zu können) kann man einen Webdienst im Ausland nutzen. Der Webdienst unterliegt anderen Zensurbedingungen und kann häufig auf die gewünschte Seite zugreifen und über den kleinen Umweg unzensiert liefern.\\
+
+\textbf{Hinweis:} Es ist ratsam, Web-Services zu nutzen, die eine \underline{SSL-Verschlüsselung} des Datenverkehrs anbieten. Wer Anonymisierungsdienst wie Tor oder JonDonym nutzen kann, sollte diese Möglichkeit bevorzugen.\\
+
+Einige Vorschläge für Webdienste:
+\begin{enumerate}
+   \item \textbf{RSS-Aggregatoren:} sind geeignet, um regelmäßig eine Website zu lesen, die RSS-Feeds anbietet, bspw. Blogs. Man kann sich selbst seine Feeds auf einem Web-Aggregator wie \href{http://www.bloglines.com}{www.bloglines.com} zusammenstellen oder nutzt fertig, themenspezifische Aggregatoren wie z.B. den Palestine Blog Aggregator über den Gaza-Krieg.
+\item \textbf{SSL-Web-Proxys} bieten ein Formular für die Eingabe einer URL. Die Website wird von dem Proxy geholt und an den Surfer geliefert. Dabei werden alle Links der Webseite vom Proxy umgeschrieben, so dass bei einem Klick die folgende Website ebenfalls über den Proxy geholt wird. Flüssiges Surfen ist möglich. Um die Filterung des Datenverkehr nach gesperrten Wörtern zu verhindern, sollte man SSL-verschlüsselte Web-Proxys nutzen. Eine Liste von Web-Proxys mit SSL-Verschlüsselung findet man bei Proxy.org oder mamproxy.com oder www.privax.us/. \\
+
+Web-Proxies sind keine Anonymisierungsdienste! Die Admins könnten den gesamten Traffic mitlesen, auch bei SSL-verschlüsselten Websites. Sie sind ungeeignet für Webangebote, die ein Login mit Passwort erfordern. Viele Web-Proxys speichern die Daten und geben sie auch an Behörden weiter, wie der Sahra-Palin-Hack zeigte. Außerdem können Webmaster die meisten Web-Proxys austricksen, um Nutzer zu deanonymiseren.
+\item \textbf{Übersetzungsdienste:} Man fordert bei einem Web-Translater die Übersetzung einer Website von einer willkürlichen Sprache (z.B. koreanisch) in die Orginalsprache des Dokumentes an. Der Web-Translater ändert praktisch nichts. Man kann \href{http://babelfish.yahoo.com}{http://babelfish.yahoo.com} oder \href{http://translate.google.com}{http://translate.google.com} nutzen.
+\item \textbf{Low-Bandwidth-Filter:} bereiten Websites für Internetzugänge mit geringer Bandbreite auf. Sie entfernen Werbung, reduzieren die Auflösung von Bildern usw. und senden die bearbeitete Website an den Surfen. Man kann sie auch mit High-Speed-DSL nutzen. Steht ein solcher Server im Ausland, hat er häufig die Möglichkeit, die gewünschte Seite zu liefern, z.B. \href{http://loband.org}{http://loband.org}.
+\item \textbf{Cache der Suchmaschinen:} Die großen Suchmaschinen indexieren Webseiten nicht nur, sie speichern die Seiten auch in einem Cache. Da man Google, Yahoo usw. fast immer erreichen kann: einfach auf den unscheinbaren Link \textit{\underline{cache}} neben dem Suchergebnis klicken.
+\item \textbf{E-Mail Dienste:} sind etwas umständlicher nutzbar. Sie stellen die gewünschte Website per Mail zu. Ein Surfen über mehrere Seiten ist damit natürlich nicht möglich. Sie sind aber gut geeignet, unaufällig einen Blick auf eine gesperrte Website zu werfen. Dem E-Mail Dienst pagegetter.com kann man eine Mail mit der gewünschten URL der Website im Betreff senden und man erhält umgehend eine Antwort-Mail mit der Website. Der Dienst bietet folgende Adresse:
+\begin{itemize}
+   \item web(ÄT)pagegetter.com für einfache Webseiten.
+\item frames(ÄT)pagegetter.com für Webseiten die aus mehreren Framen bestehen.
+\item HTML(ÄT)pagegetter.com liefert die Webseite ohne grafische Elemente aus.
+\end{itemize}
+\end{enumerate}
+

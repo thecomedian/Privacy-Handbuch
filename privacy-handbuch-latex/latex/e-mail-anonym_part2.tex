@@ -1,0 +1,186 @@
+
+
+\section{Quicksilver für WINDOWS}
+Die folgenden Kapitel erläutern den Einsatz von Quicksilver unter WINDOWS zur Versendung anonymer E-Mails. Für den Empfang von E-Mails kann der Standard-Mail-Client genutzt werden, welcher um eine Komponente zur Entschlüsselung von E-Mails erweitert wurde, z.B. Thunderbird (der E-Mail-Client der Mozilla-Foundation) mit dem EnigMail-PlugIn. \\
+
+\begin{figure}[htb]
+\begin{center}
+\includegraphics[scale=0.5]{../screenshots/qs_install_1.png}
+\caption{Quicksilver Installation}
+\label{abb:qs_install}
+\end{center}
+\end{figure}
+
+\subsection{Installation von Quicksilver}
+Quicksilver für WINDOWS steht als selbstentpackendes Archiv \textit{QS1.2.x.exe} unter folgender Adresse zum Download bereit:\\
+
+\href{ftp://ftp.quicksilvermail.net/pub/quicksilver/}{ftp://ftp.quicksilvermail.net/pub/quicksilver/} \\
+
+Nach dem Download ist die EXE-Datei zu starten und den Anweisungen des Setup zu folgen. Unter WINDOWS XP sollte das Setup nicht(!) als Administrator sondern unter dem später genutzten Account gestartet werden. Während der Installation ist der für die Versendung zu nutzende E-Mail-Account und SMTP-Server anzugeben (Bild \ref{abb:qs_install}). Auf Grundlage dieser Angaben wird ein Template für die Erstellung neuer E-Mails generiert. Dieses Template kann bei Bedarf später modifiziert werden.\\
+
+Nach dem Abschluss der Installation ist Quicksilver zu starten um die weitere benötigten Komponenten einzurichten. Für das Versenden von E-Mails werden zusätzlich Mixmaster und das PGP-PlugIn benötigt.\\
+
+Unmittelbar nach dem ersten Start erkennt QS, das Mixmaster noch nicht installiert ist und fordert sie auf, diese Komponente zu installieren. In dem sich öffnenden Dialog sollte \textit{Get Mixmaster} gewählt werden, da ohne diese Komponente Quicksilver nicht nutzbar ist.\\
+
+Mixmaster ist unter der gleichen FTP-Adresse zu finden wie Quicksilver und der folgende Dialog des Update-Wizard mit der Frage nach dem FTP-Verzeichnis kann mit dem Button \textit{Next} betätigt werden, um das Standard-Verzeichnis zu nutzen.\\
+
+Sollte der Download mit Quicksilver nicht funktionieren, kann die Datei \textit{Mix2x.zip} mit einem Browser von der angebenen Quelle geholt und lokal gespeichert werden. In der Drop-Down-Liste ist der Punkt \textit{Local File} an Stelle des FTP-Servers zu wählen, um diese Datei zu installieren. Funktioniert der FTP-Download, ist in der Liste das Mixmaster-Archiv \textit{Mix2x.zip} auszuwählen und die Auswahl mit dem Button  \textit{Next} zu bestätigen.\\
+
+Nach dem Download ist das Setup für Mixmaster auszuführen. Im folgenden Dialog ist der Button \textit{Run Setup} zu wählen.\\
+
+\begin{figure}[htb]
+\begin{center}
+\includegraphics[scale=0.5]{../screenshots/qs_install_6.png}
+\caption{Zufallsgenerator initialisieren}
+\end{center}
+\end{figure}
+
+Nach der üblichen Auswahl des Installationsverzeichnisses wird Mixmaster installiert und gestartet. Für die Initialisierung des Zufallsgenerators ist es nötig, im folgenden Fenster mit der Maus Bewegungen auszuführen, bis eine hinreichende Entropie angesammelt wurde (100\%).\\
+
+
+Es ist insbesondere bei der Versendung anonymer E-Mails sinnvoll, diese zu verschlüsseln. Für diese Verschlüsselung ist ein weiteres Plug-In nötig. Quicksilver bietet ein GnuPG-PlugIn für diese Aufgabe, welches über den Menüpunkt \textit{Help - Update Wizard} installiert werden kann.\\
+
+
+In dem sich auf die Auswahl des Download-Servers folgend öffnende Dialogbox ist die GnuPG-Komponente \textit{QSpgp1.1.x.zip} zu wählen und die Auswahl mit dem Button \textit{Next} zu bestätigen. (siehe Bild \ref{abb:qs_pgp_install})\\
+
+\begin{figure}[htb]
+\begin{center}
+\includegraphics[scale=0.5]{../screenshots/qs_install_8.png}
+\caption{PGP-Archiv auswählen}
+\label{abb:qs_pgp_install}
+\end{center}
+\end{figure}
+
+Nach dem Download ist das Setup mit einem Klick auf den Button \textit{Run Setup} zu starten. Weitere Angaben sind für die Installation des Plug-Ins nicht nötig.
+
+
+\subsection{PGP-Schlüssel verwalten}
+Soll eine E-Mail verschlüsselt versendet werden, ist es als erstes nötig, den öffentlichen PGP-Schlüssel des Empfängers zu importieren. Die PGP-Schlüsselverwaltung kann über den Menüpunkt \textit{Keyring - Open - Personal Pgp} oder über das Toolbar-Icon mit dem blauen Schlüssel geöffnet werden.\\
+
+\begin{figure}[htb]
+\begin{center}
+\includegraphics[scale=0.6]{../screenshots/qs_options.png}
+\caption{PGP-Schlüsselbund auswählen}
+\label{abb:qs_config}
+\end{center}
+\end{figure}
+
+Der öffentliche Schlüssel des Empfängers kann über den Toolbar-Button  \textit{Importieren} aus einer Datei oder der Zwischenablage importiert werden. Die einfache Schlüsselverwaltung von Quicksilver bietet keine Möglichkeit, die Schlüsselserver im Internet zu durchsuchen.\\
+
+Komfortabler lassen sich die Schlüssel beispielsweise mit Enigmail für Thunderbird oder dem Tool GPA verwalten. Mit Quicksilver lassen sich diese Schlüsselringe nutzen. Es ist der Konfigurationsdialog unter \textit{Tools -> Options} zu öffnen und auf den Reiter \textit{PGP} zu wechseln (Bild \ref{abb:qs_config}). Hier sind die mit anderen Tools verwalteten Schlüsselringe einzutragen.\\
+
+Diese Schlüsselringe liegen bei der Nutzung von GnuPG normalerweise im Verzeichnis \textit{C:/Dokumente und Einstellungen/ ihr Name /Anwendungsdaten/gnupg/} und haben die Endung *.gpg! Es muss die Option alle \textit{Dateien anzeigen} im Dateiauswahldialog aktiviert werden.\\
+
+
+Der Button \textit{Advanced} führt zu einem Dialog, welcher die Auswahl eines alternativen Programms zur Schlüsselverwaltung ermöglicht. Hier könnte zum Beispiel Thunderbird gewählt werden.
+
+\subsection{Remailer-Listen aktualisieren}
+Quicksilver benötig Informationen über die nutzbaren Remailer, die unterstützten Featuren und die öffentlichen Schlüssel der Remailer. Diese Informationen werden von mehreren Servern im Internet gesammelt und zum Download bereitgestellt.\\
+
+Quicksilver benötigt aktuelle Kopien von folgenden Dateien, die nicht älter als 24h sein sollten. Vor dem Senden einer E-Mail oder News sind diese Dateien zu aktualisieren:
+\begin{description}
+\item[mlist.txt] Liste der nutzbaren Mixmaster Remailer.
+\item[rlist.txt] Liste der nutzbaren Cypherpunk Remailer.
+\item[pubring.mix] Schlüsselring der Mixmaster Remailer.
+\item[pubring.asc] Schlüsselring der Cypherpunk Remailer.
+\end{description} 
+
+\begin{figure}[htb]
+\begin{center}
+\includegraphics[scale=0.5]{../screenshots/qs_install_7.png}
+\caption{Update der Remailer-Listen}
+\label{abb:qs_remailer}
+\end{center}
+\end{figure}
+
+Für das Update der Listen ist der Menüpunkt \textit{Tools - Remailers} zu wählen. In dem sich öffnenden Dialog (Bild \ref{abb:qs_remailer}) sind die Checkboxen wie gezeigt zu aktivieren und der Prozess mit einem Klick auf den Button \textit{Update} zu starten.\\
+
+Treten Fehler beim Update-Prozess auf, ist evtl. der gewählte Server nicht erreichbar. Es ist für die Quellen ein anderer Server zu wählen und das Update zu wiederholen. Mehrere Server sind standardmäßig bereits konfiguriert. Eine aktuelle Liste bietet http://www.noreply.org/allpingers/allpingers.txt. Die dort genannten Downloadquellen können mit dem \textit{URL Manager} der Konfiguration hinzugefügt werden.\\
+
+Nach dem erfolgreichen Update werden ein oder zwei Fenster zur Verwaltung der Schlüssel geöffnet, wenn neue Schlüssel gefunden wurden. Wird nur ein Fenster \textit{Mixmaster Keyring} geöffnet, ist dieser neue Keyring mit Klick auf das blaue Disketten-Symbol zu speichern und das Fenster kann geschlossen werden.\\
+
+Werden zwei Fenster geöffnet, sind zuerst im alten \textit{Mixmaster Keyring} die Schlüssel für Remailer zu löschen, für die im zweiten Fenster aktualisierte Schlüssel bereitgestellt wurden. Anschließend sind die neuen Schlüssel in den \textit{Mixmaster Keyring} zu übernehmen und beide Fenster können geschlossen werden.
+
+\subsection{Anonyme E-Mail schreiben}
+Für das Erstellen einer neuen E-Mail ist das Toolbar-Icon ganz links und der Unterpunkt \textit{Message} zu wählen. Es öffnet sich ein Fenster mit dem gewählten Template (Bild \ref{abb:qs_neue_email}). Quicksilver lässt an dieser Stelle den gewohnten Komfort vieler E-Mail-Clients vermissen, ist aber sehr effekiv bedienbar.
+
+\begin{figure}[htb]
+\begin{center}
+\includegraphics[scale=0.5]{../screenshots/quicksilver_email.png}
+\caption{Neue E-Mail schreiben}
+\label{abb:qs_neue_email}
+\end{center}
+\end{figure}
+
+\begin{description}
+\item[Fcc:] outbox
+\item[Host:] mail.server.tld, ihr SMTP-Host
+\item[From:] reale Absender-E-Mail-Addr.\\ Diese wird vom ersten Remailer der Kaskade entfernt. Sie ist aber nötig, um die E-Mail korrekt via SMTP zu senden.
+\item[Chain:] *,*,*; copies=1\\
+Es wird die Remailer-Kaskade festgelegt, welche für die Versendung genutzt wird. Ein Stern überlässt es Quicksilver, einen beliebigen, verfügbaren Remailer für diese Position auszuwählen. Da es möglich sein könnte, dass eine E-Mail nicht ausgeliefert wird, können bis zu 3 Kopien gesendet werden.
+\item[To:]  E-Mail-Addr. des Empfänger
+\item[Subject:]  Betreff-Zeile
+\item[Leerzeile!!!]
+\item[Inhalt] der Nachricht.
+\end{description} 
+
+Der Text unterhalb der doppelten Tilde wird nicht gesendet. Vor dem Senden der Nachricht ist das Toolbar-Icon für die Verschlüsselung zu aktivieren, wenn die Nachricht OpenPGP-konform verschlüsselt werden soll.\\
+
+Ein Klick auf den Button \textit{Send} übergibt die E-Mail an Mixmaster, welcher eine Kette für die Versendung auswählt und die Message mehrfach verschlüsselt an den SMTP-Server sendet.\\
+
+\textbf{Update:} Mit der am 18.4.2007 von Deutschen Bundestag beschlossenen Vorratsdatenspeicherung ist der SMTP-Host des Providers zur Speicherung der Daten aller weitergeleiteten E-Mails verpflichtet. Es wird damit protokolliert, dass man ein verschlüsselte E-Mails an einen Remailer versendet hat. Der reale Empfänger ist nicht protokollierbar.\\
+
+Um diesen überflüssigen Logeintrag zu vermeiden, kann man die Mail direkt dem ersten Remailer der Kaskade übergeben. Der erste Remailer ist eindeutig festzulegen und als auch als SMTP-Host einzutragen. Eine Übersicht über verfügbare Remailer bietet \href{http://www.noreply.org/echolot/mlist2.html}{http://www.noreply.org/echolot/mlist2.html} Folgende Kombination funktioniert:
+
+\begin{verbatim}
+   Host: awxcnx.de
+   Chain: awxcnx,*,*,*
+\end{verbatim} 
+
+\subsection{Anonymes News-Posting schreiben}
+Für das Erstellen eines neuen News-Postings wählen sie das Toolbar-Icon für eine neue Nachricht ganz links, den Unterpunkt \textit{Usenet Article}. Es öffnet sich das in Bild \ref{abb:qs_neue_news} dargestellte Fenster mit dem Template.\\
+
+\begin{figure}[htb]
+\begin{center}
+\includegraphics[scale=0.5]{../screenshots/quicksilver_news.png}
+\caption{Neuen News-Artikel schreiben}
+\label{abb:qs_neue_news}
+\end{center}
+\end{figure}
+
+\begin{description}
+\item[Fcc:] outbox
+\item[Host:] mail.server.tld, ihr SMTP-Host
+\item[From:] reale Absender-E-Mail-Addr.\\Diese wird vom ersten Remailer der Kaskade entfernt.
+\item[Chain:] *,*,*; copies=1\\
+Es wird die Remailer-Kaskade festgelegt, welche für die Versendung genutzt wirden. Ein Stern überlässt es Quicksilver, einen beliebigen, verfügbaren Remailer für diese Position auszuwählen. Da es möglich sein könnte, dass eine E-Mail nicht ausgeliefert wird, können bis zu 3 Kopien gesendet werden.
+\item[To:] mail2news Gateway\\Das Posting wird als E-Mail an ein Mail2News-Gateway gesandt. Dieses Gateway wandelt die E-Mail in einen Usenet Artikel um und versendet diesen an die angebenen Newsgruppen. Eine kurzer Liste aktueller Gateways:
+\begin{itemize}
+ \item mail2news (at) bananasplit.info
+\item mail2news (at) dizum.com
+\item mail2news (at) reece.net.au
+\item mail2news (at) m2n.mixmin.net
+\end{itemize}
+\item[Newsgroups:] News-Gruppen in denen das Posting erscheinen soll.
+\item[Subject:]  Betreff-Zeile
+\item[Leerzeile!!!]
+\item[Inhalt] des Postings.
+\end{description}
+
+Ein anonymes News-Posting wird nicht als Posting an einen News-Server versendet, sondern als E-Mail über eine Remailer-Kaskade anonymisiert und anschließend vom Mail2News-Gateway an einen News-Server gesendet.
+
+\subsection{Weitere Features von Quicksilver}
+\begin{description}
+ \item[SMTP-Authorisierung:] Erfordert der für den Versand der E-Mails genutzte Server eine Anmeldung mit Benutzername und Passwort, ist diese unter dem Menüpunkt \textit{Tools - Smtp Authentication} zu konfigurieren. Die nötigen Angaben erfährt man vom Provider oder System-Administrator.
+
+\item[Adressbuch:] Quicksilver bietet ein rudimentäres Adressbuch, um Listen häufig genutzter E-Mail-Adressen und News-Groups zu speichern. Das Adressbuch kann über den Menüpunkt \textit{Tools - Adressbook} geöffnet werden. Die hier zeilenweise eingegebenen Adressen stehen beim Schreiben einer neuen E-Mail zur Verfügung und können mit wenigen Mausklicks übernommen werden.
+
+\begin{figure}[htb]
+\begin{center}
+\includegraphics[scale=0.6]{../screenshots/qs_adress.png}
+\caption{Quicksilver Adressbuch}
+\end{center}
+\end{figure}
+
+\item[Versand über Mixkaskade:] Die Version 2.6 von Quicksilver bietet die Möglichkeit, den externen SMTP-Server für den Versand der E-Mails über Mixkaskaden oder anonymisierende Proxies zu kontaktieren. Dieses Feature dient einer höheren Anonymität gegen mitlesende Dritte auf der Seite des Absenders. In der Toolbar einer neuen E-Mail ist der Button \textit{Proxy} zu finden. Hier kann der zu nutzende Proxy konfiguriert werden. Sinnvoll ist es, das Onion-Router-Netz (TOR) für die Kontaktierung des SMTP-Servers zu nutzen.
+\end{description}

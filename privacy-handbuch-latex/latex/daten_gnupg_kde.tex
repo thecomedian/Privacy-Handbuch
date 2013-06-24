@@ -1,0 +1,44 @@
+\subsection{GnuPG für KDE}
+Unter Linux sind alle benötigten Komponenten in der Regel installiert. Es ist ausreichend KGPG oder Kleopatra einmal zu starten. Ein Assistent führt durch die die Schritte zur Generierung des Schlüsselpaares und installiert auf Wunsch auch einen Reißwolf auf dem Desktop.\\
+
+Der Dateimanage \textit{Konqueror} bietet im Kontextmenü einer Datei den Punkt A\textit{ktionen / Datei verschlüsseln} und im Kontextmenü eines Verzeichnisses den Punkt \textit{Aktionen / Ordner komprimieren und verschlüsseln}. Der sich öffnende Dialog bietet die Möglichkeit, alle nötigen Optionen auszuwählen.
+
+\begin{figure}[htb]
+\begin{center}
+\includegraphics[scale=0.63]{../screenshots/gpg_kde.png}
+\caption{Verschlüsselungseinstellungen von KGPG}
+\label{abb:gpg_kde}
+\end{center}
+\end{figure}
+
+Soll die Datei für mehrere Empfänger verschlüsselt werden, ist bei der Auswahl der Schlüssel in der Liste die Taste <Strg> gedrückt zu halten.\\
+
+Die Option \textit{``Auf ASCII-Zeichen beschränkte Verschlüsselung''} bläht die verschlüsselte Datei unnötig auf, da nur 7 Bit eines Bytes genutzt werden. Diese Option kann für Backups in der Regel deaktiviert werden.\\
+
+Die Option \textit{``Quelldatei in den Reißwolf werfen''} bezieht sich auf die Datei, welche verschlüsselt werden soll. Wurde ein Verzeichnis komprimiert, bezieht diese Option sich auf das komprimierte temporäre Archiv. Die Orginaldateien des Verzeichnisses werden nicht vernichtet.\\
+
+Wird die Option \textit{``Symmetrische Verschlüsselung''} aktiviert, erfolgt die Verschlüsselung nicht mit einem Public PGP-Schlüssel. Es wird statt dessen eine Passphrase verwendet. Die Entschlüsselung erfordert dann ebenfalls nur die Angabe dieser Passphrase und keinen Key.
+
+\subsection{Kleopatra für KDE 4.x}
+KDE 4.x enthält neben KGPG auch das Tool Kleopatra. Es kann neben OpenPGP-Schlüsseln auch S/MIME-Zertifikate für die Verschlüsselung nutzen. Wie bei KGPG findet man die Menüpunkte im Kontextmenü einer Datei oder eines Verzeichnisses unter \textit{Aktionen}. Bei Auswahl der Ver- oder Entschlüsselung mit Kleopatra öffnet sich ein Assistent, der schrittweise durch den Prozess führt.
+
+\begin{figure}[htb]
+\begin{center}
+\includegraphics[scale=0.65]{../screenshots/kleopatra_1.png}
+\caption{Assistent von Kleopatra}
+\label{abb:kleopatra1}
+\end{center}
+\end{figure}
+
+Bei der Schlüsselauswahl werden sowohl OpenPGP-Keys als auch S/MIME-Zertifikate angezeigt. Es ist darauf zu achten, dass man den richtigen Key auswählt.  Sollen mehrere Personen die Datei entschlüsseln können, ist bei der Auswahl mit der Maus wie üblich die <STRG>-Taste gedrückt zu halten.\\
+
+Werden sowohl OpenPGP-KEys und S/MIME-Zertifikate für die Verschlüsselung ausgewählt, erhält man als Ergbnis zwei verschlüsselte Dateien, eine mit OpenPGP verschlüsselt und eine mit den Zertifikaten verschlüsselte Datei. Man sollte darauf auchten, beide Dateien nicht zu verwechseln.
+
+\begin{figure}[htb]
+\begin{center}
+\includegraphics[scale=0.6]{../screenshots/kleopatra_2.png}
+\caption{Schlüsselauswahl von Kleopatra}
+\label{abb:kleopatra2}
+\end{center}
+\end{figure}
+

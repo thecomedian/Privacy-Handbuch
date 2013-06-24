@@ -1,0 +1,115 @@
+\subsection{Tor Bad Exit Nodes}
+Ein sogenannter \textit{Bad-Exit-Node} im Tor-Netz versucht den Traffic zu beschnüffeln oder zusätzliche Inhalte in eine (nicht SSL-gesicherte) Website einzuschmuggeln. Bedingt durch das Prinzip des Onion Routings holt der letzte Node einer Kette die gewünschten Inhalte. Diese Inhalte liegen dem Node im Klartext vor, wenn sie nicht SSL- oder TLS-verschlüsselt wurden.\\
+
+Durch einfaches Beschnüffeln wird die Anonymität des Nutzers nicht zwangsläufig kompromittiert, es werden meist Inhalte mitgelesen, die im Web schon verfügbar sind. Erst wenn Login-Daten unverschlüsselt übertragen werden oder man-in-the-middle Angriffe erfolgreich sind, können die Bad Exit Nodes an persönliche Informationen gelangen. Persönliche Daten, bspw. Login Daten für einen Mail- oder Bank-Account, sollten nur über SSL- oder TLS-gesicherte Verbindungen übertragen werden. Bei SSL-Fehlern sollte die Verbindung abgebrochen werden. Das gilt für anonymes Surfen via Tor genauso, wie im normalen Web.\\
+
+Einige Beispiele für Bad Exits:
+\begin{enumerate}
+ \item Die folgenden Nodes wurde dabei erwischt, den Exit Traffic zu modifizieren und Javascript in abgerufene Websites einzuschmuggeln. Dabei handelte es sich zumeist um Werbung oder Redirects auf andere Seiten.
+\begin{verbatim}
+ apple             $232986CD960556CD8053CBEC47C189082B34EF09
+ CorryL            $3163a22dc3849042f2416a785eaeebfeea10cc48
+ tortila           $acc9d3a6f5ffcda67ff96efc579a001339422687
+ whistlersmother   $e413c4ed688de25a4b69edf9be743f88a2d083be
+ BlueMoon          $d51cf2e4e65fd58f2381c53ce3df67795df86fca
+ TRHCourtney1..10  $F7D6E31D8AF52FA0E7BB330BB5BBA15F30BC8D48
+                   $AA254D3E276178DB8D955AD93602097AD802B986
+                   $F650611B117B575E0CF55B5EFBB065B170CBE0F1
+                   $ECA7112A29A0880392689A4A1B890E8692890E62
+                   $47AB3A1C3A262C3FE8D745BBF95E79D1C7C6DE77
+                   $0F07C4FFE25673EF6C94C1B11E88F138793FEA56
+                   $0FE669B59C602C37D874CF74AFEA42E3AA8B62C6
+                   $E0C518A71F4ED5AEE92E980256CD2FAB4D9EEC59
+                   $77DF35BBCDC2CD7DB17026FB60724A83A5D05827
+                   $BC75DFAC9E807FE9B0A43B8D11F46DB97964AC11 
+ Unnamed           $05842ce44d5d12cc9d9598f5583b12537dd7158a
+                   $f36a9830dcf35944b8abb235da29a9bbded541bc
+                   $9ee320d0844b6563bef4ae7f715fe633f5ffdba5
+                   $c59538ea8a4c053b82746a3920aa4f1916865756
+                   $0326d8412f874256536730e15f9bbda54c93738d
+                   $86b73eef87f3bf6e02193c6f502d68db7cd58128
+\end{verbatim} 
+Diese Tor-Nodes sind nicht mehr online, die Liste ist nur ein Beispiel.
+\item Die folgenden Nodes wurden bei dem Versuch erwischt, SSL-Zertifikate zu fälschen, um den verschlüsselten Traffic mitlesen zu können:
+\begin{enumerate}
+ \item \textit{LateNightZ} war ein deutscher Tor Node, der 2007 beim man-in-the-middle Anriff auf die SSL-Verschlüsselung erwischt wurde. \footnote{ \href{http://www.teamfurry.com/wordpress/2007/11/20/tor-exit-node-doing-mitm-attacks/}{http://www.teamfurry.com/wordpress/2007/11/20/tor-exit-node-doing-mitm-attacks/}}.
+ \item \textit{ling} war ein chinesischer Tor Node, der im Frühjahr 2008 versuchte, mit gefälschten SSL-Zertifikaten die Daten von Nutzern zu ermitteln. Gleichzeitig wurde in China eine modifizierte Version von Tor in Umlauf gebracht, die bevorzugt diesen Node nutzte. Die zeitliche Korrelation mit den Unruhen in Tibet ist sicher kein Zufall \footnote{ \href{http://archives.seul.org/or/talk/Mar-2008/msg00213.html}{http://archives.seul.org/or/talk/Mar-2008/msg00213.html}}. 
+ \item Im Sept. 2012 wurden zwei russische Tor Nodes mit den IP-Adressen 46.30.42.153 und 46.30.42.154 beim SSL man-in-the-middle Angriff erwischt.
+ \item Im April 2013 wurde der russische Tor Node mit der IP-Adresse 176.99.10.92 beim SSL man-in-the-middle Angriff auf Wikipedia und auf IMAPS erwischt \footnote{ \href{https://trac.torproject.org/projects/tor/ticket/8657}{https://trac.torproject.org/projects/tor/ticket/8657}}.
+\end{enumerate}
+Beide Tor Nodes gingen kurz nach ihrer Entdeckung offline. Inzwischen können die Geheimdienste durch Zusammenarbeit mit kompromittierten Certification Authorithies gültige SSL-Zertifikate fälschen. Diese man-in-the-middle Angriffe sind sehr schwer erkennbar.
+ \item Im Februar/März 2012 haben mehrere Exit-Nodes in einer konzertierten Aktion die HTTPS-Links in Web­seiten durch HTTP-Links ersetzt. Wie man damit erfolgreich die SSL-Verschlüsselung ausgehebeln kann, wurde auf der Black Hack 2009 beschrieben. Die Software für diesen Angriff heisst \textit{ssl-stripe} und ist als Open Source verfügbar.
+\begin{verbatim}
+  Bradiex            bcc93397b50c1ac75c94452954a5bcda01f47215
+                     IP: 89.208.192.83
+  TorRelay3A2FL      ee25656d71db9a82c8efd8c4a99ddbec89f24a67
+                     IP: 92.48.93.237
+  lolling            1f9803d6ade967718912622ac876feef1088cfaa
+                     IP: 178.76.250.194
+  Unnamed            486efad8aef3360c07877dbe7ba96bf22d304256
+                     IP: 219.90.126.61
+  ididedittheconfig  0450b15ffac9e310ab2a222adecfef35f4a65c23
+                     IP: 94.185.81.130
+  UnFilTerD          ffd2075cc29852c322e1984555cddfbc6fb1ee80
+                     IP: 82.95.57.4
+\end{verbatim}
+ \item Tor Exit Nodes aus dem Iran sind generell als Bad Exits markiert. Diese Nodes unterliegen der iranischen Zensur. Außerdem wird beim Aufruf von Webseiten über diese Nodes von der staatlichen Firewall ein unsichtbarer IFrame aus dem Hidden Internet\footnote{ \href{http://arxiv.org/abs/1209.6398}{http://arxiv.org/abs/1209.6398}} of Iran eingefügt.
+\begin{verbatim}
+   <iframe src="http://10.10.34.34" style="width: 100%; 
+      height: 100%" scrolling="no" marginwidth="0" 
+      marginheight="0" frameborder="0" vspace="0" hspace="0"> 
+   </iframe>
+\end{verbatim}
+
+\item Es gibt seit Jahren eine andauernde Diskussion um die Tor Exit Nodes aus dem IP-Netz 149.9.0.0/16. Einige Leser haben mich öfters auf diese Nodes hingewiesen und vermuten, dass die NSA dahinter steckt::
+\begin{verbatim}
+  
+   busbyberkeley      149.9.0.60
+   myrnaloy           149.9.0.59
+   nixnix             149.9.0.58
+   jalopy             149.9.0.57
+\end{verbatim}
+Diese Tor-Server werden von \textit{Team CYMRU} betrieben. TorProject.org sieht keine Veranlassung, diesem kommerziellen Privacy-Team zu misstrauen und die Nodes zu sperren. Das sind keine Bad Exits.
+\end{enumerate}
+
+\subsection{Tor Good Exit Nodes}
+Im Abschnitt \textit{Tor Bad Exits} sind einige Nodes genannt, denen man nicht trauen sollte. Diese Aufzählung kann nicht vollständig sein. Es ist so gut wie unmöglich, einen passiv schnüffelnden Tor Node zu erkennen.\\
+
+Verschiedene Sicherheitsforscher haben nachgewiesen, dass es recht einfach möglich ist, mit schnüffelnden Exits Informationen über die Nutzer zu sammeln (D. Egerstad 2007, C. Castelluccia 2010\dots). Man kann davon ausgehen, dass es verschiedene Organisationen gibt, die mit unterschiedlichen Interessen im Tor Netz nach Informationen phishen. Auch SSL-ver­schlüsselte Verbindungen sind nicht 100\% geschützt. C. Soghoian und S. Stamm haben in einer wiss. Arbeit gezeigt, dass Geheimdienste wahrscheinlich in der Lage sind, gültige SSL-Zertifikate zu faken.\\
+
+Als Verteidigung können Nutzer in der Tor-Konfiguration Exit Nodes angeben, denen sie vertrauen und ausschließlich diese Nodes als Exit-Nodes nutzen. Welche Nodes vertrauens­würdig sind, muss jeder Nutzer selbst entscheiden, wir können nur eine kurze Liste als Anregung zum Nachdenken liefern.
+\begin{itemize}
+ \item Torservers.net ist eine vertrauenswürdige Organisation, die mehrere Exit-Nodes betreibt. Eine Liste der Server findet man unter:\\ \href{http://www.privacyfoundation.ch/de/service/server.html}{http://www.privacyfoundation.ch/de/service/server.html}.
+ \item Die von der Swiss Privacy Foundation betriebenen Server sammeln keine Informationen. Eine Liste der Server findet man unter:\\ \href{https://www.privacyfoundation.de/service/serveruebersicht/}{https://www.privacyfoundation.de/service/serveruebersicht}.
+\item Der CCC betreibt nach eigenen Aussagen die Tor Nodes: \textit{chaoscomputerclub42, chaoscomputerclub23} \dots (wird ergänzt, sobald verifiziert)
+\item Der Tor Node \textit{FoeBud3} wird wirklich vom FoeBud betrieben.
+\item .... bitte selbst die Liste erweitern
+\end{itemize}
+
+Bei der Auswahl der Server sollte man nicht einfach nach dem Namen im TorStatus gehen. Jeder Admin kann seinem Server einen beliebigen Namen geben und den Anschein einer vertrauenswürdigen Organisation erwecken. Die Identität des Betreibers sollte verifiziert werden, beispielsweise durch Veröffentlichung auf einer Website.
+
+\subsubsection*{Konfiguration in der torrc}
+In der Tor Konfigurationsdatei torrc kann man die gewünschten Nodes mit folgenden Optionen konfigurieren:
+\begin{verbatim}
+   StrictExitNodes 1
+   ExitNodes $B15A74048934557FCDEA583A71E53EBD2414CAD9, 
+             $2DDAC53D4E7A556483ACE6859A57A63849F2C4F6,
+             $B15A74048934557FCDEA583A71E53EBD2414CAD9, 
+             $6D3EE5088279027AD8F64FF61A079DC44E29E3DF, 
+             $9E9FAD3187C9911B71849E0E63F35C7CD41FAAA3, 
+             $FDBA46E69D2DFA3FE165EEB84325E90B0B29BF07, 
+             $FDFD125372A694F0477F0C4322E613516A44DF04
+\end{verbatim} 
+
+Die erste Option gibt an, dass nur die im folgenden gelisteten Nodes als Exit verwendet werden dürfen. Für die Liste der Exits nutzt man die Fingerprints der Nodes, beginnend mit einem Dollar-Zeichen. Die Fingerprints erhält man von verschiedenen TorStatus Seiten. Diese Liste enthält die oben genannten Nodes.
+
+\subsubsection*{Konfiguration in Vidalia}
+Das GUI Vidalia bietet viele Möglichkeiten für die Konfiguration von Tor, aber nicht alle. Um Optionen zu konfigurieren, die nicht in Vidalia zugänglich sind, kann eine Konfigurationsdatei angeggeben werden, die zusätzliche Optionen enthält, die beim Start von Tor zu berück­sichtigen sind. Unter Linux findet man diese Datei standardmäßig unter \textit{\$HOME/.vidalia/torrc}. Es kann jedoch eine beliebige andere Datei verwendet werden. In die Tor-Konfigurationsdatei trägt man die oben genannten Optionen ein.
+
+\begin{figure}[htb]
+\begin{center}
+\includegraphics[scale=0.7]{../screenshots/vidalia01.png}
+\caption{torrc in Vidalia auswählen}
+\label{abb:vidalia01}
+\end{center}
+\end{figure}

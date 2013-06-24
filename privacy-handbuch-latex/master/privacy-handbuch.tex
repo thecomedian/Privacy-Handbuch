@@ -1,0 +1,169 @@
+\documentclass[titlepage,twoside,a4paper,10pt]{report}
+
+\usepackage{mathpazo} 
+\usepackage{ngerman} 
+\usepackage[latin1]{inputenc} 
+\usepackage[T1]{fontenc} 
+\usepackage[pdftex]{graphicx} 
+\usepackage[pdftex,bookmarks=true,colorlinks,linkcolor=blue,urlcolor=blue,citecolor=blue]{hyperref} 
+
+\sloppy
+
+\pagestyle{headings}
+
+%opening		
+\title{Privacy-Handbuch}
+\author{Spurenarm Surfen mit Mozilla Firefox,\\E-Mails verschlüsseln mit Thunderbird,\\Anonymisierungsdienste nutzen\\ und Daten verschlüsseln \\für WINDOWS + Linux}
+\date{\today}
+
+\hypersetup {
+    pdftitle= {Anonymität im Internet}
+}
+
+
+\begin{document}
+\maketitle
+\tableofcontents
+\chapter{Scroogled}
+\input{../latex/scroogled}
+
+\chapter{Angriffe auf die Privatsphäre}
+\input{../latex/einleitung_part}
+
+\chapter{Digitales Aikido}
+\input{../latex/privacy_levels}
+
+\chapter{Spurenarm Surfen}
+\input{../latex/surfen_einleitung}
+\input{../latex/surfen_suche}
+\input{../latex/surfen_cookies}
+\input{../latex/surfen_cookies_firefox}
+\input{../latex/surfen_cookies_ever}
+
+\input{../latex/surfen_javascript}
+\input{../latex/surfen_javascript_firefox}
+\input{../latex/surfen_werbung}
+\input{../latex/surfen_werbung_firefox}
+\input{../latex/surfen_plugins}
+\input{../latex/surfen-security}
+\input{../latex/surfen_filter}
+\input{../latex/surfen_filter_firefox}
+\input{../latex/surfen_snakeoil}
+
+\chapter{Bezahlen im Netz}
+\input{../latex/bezahlen}
+\input{../latex/bitcoin}
+
+\chapter{E-Mail Kommunikation}
+E-Mail ist eines der meistgenutzten Kommunikationsmittel. Die folgenden Seiten sollen zum Nachdenken über die die Auswahl des E-Mail Providers anregen und Hinweise für die Konfiguration von Mozilla Thunderbird geben.
+
+\input{../latex/e-mail-provider}
+\input{../latex/e-mail_thunderbird}
+
+\chapter{E-Mails verschlüsseln}
+\input{../latex/e-mail-krypto_einleitung}
+\newpage
+\input{../latex/e-mail-krypto-gnupg_win_part}
+\input{../latex/e-mail-krypto-gnupg_part}
+\newpage
+\input{../latex/e-mail-krypto-smime_part}
+\input{../latex/e-mail-krypto-smime_anhang}
+\input{../latex/e-mail-krypto-smime_unsicher}
+\input{../latex/e-mail-krypto_ende}
+
+\chapter{E-Mail jenseits der Überwachung}
+Auch bei der Nutzung von GnuPG oder S/MIME für die Verschlüsselung von E-Mails ist es mitlesenden Dritten möglich, Absender und Empfänger zu protokollieren und anhand der erfassten Daten Kommunikationsprofile zu erstellen. Insbesondere die Vorratsdatenspeicherung und die darauf aufbauenden internationalen ETSI-Standards für Geheimdienste und Strafverfolger zeigen, dass diese nicht verschlüsselbaren Informationen für die Überwachung bedeutsam sind.\\
+
+Es gibt mehrere Projekte, die einen überwachungsfreien Austausch von Nachrichten ermöglichen und somit beispielsweise für investigative Journalisten und deren Informanten den nötigen Schutz bieten und die Erstellung von Kommunikationsprofilen für E-Mails behindern. Eine universelle Lösung auf Knopfdruck gibt es nicht. Jeder muss selbst die verschiedenen Möglichkeiten vergleichen und die passende Lösung auswählen.
+\input{../latex/e-mail-anonym_einleitung}
+
+\chapter{Im Usenet spurenarm posten}
+\input{../latex/news-spurenarm}
+
+
+\chapter{Anonymisierungsdienste}
+\input{../latex/surfen_mixkaskaden}
+
+\newpage
+\input{../latex/surfen_jap1}
+\input{../latex/surfen_jap_linux}
+\input{../latex/surfen_jap2}
+\input{../latex/surfen_jap_browser}
+
+\section{Tor Onion Router nutzen}
+Das Onion Routing wurde von der US-Navy entwickelt. Die Weiterentwicklung liegt beim TorProject.org und wird durch Forschungsprojekte u.a. von deutschen Universitäten oder im Rahmen des \textit{Google Summer of Code} unterstützt. Das Tor Onion Router Netzwerk besteht gegenwärtig aus ca. 2500 Servern (Nodes), die weltweit verteilt sind.
+\input{../latex/surfen_tor_win}
+
+\input{../latex/surfen_tor_browser}
+\input{../latex/surfen_tor_bad}
+\input{../latex/surfen_tor_hidden}
+
+\input{../latex/tor_thunderbird}
+\input{../latex/surfen_livecd}
+
+\input{../latex/mac-adressen}
+
+\newpage
+\input{../latex/surfen_unserios}
+
+\chapter{Anonyme Peer-2-Peer Netzwerke}
+\input{../latex/peer2peer}
+
+\newpage
+\section{Invisible Internet Project (I2P)}
+\input{../latex/i2p_0}
+
+\input{../latex/i2p_1}
+\input{../latex/i2p_linux}
+\input{../latex/i2p_2}
+
+\newpage
+\input{../latex/router}
+
+\chapter{Daten verschlüsseln}
+\input{../latex/daten_einleitung}
+\newpage
+\input{../latex/daten_gnupg}
+\input{../latex/daten_gnupg_win}
+
+\newpage
+\input{../latex/daten_truecrypt_part}
+% \input{../latex/daten_truecrypt_linux_part}
+\newpage
+\input{../latex/daten_dmcrypt_part}
+% \input{../latex/daten_geli_part}
+\newpage
+\input{../latex/daten_backup}
+\input{../latex/daten_backup_rsync}
+\input{../latex/daten_backup_aespipe}
+\input{../latex/daten_backup_online}
+\input{../latex/daten_wuala}
+\input{../latex/daten_backup_dublicity}
+
+\chapter{Daten löschen}
+\input{../latex/daten_loeschen}
+\chapter{Daten anonymisieren}
+\input{../latex/daten_anonymisieren}
+\input{../latex/daten_anonymisieren_mat}
+\chapter{Daten verstecken}
+\input{../latex/daten_verstecken}
+% \input{../latex/daten_verstecken_linux}
+\input{../latex/daten_verstecken2}
+
+\chapter{Internettelefonie (VoIP)}
+\input{../latex/voip.tex}
+
+\chapter{Smartphones}
+\input{../latex/smartphones.tex}
+
+\chapter{Umgehung von Zensur}
+\input{../latex/zensur}
+\newpage
+\input{../latex/zensur_simple}
+\newpage
+\input{../latex/surfen_dns}
+\input{../latex/surfen_dns_win}
+\input{../latex/surfen_dns_linux}
+\input{../latex/surfen_dns_test}
+
+\end{document}

@@ -1,0 +1,279 @@
+\chapter{Anonym Surfen}
+Ein Konzept für anonymes Surfen:
+\begin{center}
+\includegraphics[scale=0.75]{surfen_konzept.png}
+\end{center}
+
+\begin{enumerate}
+\item Die Annahme von Cookies und die Ausführeung von Java-Script wird auf wenige vertrauenswürdige Websites eingeschränkt.
+\item Der Zugriff auf Werbe-Server wird durch geeignete Filter/Blocker unterbunden.
+\item HTML-Wanzen werden durch sinnvole Einstellungen in Browser und E-Mail-Client deaktiviert.
+\item Content-FIlter entfernen verräterische Informationen aus dem Datenstrom oder manipulieren sie.
+\item Der Datenverkehr wird über eine Mixkaskade geleitet, welche Hinweise auf die Herkunft der Anfrage entfernt und Anfragen verschiedener Surfer miteinander verwirbelt. Die verschlüsselte Kommunikation über Mixe verhindert auch die Auswertung des Internetverkehrs durch mitlesende Dritte.
+\end{enumerate}
+Mit diesen Massnahmen kann es vorkommen, dass Websites nicht wie erwartet funktionieren. Während sehr gute Webdesigner auf suspekte Technologien weitgehend verzichteten, lediglich Java-Script sinnvoll einsetzen und dem Surfen darauf hinweisen, kann es bei guten Websites auftreten, dass Cookies für den Login nötig sind. Auch bei guten Websites wird der Surfer auf die notwendigen Freigaben hingewiesen. (Nicht immer werden dabei Cookies nur für den Login genutzt, siehe Google).\\
+
+Schlechtes Webdesign nutzt aber auch den Referer, den User-Agent oder andere Techniken ohne den Surfer auf die notwendigen Freigaben hinzuweisen. Hier ist man auf Probieren und Raten angewiesen. Es ist schrittweise die Annahme von Cookies und Java-Script zu aktivieren, der Content-Filter kann deaktiviert werden usw. Ob die Deaktivierung der Schutzmassnahmen die Erreichung der vollen Funktionalität aufwiegt, muss jeder Nutzer selbst entscheiden.
+
+
+\section{Cookie-Management gemäß Whitelisting}
+\begin{enumerate}
+\item Standardmäßig wird die Annahme von Cookies verweigert.
+\item Für vertrauenswürdige Websites, welche die Nutzung von Cookies zur Erreichung der vollen Funktionalität benötigen werden Ausnahmen zugelassen.
+\end{enumerate} 
+
+Cookies werden häufig für Login-Prozeduren genutzt, um personalisierte Inhalte zur Verfügung zu stellen. Nach erfolgreicher Prüfung von Nutzername und Passwort setzt der Server ein Cookie, welches vor jeder Auslieferung weiterer Inhalte abgefragt wird. Einige Beispiele sollen kurz den Umgang verschiedener Websites mit Cookies zeigen und Hinweise für die Fehlersuche geben:
+\begin{enumerate}
+\item Einige Websites verzichten vollständig auf den Einsatz von Cookies und sind ohne Freigabe von Cookies im Browser vollständig nutzbar (sehr gut).
+\item Die meisten Websites weisen den Nutzer mit einem kleinen Satz unter den Login-Daten auf die Notwendigkeit der Freigabe von Cookies hin (gut).
+\item www.google.de weist lediglich in den Datenschutzbestimmung auf die Nutzung von Cookies hin. Ein Login führt zur Willkommen-Seite. Jeder weitere Zugriff auf personalisierte Inhalte führt unwideruflich zum erneuten Aufruf der Login-Page, wenn keine Cookies angenommen werden (schlecht).
+\item www.paypal.com wies lange Zeit den Nutzer nicht auf die Nutzung von Cookies hin. Auch die Fehlermeldung enthielt keinen Hinweis darauf. Es wurde stets der Fehler \textit{Falsches Passwort} angezeigt. Man konnte fast verzweifeln, ehe man auf die Idee kam, die Annahme von Cookies freizugeben (sehr schlecht). Inzwischen wurde die Website überarbeitet.
+\end{enumerate} 
+
+\subsection{Cookie-Einstellungen im Browser Firefox}
+Die Einstellungen für das Handling der Cookies findet man im Webbrowser  Firefox im Dialog \textit{Einstellungen} in der Sektion  \textit{Datenschutz}. Deaktivieren Sie die Checkbox \textit{Cookies akzeptieren}, um die Annahme von Cookies standardmäßig zu verweigern.
+\begin{center}
+\includegraphics[scale=0.70]{cookies_1.png}
+\end{center}
+
+Wählen Sie den Button \textit{Ausnahmen}, um in der sich öffnenden Dialogbox eine Liste vertrauenswürdiger Websites anzugeben, von denen Cookies angenommen werden, um die volle Funktionalität der Website zu gewährleisten:
+\begin{center}
+\includegraphics[scale=0.60]{cookies_2.png}
+\end{center}
+Zusammen mit der Änderung der Cookie-Einstellungen sollten bisher gespeicherte Cookies gelöscht werden.
+
+\section{Java-Script}
+Java-Script ist eine der Kerntechniken des modernen Internet, birgt aber auch einige Sicherheitsrisiken. Ein generelles Abschalten, wie es noch vor einigen Jahren empfohlen wurde, ist heutzutage nicht möglich.\\
+
+Ähnlich dem Cookie-Management benötigt man ein Whitelisting, welches Java-Script für vertrauenswürdige Websites zur Erreichung der vollen Funktionalität erlaubt, im allgemeinen jedoch deaktiviert.
+
+\subsection{Firefox konfigurieren}
+Die Einstellungen für Java-Script lassen sich mit dem Plug-In \textit{NoScript} komfortable verwalten. Das Plug-In kann von der Website der Firefox-Erweiterungen installiert werden.\\
+
+Diese Site ist am einfachsten über die Dialogbox \textit{Erweiterungen} im Menüpunkt \textit{Extras} zu erreichen. In diesem Dialog ist der gleichnamige Link \textit{Erweiterungen} unten rechts zu wählen. Es öffnet sich ein neues Fenster mit der Website der Firefox- Erweiterungen. \\
+
+Das Plug-In \textit{NoScript} ist gleich auf der ersten Seite zu finden, da es eines der am häufigsten genutzten Plug-Ins ist. Ein einfacher Klick auf das Download-Symbol startet die Installation. Im Anschluss ist Firefox neu zu starten.\\
+
+Nach dem Neustart von Firefox ist in der Statusleiste ein zusätzliches Symbol vorhanden, welches den Status der Freigabe von Java-Script anzeigt.\\
+\begin{center}
+\includegraphics[scale=0.65]{noscript.png}
+\end{center}
+Ein Klick auf das Symbol öffnet ein Menü, welches Java-Script für die aktuelle Site generell oder temporär nur für die laufende Sitzung freigibt.\\
+
+Wählt man den Punkt \textit{Einstellungen} im NoScript-Menü, öffnet sich folgender Dialog, der auf dem Reiter A\textit{llgemein} einer Liste der Websites zeigt, für welche Java-Script freigegeben wurde, und auf dem Reiter \textit{Aussehen} die Konfiguration von NoScript erlaubt.
+\begin{center}
+\includegraphics[scale=0.65]{noscript_einst.png}
+\end{center}
+
+Es lässt sich beispielsweise konfigurieren, ob NoScript den Surfer mit einem Sound oder mit einem Info-Balken darüber informieren soll, dass Scripte auf der aktuellen Webseite blockiert wurden.\\
+
+Der Sound nervt mich, diese Option habe ich deaktiviert. Wenn eine Webseite jedoch nicht wie erwartet funktioniert, kann die kurze Einblendung eines Info-Balkens hilfreich bei der Suche nach den Ursachen sein. 
+
+\begin{quote}
+\small
+[Neue SMS empfangen] \textit{''ein schwüler tag, donner grollt endlich, bringt Regen - ich stehe am fenster im dunkel und sehe den regen auf deiner haut, ich will dich, jetzt, so kühl und nass.''}
+\end{quote}
+
+\section{Werbe-Blocker}
+Mit Hilfe von listenbasierten Filtern kann der Zugriff auf Werbe-Server unterbunden werden. Listen bekannter Werbeserver findet man im Internet.\\
+
+\textbf{ Hinweis:} Viele Webangebote werden über Werbung finanziert. Der breite Einsatz von Werbefilter kann zu gravierenden Veränderungen in der Finanzierung der Internetangebote führen. Nutzer der Internetangebote würden nicht mehr (unbewußt) die eigentlich verkaufte Ware produzieren, sondern müßten als Kunden auch einen Teil der Kosten übernehmen!
+
+\subsection{Werbe-Blocker für Firefox installieren}
+Für Nutzer des Browsers Firefox stehen zwei Erweiterungen bereit, welche einfach zu installieren sind und zuverlässig Zugriffe auf Werbe-Server unterbinden:
+\begin{itemize}
+\item \textbf{Adblock:} eine Erweiterung, welche den Zugriff listenbasiert unterbindet.
+\item \textbf{Adblock Filterset.G Updater:} eine zusätzliche Komponente für Adblock, welche automatisert die Adblock-Sperrlisten aktualisiert.
+\end{itemize}
+
+Die Installation erfolgt am einfachsten über die Dialogbox \textit{Erweiterungen}, zu finden im Menüpunkt \textit{Extras}. In diesem Dialog ist der gleichnamige Link \textit{Erweiterungen} unten rechts zu wählen. \\
+
+Es öffnet sich ein neues Fenster mit der Website der Firefox- Erweiterungen. Auf dieser Webseite sind die beiden Plug-Ins zu suchen. Ein einfacher Klick auf das \textit{Install-Symbol} startet den Download der Erweiterungen und installiert sie.\\
+\begin{center}
+\includegraphics[scale=0.65]{firefox_erweiterungen.png}
+\end{center}
+
+Nach der Installation ist der Browser neu zu starten um die Erweiterungen zu aktivieren. Die Meldungen des Plug-Ins\textit{ Adblock Filterset.G Updater} sind zu lesen und zu quittieren. Um nicht jede Woche mit einer Meldung über das Update der Filterlisten belästigt zu werden, kann die Option \textit{Update Meldung unterdrücken} in den Einstellungen dieses Plug-Ins aktiviert werden. Die Einstellungen der installierten Erweiterungen findet man im Menüpunkt \textit{Extras}
+
+\begin{quote}
+\small
+[Neue SMS empfangen] \textit{''du mußt nicht so lange überlegen, wie du mir auf die finger klopfst, mach es kurz''}\\
+
+[SMS schreiben] \textit{''In dieser Situation ist Rückzug nicht mehr relevant - oder?'}
+\end{quote}
+
+\section{HTML-Wanzen deaktivieren}
+Bei HTML-Wanzen (sogenannten Webbugs) handelt es sich um 1x1-Pixel grosse transparente Bildchen, welche in den HTML-Code einer Webseite oder einer E-Mail eingebettet werden. Sie sind für den Nutzer unsichtbar und werden beim Betrachten einer Webseite oder beim Öffnen der E-Mail von einem externen Server geladen (siehe Tracking).\\
+
+Es ist relativ einfach, Webbugs zu deaktivieren indem das Laden der Grafiken von externen Servern unterbunden oder ein Content-Filter eingesetzt wird.\\
+
+Im Browser Mozilla Firefox ist die entsprechende Option im Dialog \textit{Einstellungen} in der Sektion \textit{Inhalt} zu aktivieren. Damit werden die grafischen Linklisten vieler Websites leider etwas verunstaltet. Evtl. werden die Webmaster hier noch etwas hinzulernen.\\
+\begin{center}
+\includegraphics[scale=0.65]{firefox_grafiken.png}
+\end{center}
+
+Der E-Mail-CLient Mozilla Thunderbird ist bereits sinnvoll vorkonfiguriert. Das Nachladen der Grafiken von externen Servern ist deaktiviert, wenn der Absender nicht im Adressbuch steht.
+
+\begin{quote}
+\small
+[Neue SMS empfangen] \textit{''rückzug ist nicht mehr relevant - gefangen in der vorhölle, stundenlang aufs handy starren, auf antwort warten - ein Gefühl von Leben.''}
+\end{quote}
+
+\section{Content-Filter}
+eben der Verwendung von Cookies wird auch der Inhalt der HTTP-Header für die Gewinnung von Informationen über den Surfer genutzt und es werden Scripte eingesetzt, welche Informationen ermitteln (z.B. E-Mail-Adressen) und an den Webserver senden. Diese Informationen können mit Content-Filtern aus dem Datenstrom entfernt oder manipuliert werden.
+\begin{itemize}
+\item Beispiel \textbf{Referer}: Es ist für die Auslieferung einer Webseite meist belanglos, von welcher anderen Seite der Surfer kommt. Da einige Websites einen Referer erwarten, sollte das Tag nicht gelöscht sondern auf die aktuelle Seite gesetzt werden.
+\item Beispiel \textbf{User-Agent}: Die meisten Browser senden Informationen über den verwendeten Browser und das Betriebssystem. Diese Information sollten manipuliert oder gelöscht werden, da sie neben der Protokollierung auch gezielt für die Ausnutzung von Sicherheitslücken eingesetzt werden können. 
+\end{itemize} 
+
+Drei Projekte, welche sich gut für den Einsatz auch in Kombination mit Mixen eignen:
+\begin{enumerate}
+\item \textbf{Privoxy} für verschiedene Betriebssysteme ( www.privoxy.org )
+\item \textbf{Proxomitron} für WINDOWS ( www.buerschgens.de/Prox/ )
+\item \textbf{Quick Preference Button} ein Plug-In für Firefox 1.5, welches u.a. den Referer versteckt, den User-Agent modifiziert und zusammen mit weiteren Plug-Ins (Adblock, NoScript) einen Content-Filter ersetzen kann.
+\end{enumerate} 
+
+\subsection{Privoxy für Linux installieren}
+Nahezu alle Linux-Distributionen integrieren Privoxy als Binärpaket. Unter Debian GNU/Linux reicht folgendes Kommando zum Installieren und Starten des Content-Filters: \textit{apt-get install privoxy} - fertig.\\
+
+Andere Distributionen erfordern ein geringfügig anderes Vorgehen. Beispielsweise ist unter SuSe Linux nach der Installation der Content-Filter im Run-Level-Editor zu starten. Dieser Schritt erfolgt hier nicht automatisch mit der Installation.\\
+
+\subsubsection{Konfiguration}
+Die Konfiguration von Privoxy erfolgt vollständig über Textdateien. Linux-User finden diese in der Regel im Verzeichnis \textit{/etc/privoxy} (SuSe Linux: \textit{/var/lib/privoxy/etc}).
+
+Standardmäßig wird das Tag User-Agent von Privoxy nicht modifiziert. Um diese Information zu verstecken ist im Verzeichnis \textit{/etc/privoxy} die Config-Datei \textit{default.actions} mit einem Texteditor zu öffnen und in der Zeile 460 der Eintrag \textit{-hide-user-agent} durch \textit{+hide-user-agent\{Privoxy/1.0\}} zu ersetzen.\\
+
+Soll Privoxy zusammen mit Mixkaskaden zur Erreichung einer hohen Anonymität genutzt werden, ist in der Datei \textit{config.txt} eine Weiterleitung an den lokalen Client der Mixkaskade einzurichten:
+\begin{itemize}
+\item Für Nutzung des Onion-Routers ist folgende Zeile einzufügen:\\
+forward-socks4a  localhost:9050 .
+\item Für die Nutzung von JAP ist folgende Zeile einzufügen:\\
+     forward localhost:4001 .
+\end{itemize} 
+Wichtig: nicht den Punkt am Ende der Zeile vergessen!\\
+
+\subsection{Proxomitron für WINDOWS installieren}
+Eine deutscher Version des Content-Filters Proxomitron steht unter folgender Adresse zum Download bereit:
+\begin{itemize}
+\item www.buerschgens.de/Prox/Seiten/Download/index.html
+\end{itemize}
+
+Nach dem Download ist das ZIP-Archiv zu entpacken und in ein geeignetes Verzeichnis zu verschieben, z.B. nach \textit{C:/Programme/Proxomitron}. Ein Doppelklick auf die Datei \textit{proxomitron.exe} startet den Filter. Im System-Tray erscheint ein grünes Symbol:
+\begin{center}
+\includegraphics{proxo_symbol.png}
+\end{center}
+
+Ein Klick auf das grüne Proxomitron-Symbol öffnet den Konfigurations-Editor:
+\begin{center}
+\includegraphics[scale=0.65]{proxo_settings_1.png}
+\end{center}
+
+Nach dem ersten Start sollte die Standard-Konfiguration angepasst werden. Zur Erreichnung einer hohen Anonymität ist es sinnvoll, weitere Regeln zu aktvieren. Ein Klick auf den Button \textit{Headerfilter} öffnet folgenden Dialog.
+
+\begin{center}
+\includegraphics[scale=0.65]{proxo_settings_2.png}
+\end{center}
+
+Es ist sinnvoll, zusätzlich zu den in der Standard-Konfiguration aktiven Regeln im Headerfilter folgende Punkte zu aktivieren:
+\begin{itemize}
+\item Cookie: [MB] Google.de: ID-Nummer entfernen (Out)
+\item Referer: [MB] URL der aktuellen Seite (Out)
+\item User-Agent:  [MB] Ständig wechseld (Out)
+\end{itemize}
+
+Im Seitenfilter können zusätzlich alle \textbf{JS.Manip}-Regeln aktiviert werden, um das Auslesen von Informationen durch Scripte zu verhindern bzw. zu verfälschen. Nach dem Ändern der Regeln ist die Konfiguration durch Klick auf das entsprechende Symbol in der Toolbar des Konfigurationseditors zu speichern!
+
+\begin{quote}
+\small
+[SMS schreiben] \textit{''Ich grüble nach, ob unsere Wahrnehmnungen wohl übereinstimmend sind?'}\\
+
+[Neue SMS empfangen] \textit{''ist deine sms eine einladung, unsere wahrnehmungen abzugleichen oder soll es noch so weiter treiben, jeder mit seinen wünschen/ängsten?''}\\
+
+[SMS schreiben] \textit{''Dir würde das Treibenlassen gefallen...''}
+\end{quote}
+
+\subsubsection{Autostart für Proxomitron einrichten}
+Nachdem Proxomitron für WINDOWS installiert und konfiguriert wurde, ist es sinnvoll, den Content-Filter bei der Anmeldung automatisch zu starten. Eine Möglichkeit ist die Aufnahme einer Verknüpfung des Programms \textit{proxomitron.exe} in die Autostart-Gruppe.
+\begin{enumerate}
+\item Dateimanager öffnen und in das Verzeichnis mit der EXE-Datei wechseln.
+\item Ein Klick mit der rechten(!) Maustaste auf die EXE-Datei öffnet das Kontextmenü. Hier ist der Punkt \textit{Verknüpfung erstellen} zu wählen. Eine neue Datei mit der Verknüpfung wird angelegt.
+\item Ordner der Autostart-Gruppe öffnen, beispielsweise indem man das Programm-Menü öffnet, mit der rechten Maustatste auf die Gruppe \textit{Autostart} klickt und im Kontextmenü den Punkt \textit{Öffnen} wählt.
+\item Die im Punkt 2 neu erstellte Verknüpfung kann mit der Maus in den Autostart-Ordner verschoben werden.
+\end{enumerate} 
+
+
+\begin{quote}
+\small
+[Neue SMS empfangen] \textit{''ja, es ist nur der vorraum, habe gerade dein horoskop für heute gelesen. neugierig?''}\\
+
+[SMS schreiben] \textit{''Unser Horoskop Du Krebs - was steht drin?''}
+\end{quote}
+
+\subsection{Browser-Konfiguration anpassen}
+Nachdem der Content-Filter installiert ist, muss der genutzte Browser konfiguriert werden, um den Datenverkehr über den lokalen Proxy zu leiten.\\
+
+Im Browser Firefox ist hierfür der Einstellungs-Dialog zu öffnen und zur Sektion \textit{Allgemein} zu wechseln:
+\begin{center}
+\includegraphics[scale=0.65]{browser_1.png}
+\end{center}
+
+Die Konfiguration des genutzten Proxy erreicht man über den Button \textit{Verbindungs-Einstellungen}:
+\begin{center}
+\includegraphics[scale=0.55]{browser_2.png}
+\end{center}
+
+Es ist die Option \textit{manuelle Proxy-Konfiguration} zu aktivieren, als Host der eigene Rechner mit \textit{localhost} anzugeben und der Port einzutragen, auf welchen der Content-Filter eingehende Anfragen erwartet. Für Proxomitron ist der Port \textit{8080} anzugeben, für Privoxy der Port \textit{8118}. Außerdem kann eine Liste von Ausnahmen angegeben werden.
+
+\subsubsection{Content-Filter aktivieren/deaktivieren}
+Zwei Plug-Ins für Firefox ermöglichen es, auf komfortable Weise zwischen dem Surfen mit und ohne Content-Filter zu wechseln:
+\begin{enumerate}
+\item \textbf{QuickProxy} aktiviert bzw. deaktivierten einen konfigurierten Proxy mit einfachem Klick auf ein farbiges Icon in der Statusleiste. Die Farbe des Icons zeigt an, ob der Datenverkehr über den Content-Filter geleitet wird (grün) oder eine direkte Verbindung aktiv ist (rot).
+\item \textbf{SwitchProxy} verwaltet die Einstellungen mehrerer Proxies. Die Konfiguration und Auswahl der Proxies erfolgt über Buttons in einer zusätzlichen Toolbar-Leiste.
+\end{enumerate} 
+
+\begin{quote}
+\small
+[Neue SMS empfangen] \textit{''vorher noch eine sicherheitsnachfrage: willst Du es wirklich wissen? es ist nicht leicht zu verdauen.''}\\
+
+[SMS schreiben] \textit{''Unbedingt!''}\\
+
+[Neue SMS empfangen] \textit{''ihre erotischen leistungen sind heute unglaublich. In einer flüchtigen affäre kommt ein unvergeßlicher tag auf sie zu.''}
+\end{quote}
+
+
+\section{Mixkaskaden}
+Mixkaskaden verwischen gegenüber Webservern Spuren über die Herkunft der Anfragen, indem sie die Anfragen verschiedener Surfer miteinander verwirbeln. Die verschlüsselte Kommunikation über Mixe verhindert auch die Auswertung des Internetverkehrs durch mitlesende Dritte.\\
+
+Es wird ein Client als Proxy auf dem lokalen Rechner des Surfers installiert und gestartet. Der Browser bzw. der Content-Filter wird entsprechend konfiguriert, so dass Anfragen nicht direkt ins Internet gesendet werden, sondern über den lokalen Proxy der Mixkaskade.\\
+
+Zwei Projekte, die kostenfrei nutzbare Kaskaden und einfach installierbare Clients für verschiedene Betriebssysteme zur Verfügung stellen:
+\begin{itemize}
+\item Das Projekt \textbf{ JAP - Anonymity \&  Privacy}  der TU Dresden nutzt einen Java-basierten Client-Proxy und ist unter \textit{http://anon.inf.tu-dresden.de/ }zu finden
+\item \textbf{The Onion Router} ist ein Netzwerk von Mixen, welches von der EFF unter der Adresse \textit{http://tor.eff.org} zur Verfügung gestellt wird.
+\end{itemize}
+
+Hinweis für Einwahlverbindungen: Die Clients stellen eine aktive Verbindung zur Mixkaskade her und halten diese Verbindung aufrecht! Damit wird das automatische Trennen der Einwahlverbindung bei Inaktivität verhindert. Man muß nach dem Schließen des Browsers auch die Verbindung zur Mixkaskade trennen. JAP bietet hierfür das einfacher zu bedienende Interface.\\
+
+Die Nutzung von Mixkaskaden verringert die Downloadgeschwindigkeit spürbar!
+
+\begin{quote}
+\small
+[SMS schreiben] \textit{''Ambivalente Gefühlslage - melde mich Mo. wieder''}
+\end{quote}
+
+\newpage
+Weitere Informationen im Internet
+\begin{enumerate}
+\item GMail and Privacy: Informationen der Firma Google zu ihrem Dienst\\
+GMail, http://gmail.google.com/gmail/help/more.html
+\item Googles Datenschutzbestimmungen,\\
+http://www.google.de/privacy.html
+\item Telekommunikationsüberwachungsverordnung,\\
+http://www.datenschutz-berlin.de/
+\item Vorratsdatenspeicherung,\\
+http://www.datenschutzzentrum.de/material/themen/rotekarte/
+\item UN-Menschenrechts-Charta, http://de.wikisource.org/wiki/
+\item Urteil zum Volkszählungsgesetz\\
+http://www.datenschutz-berlin.de/gesetze/sonstige/volksz.htm
+\end{enumerate}
+

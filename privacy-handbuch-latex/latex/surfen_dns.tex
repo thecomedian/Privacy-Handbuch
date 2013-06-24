@@ -1,0 +1,48 @@
+\section{Unzensierte DNS-Server nutzen}
+\includegraphics[scale=0.6]{../grafiken/zensursula_seite_04.png}\\
+Am 17.04.09 unterzeichneten diese Provider einen geheimen Vertrag mit dem BKA, in welchem sie sich verpflichtenten, den Zugriff auf eine vom BKA bereitsgestellte Liste von Websites zu sperren. Soweit bekannt wurde, soll die Sperrung hauptsächlich durch Kompromittierung des DNS-Systems erfolgen.\\
+
+\textbf{Hinweis:} Diese leicht zu umgehende Sperre ist im internationalen Vergleich die Ausnahme. Lediglich Australien hat einen vergleichbaren Weg gewählt. Die folgenden Hinweise zur Umgehung der Zensur durch Nutzung unzensierter DNS-Server können nicht auf andere Länder mit technisch hochgerüsteter Zensur-Infrastruktur übertragen werden.\\
+
+Bevor man als Kunde dieser Provider ernsthaft über die Nutzung alternativer DNS-Server nachdenkt, sollte man die Möglichkeit eines \textbf{Provider-Wechsels} prüfen. Das hat folgende Vorteile:
+\begin{enumerate}
+ \item Man unterstützt Provider, die sich gegen die Einschränkung der Grundrechte wehren, und übt Druck auf die Zensur-Provider aus.
+ \item Es ist auf für IT-Laien eine sichere Lösung, unzensierte DNS-Server zu nutzen, da möglicherweise Zensur-Provider den Datenverkehr auf eigene, zensierte DNS-Server umlenken, ohne dass man es als Nutzer bemerkt. So leitet Vodafone bspw. bereits seit Juli 09 im UMTS-Netz DNS-Anfragen auf die eigenen Server um. Im DFN Forschungsnetz soll die Nutzung unzensierter DNS-Server durch Sperrung des Port 53 unterbunden werden.
+\end{enumerate}
+
+Die deutschen Provider Manitu (\href{http://www.manitu.de}{http://www.manitu.de}) und SNAFU (\href{http://www.snafu.de}{http://www.snafu.de}) lehnten die Sperren ab und werden sie auch nicht umsetzen. SNAFU bietet seinen Kunden an, via Webinterface alternative, unzensierte DNS-Server für den eigenen Account zu konfigurieren. Damit entfallen die im folgenden beschrieben Spielereien am privaten Rechner und man hat mit Sicherheit einen unzensierten Zugang zum Web.
+
+\subsubsection*{Was ist ein DNS-Server}
+\begin{enumerate}
+ \item Der Surfer gibt den Namen einer Website in der Adressleiste des Browsers ein. (z.B. \textit{https://www.awxcnx.de})
+\item Daraufhin fragt der Browser bei einem DNS-Server nach der IP-Adresse des Webservers, der die gewünschte Seite liefern kann.
+\item Der DNS-Server sendet eine Antwort, wenn er einen passenden Eintrag findet. (z.B. \textit{62.75.219.7}) oder NIXDOMAIN, wenn man sich vertippt hat.
+\item Dann sendet der Browser seine Anfrage an den entsprechenden Webserver und erhält als Antwort die gewünschte Website.
+\end{enumerate}
+Ein kompromittierter DNS-Server sendet bei Anfrage nach einer indexierten Website nicht die korrekte IP-Adresse des Webservers an den Browser, sondern eine manipulierte IP-Adresse, welche den Surfer zu einer Stop-Seite führen soll.\\
+
+Die Anzeige der Stop-Seite bietet die Möglichkeit, die IP-Adresse des Surfers zusammen mit der gewünschten, aber nicht angezeigten Webseite zu loggen. Mit den Daten der Vorratsdatenspeicherung könnte diese Information personalisiert werden.\\
+
+(Diese Darstellung ist sehr vereinfacht, sie soll nur das Prinzip zeigen. Praktische Versuche, das DNS-System zu manipulieren, haben meist zu komplexen Problemen geführt.)
+
+\subsubsection*{Nicht-kompromittierte DNS-Server}
+
+Statt der kompromittierten DNS-Server der Provider kann man sehr einfach unzensierte Server nutzen.  Einige DNS-Server können auch auf Port 110 (TCP-Porotoll) angefragt werden, falls einige Provider den DNS-Traffic auf Port 53 zum eigenen Server umleiten oder behindern. Wir gehen bei der Konfiguration für Windows und Linus darauf näher ein.\\
+
+Die Swiss Privacy Foundation stellt folgende unzensierten DNS-Server mit aktiviertem DNSSEC zur Verfügung:
+\begin{verbatim}
+   87.118.85.241     (DNS-Ports: 53, 110)
+   77.109.138.45     (DNS-Ports: 53, 110)
+   77.109.139.29     (DNS-Ports: 53, 110)
+\end{verbatim}
+
+Der FoeBud bietet einen unzensierten DNS-Server:
+\begin{verbatim}
+   85.214.20.141
+\end{verbatim}
+
+Und der CCC hat natürlich auch einen Unzensierten, aber ohne DNSSEC:
+\begin{verbatim}
+   213.73.91.35
+\end{verbatim}
+

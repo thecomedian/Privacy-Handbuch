@@ -1,0 +1,43 @@
+\section{Anonymous Live-CDs für JonDo und Tor}
+Es gibt einige Projekte, die eine Live-CD bereitstellen. Bei der Nutzung einer Live-CD erhält man ein sinnvoll vorkonfiguriertes und garantiert sauberes System ohne Trojaner. Da man keine Updates einspielen kann, sollte man regelmäßig eine aktuelle Version des ISO-Images von der Webseite herunter laden.
+
+\begin{description}
+ \item[JonDo Live-CD/DVD] basiert auf Debian GNU/Linux und bietet JonDonym, Tor und Mixmaster als Anonymisierungsdienste. Mit JonDoBrowser ist ein sicherer Browser installiert. Der E-Mail Client Icedove ist für anonyme Nutzung vorbereitet. Außerdem sind Pidgin, Jitsi, Skype, der Parole Media Player und weitere Anwendungen enthalten.\\
+
+ Die Live-CD/DVD gibt es mit deutscher Lokalisierung. Es ist ein Hybrid-ISO und kann sowohl mit Intel i686 als auch mit AMD64 Computern genutzt werden. Beim Booten werden MAC-Adressen der Netzwerk­schnittstellen gefakt, um eine hohe Anonymität in Internetcafes u.ä. zu ermöglichen. \\
+
+ Download: \href{https://www.anonym-surfen.de/jondo-live-cd.html}{https://www.anonym-surfen.de/jondo-live-cd.html}
+
+ \item[TAILS] \textit{The Amnesic Incognito Live System} ist die offizielle Live-CD von Torproject.org. Der gesamte Datenverkehr ins Internet wird in der Standardkonfiguration durch Tor geschickt. Die Live-CD wird aktiv weiterentwickelt und bietet eine sehr hohe Qualität hinsichtlich Sicherheit. \\
+
+ TAILS bietet die Anonymisierungsdienste Tor und I2P. Diese Live-CD kann nur mit Intel i686 Computern genutzt werden. \\
+
+ Download: \href{https://tails.boum.org/}{https://tails.boum.org/}
+
+ \item[Polippix] ist eine Tor-Live-CD von der IT-Political Association of Denmark basierend auf Linux. Die letzte Version ist vom Juli 2010, also etwas veraltet. Es gibt eine deutsche Anleitung vom AK Vorrat.\\
+
+ Download: \href{http://polippix.org/}{http://polippix.org}
+
+ \item[Privatix] von Markus Mandalka bietet ebenfalls Tor als Anonymisierungsdienst. Als Internet Anwendung ist lediglich Icewaesel (die Debian-Version von Firefox) mit TorButton + Polipo vorkonfiguriert. Im Gegensatz zu TAILS und Polippix wird nicht der gesamte Datenverkehr durch Tor gejagt.\\
+
+ Ein besonderes Feature von Privatix ist der Installations-Wizard für USB-Sticks. Der Wizard verschlüsselt das System bei der Installation vollständig und erstellt ein schreibbares System (im Gegensatz zu UNetbootin). Privatix wird relativ selten aktualisiert, in der Regel nur mit einem neuen Debian Release. Deshalb empfehlen wir die Installation auf einem USB-Stick und regelmäßiges Einspielen der Security-Updates.\\
+
+ Download: \href{http://www.mandalka.name/privatix/}{http://www.mandalka.name/privatix/}
+
+\item[Ubuntu Privacy Remix] soll an dieser Stelle auch erwähnt werden. Es ist eine Live-CD ganz ohne Netzwerkverbindungen. Diese Live-CD ermöglicht ein sicheres Bearbeiten von Dokumenten in einer garantiert sauberen Umgebung, ein Lösung für spezielle Fälle.
+ \end{description}
+
+Alle Live-CDs können als ISO-Image auf einen CD-Rohling gebrannt oder auch mit einem USB-Stick genutzt werden. Die Nutzung des USB-Sticks als Boot-Medium bringt einen deutlichen Geschwindigkeitsvorteil. Mit dem Tool \textbf{UNetbootin} kann man ein ISO-Image problemlos auf einen USB-Stick ``brennen``. Für Windows und MacOS ist die Software von der Projektseite \href{http://unetbootin.sourceforge.net/}{http://unetbootin.sourceforge.net} herunter zu laden und zu installieren, Linuxer finden ein passendes Paket in den Repositories der Distribution und können es mit dem Paketmanager installieren.\\
+
+\begin{figure}[htb]
+\begin{center}
+\includegraphics[scale=0.7]{../screenshots/unetbootin1.png}
+\caption{UNetbootin GUI}
+\end{center}
+\end{figure}
+
+Nach dem Start von UNetbootin als Administrator oder root wählt man das ISO-Image und den USB-Stick als Ziel. Nach einem Klick auf Ok wird ein bootfähiger USB-Stick erstellt - fertig.\\
+
+Mit UNetbootin ''gebrannte'' USB-Sticks werden beim Booten als read-only eingebunden! Wie bei einer Live-CD gehen alle Änderungen bei einem Reboot verloren. Der Vorteil liegt vor allem in einer höheren Geschwindigkeit.\\
+
+Außerdem können zusätzliche Daten auf dem Stick gespeichert werden (Lesezeichen, OpenPGP-Schlüssel, JonDonym Premium Accounts...). Diese zusätzlichen Daten findet man nach dem Booten des Live-Systems im Verzeichnis \textit{/live/image}.

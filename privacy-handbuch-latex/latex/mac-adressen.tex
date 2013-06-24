@@ -1,0 +1,63 @@
+\section{MAC-Adressen}
+Die MAC-Adresse ist eine weltweit eindeutige Kennung der Netzwerkschnittstelle. Jede Netz­werk­karte und WLAN-Modul hat eine eindeutige Kennung.
+\begin{itemize}
+ \item In IPv4 Netzen wird diese Kennung nur bis zum Router/Gateway übertragen. Im eigenen Home-Netz braucht man sich keine Gedanken machen, wenn man vom DSL-Provider eine IPv4 Adresse zugeteilt bekommt. In fremden WLANs (Internetcafe', Flughafen, Hotel) ist davon auszugehen, dass die MAC-Adressen protokolliert werden können.
+ \item In IPv6 Netzen wird die MAC-Adresse Bestandteil der IP-Adresse, wenn die Privacy Extension for IPv6 nicht aktiviert wurde. Damit wird die IP-Adresse zu einem eindeutig personenbezogenen Merkmal.
+\end{itemize}
+Es gibt also Gründe, die MAC-Adressen der Netzwerkschnittstellen regelmäßig oder bei Bedarf vor dem Login in ein fremdes WLAN zu ändern, um keine überflüssigen Spuren zu hinterlassen.
+
+\subsection*{MAC-Adress ändern (Linux)}
+Unter Linux gibt es das Tool \textit{macchanger}, dass man mit dem bevorzugten Paketmanager der Distribution installieren kann. Um bei Bedarf die MAC-Adresse des WLAN-Modul zu ändern, ist als root zuerst der NetworkManager zu stoppen, dann die MAC-Adresse zu ändern und danach der NetworkManager wieder zu starten.
+\begin{verbatim}
+ > sudo su
+ # service network-manager stop
+ # macchanger -a wlan0
+ # service network-manager start
+ # exit
+\end{verbatim} 
+
+Man kann die MAC-Adresse auch beim Booten automatisch ändern lassen. Für Debian, Ubuntu und Mint werden die Netzwerkschnittstellen durch Init-Scripte initialisiert. Man kann man folgendes Sys-V-Init Script \textit{macchanger-boot} nutzen, um die MAC-Adresse der WLAN-Schnittstelle zu ändern.
+\begin{verbatim}
+ #!/bin/bash
+ 
+ ### BEGIN INIT INFO
+ # Provides: macchanger
+ # Required-Start: networking
+ # Required-Stop:
+ # Should-Start:
+ # Default-Start: S
+ # Default-Stop:
+ # Short-Description: Change MAC addresse of WLAN interface
+ ### END INIT INFO
+ 
+ PATH=/sbin:/bin:/usr/bin
+ . /lib/lsb/init-functions
+ 
+ case $1 in
+   restart|reload|force-reload|start)
+     log_action_begin_msg "Change MAC address of wlan0"
+     /usr/bin/macchanger -a wlan0 > /dev/null
+     log_action_end_msg 0
+     ;;
+ 
+   stop)
+     ;;
+ esac
+ exit 0
+\end{verbatim} 
+
+Nach dem Download kopiert man das Script nach \textit{/etc/init.d}, setzt die Rechte auf ausführbar und fügt es in den Startprozess ein. Im Terminal sind dafür folgende Befehle auszuführen:
+\begin{verbatim}
+ > sudo su
+ # cp macchanger-boot /etc/init.d/
+ # chmod +x /etc/init.d/macchanger-boot
+ # insserv macchanger-boot
+ # exit
+\end{verbatim} 
+
+n Suse Linux kann man den Befehl zum Ändern der MAC-Adresse am Ende des Scriptes \textit{/etc/init.d/boot.local} einfügen. Die Datei kann man mit einem Texteditor bearbeiten und die folgende Zeile einfügen:
+\begin{verbatim}
+ macchanger -a wlan0
+\end{verbatim} 
+
+Möchte man statt der MAC-Adresse des WLAN-Moduls die MAC-Adresse der Ethernetschittstelle ändern, dann ist \textit{wlan0} durch \textit{eth0} zu ersetzen.

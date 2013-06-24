@@ -1,0 +1,78 @@
+Geheimdienste orakeln seit Jahren immer wieder, das \textit{Terroristen} über versteckte Botschaften in Bildern kommunizieren. Telepolis berichtete 2001 und 2008 kritisch-ironisch über Meldungen von Scotland Yard, wonach islamische Terroristen ihre Kommunikation in pornografischen Bildern verstecken würden. Stichhaltige Belege für die Nutzung von \textbf{Steganografie} konnten bisher nicht geliefert werden. Andere Journalisten hinterfragten die Meldungen weniger kritisch:\\
+
+\textit{``Bislang ist zwar noch nicht bewiesen, ob die Terrorverdächtigen die Bilder - bei einem Verdächtigen wurden 40.000 Stück gefunden - nur zum persönlichen Vergnügen heruntergeladen haben oder ob tatsächlich ein Kommunikationsnetzwerk aufgebaut wurde.''} (Welt Online\footnote{ \href{http://www.welt.de/politik/article2591337/}{http://www.welt.de/politik/article2591337/}}, wieder einmal viel heiße Luft.)\\
+
+Wie funktioniert diese Technik, über die Zeit Online bereits 1996 berichtete und können Nicht-Terroristen das auch nutzen?
+
+\subsubsection*{Ein Beispiel}
+Statt Bits und Bytes werden in diesem Beispiel Buchstaben genutzt, um das Prinzip der Steganografie zu erläutern. Nehmen wir mal an, Terrorist A möchte an Terrorist B die folgende kurze Botschaft senden:
+
+\begin{verbatim}
+            Morgen!
+\end{verbatim} 
+
+Statt die Nachricht zu verschlüsseln, was auffällig sein könnte, versteckt er sie in dem folgenden, harmlos aussehenden Satz:
+
+\begin{verbatim}
+            Mein olles radio geht einfach nicht!
+\end{verbatim} 
+
+Wenn der Empfänger weiss, dass die eigentliche Botschaft in den Anfangsbuchstaben der Wörter kodiert ist, wäre es ganz gut, aber nicht optimal.\\
+
+Ein Beobachter könnte auf den Gedanken kommen: \textit{``Was - wieso Radio? Der zahlt doch keine GEZ!''} Er wird aufmerksam und mit ein wenig Probieren kann der die Botschaft extrahieren. Also wird Terrorist A die Nachricht zusätzlich verschlüsseln, nehmen wir mal eine einfache Caesar-Verschlüselung mit dem Codewort KAWUM, es entsteht:
+
+\begin{verbatim}
+     Ilpcmg!
+\end{verbatim}
+
+und ein neuer, halbwegs sinnvoller Satz wird konstruiert und verschickt.\\
+
+Das Beispiel verdeutlicht, welche Voraussetzungen für die Nutzung von Steganografie zum Austausch von Nachrichten gegeben sein müssen:
+\begin{enumerate}
+ \item Sender und Empfänger müssen sich darüber verständigt haben, wie die Nutzdaten versteckt und verschlüsselt werden.
+\item Die Nutzdaten sollte man grundsätzlich verschlüsseln, da nicht ausgeschlossen ist, dass ein Beobachter aufmerksam wird.
+\item Die Cover-Datenmenge muss viel größer als die Datenmenge der Nutzdaten sein.
+\end{enumerate}
+
+\subsubsection*{Steganografie-Tools}
+Kleine Softwaretools vereinfachen die Nutzung der Steganografie. Derartige Tools wurden schon im vergangenen Jahrhundert entwickelt und sind keineswegs neu, wie Scotland Yard behauptete. Es steht eine umfangreiche Palette zur Verfügung. \textit{steghide}\footnote{ \href{http://steghide.sourceforge.net/}{http://steghide.sourceforge.net/}}  und \textit{outguess}\footnote{ \href{http://niels.xtdnet.nl/}{http://niels.xtdnet.nl/}} sind auf dem Stand der Technik, andere meist nicht mehr gepflegt und veraltet.\\
+
+Diese Tools verstecken Text oder kleine Dateien in Bildern bzw. Audiodateien. Diese Trägermedien sind besonders geeignet, da kleine Modifikationen an Farbwerten oder Tönen nicht auffallen und auch Redundanzen genutzt werden können.\\
+
+Die Nutzdaten werden häufig mit starken kryptografischen Algorithmen verschlüsselt. Auch darum braucht der Anwender sich nicht selbst kümmern, die Eingabe einer Passphrase reicht, um dieses Feature zu aktivieren.\\
+
+Besitz und Nutzung dieser Tools ist nicht verboten. Sie dienen der digitalen Selbsverteidigung (sind ungeeignet, um fremde Rechnersysteme anzugreifen).
+
+\subsubsection*{Wasserzeichen}
+Man kann Tools für Steganografie auch nutzen, um unsichtbare Wasserzeichen an Bildern oder Audiodateien anzubringen (Copyright-Hinweise u.ä.)
+
+\section{steghide}
+Steghide ist ein Klassiker unter den Tools für Steganografie. Es kann beliebige Daten verschlüsselt in JPEG, BMP, WAV oder AU Dateien verstecken. Die verwendeten Algorithmen sind sehr robust gegen statistische Analysen. Die Downloadseite bietet neben den Sourcen auch Binärpakete für WINDOWS. Nutzer von Debian und Ubuntu installieren es wie üblich mit \textit{aptitude}.
+
+\subsubsection*{steghide ist ein Kommandozeilen-Tool}
+Um die Datei \textit{geheim.txt} zu verschlüsseln und in dem Foto \textit{bild.jpg} zu verstecken, ruft man es mit folgenden Parametern auf (mit -sf kann optional eine dritte Datei als Output verwendet werden, um das Original nicht zu modifizieren):
+
+\begin{verbatim}
+   > steghide embed -cf bild.jpg -ef geheim.txt
+   Enter passphrase:
+   Re-Enter passphrase:
+   embedding "geheim.txt" in "bild.jpg"... done
+\end{verbatim}
+
+Der Empfänger extrahiert die geheimnisvollen Daten mit folgendem Kommando (mit -xf könnte ein anderer Dateiname für die extrahierten Daten angegeben werden):
+
+\begin{verbatim}
+   > steghide extract -sf bild.jpg
+   Enter passphrase:
+   wrote extracted data to "geheim.txt".
+\end{verbatim}
+
+Außerdem kann man Informationen über die Coverdatei bzw. die Stegodatei abfragen. Insbesondere die Information über die Kapazität der Coverdatei ist interessant, um abschätzen zu können, ob die geheime Datei reinpasst:
+
+\begin{verbatim}
+   > steghide info bild.jpg
+        Format: jpeg
+        Kapazität: 12,5 KB
+\end{verbatim} 
+
+Die Passphrase kann mit dem Parameter \textit{-p ``Das geheime Passwort''} auch auf der Kommandozeile übergeben werden. Das erleichtert die Nutzung in Scripten.

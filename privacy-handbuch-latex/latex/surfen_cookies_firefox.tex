@@ -1,0 +1,74 @@
+\subsection{Mozilla Firefox konfigurieren}
+Mozilla Firefox bietet bereits standardmäßig die Möglichkeit, die meisten Cookies ohne Einbußen am Surf-Erlebnis loszuwerden. Im Bild \ref{abb:cookiesff} gezeigte Dialog \textit{Einstellungen} Sektion \textit{Datenschutz} kann die Annahme von Fremd-Cookies standardmäßig deaktiviert werden.\\
+
+\begin{figure}[htb]
+\begin{center}
+\includegraphics[scale=0.75]{../screenshots/CookiesFF.png}
+\caption{Cookies-Einstellungen in Firefox}
+\label{abb:cookiesff}
+\end{center}
+\end{figure}
+
+Mit einem Klick auf den Button \textit{Ausnahmen} kann man Server konfigurieren, die Cookies setzen dürfen oder grundsätzlich blockiert werden. Um von Google nicht beim Besuch der meisten deutschen Websites verfolgt zu werden, ist es nötig, diesen Dienst ausdrücklich zu blockieren.\\
+
+Anderenfalls wird der Browser beim Start durch den Aufruf der Default-Seite oder beim Laden der Phishing-Datenbank mit einem Google-Cookie ``personalisiert''. Durch eingebettete Werbung und Google-Analytics auf vielen Websites kann Google unbedarfte Surfer effektiv beobachten.
+
+\subsubsection*{Zusätzliche Add-ons für Firefox}
+Die Firefox Addon Sammlung bietet viele Add-ons um die Verwaltung von Cookies zu erleichtern. Nicht alle werden noch gepflegt und sind mit aktuellen Versionen von Firefox kompatibel. Das Add-on \textbf{CookieMonster} \footnote{ \href{https://addons.mozilla.org/de/firefox/addon/cookie-monster/}{https://addons.mozilla.org/de/firefox/addon/cookie-monster/}} ist empfehlenswert. Es erlaubt die site-spezifische Verwaltung von Cookies.\\
+
+Ein einfacher Klick auf das Install-Symbol der Website startet den Download der Erweiterung und installiert sie. Nach dem Neustart von Firefox ist in der Statusleiste ein zusätzliches Symbol vorhanden. Ein Klick mit der linken(!) Maustaste auf das blau-schwarze ``CM`` öffnet das in Bild \ref{abb:cookiesafe_1} dargestellte Menü (nur wenn die Website Cookies nutzen möchte).
+
+\begin{figure}[htb]
+\begin{center}
+\includegraphics[scale=0.75]{../screenshots/Cookies1.png}
+\caption{CookieMonster Menü}
+\label{abb:cookiesafe_1}
+\end{center}
+\end{figure}
+
+\begin{description}
+\item[Erlaube Cookies temporär] erlaubt es dem aktuellen Server, nur für diese Sitzung Cookies zu setzen. Mit dem Schließen des Browsers werden die Cookies und die Ausnahme­reglung gelöscht.
+\item[Erlaube Cookies] erlaubt es dem aktuellen Server, unbegrenzt gültige Cookies zu setzen. Diese Variante wird nur benötigt, wenn man bei einem späteren Besuch der Website automatisch wieder angemeldet werden möchte.
+\item[Verweigere Cookies] erlaubt es dem aktuellen Server nicht, Cookies zu setzen.
+\item[Erlaube Sessioncookies] erlaubt es dem aktuellen Server, Cookies zu setzen. Mit dem Schließen des Browsers werden diese Cookies wieder gelöscht. Bei folgenden Besuchen dürfen wieder neue Cookies gesetzt werden.
+\end{description}
+
+Nach der Installation von CookieMonster muss man das Standardverhalten auf \textit{Alle Cookies blockieren} umschalten. Das ist sicherer, als nur die Cookies von Dritt-Seiten zu blockieren. Die Einstellungen werden im Add-ons-Manager unter \textit{Extras -> Add-ons} in der Sektion \textit{Erweiterungen} konfiguriert.
+
+\begin{figure}[htb]
+\begin{center}
+\includegraphics[scale=0.75]{../screenshots/CookiesFF2.png}
+\caption{CookieMonster Einstellungen}
+\label{abb:cookiesafe_2}
+\end{center}
+\end{figure}
+
+\subsection{Super-Cookies in Firefox}
+Mozilla Firefox bietet auch die clientseitige Datenspeicherung. Dieser DOM-Storage oder Web-Storage wird gelegentlich auch als Super-Cookie bezeichnet, da bis zu 5 MB große Datenmengen mit Hilfe von Javascript abgelegt werden können.\\
+
+Aktuelle Versionen von Firefox wenden die Beschränkungen für Cookies auch auf den DOMStorage an. Es reicht aus, die Cookies zu deaktivieren. Damit ist auch die clientseitige Datenspeicherung deaktiviert.\\
+
+Diese parallele Anwendung der Einstellung für Cookies auf DOMStorage gilt nur für Firefox. Andere Browser verhalten sich bezüglich der clientseitigen Datenspeicherung anders! Bei Opera habe ich noch keine Möglichkeit gefunden, die lokale Speicherung von Daten gezielt zu deaktivieren.\\
+
+\subsection{Flash-Cookies verwalten}
+Auch Flash-Applikationen können Cookies setzen, sogenannte \textit{Local Shared Objects (LSO)}. Diese Datenkrümel können bis zu 100kByte Daten fassen und ignorieren die Einstellungen des Browsers. Sie werden neben der Speicherung von Einstellungen auch zum Nutzertracking verwendet von Youtube, Ebay, Hulu...\\
+
+Aktuelle Browser (mit Ausnahme von Opera) verwalten die Flash-Cookies nach den gleichen Regeln wie normale Cookies. Zusätzliche Add-ons zum Löschen der Flash Cookies sind nicht mehr nötig. Außerdem bieten Flash-Player unterschiedliche Möglichkeiten, diese Datenspeicherung zu deaktivieren:
+\begin{enumerate}
+\item Wer den \textbf{Adobe Flash-Player} nutzt, kann mit einer Flash-Anwendung auf der Webseite von Macromedia \footnote{ \href{http://www.macromedia.com/support/documentation/ de/flashplayer/help/settings\_manager.html}{http://www.macromedia.com/support/documentation/ de/flashplayer/help/settings\_manager.html}} die Einstellungen für das Speichern und Auslesen von Informationen sowie Nutzung von Mikrofon und Kamera anpassen.\\
+
+Auf der Seite \textit{Globale Speicher­einstellungen} ist die Datenspeicherung zu deaktivieren (Bild \ref{abb:flashplayer}). Anschließend sind auf der Seite \textit{Webseiten Speichereinstellungen} die bisher gespeicherten Cookies zu löschen.\\
+
+\begin{figure}[htb]
+\begin{center}
+\includegraphics[scale=0.55]{../screenshots/flash1.png}
+\caption{Einstellungsmanager für Adobe Flash-Player}
+\label{abb:flashplayer}
+\end{center}
+\end{figure}
+
+Wer das Add-on NoScript nutzt, muss zusätzlich zur aktuellen Webseite dem Server \textit{wwwimages.adobe.com} das Ausführen von Javascript erlauben. Anderenfalls funktioniert die Flash-Applikation nicht.
+\item Der freie Flash-Player \textbf{Gnash} bietet die Möglichkeit, die Speicherung von Cookies zu konfigurieren. Man klickt mit der rechten Maustaste auf ein Flash-Movie und wählt den Punkt \textit{Bearbeiten - Einstellungen} im Kontextmenü und schickt man alle Shared Objects nach /dev/null.
+
+\end{enumerate}
+

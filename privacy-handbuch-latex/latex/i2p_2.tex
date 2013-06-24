@@ -1,0 +1,331 @@
+\end{description}
+
+Nach dem ersten Start braucht der I2P-Router einige Zeit, im sich im Invisible Internet zu orientieren. Zum Warmlaufen sollte man ihm 30min Zeit lassen. Wenn es danach noch immer nicht so richtig funktioniert, sind die Netzwerkeinstellungen zu prüfen. Die Startseite der Router-Console gibt einige Hinweise.\\
+
+Den I2P-Router kann man nicht kurz einmal starten, wenn man ihn nutzen möchte. Er sollte möglichst immer laufen, wenn der Rechner online ist. Damit lernt er die verfügbaren Peers und eepsites besser kennen und ist besser in das Netz eingebunden.
+
+\subsection{Konfiguration des I2P-Router}
+Standardmäßig ist der I2P-Router funktionsfähig vorkonfiguriert. Ein paar kleine Anpassungen können die Arbeit etwas verbessern.
+
+\subsubsection*{Bandbreite anpassen}
+Der I2P-Router arbeitet am besten, wenn man die Bandbreite an den eigenen Internetanschluss anpasst. Nach dem Start kann man auf der Seite \href{http://localhost:7657/config}{http://localhost:7657/config} der Router Konsole die Werte anpassen. 
+
+\subsubsection*{Netzwerk Konfiguration}
+Auf der Seite \href{http://localhost:7657/confignet}{http://localhost:7657/confignet} der Router Konsole sind die Einstellungen für die Einbindung in das I2P-Netz zu konfigurieren. Dabei gibt es zwei Möglichkeiten: 
+\begin{enumerate}
+ \item Wenn der eigene Rechner nicht vom Internet erreichbar ist, dann sind folgende Optionen zu aktivieren, damit der I2P-Router korrekt arbeitet: 
+  \begin{itemize}
+   \item \textit{Versteckter Modus} ist zu aktivieren.
+   \item Optional kann der \textit{Laptop Modus} aktiviert werden. Dann ändert sich Router-Identifikation bei Änderung der IP-Adresse.
+  \end{itemize}
+ \item Wenn der eigene I2P-Router vom Internet für andere Teilnehmer erreichbar ist, verbessert sich die Performance und Anonymität. In der Netzwerk Konfiguration des I2P-Routers sind dann folgende Optionen zu konfigurieren: 
+  \begin{itemize}
+   \item UPnP ist aus Sicherheitsgründen auf dem DSL-Router zu deaktivieren. Damit ist klar, dass in der Netzwerk Konfiguration des I2P-Routers das \textit{UPnP Portforwarding} und die \textit{UPnP IP-Adresserkennung} auch zu deaktivieren sind.
+   \item In den UDP-Einstellungen ist der Port anzugeben, für den die Weiterleitung auf dem DSL-Router konfiguriert wurde.
+   \item n den TCP-Einstellungen ist ebenfalls der Port zu konfigurieren und die Option \textit{automatisch erkannte IP-Adresse benutzen} zu aktivieren.
+  \end{itemize}
+Die Hinweise im Kapitel \textit{Konfiguration des DSL-Routers} erläutern die notwendigen Einstellungen, damit Ihr Rechner vom Internet erreichbar ist. Auf dem DSL-Router ist ein Portforwarding zu Ihrem Rechner zu konfigurieren und die Firewall des Rechners ist anzupassen. 
+\end{enumerate}
+
+
+\subsubsection*{SusiDNS anpassen}
+Für die Zuordnung von Domain Namen mit der Toplevel Domain .i2p zu einem Service wird SusiDNS verwendet, ein dem DNS im Internet vergleichbares System. Wie in den Anfangszeiten des WWW erhält jeder I2P Router eine komplette Liste der bekannten eepsites, das \textit{addressbook}.\\
+
+Um neue eepsites oder Services in das addressbook einzufügen, verwendet I2P sogenannte \textit{subscriptions}. Die eine standardmäßig vorhandene subscription wird relativ selten aktualisiert.\\
+
+Um auf dem Laufenden zu bleiben, kann man weitere subscriptions zu abonnieren. Die Einstellungen für SusiDNS findet man in der Router Konsole. Subscriptions kann man unter folgender Adresse einfügen: \href{http://localhost:7657/susidns/subscriptions.jsp}{http://localhost:7657/susidns/subscriptions.jsp} (Bild \ref{susidns})\\
+
+\begin{figure}[htb]
+\begin{center}
+\includegraphics[scale=0.50]{../screenshots/susidns.png}
+\caption{subscriptions für SusiDNS}
+\label{susidns}
+\end{center}
+\end{figure}
+
+Folgende subscriptions bieten aktuelle Neuerscheinungen von eepsites:
+\begin{verbatim}
+ http://stats.i2p/cgi-bin/newhosts.txt
+ http://i2host.i2p/cgi-bin/i2hostetag
+ http://tino.i2p/hosts.txt
+\end{verbatim} 
+
+\subsection{Anonym Surfen mit I2P}
+Der I2P-Router stellt einen HTTP- und HTTPS-Proxy für den Webbrowser bereit.
+ Die Default-Adressen dieser Proxys sind:
+\begin{verbatim}
+             Rechner:  localhost
+     HTTP-Proxy Port:  4444
+      SSL-Proxy Port:  4445
+      FTP-Proxy Port:  4444
+   Gopher-Proxy Port:  4444
+\end{verbatim}
+
+Der Proxy kann genutzt werden, um Webseiten im Invisible Internet aufzurufen (sogenannte \textit{eepsites}, erkennbar an der Toplevel Domain \textbf{.i2p}).
+
+\subsubsection*{JonDoFox nutzen}
+
+Das Firefox Profil \textit{JonDoFox} ist für spurenarmes uns sicheres Surfen optimiert. Es bietet neben \textit{JonDo} und \textit{Tor} eine \textit{Benutzerdefinierte Proxy Konfiguration}, die man für I2P nutzen kann. Die Einstellungen  zeigt Bild \ref{i2pjondofox}. Der JonDoFox verhindert zuverlässig eine Kompromittierung der Anonymität. 
+
+\begin{figure}[htb]
+\begin{center}
+\includegraphics[scale=0.75]{../screenshots/i2p-jondofox.png}
+\caption{Benutzerdefinierte Proxy Konfiguration im JonDoFox}
+\label{i2pjondofox}
+\end{center}
+\end{figure}
+
+\subsubsection*{Firefox selbst konfigurieren}
+Ich würde empfehlen, für das Surfen im Invisible Internet ein separates Firefox-Profil zu erstellen. Dann ist es für spionierende Websites gänzlich unmöglich, im Cache oder in der Historie abgelegte Daten über das anonyme Surfen auszulesen. Den Profil-Manager von Firefox startet man mit folgendem Kommando:
+\begin{verbatim}
+ > firefox -P
+\end{verbatim} 
+In dem sich öffnenden Dialog (Bild \ref{i2pffstart}) kann man ein neues Profil anlegen und anschließend die Proxy-Einstellungen konfigurieren. In Zukunft wird Firefox bei jedem Start fragen, welches Profil genutzt werden soll.\\
+
+\begin{figure}[htb]
+\begin{center}
+\includegraphics[scale=0.55]{../screenshots/vmware-ff-start.png}
+\caption{Firefox Profil-Manager}
+\label{i2pffstart}
+\end{center}
+\end{figure}
+
+Anschließend kann das Profil \textit{I2P-Fox} gestartet werden und die Proxy-Einstellungen sind wie im Bild \ref{i2pffprivat} gezeigt zu konfigurieren. Die allgemeinen Hinweise zu Cookies, Javascript, Plug-Ins, HTTPS-Security usw. im Abschnitt \textit{Spurenarm Surfen} gelten auch für I2P. Das Profil \textit{I2P-Fox} ist entsprechend zu konfigurieren.\\
+
+\begin{figure}[htb]
+\begin{center}
+\includegraphics[scale=0.7]{../screenshots/i2p-proxy-einstellungen.png}
+\caption{Firefox Proxy-Einstellungen für I2P}
+\label{i2pffprivat}
+\end{center}
+\end{figure}
+
+\subsubsection*{Wichtige Sicherheitseinstellungen für Firefox}
+Flash und Java Plug-ins sind unbedingt zu deaktivieren, da diese Plug-ins die Proxy Einstellungen umgehen könnten. Um eine Deanonymisierung zu vermeiden, sind für einen aktuellen Firefox außerdem folgende Features unter der Adresse \textit{about:config} zu deativieren:
+\begin{itemize}
+ \item Websockets leaken DNS-Requests:
+\begin{verbatim}
+    network.websocket.enabled = false
+\end{verbatim} 
+ \item WebRTC kann durch UDP-Tunnel die reale IP-Adresse aufdecken (nur Firefox 18 und neuer):
+\begin{verbatim}
+    media.peerconnection.enabled = false
+\end{verbatim} 
+\item Geolocation-API kann den realen Standort ermitteln:
+\begin{verbatim}
+    geo.enabled = false
+\end{verbatim} 
+\item Phishing- und Malware Protection funktioniert für eepsites nicht, da die Webseiten des Darknet nicht in der Google Datenbank enthalten sind:
+\begin{verbatim}
+    browser.safebrowsing.enabled = false
+\end{verbatim} 
+\end{itemize}
+
+
+\subsubsection*{Suchmaschinen für I2P}
+Um sich in einem Netzwerk zu orientieren, braucht man eine Suchmaschine. Die Webseite plugins.i2p bietet viele \textit{Firefox Search Plugins für I2P}. Wenn man die Webseite \href{http://plugins.i2p/firefox/}{http://plugins.i2p/firefox} aufgerufen hat, kann man die Suchmaschinen einfach durch Aufklappen der Liste der Suchmaschinen oben rechts im Firefox hinzufügen. Unter dem Trennstrich findet man die neuen Suchmaschinen, die diese Webseite zur Installation anbietet.\\
+
+Das Äquivalent zu Google im normalen Internet ist im I2P-Netz die Suchmaschine \href{http://eepsites.i2p/}{http://eepsites.i2p}. Die anderen Dienste in der Liste durchsuchen einzelne eepsites. 
+
+\subsection{I2P Mail 1 (Susimail)}
+Die Anwendung Susimail ist integraler Bestandteil von I2P und ermöglicht den unbeobachteten Austausch von E-Mails. Das Anlegen und Verwalten eines Susimail-Accounts erfolgt auf der eepsite \href{http://hq.postman.i2p}{http://hq.postman.i2p}.\\
+
+Es ist möglich, E-Mails in das normale Web zu versenden und auch von dort unter der Adresse \textit{<username>@i2pmail.org} zu empfangen. In Abhängigkeit der auf HQ Postmaster gewählten Einstellungen kann dieser Übergang ins normale Internet bis zu 24h dauern. Um für Spammer unattraktiv zu sein, haben die Entwickler von I2P die Anzahl der ins normale Web versendbaren Mails begrenzt. Es ist möglich, innerhalb von 24h bis zu 20 Emfängern beliebig viele E-Mail zu senden. Wer unbedingt mehr Leute per E-Mail kontaktieren will, kann mit einem Hashcash ein Kontingent von weiteren 20, 40 oder 80 Empfängern freischalten.
+
+\subsubsection*{Router-Konsole nutzen}
+Ein einfaches Webinterface für Susimail ist in der I2P Router Konsole erreichbar unter der Adresse \href{http://localhost:7657/susimail/susimail}{http://localhost:7657/susimail/susimail}.\\
+
+\begin{figure}[htb]
+\begin{center}
+\includegraphics[scale=0.70]{../screenshots/susimail.png}
+\caption{Webinterface von Susimail}
+\end{center}
+\end{figure}
+
+Es bietet eine simple Möglichkeit, Mails abzurufen und zu versenden. Komfortabler ist die Nutzung des bevorzugten E-Mail Clients, vor allem wenn man die Möglichkeiten zur Verschlüsselung der Nachrichten nutzen möchte.
+
+\subsubsection*{Thunderbird konfigurieren}
+Der Susimail-Account kann mit jedem E-Mail Client genutzt werden.
+
+\begin{verbatim}
+    SMTP-Server: localhost    Port: 7659
+    POP3-Server: localhost    Port: 7660
+    Login-Name:  <username>
+\end{verbatim} 
+
+In Thunderbird ist als erstes ein neuer SMTP-Server anzulegen (Konten -> Postausgangs-Server (SMTP) -> Hinzufügen). Der Server erfordert eine Authentifizierung mit dem Daten des Susimail Accounts.\\
+
+Danach kann ein neues POP3-Konto angelegt werden, welches diesen SMTP-Server für die Versendung nutzt. SSL- und TLS-Verschlüsselung sind zu deaktivieren. Der I2P-Router übernimmt die abhörsichere Übertragung.\\
+
+In den Server-Einstellungen des Kontos sollte die Option \textit{``Alle x Minuten auf neue Nachrichten prüfen''} deaktiviert werden! Die Admins von Susimail bitten darum, den Service nicht unnötig zu belasten.
+
+\subsubsection*{Susimail mit Tor nutzen}
+An Stelle des I2P-Routers kann auch Tor für den Abruf und das Versenden von Nachrichten via I2P Mail genutzt werden. Folgende Hidden Services bieten ein SMTP-Gateway (Port: 7659) und POP3-Gateway (Port: 7660):
+
+\begin{verbatim}
+    v6ni63jd2tt2keb5.onion
+    5rw56roal3f2riwj.onion
+\end{verbatim}
+
+Die Hidden Service Adresse ist als SMTP- und POP3-Server im E-Mail Client für das I2P-Mail-Konto an Stelle von \textit{localhost} einzutragen. Außerdem ist der E-Mail Client so zu konfigurieren, dass er Tor als Proxy nutzt. Sollte der E-Mail Client ständig den Fehler TIMEOUT liefern, hilft es, den Hidden Service erst einmal im Webbrowser aufzurufen.
+
+\subsubsection*{Hinweise zur Nutzung von Susimail}
+Der Service wird von \textit{postman} und \textit{mastijaner} in der Freizeit aufgebaut und gepflegt. Sie bitten darum, folgene Hinweise zu beachten:
+\begin{enumerate}
+ \item Bitte nicht den POP3-Service in kurzen Intervallen automatisiert abfragen. Einige Nutzer fragen den POP3-Dienst immer wieder innerhalb weniger Minuten ab und belasten den Service stark. Zweimal pro Tag sollte reichen.
+\item Um anonym zu bleiben, sollte man keine Mails an die eigene Mail Adresse im Web schreiben oder an Bekannte, mit denen man via E-Mail im normalen Web Kontakt hält.
+\item Bitte Susimail nicht für Mailinglisten nutzen, die man nicht mitliest. Das Abmelden auf Mailinglisten bei Desinteresse nicht vergessen.
+\item Wer nicht mehr im Invisible Internet aktiv ist, sollte auch an das Löschen des Susimail Account denken. Scheinbar gibt es auf dem Server viele tote Mail-Accounts, wo noch immer Mails eingehen (Spam und Mailinglisten) und viel Speicherplatz verbrauchen.
+\item Bitte verwendet den Dienst nicht, um anonyme Beleidigungen oder Drohungen zu schreiben. Das bringt den Betreibern Ärger und gefährdet den reibungslosen Betrieb.
+\end{enumerate}
+Englischer Orginaltext bei HQ Postman: \href{http://hq.postman.i2p/?p=63}{http://hq.postman.i2p/?p=63}
+
+\subsection{I2P Mail 2 (Bote)}
+I2P Bote bietet serverlose und verschlüsselte E-Mail Kommunikation. Die Daten werden redundant und verschlüsselt in einer DHT gespeichert, über alle Teilnehmer verteilt. Es gibt keinen zentralen Server, der Kommunikationsprofile erstellen oder eine Vorrats­daten­speicherung umsetzen könnte. Starke Kryptografie stellt sicher, dass nur der Empfänger die Nachricht lesen kann.\\
+
+I2P Bote ist keine Weiterentwicklung von Susimail und es soll es auch nicht ersetzen. Langfristig werden beide Projekte parallel existieren und kooperieren. Das Projekt bietet folgende Features:
+\begin{itemize}
+\item Bedienung im Webinterface der I2P-Router Konsole.
+\item Erzeugen von Identitäten, Senden/Empfangen von E-Mails.
+\item Anonyme Absender und Versenden über Zwischenstationen mit zeitlicher Verzögerung (Remailer-Konzept).
+\item Dateianhänge bis 500 kB werden unterstützt. Die Begrenzung der Größe der Dateianhänge ist aufgrund der redundanten Speicherung nötig. Die Nachrichten werden mit 20x Redundanz gespeichert und eine 1 MB große Mail würde 20 MB Speicherplatz in der DHT belegen.
+\end{itemize}
+
+\subsubsection*{Installation von I2P Bote}
+Um I2P Bote zu nutzen, ist die Installation von 3 Plug-Ins für den I2P Router nötig. Auf der Seite I2P Dienste der Router Konsole (unter \href{http://localhost:7657/configclients.jsp}{http://localhost:7657/configclients.jsp}) findet man ganz unten den Abschnitt für die Installation zusätzlicher Plug-Ins (Bild \ref{i2pbote1}).\\
+
+\begin{figure}[htb]
+\begin{center}
+\includegraphics[scale=0.70]{../screenshots/i2pbote_1.png}
+\caption{Installation des Plug-in I2P Bote}
+\label{i2pbote1}
+\end{center}
+\end{figure}
+
+Folgende Plug-Ins sind in dieser Reihenfolge zu installieren: 
+\begin{enumerate}
+ \item \href{http://sponge.i2p/files/seedless/01\_neodatis.xpi2p}{http://sponge.i2p/files/seedless/01\_neodatis.xpi2p}
+ \item \href{http://sponge.i2p/files/seedless/02\_seedless.xpi2p}{http://sponge.i2p/files/seedless/02\_seedless.xpi2p}
+ \item \href{http://i2pbote.i2p/i2pbote.xpi2p}{http://i2pbote.i2p/i2pbote.xpi2p}
+\end{enumerate}
+
+Nach erfolgreicher Installation findet man auf der Startseite in der Liste der \textit{Lokalen Dienste} oder rechts im Menü der Routerkonsole einen neuen I2P Dienst \textit{SecureMail}. Ein Klick öffnet die Web-Oberfläche in einem neuen Browser-Tab. 
+
+\subsubsection*{Eigene Identität erzeugen}
+Der erste Schritt nach der Installation ist in der Regel die Erstellung einer eigenen Adresse. In der Navigationsleiste rechts wählt man \textit{''Identitäten''} und den Button \textit{``Neue Identität''}.\\
+
+Als Pflichtfeld ist nur ein Name anzugeben. Die Verschlüsselung belässt man am besten bei 256Bit-ECC. Diese Verschlüsselung liefert relativ kurze und starke Schlüssel. Die Mail­adresse wird zur Zeit noch nicht genutzt.\\
+
+Die kryptische Bote-Adresse ist an alle Partner zu verteilen oder zu veröffentlichen. In der Übersicht ist die Adresse nicht voll sichtbar. Wenn man auf die Identität klickt, erhält man eine vollständige Ansicht. Die gesammelten Adressen der Partner können in einem rudimentären Adressbuch verwaltet werden. 
+
+\begin{figure}[htb]
+\begin{center}
+\includegraphics[scale=0.70]{../screenshots/i2pbote_3.png}
+\caption{Neue Identät für I2P-Bote anlegen}
+\label{i2pbote3}
+\end{center}
+\end{figure}
+
+\subsubsection*{Konfiguration}
+Bevor man loslegt, sollte man einen Blick in die Konfiguration werfen und diese anpassen. 
+\begin{itemize}
+ \item Abrufen der Nachrichten: Es ist konfigurierbar, ob und in welchem Intervall neue Nachrichten aus der DHT automatisch abgerufen werden sollen. Um die Belastung des Bote-Netzes gering zu halten sollte man Intervalle von 2-3h nutzen. Bei Bedarf kann man das Abrufen neuer Nachrichten auch selbst anstoßen.
+
+ \item Über Zwischenstationen senden: Wird diese Option deaktiviert (``AUS``), gehen versendete Nachrichten direkt in die DHT. Die Anonymität entspricht der normalen Anonymität bei der Nutzung von I2P.\\
+
+Eine höhere Anonymität erreicht man, wenn die Nachricht vor dem Speichern in der DHT über 1\dots n Teilnehmer des I2P-Bote Netzes geleitet und dort jeweils um eine zufällige Zeitspanne verzögert wird. Die min. und max. Werte für die Verzögerung können konfiguriert werden. Ähnlich wie bei Remailern sinkt damit natürlich die Performance der Kommunikation. 
+
+ \item Durchleitung an Nicht-I2P-Adressen: Es ist möglich, Mails an Nicht-I2P-Bote Teilnehmer zu versenden. Die Nachrichten werden an die Bote-Adresse eines Durchleitungsdienstes versendet, der sich dann um die weitere Zustellung kümmert. Derzeit arbeitet HQ Postman an der Entwicklung dieses Services, der aber noch nicht arbeitsfähig ist.
+
+ \item Absendezeit: Die Absendezeit sollte man nicht mit versenden, wenn die Nachricht über Zwischenstationen gesendet wird. Anderenfalls ist es ein Feature, dass die Anonymität nur geringfügig erhöhen kann, wenn diese Option deaktiviert wird. Mir hilft es, den Überblick in der Inbox zu behalten, wenn ein Zeitstempel vorhanden ist.
+\end{itemize}
+
+\subsubsection*{Mails schreiben und empfangen}
+Das im Bild \ref{i2pbote2} gezeigte Formular für eine neue Mail öffnet sich mit Klick auf den Button \textit{``Neu''}.\\
+
+\begin{figure}[htb]
+\begin{center}
+\includegraphics[scale=0.70]{../screenshots/i2pbote_4.png}
+\caption{Neue E-Mail in I2P Bote schreiben}
+\label{i2pbote2}
+\end{center}
+\end{figure}
+
+Als Absender kann man \textit{Anonym} wählen, oder eine der zuvor angelegten Identitäten. Wer \textit{Anonym} wählt, sollte sich nicht wundern, dass er vom Empfänger als anonymer Unbekannter behandelt wird. Für vertrauliche Konversation muss man seinen Gegenüber verifizieren können.\\
+
+In die Felder \textit{An}, \textit{Kopie} oder \textit{Blindkopie} sind die kryptischen Bote-Adressen der Empfänger einzutragen, der Rest sollte sich selbst erklären.\\
+
+Eingehende Mails findet man im Ordner \textit{Posteingang} und weitere Fragen beantworten bestimmt die FAQ von I2P Bote \footnote{ \href{http://i2pbote.net/faq.html}{http://i2pbote.net/faq.html}}.
+
+\subsubsection*{Adressbuch}
+Das Web-Interface bietet ein einfaches Adressbuch. Man kann die Bote-Adressen und Namen von Partnern sammeln und beim Schreiben einer Mail mit zwei Klicks übernehmen.\\
+
+Außerdem hilft das Adressbuch bei der Verifikation der Absender empfangener Nachrichten. Ein Absender ist eindeutig nur durch seine Bote-Adresse bestimmt. Der Name kann frei gewählt werden und kann auch mehrfach genutzt werden. Es könnte also jemand den Namen HungryHobo nutzen, um sich als Hauptentwickler von I2P-Bote auszugeben.\\
+
+Ein Vergleich der Bote-Adressen ist nicht intuitiv. Das Adressbuch kann diese Aufgabe übernehmen. Ist der Absender einer Nachricht im Adressbuch enthalten und stimmt die Bote-Adresse überein, dann zeigt die Liste der Inbox ein Häckchen in der Spalte \textbf{Bek}.
+
+\begin{figure}[htb]
+\begin{center}
+\includegraphics[scale=0.70]{../screenshots/i2pbote_6.png}
+\caption{Inbox mit verifiziertem Absender}
+\label{i2pbote6}
+\end{center}
+\end{figure}
+
+
+\subsection{I2P IRC}
+IRC ist ein öffentlicher Chat Service. Auf den IRC-Servern gibt es verschiedene Chat-Räume, sogenannte Channels, in denen man sich zu einem bestimmten Thema austauschen kann. Die Unterhaltung ist in der Regel öffentlich, aber auch private Nachrichten können zwischen Nutzern ausgetauscht werden.\\
+
+Das I2P-Netz bietet zwei anonyme Chat-Server, die direkt über den I2P-Router erreichbar sind. Die Konfiguration der verschiedenen Clients wie XChat (Linux/UNIX), Kopete (KDE), Colloquy (MacOS) oder Mirc (Windows) ist einfach. Man nutzt als Chat-Server folgende Adresse und ist anonym:  
+\begin{verbatim}
+ Host: localhost
+ Port: 6668
+\end{verbatim}
+
+\subsubsection*{Die wichtigsten Chat-Kommandos}
+Der Chat wird in der Regeln komplett durch Kommandos gesteuert. Alle Kommandos beginnen mit einem Slash. Eine kurze Liste der wichtigen Kommandos:
+\begin{description}
+ \item[/list] Listet alle Diskussions-Channels auf, die auf dem Server verfügbar sind.
+ \item[/join \#channel] Den Raum \#channel betreten und mitdiskutieren.
+ \item[/quit] Den aktiven Raum verlassen oder vom Server abmelden.
+ \item[/msg nick <text>] Sendet eine Nachricht an den User \textit{nick}.
+ \item[/ignore nick] Einen Troll ignorieren.
+ \item[/help] Beantwortet alle weiteren Fragen.
+ \end{description}
+Im IRC ist man man einem Nicknamen unterwegs. Die Nicknamen werden registriert und mit einem Passwort geschützt, damit kein Dritter einen bekannten Nicknamen nutzen kann, um sich eine Identität zu erschleichen.\\
+
+Die Registrierung erfolgt mit folgendem Kommando:
+\begin{verbatim}
+  /msg nickserv register <Password> fake-email-addr
+\end{verbatim}
+Um einen registrierten Nicknamen zu nutzen, muss man sich identifizieren: 
+\begin{verbatim}
+  /msg nickserv identify <Password>
+\end{verbatim}
+
+\subsubsection*{\#anonops}
+Die Channels von \textit{Anonymous} stehen auch auf den I2P-IRC Servern zur Verfügung. Für die Diskussionen in diesen Channels sollten sie die Regeln von \textit{Anonymous} beherzigen:\\
+
+\textit{Basics: Tauchen Sie in der Masse unter ohne ein besonders smarter Typ sein zu wollen. Es gibt keine Helden, die alt geworden sind, es gibt nur junge Helden und ``tote`` Helden.}\\
+ 
+Geben sie keine persönlichen Informationen im public IRC preis.
+\begin{itemize}
+ \item keine Anhaltspunkte im Nicknamen und Realnamen veröffentlichen
+ \item keine persönlichen Informationen im Chat diskutieren
+ \item keine Informationen über die Herkunft diskutieren (Land, Stadt usw.)
+ \item keine Beschreibung von Tattoos, Piercings oder anderer Merkmale
+ \item keine Informationen über Beruf und Hobbys
+ \item keine Sonderzeichen wie äöü verwenden, die nur in Ihrer Sprache verfügbar sind
+ \item veröffentlichen Sie nichts im normalen Netzm während Sie in einem anonymen Chat sind, es kann einfach korreliert werden
+ \item posten Sie keine Bilder von Facebook im Chat, diese Bilder enthalten die persönliche ID
+ \item verbinden Sie sich nicht Tag für Tag zur gleichen Zeit mit dem Chat
+\end{itemize}
+
+\subsection{I2P BitTorrent}
+Der I2P-Router bietet auch eine angepasste Implementierung des BitTorent Protokolls für anonymes Peer-2-Peer Filesharing. Im Gegensatz zur Nutzung von normalem BitTorrent über Tor ist die Implementierung des Invisble Internet Project anonym und die Nutzung ausdrücklich erwünscht. Der Dienst bietet Optimierungen mit speziellen Clients.\\
+
+Die I2P-Router-Konsole bietet einen einfachen BitTorrent Client als Webinterface unter \textit{Torrents} (\href{http://localhost:7657/i2psnark}{http://localhost:7657/i2psnark}).\\
+
+Die zum Tausch bereitgestellten oder heruntergeladenen Dateien findet man im Unterverzeichnis \textit{i2psnark} der I2P-Installation. Dieses Verzeichnis sollte Lese- und Schreibrechte für alle lokalen User haben, die I2PSnark nutzen dürfen. Torrents findet man z.B. auf den eepsites \href{http://tracker2.postman.i2p}{http://tracker2.postman.i2p}, \href{http://crstrack.i2p/tracker}{http://crstrack.i2p/tracker} oder \href{http://tracker.welterde.i2p}{http://tracker.welterde.i2p}. Das Webinterface bietet direkte Links zu diesen eepsites.\\
+
+\textbf{Hinweis zur Nutzung:} Es gehört beim Filesharing zum guten Ton, Dateien nicht nur zu saugen. Man stellt die heruntergeladenen Dateien auch anderen Teilnehmern zur Verfügung. Bei BitTorrent im normalen Netz gilt es als freundlich, wenn man heruntergeladene Dateien mindestens für 2 Tage zum Upload anbietet oder bis die Datenmenge des Upload das 2,5fache des Downloads beträgt. Da die Geschwindigkeit im I2P-Netz wesentlich geringer ist, sollte man herunter geladene Dateien mindestens für 1 Woche zum Upload anbieten. 

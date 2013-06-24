@@ -1,0 +1,16 @@
+\section{HTTP-Header filtern}
+Neben der Verwendung von Cookies wird auch der Inhalt des HTTP-Header für die Gewinnung von Informationen über den Surfer genutzt. Das Projekt \textit{Panopticlick} \footnote{ \href{http://panopticlick.eff.org/}{http://panopticlick.eff.org}} der EFF.org zeigt, dass anhand des Fingerprint des HTTP-Headers 80\% der Surfer eindeutig erkennbar sind. Eine Verknüpfung dieser Information über mehrere Websites hinweg kann eine Verfolgung von Nutzern ermöglichen. Kombiniert man diese Verfolgung mit Daten von Sozialen Netzen (Facebook, Xing), ist eine vollständige Deanonymiserung möglich.
+\begin{itemize}
+\item Beispiel \textbf{User-Agent}: Die meisten Browser senden Informationen über den verwendeten Browser und das Betriebssystem. Ein Beispiel zeigt, wie detailliert der Browser Auskunft gibt:
+\begin{verbatim}
+Mozilla/5.0 (Macintosh; U; PPC Mac OS X; de-DE) AppleWebKit/419.3 
+(KHTML, like Gecko) Safari/419.3
+\end{verbatim}
+Beim US-Reiseportal Orbitz werden Surfern mit MacOS (am User-Agent erkennbar) die Hotelzimmer 20-30 Dollar teuerer angeboten, als anderen Kundern\footnote{ \href{http://heise.de/-1626368}{http://heise.de/-1626368}}. Außerdem können anhand der Informationen gezielt Lücken in der verwendeten Software ausgenutzt werden.\\
+
+
+\item Ergänzende Informationen wie zum Beispiel die bevorzugte \textbf{Sprache}, installierte \textbf{Schrift­arten} und \textbf{Größe des Browserfensters} können einen individuellen Fingerprint des Browsers ergeben. Viele Werte können per Javascript ausgelesen werden Bei der Google-Suche und beim Trackingdienst Multicounter\footnote{ \href{http://www.multicounter.de/features.html}{http://www.multicounter.de/features.html}} wird die innere Größe des Browser­fensters ausgelesen. Die Firma bluecave\footnote{ \href{http://www.bluecava.com/}{http://www.bluecava.com}} nutzt z.B. im Trackingscript \textit{BCAL5.js} u.a. Informationen über installierte Schriftarten.\\
+
+Deshalb sollte man Javascript nur für vertrauenswürdige Webseiten erlauben und das Auslesen der Werte behindern (soweit möglich).
+\end{itemize} 
+

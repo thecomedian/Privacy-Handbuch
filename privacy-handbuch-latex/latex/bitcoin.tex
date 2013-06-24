@@ -1,0 +1,134 @@
+\section{Bitcoin}
+Bitcoin ist eine digitale Peer-2-Peer Währung ohne zentrale Verwaltung. Sie ist unabhängig von der Geldpolitik einer Zentralbank und entwickelt sich marktgetrieben durch die Aktivitäten der Teilnehmer, die Bitcoin als Zahlungsmittel akzeptieren oder verwenden.\\
+
+Die Wurzeln der ökonomischen Theorie dieser virtuellen Währung liegen in der \textit{Austrian school of economics}, die von den Ökonomen Eugen v. Böhm-Bawerk, Ludwig Mises und Friedrich A. Hayek entwickelt wurde. Die Ökonomen kritisieren das gegenwärtige System des Fiatgeldes der Zentralbanken. Sie sehen in den massiven, politisch motivierten Interventionen der Zentralbanken in den Geldumlauf eine wesentliche Ursache für den Krisenzyklus. Als Ausweg empfehlen sie eine Internationalisierung der Währungen und die Rückkehr zum Goldstandard.\\
+
+Gegenwärtig ist Bitcoin die populärste Umsetzung einer Währung in Anlehnung an die Konzepte der \textit{Austrian school of economics}. Die Software löst mit kryptografischen Methoden vor allem zwei Probleme:
+
+\begin{enumerate}
+ \item Das Kopieren und mehrfache Verwendung der Bits und Bytes, die ein Coin repräsentieren, ist nicht möglich.
+ \item Die Gesamtmenge der verfügbaren Coins ist limitiert. Neue Bitcoins werden nach einem festen Schema generiert und die Gesamtzahl ist limitiert.
+\end{enumerate}
+
+Darauf aufbauend kann Bitcoin als Bezahlmethode verwendet werden. Bitcoins lassen sich in reale Währungen hin- und zurücktauschen. Der Kurswert der Bitcoins beim Tausch gegen reale Währungen (z.B. Euro) ergibt sich dabei ausschließlich aus dem Markt. Die Bezahlungen können relativ schnell am PC abgewickelt werden. Es dauert in der Regel nur 1-2h, bis das Bitcoin Netzwerk eine Transaktion hinreichend bestätigt hat.\\
+
+Viele Dienste im Netz akzeptieren Bitcoins als Bezahlung. Eine Übersicht findet man im Bitcoin Wiki \footnote{ \href{https://en.bitcoin.it/wiki/Trade}{https://en.bitcoin.it/wiki/Trade}}. Man kann Musik, E-Books, Web- und Mailhosting oder Anonymisierungsdienste / VPN-Anbieter mit Bitcoins bezahlen. Der Kurs wird dabei von jedem Anbieter selbst festgelegt. Dabei kann es vorkommen, dass Anbieter vom mittleren Tauschkurs abweichen.\\
+
+Um mit Bitcoins zu bezahlen, braucht man selbst ein paar Bitcoins. Diese kann man auf verschiedenen Markplätzen gegen reale Währung kaufen oder man bietet selbst Dienst­leistungen gegen Bitcoins als Bezahlung an. Die Markplätze dienen dabei nur zur Anbahnung der Transaktionen \textit{Geld gegen Bitcoin}. Der Austausch des reales Geldes erfolgt in der Regel auf direktem Weg zwischen den Beteiligten.\\
+
+\subsection{Exchanger / Marktplätze}
+Man kann Bitcoin komplett ohne Installation einer Software nutzen. Es gibt Webdienste (die sogenannten Exchanger oder Markplätze), die den Handel mit Bitcoins zwischen den Personen einleiten und eine Bitcoin Brieftasche (eWallet) für Nutzer bereitstellen. Das vereinfacht die Nutzung von Bitcoin als Zahlungsmittel, da eine Installation von Software nicht zwingend nötig ist. Die erworbenen Bitcoins können aber auch auf den eigenen PC transferiert und mit einem Bitcoin Client verwaltet werden.\\
+
+Die Exchanger verifizieren die Identität der Nutzer. Eine anonyme Nutzung ist nicht möglich. Hinweise zum anonymen Kauf von Bitcoins findet man weiter unten im Abschnitt \textit{Anonymität von Bitcoin}.\\
+
+Eine Übersicht zu den Marktplätzen findet man auch im Bitcoin Wiki \footnote{ \href{https://en.bitcoin.it/wiki/Buying\_bitcoins}{https://en.bitcoin.it/wiki/Buying\_bitcoins}}. Für den Einstieg gefällt mir \textbf{\href{https://www.bitcoin.de}{www.bitcoin.de}} sehr gut. Die Webseite wird professionell betreut, bietet in einer über­sichtlichen Struktur alle nötigen Informationen für Kaufen, Verkaufen und die Verwaltung der eigene Bitcoins und ist für die ersten Schritte gut geeignet. Allerdings ist der Dienst nicht ganz kostenfrei. Es wird eine Gebühr von 1\% für den Handel mit Bitcoins erhoben.\\
+
+Die Anmeldung bei Bitcoin.de erfordert die Angabe einer E-Mail Adresse und einer Bank­verbindung. Die Bankverbindung wird durch eine einmalige Überweisung von 1 Cent verifiziert. Temporäre E-Mail Adressen sollten nicht genutzt werden, da bei jeder Transaktion Informationen per Mail gesendet werden. Man kann zusätzliche die Zahlungsmöglichkeiten Liberty Reserve und Money Bookers nutzen.\\ 
+
+\textbf{Bitcoins kaufen:} Im Markbereich stehen in einer Liste mehrer Verkaufsangebote. Durch Klick auf den Link \textit{Kaufen} kann man ein Kaufangebot annehmen. Sie erhalten ein E-Mail mit den Daten für die Bezahlung. Überweisen Sie dem Verkäufer das Geld und bestätigen Sie die Überweisung auf der Webseite innerhalb von 12h. Wenn der Verkäufer den Zahlungseingang bestätigt, erhalten Sie die Bitcoins. Wenn kein passendes Angebot zu finden ist, können Sie ein Kaufangebot einstellen und auf Angebote warten.\\
+
+Der Käufer sendet dem Verkäufer den Kaufpreis abzüglich 0.5\% und erhalten dafür Bitcoins abzüglich 1\% des Kaufangebotes. Somit teilen sich Käufer und Verkäufer die Marktgebühr von 1\% jeweils zur Hälfte. Ein Rechenbespiel: 
+\begin{itemize}
+ \item Das Angebot lautet: 1 BTC für 40,00 Euro.
+ \item Der Käufer überweist 39,80 Euro an den Verkäufer.
+ \item Er erhält dafür 0,99 BTC auf seinem Konto.
+\end{itemize}
+
+Die für ihre Transaktion gültigen Zahlen werden jeweils bei Annahme des Kaufangebotes und in der E-Mail angezeigt. Die Kontodaten des Verkäufers erhalten Sie ebenfalls per E-Mail.\\
+
+\subsection{Bitcoin Software}
+Wenn man einem externen Webserver nicht vertraut, kann man seine Bitcoins lokal auf dem eigenen Rechner oder Smartphone verwalten. Dafür muss ein Bitcoin Client wie Bitcoin-Qt oder Electrum installiert werden.
+
+\begin{description}
+ \item[Bitcoin-Qt] ist der Standard Client des Bitcoin Projektes und steht zum Download unter \href{http://bitcoin.org/en/download}{http://bitcoin.org/en/download} bereit. Er ist einfach bedienbar, bietet eine Übersicht über alle Transaktionen und kann beliebig viele Adressen verwalten.\\
+
+Ein Nachteil für Gelegenheitsnutzer ist der ständige Download der gesamten Blockchain. Die Down­load­seite weist darauf hin, dass die erste Initialisierung bis zu einem Tag dauern kann. Wenn man nach 3-4 Wochen Pause wieder einmal mit Bitcoins bezahlen möchte, dann benötigt Bitcoin-Qt ein bis zwei Stunden für die Aktualisierung der Blockchain, um wieder arbeitsbereit zu werden.
+
+ \item[Electrum] ist eine leichtgewichtige Alternative für Gelegenheitsnutzer. Er überlässt die Hauptarbeit speziellen Servern im Netz und benötigt die komplette Blockchain nicht. Trotzdem ist sichergestellt, dass die privaten Schlüssel ausschließlich in der Verfügung des Anwenders liegen. Die Installation für unterschiedliche Betriebssysteme ist auf der Down­load­seite  \href{http://electrum.org/download.html}{http://electrum.org/download.html} beschrieben.\\
+
+\begin{figure}[tb]
+\begin{center}
+\includegraphics[scale=0.55]{../screenshots/electrum2.png}
+\caption{Hauptfenster von Electrum}
+\label{abb:electrummain}
+\end{center}
+\end{figure}
+
+Die Oberfläche ist einfach gehalten. Für die Übersicht der Transaktionen, zum Senden und Empfangen sowie eine einfache Adressliste gibt es Reiter im Hauptfenster (Bild \ref{abb:electrummain}).\\
+
+Alle Transaktionen werden in der Blockchain gespeichert. Sie können mit dem \textit{Seed} aus diesem \textit{ewigen Logfile} rekonstruiert werden. Ein vollständiges Backup der Konfiguration ist nicht nötig. Man benötigt nur den Seed, der wie eine lange Passphrase aus zwölf Worten besteht. Für ein Backup des Seed klickt man auf zweite Symbol von rechts in der Statusleiste und speichert die Passphrase (z.B. in einer verschlüsselten Passwortdatenbank wie KeepassX). Mit dem QR-Code kann man den Seed schnell auf ein Smartphone übertragen.\\
+
+\begin{figure}[tb]
+\begin{center}
+\includegraphics[scale=0.55]{../screenshots/electrum3.png}
+\caption{Seed exportieren}
+\label{abb:electrumseed}
+\end{center}
+\end{figure}
+
+Die Netzwerkeinstellungen öffnet man mit einem Klick auf das rechte Icon in der Statusleiste, dass üblicherweise ein grüner Punkt ist. Hier kann man festlegen, welchen Server man für die rechenintensiven Aufgaben nutzen möchte. Der Server kann aus der Liste frei gewählt werden, da keine Accountdaten auf dem Server gespeichert werden. Die Server werden durch Spenden finanziert und die Betreiber sind für eine kleine Spende in Bitcoins dankbar. Die Spendenadresse für den aktuell genutzten Server findet man auf dem Reiter \textit{Console} im Hauptfenster.\\
+
+Außerdem kann man in den Netzwerkeinstellungen den Proxy konfigurieren. Da Electrum nur geringen Datenverkehr verursacht, ist eine sinnvolle Kombination mit den Anonymisierungs­diensten Tor oder JonDonym möglich. Das verhindert eine zukünftige Deanonymiserung des Nutzers durch Analyse des ewigen Logfiles. Die Proxy Einstellungen können auch beim Start des Programms als Parameter übergeben werden:
+\begin{itemize}
+ \item Um den Datenverkehr von Electrum mit den Premiumdiensten von JonDonym zu anonymisieren, startet man das Programm mit folgenden Proxy-Parametern:
+ \begin{verbatim}
+    electrum --proxy=http:127.0.0.1:4001
+ \end{verbatim} 
+ \item Wenn man Tor Onion Router nutzen möchte (TorBrowserBundle), dann nimmt man:
+ \begin{verbatim}
+    electrum --proxy=socks5:127.0.0.1:9150
+ \end{verbatim}
+\end{itemize}
+
+\end{description}
+
+\subsection{Anonymität von Bitcoin}
+Über die Anonymität von Bitcoin gibt es viele Missverständnisse. So wie jeder Geldschein eine eindeutige Nummer hat und verfolgt werden kann, ist es einem potenten Beobachter auch möglich, Bitcoin Zahlungen zu verfolgen.\\
+
+Alle Bitcoin Transaktionen werden in der öffentlich zugäglichen Blockchain protokolliert (ein \textit{ewiges Logfiles}). Das ist kein Designfehler sondern notwendig, um double spending zu verhindern. Forscher der TU Darmstadt haben auf dem 28C3 eine Analyse des \textit{ewigen Logfile} von Bitcoin vorgestellt \footnote{ \href{http://events.ccc.de/congress/2011/Fahrplan/events/4746.en.html}{http://events.ccc.de/congress/2011/Fahrplan/events/4746.en.html}}. Eine weitere Analyse wurde von D. Ron und A. Shamir publiziert \footnote{ \href{http://eprint.iacr.org/2012/584}{http://eprint.iacr.org/2012/584}}. Beide Analysen konnten scheinbar unabhängige Bitcoin Adressen zusammen führen und die IP-Adressen von Nutzern ermitteln. Dazu zählen beispielsweise Spender, die an Wikileaks via Bitcoin gespendet haben. Außerdem wurden Zahlen zur Bitcoin Nutzung von Wikileaks als Beispiel veröffentlicht. Bis März 2012 nutzte Wikileaks 83 Bitcoin Adressen und erhielt 2605.25 BTC von Unterstützern.\\
+
+Die Forscher kommen zu dem Schluss, dass die Anonymität von Bitcoin geringer ist, als eine einfache Banküberweisung. Informationen zu Banküberweisungen kann man nicht \textit{einfach so} bekommen. Das Bankgeheimnis verwehrt den Zugriff auf die Konto­informationen. Die Bitcoin Transaktionen kann jeder analysieren, der über die nötige Rechenleistung verfügt.\\
+
+Die CIA hat nach eigenen Aussagen Bitcoin als Zahlungsmittel \textit{bereits auf dem Radar}. Im Juni 2011 wurde Gavin Andresen (ein führender Bitcoin Entwickler) ins CIA-Haupquartier zu einer Präsentation eingeladen. Das US-Militär sucht(e) bereits Anti-Terror Finanzexperten mit Bitcoin Erfahrung. Die Europäische Zentralbank (EZB) sieht laut einem Bericht von Okt. 2012 in Bitcoin eine Gefahr, da es außerhalb der Kontrolle der Zentralbanken läuft. Die EZB empfiehlt eine intensivere Beobachtung. Es gibt also viele Gründe, möglichst anonym zu bleiben.\\
+
+Da das gesamte System von Bitcoin auf Informationsaustausch im Internet basiert, ist es mit Anonymisierungsdiensten möglich, Bitcoin auch vollständig anonym zu nutzen. Dabei sind folgende Punkte zu beachten:
+
+\begin{description}
+ \item[Bitcoin-Brieftasche anonym verwalten:] 
+  Man kann einen Webservice verwenden und mit den Anonymisierungs­diensten \textit{JonDo+JonDoFox} oder dem \textit{TorBrowserBundle} das eWallet anonym auf den Servern verwalten.
+ \begin{itemize}
+  \item Blockchain.info\footnote{ \href{https://www.blockchain.info/wallet}{https://www.blockchain.info/wallet}} bietet die Verwaltung eines anonymen eWallet auf dem Webserver und erfordert keine persönlichen Angaben bei der Registrierung.
+  \item StrongCoin.com\footnote{ \href{https://www.strongcoin.com}{https://www.strongcoin.com}} erfordert die Angabe einer E-Mail Adresse bei der Registrierung. Wegwerfadressen werden akzeptiert. Das Webinterface ist für Smartphones geeignet.
+  \item OnionBC ist ein anonymer eWallet Service, der nur als Tor Hidden Service unter \href{http://6fgd4togcynxyclb.onion/}{6fgd4togcynxyclb.onion} erreichbar ist. (Ich bin immer etwas skeptisch bei Tor Hidden Services. Wenn man nicht weiss, wer den Dienst betreibt, kann es sich oft um Scam handeln. TORwallet hat sich z.B. als Scam herausgestellt.)
+ \end{itemize}
+ 
+Wenn man einem Webdienst nicht vertrauen möchte, kann man den Bitcoin Client \textit{Electrum}\footnote{ \href{http://electrum.org/index.html}{http://electrum.org}} installieren und den Datenverkehr mit Tor oder JonDonym anonymisieren. Electrum über­lässt die Hauptarbeit speziellen Servern und muss deshalb nicht das \textit{ewige Logfile} ständig aktualisieren. Das reduziert den Datenverkehr und ermöglicht eine sinnvolle Kombination mit JonDonym oder Tor. Die privaten Schlüssel bleiben aber immer auf dem eigenen Rechner.\\
+
+Um den Datenverkehr von Electrum mit den Premiumdiensten von JonDonym zu anonymisieren, startet man das Programm mit folgenden Proxy-Parametern:
+\begin{verbatim}
+    electrum --proxy=http:127.0.0.1:4001
+\end{verbatim} 
+Wenn man Tor Onion Router nutzen möchte (TorBrowserBundle), dann startet man das Programm mit folgenden Proxy-Parametern:
+\begin{verbatim}
+    electrum --proxy=socks5:127.0.0.1:9150
+\end{verbatim} 
+Die Installation von JonDo oder Tor ist im Kapitel \textit{Anonymisierungsdienste} beschrieben.
+
+\item[Bitcoins anonym kaufen:]
+Man kann beim Kauf von Bitcoins die Angabe eines Bankkontos oder anderer identifizierender Informationen vermeiden.
+\begin{itemize}
+ \item Auf der Webseite LocalBitcoins.com\footnote{ \href{https://localbitcoins.com/}{https://localbitcoins.com/}} findet man Anbieter in der Umgebung, die Bitcoins gegen Bargeld verkaufen.
+ \item Im IRC Channel \#bitcoin-otc im Freenode Netz kann man beliebige Formen der Geldübergabe mit dem Verkäufer vereinbaren.
+ \item In Berlin trifft sich die Bitcoin Community an jedem ersten Donnerstag im Monat im \textit{room 77} (Graefestr. 77, 10967 Berlin-Kreuzberg). Dort findet immer jemanden, der Bitcoins gegen Bargeld verkauft.
+ \item Wer den Anonymisierungsdienst JonDonym nutzt, kann im Bitcoin Shop der JonDos GmbH \footnote{ \href{https://shop.anonymous-proxy-servers.net/bin/btc-shop}{https://shop.anonymous-proxy-servers.net/bin/btc-shop}} kaufen und mit Paysafecard bezahlen. Damit kann man auch Restbeträge von Paysafecards verwenden.
+\end{itemize}
+
+\item[Bitcoins als Zahlungsmittel verwenden:]
+ Beim Einkauf virtueller Güter (z.B. JonDonym Premium Codes oder eBooks, die per E-Mail zugestellt werden) gibt es keine weiteren Probleme.\\
+
+Muss man beim Kauf realer Güter eine Lieferadresse angeben, dann sollte man ein anderes Bitcoin eWallet verwenden als für die anonyme Bezahlung virtueller Güter. Anderenfalls könnten auch  die anonymen Zahlungen deanonymisiert werden.\\
+
+\item[Mixing-Services?] Im Bitcoin-Wiki werden Mixing-Services wie Blockchain Mixing Service\footnote{ \href{https://blockchain.info/wallet/send-anonymously}{https://blockchain.info/wallet/send-anonymously}} oder Cleanbit.org\footnote{ \href{http://www.cleanbit.org/}{http://www.cleanbit.org/}} empfohlen, um die Spuren einer Transaktion zu verwischen. Die Analyse von D. Ron und A. Shamir lässt vermuten, dass diese Mixing-Services mit entsprechendem Aufwand analysiert werden könnten und zukünftig einen potenten Angreifer nicht von einer Verfolgung der Transaktionen abhalten können.
+
+ \end{description}
+ 

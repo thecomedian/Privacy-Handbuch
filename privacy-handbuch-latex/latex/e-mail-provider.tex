@@ -1,0 +1,62 @@
+\section{E-Mail Provider}
+Als erstes braucht man eine oder mehrere E-Mail Adressen. Es ist empfehlenswert, für unter­schiedliche Anwendungen auch verschiedene E-Mail Adressen zu verwenden. Es erschwert die Profilbildung anhand der E-Mail Adresse und verringert die Spam-Belästigung. Wenn Amazon, Ebay oder andere kommerzielle Anbieter zu aufdringlich werden, wird die mit Spam über­schwemmte E-Mail Adresse einfach gelöscht ohne die private Kommunikation zu stören.\\
+
+Neben einer sehr privaten E-Mail Adresse für Freunde könnte man weitere E-Mail Adressen für Einkäufe im Internet nutzen oder für politische Aktivitäten. Um nicht ständig viele E-Mail Accounts abfragen zu müssen, kann man die für Einkäufe im Internet genutzt E-Mail Accounts auch an die private Hauptadresse weiterleiten lassen. Alle Mail-Provider bieten diese Option. Bei den großen deutschen Mail Providern GMX.de und WEB.de gibt es bis zu 100 Fun-Domains extra für diesen Zweck. Bereits mit der kostenlosen Version kann man bis zu 3 Fun-Adressen nutzen.\\ 
+
+Wenn eine E-Mail Adresse nur für die Anmeldung in einem Forum oder das Veröffentlichen eines Kommentars in Blogs benötigt wird, kann man \textit{temporäre Mailadressen} nutzen (siehe weiter unten).\\
+
+Eine kleine Liste von E-Mail Providern abseits des Mainstream:
+\begin{itemize}
+ \item \textbf{Posteo.de} \footnote{ \href{https://posteo.de/}{https://posteo.de}} und \textbf{aikQ.de} \footnote{ \href{https://www.aikq.de/}{https://www.aikq.de}} (deutsche Mailprovider, Accounts ab 1,- Euro pro Monat, anonyme Accounts möglich mit Bezahlung per Brief)
+ \item \textbf{VFEmail} \footnote{ \href{https://www.vfemail.net/}{https://www.vfemail.net}} (anonymer Mailprovider, benötigt eine Wegwerf-Adresse für Registrierung, kostenfreie Accounts mit POP3/SMTP und beliebig vielen temporären E-Mail Adressen)
+ \item \textbf{CryptoHeaven} \footnote{ \href{https://www.cryptoheaven.com/index.shtml}{https://www.cryptoheaven.com/}} (Accounts ab \$60 pro Jahr, einfache Verschlüsselung der Kommunikation mit Accounts beim gleichen Provider, Offshore registrierte Firma, Server in Kanada)
+ \item \textbf{XMAIL.net} \footnote{ \href{https://www.xmail.net}{https://www.xmail.net}} (die Betreiberfirma Aaex Corp. ist auf den British Virgin Islands registriert, die Server stehen in Kanada, kostenfrei Accounts mit POP3, aber ohne SMTP)
+ \item \textbf{runbox.com} \footnote{ \href{https://secure.runbox.com/}{https://secure.runbox.com/}} (norwegischer E-Mail Provider, Server stehen ebenfalls in Norwegen, Accounts ab 1,66 Dollar pro Monat)
+ \item \textbf{neomailbox.com} \footnote{ \href{http://www.neomailbox.com/services/secure-email}{http://www.neomailbox.com/services/secure-email}} (anonymes E-Mail Hosting in der Schweiz, Accounts ab 3,33 Dollar pro Monat, anonyme Bezahlung mit Pecunix oder Liberty Reserve möglich)
+\end{itemize}
+
+Für politische Aktivisten gibt es Anbieter, die insbesondere den Schutz vor staatlichem Zugriff hervorheben. Diese Anbieter werden mit Spenden finanziert. Für einen Account muss man seine politischen Aktivitäten nachweisen, aber nicht unbedingt seine Identität offen legen. Neben E-Mail Accounts werden auch Blogs und Mailinglisten angeboten.
+\begin{itemize}
+ \item \textbf{Associazione-Investici} \footnote{ \href{http://www.autistici.org/de/get\_service.html}{http://www.autistici.org/de/get\_service.html}} (italienischer Provider, Server stehen bei XS4ALL in Niederlande, verwendet eigene Certification Authority für SSL-Zertifikate)
+ \item \textbf{Nadir.org} \footnote{ \href{http://www.nadir.org/}{http://www.nadir.org}} (deutscher Provider, Server stehen ebenfalls bei XS4ALL)
+ \item \textbf{AktiviX.org} \footnote{ \href{https://www.aktivix.org/}{https://www.aktivix.org}} (deutscher Provider, Server stehen in Brasilien)
+\end{itemize}
+
+Hinweis: es kostet Geld, einen zuverlässigen Mailservice bereitzustellen. Es ist durchaus sinnvoll, die \textit{alles kostenlos Mentalität} für einen vertrauenswürdigen Mailprovider fallen zu lassen.
+
+\subsubsection*{Webinterfaces der Mail-Provider sind oft unsicher}
+Die Webinterfaces der Mail-Provider bieten überwiegend eine unsichere Konfiguration der HTTPS-Verschlüsselung des Webinterface. Oft ist es für einen Angreifer möglich, eine schwache, abhörbare Verschlüsselung zu erzwingen. Insecure Renegotiation wird teilweise noch verwendet oder das veraltete SSLv2 wird noch unterstützt. Das Problem betrifft nicht nur die Webseiten der Mail-Provider. Nach einer Studie bieten nur 10\% der Websites sichere Verschlüsselung nach dem Stand der Technik.\footnote{ \href{http://www.heise.de/developer/meldung/SSL-Pulse-protokolliert-Sicherheit-von-Webseiten-1569214.html}{http://www.heise.de/developer/meldung/SSL-Pulse-protokolliert-Sicherheit-von-Webseiten-1569214.html}}\\
+
+Die folgenden Provider wurden mit dem \textit{SSL-Test von Qualys SSL Labs}\footnote{ \href{https://www.ssllabs.com/ssltest/index.html}{https://www.ssllabs.com/ssltest}} überprüft: 
+\begin{itemize}
+ \item Posteo: sichere HTTPS-Verschlüsselung
+ \item aikQ: sichere HTTPS-Verschlüsselung
+ \item neomailbox.com: sichere HTTPS-Verschlüsselung
+ \item VFEmail: sichere HTTPS-Verschlüsselung mit aktuellen Browsern
+ \item CryptoHeaven: schwache Verschlüsselung und SSLv2 unterstützt
+ \item XMAIL.net: schwache Verschlüsselung und SSLv2 werden unterstützt
+ \item Runbox.com Insecure Renegotiation, SSLv2 wird unterstützt
+\end{itemize}
+ 
+Aus diesem Grund sollte man einen E-Mail Client nutzen. Die Verschlüsselung für POP3 und SMTP ist bei den oben genannten Providern auf dem aktuellen Stand der Technik. Da viele E-Mail Provider POP3 und SMTP nur für Premium-Kunden anbieten, sollte man nicht an der falschen Stelle sparen und sich nicht mit einem kostenfreien Account via Webinterface begnügen. 
+
+\subsubsection*{Nicht empfohlene E-Mail Provider}
+Einige Gründe, warum verschiedene E-Mail Provider mit gutem Ruf nicht in die Liste der Empfehlungen aufgenommen wurden:
+\begin{itemize}
+ \item Hushmail speichert zuviel Daten. Neben den üblichen Daten beim Besuch der Webseite werden die E-Mails gescannt und folgende Daten unbegrenzt lange gespeichert:
+\begin{enumerate}
+ \item alle Sender- und Empfänger E-Mail Adressen (VDS-artig)
+ \item alle Dateinamen der empfangenen und gesendeten Attachements
+ \item Betreffzeilen aller E-Mails (nicht verschlüsselbar)
+ \item URLs aus dem Text unverschlüsselter E-Mails
+ \item ... and any other information that we deem necessary
+\end{enumerate}
+Diese Daten werden bei der Kündigung eines Account NICHT gelöscht.\\
+
+Bei der Bezahlung für einen Premium-Account werden die IP-Adresse des Kunden sowie Land, Stadt und PLZ an Dritte weitergeben. Außerdem bindet Hushmail.com Dienste von Drittseiten ein. Die ID des Hushmail Account wird beim Besuch der Webseite nach dem Login an diese Drittseiten übermittelt. Für die Privacy-Policy dieser Drittseiten übernimmt Hushmail.com keine Verantwortung.
+\item In der EU-Studie \textit{Fighting cyber crime and protecting privacy in the cloud}\footnote{ \href{http://www.europarl.europa.eu/committees/en/studiesdownload.html?languageDocument=EN\&file=79050}{http://www.europarl.europa.eu/committees/en/studiesdownload.html?languageDocument=EN\&file=79050}} warnen die Autoren in Kapitel 5.4 (S. 48) vor Risiken bei der Speicherung von Daten in den USA. Aufgrund des \textit{US PATRIOT Act} (insbesondere S. 215ff) und der \textit{4. Ergänzung des FISA Amendments Act} ist es für US-Behörden ohne juristische Kontrolle möglich, die Kommunikation von Nicht-US-Bürgern zu beschnüffeln. Dabei ist es unerheblich, ob der Cloud- bzw. E-Mail Provider eine US-Firma ist oder nicht. Es reicht nach Ansicht der Amerikaner, wenn die Server in den USA stehen.\\
+
+Aus diesem Grund ist ein Server-Standort \textit{USA} für deutsche Nutzer eher ungeeignet. Das betrifft u.a. die E-Mail Provider SecureNym, S-Mail, Fastmail.fm, Lavabit, Rise-up.net...
+\item Cotse, Yahoo! und AOL bietet keine sichere Verschlüsselung für die Kommunikation zwischen Mail-Server und E-Mail Client (Secure Renegotiation wird nicht für SMTP unterstützt, was seit seit 2009 als schwerer Fehler im SSL Protokoll eingestuft wird).
+\item Weitere Beispiele werden auf der Webseite des Handbuches genannt.\footnote{ \href{https://www.awxcnx.de/handbuch\_31.htm}{https://www.awxcnx.de/handbuch\_31.htm}}
+\end{itemize}

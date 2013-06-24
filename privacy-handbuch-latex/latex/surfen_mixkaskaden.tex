@@ -1,0 +1,145 @@
+Anonymisierungsdienste verwischen die Spuren im Internet bei der Nutzung herkömmlicher Webdienste. Die verschlüsselte Kommunikation verhindert auch ein Belauschen des Daten­verkehrs durch mitlesende Dritte. Diese Dienste sind für den anonymen Zugriff auf Websites geeignet und ermöglichen auch unbeobachtete, private Kommunikation via E-Mail, Jabber, IRC...\\
+
+Die unbeobachtete, private Kommunikation schafft keine rechtsfreien Räume im Internet, wie Demagogen des Überwachungsstaates immer wieder behaupten. Sie ist ein grundlegendes Menschenrecht, das uns zusteht. Nach den Erfahrungen mit der Diktatur Mitte des letzten Jahrhunderts findet man dieses Grundrecht in allen übergeordneten Normenkatalogen, von der UN-Charta der Menschenrechte bis zum Grundgesetz.\\
+
+Anonymisierungsdienste sind ein Hammer unter den Tools zur Verteidigung der Privatsphäre, aber nicht jedes Problem ist ein Nagel. Das Tracking von Anbietern wie DoubleClick verhindert man effektiver, indem man den Zugriff auf Werbung unterbindet. Anbieter wie z.B. Google erfordern es, Cookies und JavaScript im Browser zu kontrollieren. Anderenfalls wird man trotz Nutzung von Anonymisierungsdiensten identifiziert.
+
+\section{Warum sollte man diese Dienste nutzen?}
+Anonymisierungsdienste verstecken die IP-Adresse des Nutzers und verschlüsseln die Kommunikation zwischen Nutzer und den Servern des Dienstes. Außerdem werden spezifischer Merkmale modifiziert, die den Nutzer identifizieren könnten (Browser-Typ, Betriebssystem....).
+\begin{enumerate}
+ \item \textbf{Profilbildung:} Nahezu alle großen Suchmaschinen generieren Profile von Nutzern, Facebook u.a. Anbieter speichern die IP-Adressen für Auswertungen. Nutzt man Anonymisierungsdienste, ist es nicht möglich, diese Information sinnvoll auszuwerten.
+ \item \textbf{Standortbestimmung:} Die Anbietern von Webdiensten können den Standort des Nutzers nicht via Geolocation bestimmen. Damit ist es nicht möglich:
+\begin{itemize}
+ \item die Firma identifizieren, wenn der Nutzer in einem Firmennetz sitzt.
+ \item bei mobiler Nutzung des Internet Bewegungsprofile zu erstellen.
+\end{itemize}
+\item \textbf{Belauschen durch Dritte:} Die verschlüsselte der Kommunikation mit den Servern des Anonymisierungsdienstes verhindert ein Mitlesen des Datenverkehrs durch Dritte in unsicheren Netzen. (Internet Cafes, WLANs am Flughafen oder im Hotel, TKÜV...)
+\item \textbf{Rastern:} Obwohl IP-Adressen die Identifizierung von Nutzern ermöglichen, sind sie rechtlich in vielen Ländern ungenügend geschützt. In den USA können sie ohne richterliche Prüfung abgefragt werden. Die TK-Anbieter genießen Straffreiheit, wenn sie die nicht vorhandenen Grenzen übertreten. Wenig verwunderlich, dass man IP-Adressen zur täglichen Rasterfahndung nutzt. Facebook gibt täglich 10-20 IP-Adressen an US-Behörden, AOL übergibt 1000 Adressen pro Monat\dots
+\item \textbf{Vorratsdatenspeicherung:} Ein Schreiben des Bundesdatenschutzbeauftragen an das Bundesverfassungsgericht macht viele unglaubliche Verstöße gegen die Nutzung der VDS-Daten offenkundig. Es werden häufig mehr Daten gespeichert, als gesetzlich vorgegeben. Auch die Bedarfsträger halten sich nicht an die Vorgaben des BVerfG.
+\begin{quote}
+   Zitat: \textit{So haben mir sämtliche Anbieter mitgeteilt, dass es recht häufig vorkomme, dass Beschlüsse nicht den formellen Anforderungen \dots genügen. Wenn die Anbieter in derartigen Fällen entsprechenden Auskunftsersuchen nicht nachkämen, würde ihnen oft die Beschlagnahme von Servern oder die Vernehmung der leitenden Angestellten als Zeugen angedroht, um auf diesem Wege eine Auskunft zu erzwingen.}
+\end{quote}
+Die Telekom hat in zwei Monaten 2198 Anfragen beantwortet und dabei wahrscheinlich zu 70\% auf VDS-Daten zurück gegriffen. Auch nachdem die Vorratsdatenspeicherung offiziell vom BVerfG beendet wurde, speichern alle Telekommunikationsanbieter weiterhin VDS-ähnliche Datenberge über mehrere Wochen.
+\item \textbf{Zensur:} Der Datenverkehr kann vom Provider oder einer restriktiven Firewall nicht manipuliert oder blockiert werden. Anonymisierungsdienste ermöglichen einen unzensierten Zugang zum Internet. Sie können sowohl die ``Great Firewall'' von China und Mauretanien durchtunneln sowie die in westeuropäischen Ländern verbreitet Zensur durch Kompromittierung des DNS-Systems.
+\item \textbf{Repressionen:} Blogger können Anonymisierungsdienste nutzen, um kritische Informationen aus ihrem Land zu verbreiten ohne die Gefahr persönlicher Repressionen zu riskieren. Für Blogger aus Südafrika, Syrien oder Burma ist es teilweise lebenswichtig, anonym zu bleiben. Iran wertet Twitter-Accounts aus, um Dissidenden zu beobachten
+\item \textbf{Leimruten:} Einige Websites werden immer wieder als Honeypot genutzt. Ein Beispiel sind die Leimrute des BKA. In mehr als 150 Fällen wurden die Fahndungseiten von LKAs oder des BKA als Honeypot genutzt und die Besucher der Webseiten in Ermittlungen einbezogen \footnote{ \href{http://heise.de/-1704448}{http://heise.de/-1704448}}. Surfer wurden identifiziert und machten sich verdächtig, wenn sie sich auffällig für bestimmte Themen interessieren.
+\item \textbf{Geheimdienste:} Sicherheitsbehörden und Geheimdienste können mit diesen Diensten ihre Spuren verwischen. Nicht immer geht es dabei um aktuelle Operationen. Die Veröffentlichung der IP-Adressbereiche des BND bei Wikileaks ermöglichte interessante Schlussfolgerungen zur Arbeitsweise des Dienstes. Beispielsweise wurde damit bekannt, dass der BND gelegentlich einen bestimmten Escort Service in Berlin in Anspruch nimmt.
+\item \textbf{Belauschen durch den Dienst:} Im Gegensatz zu einfachen VPNs oder Web-Proxys schützen die hier vorgestellten Anonymisierungsienste auch gegen Beobachtung durch die Betreiber des Dienstes selbst. Die mehrfache Verschlüsselung des Datenverkehrs und die Nutzung einer Kette von Servern verhindert, dass einzelne Betreiber des Dienstes die genutzten Webdienste einem Nutzer zuordnen können.
+\end{enumerate}
+
+\section{Tor Onion Router und JonDonym}
+Ein kurzer, oberflächlicher Vergleich soll die technischen Unterschiede zwischen verschiedenen Diensten zeigen und Hilfe bei der Entscheidung bieten.
+
+\subsubsection*{Tor Onion Router}
+Tor nutzt ein weltweit verteiltes Netz von 2400 aktiven Nodes. Aus diesem Pool werden jeweils 3 Nodes für eine Route ausgewählt. Die Route wechselt regelmäßig in kurzen Zeitabständen. Die zwiebelartige Verschlüsselung sichert die Anonymität der Kommunikation. Selbst wenn zwei Nodes einer Route kompromittiert wurden, ist eine Beobachtung durch mitlesende Dritte nicht möglich.\\
+
+\begin{figure}[htb]
+\begin{center}
+\includegraphics[scale=0.55]{../grafiken/tor.png}
+\caption{Prinzip von Tor}
+\label{abb:tor_prinzip}
+\end{center}
+\end{figure}
+
+Da die Route ständig wechselt, müsste ein großer Teil des Netztes kompromittiert worden sein, um einen Zusammenhang von Surfer und angefragter Webseite herstellen zu können.\\
+
+Die weltweite Verteilung der Nodes und der hohe Anteil privater Rechner mit langsamer Internetanbindung kann zu deutlich langsameren Downloads führen.\\
+
+Tor ist neben Surfen auch für IRC, Instant-Messaging, den Abruf von Mailboxen oder Anderes nutzbar. Dabei versteckt Tor nur die IP-Adresse! Für die sichere Übertragung der Daten ist SSL- oder TLS-Verschlüsselung zu nutzen. Sonst besteht die Möglichkeit, dass sogenannte \textit{Bad Exit Nodes} die Daten belauschen und an Userkennungen und Passwörter gelangen.\\
+
+Der Inhalt der Kommunikation wird 1:1 übergeben. Für anonymes Surfen bedarf es weiterer Maßnahmen, um die Identifizierung anhand von Cookies, der HTTP-Header, ETags aus dem Cache oder Javascript zu verhindern. Mozilla Firefox wird mit TorButton oder JonDoFox optimal eingestellt.\\
+
+Verschiedene Sicherheitsforscher demonstrierten, dass es mit schnüffelnden \textit{Bad Exit Nodes} relativ einfach möglich ist, Daten der Nutzer zu sammeln. 
+\begin{itemize}
+ \item Dan Egerstad demonstrierte, wie man in kurzer Zeit die Account Daten von mehr als 1000 E-Mail Postfächern erschnüffeln kann, u.a. von 200 Botschaften.
+\item Auf der Black Hack 2009 wurde ein Angriff auf die HTTPS-Verschlüsselung beschrieben. In Webseiten wurden HTTPS-Links durch HTTP-Links ersetzt. Innerhalb von 24h konnten mit einen Tor Exit Node folgende Accounts erschnüffelt werden: 114x Yahoo, 50x GMail, 9x Paypal, 9x Linkedin, 3x Facebook. Im Februar 2012 haben mehrere russische Extis-Nodes diesen Angriff praktisch umgesetzt.
+\item Die Forscher um C. Castelluccia nutzten für ihren Aufsatz \textit{Private Information Disclosure from Web Searches (The case of Google Web History)} einen schnüffelnden Tor Exit Node, um private Informationen von Google Nutzern zu gewinnen.
+\item Um reale Zahlen für das Paper \textit{Exploiting P2P Applications to Trace and Profile Tor Users} zu generieren, wurden 6 modifizierte Tor Nodes genutzt und innerhalb von 23 Tagen mehr als 10.000 User deanonymisiert.
+\end{itemize}
+
+Man kann davon auszugehen, dass die Geheimdienste verschiedener Länder ebenfalls im Tor-Netz aktiv sind und sollte die Hinweise zur Sicherheit beachten: sensible Daten nur über SSL-verschlüsselte Verbindungen übertragen, SSL-Warnungen nicht einfach wegklicken, Cookies und Javascript deaktivieren\dots Dann ist Tor für anonyme Kommunikation geeignet.\\
+
+Tor bietet nicht nur anonymen Zugriff auf verschiedene Services im Web. Die Tor Hidden Services bieten Möglichkeiten, anonym und zensurresistent zu publizieren.
+
+\subsubsection*{JonDonym} 
+JonDonym arbeitet mit wenigen festen Mix-Kaskaden, bestehend aus zwei oder drei Knoten. Diese Knoten sind leistungsfähige Computer mit schneller Internetanbindung. Die Daten der einzelnen Nutzer werden mehrfach verschlüsselt, weitergeleitet und gemixt. Informationen über verfügbare Kaskaden werden von Infoservices bereitgestellt, die Abrechnung der Premium-Accounts erfolgt über die Bezahlinstanz der JonDos GmbH.\\
+
+\begin{figure}[htb]
+\begin{center}
+\includegraphics[scale=0.55]{../grafiken/jap.png}
+\caption{Prinzip von JonDonym}
+\label{abb:jap_prinzip}
+\end{center}
+\end{figure}
+
+Der Dienst bietet derzeit kostenfrei nutzbare Mix-Kaskaden und Premium-Kaskaden, die nur gegen Bezahlung nutzbar sind. Die kostenfreien Mix-Kaskaden bieten nur eine geringe Geschwindigkeit von 30-50 kB/s und sind nur für anonymes Surfen nutzbar. Erst mit den Premium-Kaskaden entfaltet der Dienst seine volle Leistung. Diese Kaskaden bieten hohe Geschwindigkeit und sind für alle Protokolle nutzbar (Instant-Messaging, SSH, E-Mail\dots).\\
+
+Anonymes Surfen erfordert mehr, als nur die IP-Adresse zu verstecken. Der JonDoFox ist ein Profil für Firefox, dass optimal für diese Aufgabe vorbereitet ist (auch für Tor geeignet).\\
+
+Strafverfolgung: Einzelne Verbindungen können bei JonDonym gezielt überwacht werden, wenn alle Betreiber einer Mix-Kaskade einen richterlichen Beschluss in ihrem Land erhalten. Für Mix-Betreiber aus Deutschland ist eine Gerichtsbeschluss nach §100a StPO nötig. Im Gegensatz zu Tor und I2P ist damit eine Verfolgung schwerer Verbrechen prinzipiell möglich.\\
+
+Die internationale Verteilung der Kaskaden verhindert eine pauschale Überwachung. Inzwischen sind alle kostenfreien und Premium-Kaskaden internationalisiert. Nach Aussage von JonDos gab es bisher noch nie eine internationale Zusammenarbeit der Behörden bei einer Über­wachung und damit auch keine Überwachung der Premium-Kaskaden. Politische Aktivisten können das Risiko weiter minimieren, indem sie Kaskaden ohne deutsche Mixe nutzen.\\
+
+Schnüffelnde Mix-Server wurden bisher nicht bekannt.
+
+\subsection{Testergebnisse von Computer-Zeitschriften} 
+Populär unter den Surfern ist vor allem Tor Onion Router. Die Testergebnisse von verschiedenen Zeitschriften empfehlen jedoch meist JonDonym, da die Software JonDo+JonDoFox besser gegen Deanonymisierung durch Browserspuren schützt. I2P, Freenet und RetroShare werden meist nicht in die Auswahl der getesteten Dienste einbezogen.\\
+
+\begin{itemize}
+ \item Test der Anonymisierungs­dienste in Chip Nov. 2009
+ \begin{quote}
+  \textit{Wer so anonym wie möglich surfen möchte, sollte zum Premium-Paket von JonDo greifen und das optionale JonDoFox ins­tallieren. Kein anderer Client bietet dem User einen so transparenten Service und vielfältige Einstellungen.}
+ \end{quote} 
+ \item Test der Anonymisierungs­dienste c't 18/2011
+\begin{quote}
+ \textit{Es gibt mehrere Pakete wie Xerobank oder das TOR Browser Bundle [...] Doch alle uns bekannten setzen auf einen veralteten Browser, kosten viel zu viel oder lassen Lücken. Bei JonDonym bekommt man dagegen zusammen mit dem Firefox-Profil JonDoFox ein besonders einfach einzurichtendes und zu nutzendes System in deutscher Sprache [...] Es ist auch das einzige Paket, das sich wirksam um die Persönlichkeitsspuren im Browser kümmert.}
+\end{quote}
+\end{itemize}
+
+Lediglich die ComputerBild kommt bei ihren jährlichen Tests zu anderen Ergebnissen und setzt regelmäßig den VPN-Anbieter CyberGhost auf den ersten Platz. Möglicherweise ist CyberGhost ein guter Anzeigenkunde?\\
+
+Die c't schreibt in ihrem Test im Heft 18/2011 über VPNs:
+ \begin{quote}
+\textit{Bei VPNs und Proxies liegt die Information [...] beim Betreiber komplett vor, sodass eine gerichtliche Anfrage oder ein Hacker-Einbruch genügt, um die Anonymität komplett aufzuheben. Dagegen weiß bei einer Proxy-Kaskade kein Beteiligter alles über Herkunft und Ziel der Daten Proxy-Kaskaden verbergen also die IP-Adresse am wirksamsten...}
+\end{quote} 
+Also lasst die Finger davon.
+
+\subsection{Finanzierung der Anonymisierungsdienste}
+Wie wird die Entwicklung der Software und die Infrastruktur des Dienstes finanziert und welche Abhängigkeiten ergeben sich möglicherweise daraus?
+
+\subsubsection*{Tor Onion Router}
+Die Softwareentwicklung wird durch Spenden finanziert. TorProject.org benötigt pro Jahr ca. 1 Mio. Dollar für die Weiterentwicklung der Software und den Betrieb weniger Kernkomponenten des Dienstes. Die Grafik \ref{abb:tor_funding} zeigt die Zusammensetzung der Spender für 2009 (Quelle Tor Financial Report 2009).\\
+
+\begin{figure}[htb]
+\begin{center}
+\includegraphics[scale=0.60]{../grafiken/tor-2009-funding-chart.png}
+\caption{Anteil der Finanzierung von TorProject.org}
+\label{abb:tor_funding}
+\end{center}
+\end{figure}
+
+Die Hauptsponsoren der NGOs, Companies und Einzelspender werden von TorProject.org auf der Webseite \href{https://www.torproject.org/about/sponsors.html.en}{https://www.torproject.org/about/sponsors.html.en} veröffentlicht. Der große Anteil ``Gouvernments'' (72\% der Einnahmen) kommt von US-Regierungsorganisationen und zu einem kleineren Teil von der schwedischen Regierung. Diese Spenden werden nicht einzeln aufgelistet. \\
+
+Der Hauptteil der Infrastruktur wird von Enthusiasten finanziert und technisch in der Freizeit betreut. Die Kosten von 600-800 Euro pro Power-Server und Jahr sind als weitere Spenden anzusehen, die in der Grafik nicht erfasst sind. Die Administratoren ziehen keinen Vorteil aus ihrem Engagement, abgesehen von einem Zwiebel-T-Shirt.
+
+\subsubsection*{Jondonym}
+In den Jahren 2000-2004 erhielt das Projekt AN.ON als Vorläufer von JonDonym ca. 1 Mio. Euro aus dem deutschen Forschungsetat für den Aufbau des Dienstes. Seit dem Ende der Förderung bemüht sich die JonDos GmbH, die Finanzierung durch kostenpflichtige Premium-Angebote zu sichern. Für dieser Angebote ist eine volumenabhängige Gebühr im Voraus zu bezahlen. Die Einnahmen sollen die Kosten für die Weiterentwicklung der Software, die Betreuung des Projektes und die Infrastruktur der Premium-Dienste decken. Diese Ziel ist noch nicht vollständig erreicht. \\
+
+Die Entwicklung der Software wird zu 70\% aus den Einnahmen der Premium-Dienste finanziert und zu 30\% aus Forschungsprojekten in Kooperation mit Universitäten. Die Premium-Mix-Kaskaden werden kostendeckend durch Einnahmen finanziert.\\
+
+\subsection{Security Notes}
+Die Sicherheit von IP-Anonymisierern wie Tor und JonDonym ergibt sich nicht alleine aus der Qualität der Anonymisierungssoftware. Durch Fehler in der verwendeten Anwendung oder falsche Konfiguration kann die Anonymität komplett ausgehebelt werden.
+\begin{itemize}
+ \item Wer die Browser Google Chrome, iCap. Safari oder einen anderen auf WebKit basierenden Browser für anonymes Surfen verwendet, kann durch FTP-Links deanonymisiert werden. Der Anonymitätstest von JonDonym demonstriert es. 
+ \item Wer in seinem Standardbrowser nur die Proxy-Einstellungen anpasst um Tor oder JonDo zu verwenden, ist auch nicht sicher anonym. Eine Deanonymisierung ist mit WebRTC sowie Flash- oder Java-Applets möglich. Diese Features sind unbedingt zu deaktivieren!
+ \item Viele Jabber Clients (XMPP) anonymisieren DNS-Requests nicht. Der IM-Client Pidgin (Version < 2.8) hat außerdem Probleme mit Voice- und Video-Chats. Die Proxy-Einstellungen werden bei Voice- und Video-Chats übergangen und es ist möglich, einen User mit einer Einladung zum Voice-Chat zu deanonymisieren.
+ \item Einige Protolle übertragen die IP-Adresse des eigenen Rechners zusätzlich in Headern des Protokoll-Stacks. Ein Beispiel dafür sind nicht-anonyme Peer-2-Peer Protokolle wie BitTorrent. Damit ist es ebenfalls möglich, User zu deanonymisieren. Eine wissenschaftliche Arbeit zeigt, wie 10.000 BitTorrent Nutzer via Tor deanomisiert werden konnten.
+ \item Durch Software aus fragwürdigen Quellen können Backdoors zur Deanonymisierung geöffnet werden. Eine Gruppe von ANONYMOUS demonstrierte es, indem sie eine modifizierte Version des Firefox Add-on TorButton zum Download anboten, dass wirklich von einigen Tor-Nutzern verwendet wurde. Dieses Add-on enthielt eine Backdoor, um die Nutzer von einigen Tor Hidden Services mit kinderpronografischem Material zu identifizieren. Die Liste der damit deanonymisierten Surfer wurde im Herbst 2011 im Internet veröffentlicht.
+\end{itemize}
+
+Schlussfolgerungen:
+\begin{itemize}
+ \item TorProject und JonDos empfehlen für anonymes Surfen ausdrücklich eine angepasste Version des Browser Mozilla Firefox (TorBrowser bzw. JonDoFox). Nur diese Konfiguration kann als wirklich sicher nach dem aktuellen Stand der Technik gelten. Die vielen Sicherheitseinstellungen dieser beiden Browser-Erweiterungen kann man nur unvollständig selbst umsetzen.
+ \item Für alle weiteren Anwendungen sind die Anleitungen der Projekte zu lesen und zu respektieren. Nur die von den Entwicklern als sicher deklarierten Anwendungen sollten mit Tor oder JonDonym genutzt werden.
+ \item Verwenden Sie ausschießlich die Originalsoftware der Entwickler.
+\end{itemize}

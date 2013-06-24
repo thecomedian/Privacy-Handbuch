@@ -1,0 +1,134 @@
+\section{History Sniffing}
+Browser speichern Informationen über besuchte Webseiten in einer Surf-History. Eine  empirische Untersuchung der University of California \footnote{ \href{http://cseweb.ucsd.edu/users/lerner/papers/ccs10-jsc.pdf}{http://cseweb.ucsd.edu/users/lerner/papers/ccs10-jsc.pdf}} zeigt, dass ca. 1\% der Top 50.000 Websites versuchen, diese Daten über zuvor besuchte Websites auszulesen. Daneben gibt es spezielle Anbieter wie Tealium oder Beencounter, die einem Webmaster in Echtzeit eine Liste der Websites liefern, die ein Surfer zuvor besucht hat. Die dabei übermittelten Informationen erlauben ein ähnlich detailliertes Interessenprofil zu erstellen, wie das Tracking über viele Websites. In der Regel werden die Informationen für die Auswahl passender Werbung genutzt.\\
+
+Ein Experiment des Isec Forschungs­labors für IT-Sicherheit \footnote{ \href{http://heise.de/-919076}{http://heise.de/-919076}} zeigt, dass diese History-Daten auch zur Deanonymisierung der Surfer genutzt werden können. Anhand der Browser History wurde ermittelt, welche Gruppen bei Xing der Surfer bisher besucht hat. Da es kaum zwei Nutzer gibt, die zu den gleichen Gruppen gehören, konnte mit diesen Daten eine Deanonymiserung erfolgen. Die Realnamen sowie E-Mail Adressen konnten ohne Mithilfe vieler Surfer nur durch den Aufruf der präparierten Webseite ermittelt werden.\\
+
+Neben Javascript können auch CSS-Hacks für das Auslesen der Surf-Historie genutzt werden. In der wissenschaftlichen Arbeit \textit{Feasibility and Real-World Implications of Web Browser History Detection} \footnote{ \href{http://www.w2spconf.com/2010/papers/p26.pdf}{http://www.w2spconf.com/2010/papers/p26.pdf}} zeigen Security Experten, wie man die unterschiedliche farbliche Darstellung von bereits besuchten Links auswertet.\\
+
+Die derzeit einzig wirksame Verteidigung besteht in der Deaktivierung der Surf-History. Im Dialog \textit{``Einstellungen``} kann man auf dem Reiter \textit{``Datenschutz''} die Speicherung besuchter Webseiten deaktivieren.
+
+\begin{figure}[htb]
+\begin{center}
+\includegraphics[scale=0.7]{../screenshots/history.png}
+\caption{Speichern der Surf-Chronik deaktivieren}
+\label{abb:history}
+\end{center}
+\end{figure}
+
+\section{Browsercache}
+Mit jeder aufgerufenen Webseite wird ein ETag gesendet, welches der Browser im Cache speichert. Wird die Webseite erneut aufgerufen, sendet der Browser zuerst das ETag, um zu erfragen, ob die Seite sich geändert hat. Dieses Tag kann eine eindeutige User-ID enthalten. KISSmetrics\footnote{ \href{http://heise.de/-1288914}{http://heise.de/-1288914}} verwendete diese Technik, um gelöschte Tracking-Cookies wieder herzustellen.\\
+
+Ein vollständiges Abschalten des Cache ist nicht empfehlenswert. Man sollte den Cache des Browsers beim Schließen automatisch bereinigen. Außerdem kann man während des Surfens den Cache usw. mit einer Tastenkombination gelegentlich löschen.\\
+
+Im Firefox wird der Cache mit weiteren temporären Daten in der \textit{Chronik} zusammengefasst. Die Einstellungen zum Löschen der Chronik findet man unter \textit{Einstellungen} auf dem Reiter \textit{Datenschutz}. Klicken Sie auf den Button \textit{Einstellungen} hinter der Option \textit{Die Chronik löschen, wenn Firefox geschlossen wird}. In dem sich öffnenden Dialog kann man detailliert festlegen, welche Daten beim Schließen des Browsers gelöscht werden sollen.\\
+
+\begin{figure}[htb]
+\begin{center}
+\includegraphics[scale=0.75]{../screenshots/cache_loeschen.png}
+\caption{Cache löschen beim Beenden}
+\label{abb:cacheloeschen}
+\end{center}
+\end{figure}
+
+Während des Surfens kann man die Chronik mit der Tastenkombination STRG-SHIFT-ENTF reinigen oder über den Menüpunkt \textit{Extra - Neueste Chronik löschen}.\\
+
+Firefox verwendet einen Cache im Hauptspeicher und einen Disk-Cache auf der Festplatte. Der Cache im Hauptspeicher ist mit 64 MB groß genug. Den Disk-Cache kann man deaktivieren und damit auch überflüssige Spuren auf dem Rechner vermeiden, die forensisch sichtbar gemacht werden könnten. Unter about:config sind dafür folgende Variablen zu setzen: 
+\begin{verbatim}
+   browser.cache.disk.enable        false
+   browser.cache.disk_cache_ssl     false
+   browser.cache.offline.enable     false
+\end{verbatim} 
+
+\section{Referer}
+Ein Referer liefert die Information, von welcher Seite der Surfer zu der aufgerufenen Webseite gekommen ist, oder bei der Einblendung von Werbung durch Dritte die Information, welche Seite er gerade betrachtet. Es ist ein sehr gut geeignetes Merkmal für das Tracking mit Werbung, HTML-Wanzen und Like-Button - die Schleimspur im Web.\\
+
+Die Studie \textit{Privacy leakage vs. Protection measures} \footnote{ \href{http://w2spconf.com/2011/papers/privacyVsProtection.pdf}{http://w2spconf.com/2011/papers/privacyVsProtection.pdf}} zeigt, dass außerdem viele Web­seiten private Informationen via Referer an Trackingdienste übertragen. Das folgende Beispiel zeigt den Aufruf eines Werbebanners nach dem Login auf der Webseite http://sports.com
+\begin{verbatim}
+ GET http://ad.doubleclick.net/adj/....
+ Referer: http://submit.sports.com/...?email=name@email.com
+ Cookie: id=123456789.....
+\end{verbatim}
+
+Mit einer eindeutigen UserID (im Beispiel ein Tracking-Cookie) kann das Surfverhalten über viele Webseiten verfolgt werden. Durch zusätzliche Informationen (im Beispiel eine E-Mail Adresse) werden die gesammelten Datensätze personalisiert. Im Rahmen der Studie wurde 120 populäre Webseiten untersucht. 56\% der Webseiten sendeten nach dem Login private Informationen wie E-Mail Adresse, Name oder Wohnort an Trackingdienste.
+
+\subsubsection*{Referer modifizieren für Firefox}
+Das Add-on \textbf{RefControl} \footnote{ \href{https://addons.mozilla.org/de/firefox/addon/refcontrol/}{https://addons.mozilla.org/de/firefox/addon/refcontrol/}} modifiziert den Referer. Spezifische Einstellungen für einzelne Webeiten sind möglich. Nach der Installation des Plug-Ins sollte im Dialog \textit{Optionen} der Standard-Wert angepasst werden.\\
+
+Die Einstellung \textit{``Blockieren (nur beim Wechsel)``} liefert einen plausiblen Referer,  solange man auf der gleichen Webseite bleibt., entfernt ihn beim Wechsel der Domain. Die Schleimspur wird unterbrochen ohne Funktionen der Website einzuschränken.\\
+
+\begin{figure}[htb]
+\begin{center}
+\includegraphics[scale=0.55]{../screenshots/refcontrol1.png}
+\caption{Einstellungen von RefControl}
+\label{abb:refcontrol}
+\end{center}
+\end{figure}
+
+Technisch hochentwickelte Datensammler können den Schutz von RefControl teilweise aushebeln. Google+ und einige Werbenetzwerke übertragen den Referer zusätzlich in URL-Parametern. RefControl schadet aber nicht und dümmere Webmaster tracken auch.
+
+\section{Risiko Plugins}
+Für die Darstellung von Inhalten, die nicht im HTML-Standard definiert sind, kann Firefox Plug-ins nutzen. Populär sind Plug-ins für die Anzeige von PDF-Dokumenten im Browser oder Flash Videos. Die Nutzung dieser Plug-ins ist jedoch ein Sicherheitsrisiko. Firefox ab Version 14.0 bietet eine einfache Möglichkeit, die Gefahr durch Plug-ins zu reduzieren. Man kann unter der Adresse \textit{about:config} die folgende Variable setzen:
+\begin{verbatim}
+   plugins.click_to_play  =  true
+\end{verbatim} 
+Dann werden externe Plug-ins nur aktiviert, wenn der Nutzer es wirklich per Mausklick erlaubt und Drive-By-Download Angriffe sind nicht mehr möglich.
+
+\subsection{PDF Reader Plugins}
+Anwender sind relativ unkritisch gegenüber PDF-Dokumenten. Was soll beim Anschauen schon passieren? Nur wenige Surfer wissen, dass es mit präparierten PDFs möglich ist, den \textit{ZeuS-Bot} zu installieren und den Rechner zu übernehmen \footnote{ \href{http://heise.de/-979037}{http://heise.de/-979037}}. 2008 gelang es dem \textit{Ghostnet}, die Rechner­systeme westlicher Regierungen, der US-Regierung und des Dalai Lama mit bösartigen PDFs zu infizieren \footnote{ \href{http://www.linux-magazin.de/Heft-Abo/Ausgaben/2010/01/Geisterstunde}{http://www.linux-magazin.de/Heft-Abo/Ausgaben/2010/01/Geisterstunde}}. 2012 gelang es dem Trojaner MiniDuke\footnote{ \href{http://heise.de/-1812971}{http://heise.de/-1812971}}, mit bösartigen PDFs in die Computer von Regierungsorganisationen in Deutschland, Israel, Russland, Großbritannien, Belgien, Irland, Portugal, Rumänien, Tschechien und der Ukraine einzudringen. Über eine von Adobe als \textit{nicht kritisch} eingestufte Sicher­heits­lücke einer über­flüssigen PDF-Funktion wurde der Wurm \textit{Win32/Auraax} verteilt \footnote{ \href{http://heise.de/-990544}{http://heise.de/-990544}}...\\
+
+Nach Beobachtung des Sicherheitsdienstleisters Symantec\footnote{ \href{http://heise.de/-981631}{http://heise.de/-981631}} und ScanSafe\footnote{ \href{http://www.scansafe.com/downloads/gtr/2009\_AGTR.pdf}{http://www.scansafe.com/downloads/gtr/2009\_AGTR.pdf}} erfolgen die meisten Angriffe aus dem Web mit bösartigen PDF-Dokumenten. 2009 wurden für ca. 50\% der Angriffe präparierten PDF-Dokumente genutzt (mit steigender Tendenz).\\
+
+Schutzmaßnahmen: 
+\begin{enumerate}
+ \item Statt funktionsüberladener Monster-Applikationen kann man einfache PDF-Reader nutzen, die sich auf die wesentliche Funktion des Anzeigens von PDF-Dokumenten beschränken. Die FSFE stellt auf PDFreaders.org \footnote{ \href{http://www.pdfreaders.org/index.de.html}{http://www.pdfreaders.org/index.de.html}} Open Source Alternativen vor.
+\begin{itemize}
+ \item Für Windows werden \textit{Evince} und \textit{Sumatra PDF} empfohlen.
+ \item Für Linux gibt es \textit{Okular} (KDE) und \textit{Evince} (GNOME, XFCE, Unity).
+ \item Für MacOS wird \textit{Vindaloo} empfohlen.
+\end{itemize}
+\item Wenn die PDF Reader Plugins nicht deinstallierbar sind (keine Adminstrator-Rechte), können sie im Browser deaktiviert werden. Diese Funktion finden Sie im Addon-Manager unter \textit{Extras -> Add-ons}. PDF-Dokumente sollte man vor dem Öffnen zu speichern und nicht im Kontext des Browsers zu betrachten.
+\item Außerdem sollte man PDF Dokumenten aus unbekannter Quelle ein ähnliches Misstrauen entgegen bringen, wie ausführbaren EXE- oder PAF-Dateien. Man kann einen Online-PDF-Viewer \footnote{ \href{http://view.samurajdata.se/}{http://view.samurajdata.se}} nutzen, um PDF-Dokumente aus dem Internet zu betrachten ohne den eigenen Rechner zu gefährden.
+\end{enumerate}
+
+
+\subsection{Java-Applets}
+Es gibt eine Vielzahl von sinnvollen Java-Anwendungen. Im Internet spielt Java aber keine Rolle mehr (im Gegensatz zu Javascipt, bitte nicht verwechseln). Trotzdem installiert Oracles Java unter Windows ohne Nachfrage ein Browser-Plugin zum Ausführen von Java-Applets, die in Webseiten eingebettet sein können. Dieses Plug-in ist in erster Linie ein Sicherheitsrisiko und kann zur unbemerkten Installation von Trojanern genutzt werden.\footnote{ \href{http://heise.de/-1485195}{http://heise.de/-1485195}} \footnote{ \href{http://heise.de/-1677249}{http://heise.de/-1677249}} \footnote{ \href{http://heise.de/-1780850}{http://heise.de/-1780850}}\\
+
+Der (Staats-) Trojaner der italienischen Firma \textit{HackingTeam}\footnote{ \href{http://heise.de/-1671203}{http://heise.de/-1671203}} wird beispielsweise mit einer sauber signierten JAR-Datei auf dem Zielsystem installiert. Der Trojaner belauscht Skype, fängt Tastatureingaben ab, kann die Webcam zur Raumüberwachung aktivieren und den Standort des Nutzers ermitteln.\\
+
+Als Schutz wird häufig die die komplette Deinstallation von Java empfohlen (BSI\footnote{ \href{https://www.bsi.bund.de/ContentBSI/Presse/Pressemitteilungen/Presse2013/Krit\_Schwachstelle\_Java-7-10\_11012013.html}{https://www.bsi.bund.de/ContentBSI/Presse/Pressemitteilungen/Presse2013/Krit\_Schwachstelle\_Java-7-10\_11012013.html}}, DHS\footnote{ \href{http://www.nbcnews.com/technology/technolog/us-warns-java-software-security-concerns-escalate-1B7938755}{http://www.nbcnews.com/technology/technolog/us-warns-java-software-security-concerns-escalate-1B7938755}}, Fefe\footnote{ \href{https://blog.fefe.de/?ts=ae0f1f75}{https://blog.fefe.de/?ts=ae0f1f75}}). Das ist Bullshit und nur sinnvoll, wenn man keine Java-Programme nutzt. Anderenfalls ist die komplette Deinstallation von Java eine unnötige Einschränkung für sinnvolle Anwendungen.\\
+\begin{itemize}
+ \item Aktuelle \textbf{Linux} Distributionen verwenden in der Regel OpenJDK-6/7. Diese Java-JRE installiert KEIN Browser Plug-in. Es besteht also auch keine Gefahr, durch bösartige Java-Applets aus dem Internet den Rechner zu verseuchen.
+ \item Unter \textbf{Windows} bietet die aktuelle Version von Oracles Java die Möglichkeit, die Plug-ins für alle Browser unter \textit{Systemsteuerung - Programme - Java} zu deaktivieren (Bild \ref{abb:javadown}).
+\begin{figure}[htb]
+\begin{center}
+\includegraphics[scale=0.55]{../screenshots/java-ctrl.png}
+\caption{Java Plug-in für alle Browser deaktivieren}
+\label{abb:javadown}
+\end{center}
+\end{figure}
+\end{itemize}
+
+\subsection{Flash und Silverlight}
+Auch diese Plugins sind ein Sicherheits- und Privacyrisiko. Sie werden meist für die Darstellung von Videos im Web (Youtube) und Panoramadiensten wie Street View (Google) bzw. Street Side (Microsoft) genutzt.\\
+
+Schutzmaßnahmen: 
+\begin{enumerate}
+ \item Das Add-on \textbf{NoScript} kann diese Inhalte blockieren. Es wird ein Platzhalter angezeigt. Bei Bedarf kann man das Video mit einem Mausklick anschauen.
+\item Web Videos können mit Hilfe von Download Sites wie KeepVid \footnote{ \href{http://keepvid.com}{http://keepvid.com}} oder ShareTube \footnote{ \href{http://www.share-tube.de/flvdownload.php}{http://www.share-tube.de/flvdownload.php}} gespeichert und mit einem Mediaplayer abgespielt werden.
+\item Die Firefox Add-ons \textbf{UnPlug} \footnote{ \href{https://addons.mozilla.org/en-US/firefox/addon/unplug/}{https://addons.mozilla.org/en-US/firefox/addon/unplug}} oder \textbf{DownloadHelper} \footnote{ \href{https://addons.mozilla.org/de/firefox/addon/video-downloadhelper/}{https://addons.mozilla.org/de/firefox/addon/video-downloadhelper}} können Videos von vielen Websites herunter laden und dabei in ein gebräuchlicheres Format für Mediaplayer konvertieren.
+\end{enumerate}
+Wer noch keinen passenden Mediaplayer installiert hat, kann den VideoLAN Player nutzen (VLC-Player), der für alle Betriebssysteme zur Verfügung steht.
+
+\subsection{Weitere Anwendungen}
+Neben PDF-Dokumenten können auch alle anderen Dokument-Typen für Drive-by-Donwload Angriffe verwendet werden. Um diese zu unterbinden, sollte man externe Anwendungen für Dateien nur nach Bestätigung durch den Anwender öffnen lassen. Anderenfalls können Bugs in diesen Anwendungen automatisiert genutzt werden.\\
+
+\begin{figure}[htb]
+\begin{center}
+\includegraphics[scale=0.65]{../screenshots/ff-anwendungen.png}
+\caption{Externe Anwendungen nur auf Nachfrage öffnen}
+\label{abb:ffhelper}
+\end{center}
+\end{figure}
+
+Auf dem Reiter \textit{Anwendungen} im Dialog \textit{Einstellungen} können die Helper-Applications wie im Bild \ref{abb:ffhelper} für jeden Dateityp auf \textit{``Jedes Mal nachfragen``} gesetzt werden. Diese Einstellungen sind natürlich nur sinnvoll, wenn der Surfer kritisch hinterfragt, ob die Aktion wirklich dem entspricht, was er erwartet. Wer unkritisch bei jeder Nachfrage auf \textit{Öffnen} klickt, muss sich nicht wundern, wenn sein Computer infiziert wird.
